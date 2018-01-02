@@ -1,0 +1,12 @@
+.git
+.gitignore
+.editorconfig
+node_modules
+docs
+*.DS_Store
+*.md
+*.log
+LICENSE.txt
+README.md
+screenshots
+coverage

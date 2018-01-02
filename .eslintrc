@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": [
+    "brainhub"
+  ],
+  "settings": {
+    "import/resolve": {
+      "moduleDirectory": ["node_modules", "src"]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  permissions_component:
+    build: .
+    image: node:8.5.0
+    command: /app/entrypoint.sh
+    environment:
+      - DOCKER=true
+      - PORT=8000
