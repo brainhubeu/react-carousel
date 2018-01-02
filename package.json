@@ -11,6 +11,7 @@
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
     "example": "node tools/exampleServer.js",
+    "real": "node tools/realServer.js",
     "test": "mocha tools/testSetup.js \"./test/**/*.js\"",
     "test:coverage": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha -- --require ./tools/testSetup.js \"./test/**/*.js\" && open coverage/lcov-report/index.html",
     "test:coverage:ci": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha --report lcovonly -- --require ./tools/testSetup.js \"./test/**/*.js\"",
