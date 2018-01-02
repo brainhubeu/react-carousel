@@ -1,8 +1,15 @@
 import React from 'react';
-import { render } from 'react-dom';
 import Carousel from './components/Carousel';
+import PropTypes from 'prop-types';
 
-render(
-  <Carousel carouselItems={[<div>One element</div>, <div>Another element</div>, <div>Third element</div>]}/>,
-  document.getElementById('app')
-);
+export default class BrainhubCarousel extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+  }
+
+  render() {
+    return (
+      <Carousel carouselItems={this.props.children}/>
+    );
+  }
+}
