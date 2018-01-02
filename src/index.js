@@ -5,11 +5,15 @@ import PropTypes from 'prop-types';
 export default class BrainhubCarousel extends React.Component {
   static propTypes = {
     children: PropTypes.node,
+    additionalContainerClassName: PropTypes.string,
   }
 
   render() {
     return (
-      <Carousel carouselItems={this.props.children}/>
+      <Carousel
+        carouselItems={this.props.children}
+        additionalContainerClassName={this.props.additionalContainerClassName}
+      />
     );
   }
 }

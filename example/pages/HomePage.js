@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { PageHeader, Grid, Row, Col } from 'react-bootstrap';
 import Carousel from '../../src/index';
+import CarouselItemTypeA from './../components/CarouselItemTypeA';
+import CarouselItemTypeB from './../components/CarouselItemTypeB';
 
 class HomePage extends Component {
   static propTypes = {};
@@ -17,16 +19,11 @@ class HomePage extends Component {
           <Row className="show-grid">
             <Col xs={12}>
               <Carousel>
-                <div>
-                  one element
-                </div>
-                <div>
-                  second element
-                </div>
-                <div>
-                  third element
-                </div>
-              </Carousel>,
+                <CarouselItemTypeA/>
+                <CarouselItemTypeB/>
+                <CarouselItemTypeA/>
+                <CarouselItemTypeB/>
+              </Carousel>
             </Col>
           </Row>
         </Grid>
