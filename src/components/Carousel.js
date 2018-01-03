@@ -332,28 +332,7 @@ export default class Carousel extends Component {
     return null;
   };
 
-  renderCarouselDots = () => {
-    return (
-      <ul className="BrainhubCarousel__dots">
-        {this.props.children.map((carouselItem, index) => (
-          <li key={index}><button>{index + 1}</button></li>
-        ))}
-      </ul>
-    );
-  };
-
   render() {
-    // console.log('props', {
-    //   slidesPerPage: this.getProp('slidesPerPage'),
-    //   slidesPerScroll: this.getProp('slidesPerScroll'),
-    //   arrows: this.getProp('arrows'),
-    //   arrowLeft: this.getProp('arrowLeft'),
-    //   arrowRight: this.getProp('arrowRight'),
-    //   autoPlay: this.getProp('autoPlay'),
-    //   clickToChange: this.getProp('clickToChange'),
-    //   centered: this.getProp('centered'),
-    //   className: this.getProp('className'),
-    // });
     return (
       <div className={classnames('BrainhubCarousel', this.getProp('className'))}>
         {this.renderArrowLeft()}
