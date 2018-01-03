@@ -14,8 +14,15 @@ export default class Carousel extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
+    slidesPerPage: PropTypes.number,
+    slidesPerScroll: PropTypes.number,
+    autoPlay: PropTypes.number,
     children: PropTypes.arrayOf(PropTypes.node),
     className: PropTypes.string,
+  };
+  static defaultProps = {
+    slidesPerPage: 1,
+    slidesPerScroll: 1,
   };
   constructor(props) {
     super(props);
@@ -23,6 +30,7 @@ export default class Carousel extends Component {
       value: 0,
       carouselWidth: 0,
     };
+    this.interval = null;
   }
 
 
@@ -31,10 +39,16 @@ export default class Carousel extends Component {
     this.node = ReactDom.findDOMNode(this);
     window.addEventListener('resize', this.onResize);
     this.onResize();
+    if (!isNil(this.props.autoPlay)) {
+      this.interval = setInterval(this.nextSlide, this.props.autoPlay);
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
+    if (!isNil(this.props.autoPlay)) {
+      clearInterval(this.interval);
+    }
   }
 
   onResize = throttle(() => {
@@ -66,11 +80,11 @@ export default class Carousel extends Component {
   }
 
   nextSlide = () => {
-    this.changeSlide(this.getCurrentValue() + 1);
+    this.changeSlide(this.getCurrentValue() + this.props.slidesPerScroll);
   }
 
   prevSlide = () => {
-    this.changeSlide(this.getCurrentValue() - 1);
+    this.changeSlide(this.getCurrentValue() - this.props.slidesPerScroll);
   }
 
 
@@ -81,7 +95,7 @@ export default class Carousel extends Component {
   }
 
   getCarouselElementWidth = () => {
-    return this.state.carouselWidth;
+    return this.state.carouselWidth / this.props.slidesPerPage;
   }
 
   getTransformOffset = () => {
