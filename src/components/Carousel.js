@@ -16,6 +16,9 @@ export default class Carousel extends Component {
     onChange: PropTypes.func,
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
+    arrows: PropTypes.bool,
+    arrowLeft: PropTypes.element,
+    arrowRight: PropTypes.element,
     autoPlay: PropTypes.number,
     children: PropTypes.arrayOf(PropTypes.node),
     className: PropTypes.string,
@@ -104,32 +107,65 @@ export default class Carousel extends Component {
 
 
   /* rendering */
-  renderCarouselItems() {
+  renderCarouselItems = () => {
     const trackStyles = {
       width: `${this.state.carouselWidth * this.props.children.length}px`,
       transform: `translateX(${this.getTransformOffset()}px)`,
     };
     return (
-      <ul className="BrainhubCarousel__track" style={trackStyles}>
-        {this.props.children.map((carouselItem, index) => (
-          <CarouselItem key={index} width={this.getCarouselElementWidth()}>
-            {carouselItem}
-          </CarouselItem>
-        ))}
-      </ul>
+      <div className="BrainhubCarousel__trackContainer">
+        <ul className="BrainhubCarousel__track" style={trackStyles}>
+          {this.props.children.map((carouselItem, index) => (
+            <CarouselItem key={index} width={this.getCarouselElementWidth()}>
+              {carouselItem}
+            </CarouselItem>
+          ))}
+        </ul>
+      </div>
     );
+  }
+
+  renderArrowWithAddedHandler = (element, onClick) => {
+    if (!element.props.onClick) {
+      return React.cloneElement(element, { onClick });
+    }
+    return element;
   }
 
   renderArrowLeft = () => {
-    return (
-      <button className="BrainhubCarousel__arrows BrainhubCarousel__arrow-left" type="button">Prev</button>
-    );
+    if (this.props.arrowLeft) {
+      return this.renderArrowWithAddedHandler(this.props.arrowLeft, this.prevSlide);
+    }
+    if (this.props.arrows) {
+      return (
+        <div
+          className="BrainhubCarousel__arrows BrainhubCarousel__arrow-left"
+          type="button"
+          onClick={this.prevSlide}
+        >
+          &lt;
+        </div>
+      );
+    }
+    return null;
   }
 
   renderArrowRight = () => {
-    return (
-      <button className="BrainhubCarousel__arrows BrainhubCarousel__arrow-right" type="button">Next</button>
-    );
+    if (this.props.arrowRight) {
+      return this.renderArrowWithAddedHandler(this.props.arrowRight, this.nextSlide);
+    }
+    if (this.props.arrows) {
+      return (
+        <div
+          className="BrainhubCarousel__arrows BrainhubCarousel__arrow-right"
+          type="button"
+          onClick={this.nextSlide}
+        >
+          &gt;
+        </div>
+      );
+    }
+    return null;
   }
 
   renderCarouselDots = () => {
@@ -145,7 +181,9 @@ export default class Carousel extends Component {
   render() {
     return (
       <div className={classnames('BrainhubCarousel', this.props.className)}>
+        {this.renderArrowLeft()}
         {this.renderCarouselItems()}
+        {this.renderArrowRight()}
       </div>
     );
   }
