@@ -46,6 +46,7 @@ export default class Carousel extends Component {
     this.state = {
       value: 0,
       carouselWidth: 0,
+      windowWidth: 0,
       clicked: null,
       dragOffset: 0,
       dragStart: null,
@@ -109,7 +110,7 @@ export default class Carousel extends Component {
     const props = customProps || this.props;
     let activeBreakpoint = null;
     if (props.breakpoints) {
-      const windowWidth = window.innerWidth;
+      const windowWidth = this.state.windowWidth;
       const resolutions = Object.keys(props.breakpoints);
       resolutions.forEach(resolutionString => {
         const resolution = parseInt(resolutionString);
@@ -143,11 +144,10 @@ export default class Carousel extends Component {
    * @type {Function}
    */
   onResize = throttle(() => {
-    if (this.node.offsetWidth !== this.state.carouselWidth) {
-      this.setState({
-        carouselWidth: this.node.offsetWidth,
-      });
-    }
+    this.setState({
+      carouselWidth: this.node.offsetWidth,
+      windowWidth: window.innerWidth,
+    });
   }, config.resizeEventListenerThrottle);
 
   onMouseDown = index => e => {
@@ -202,7 +202,6 @@ export default class Carousel extends Component {
 
   onTransitionEnd = () => {
     this.setState({ transitionEnabled: false });
-    console.log('transition ended');
   };
 
 
@@ -344,6 +343,17 @@ export default class Carousel extends Component {
   };
 
   render() {
+    // console.log('props', {
+    //   slidesPerPage: this.getProp('slidesPerPage'),
+    //   slidesPerScroll: this.getProp('slidesPerScroll'),
+    //   arrows: this.getProp('arrows'),
+    //   arrowLeft: this.getProp('arrowLeft'),
+    //   arrowRight: this.getProp('arrowRight'),
+    //   autoPlay: this.getProp('autoPlay'),
+    //   clickToChange: this.getProp('clickToChange'),
+    //   centered: this.getProp('centered'),
+    //   className: this.getProp('className'),
+    // });
     return (
       <div className={classnames('BrainhubCarousel', this.getProp('className'))}>
         {this.renderArrowLeft()}
