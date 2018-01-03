@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/Carousel.scss';
+import '../styles/CarouselItem.scss';
 
 export default class CarouselItem extends Component {
   static propTypes = {
-    carouselItem: PropTypes.node,
+    children: PropTypes.node,
+    width: PropTypes.number,
   };
   render() {
     return (
-      <li className="carousel-item">
-        {this.props.carouselItem}
+      <li className="BrainhubCarouselItem" style={{ width: `${this.props.width}px` }}>
+        {this.props.children}
       </li>
     );
   }

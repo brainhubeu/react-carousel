@@ -9,6 +9,11 @@ import CarouselItemTypeB from './../components/CarouselItemTypeB';
 
 class HomePage extends Component {
   static propTypes = {};
+  constructor(props) {
+    super(props);
+    this.state = { value: 0 };
+  }
+
   render() {
     return (
       <div>
@@ -16,19 +21,24 @@ class HomePage extends Component {
           <PageHeader>
             Carousel
           </PageHeader>
+          <Row>
+            <button onClick={() => this.setState({ value: this.state.value - 1 })}>prev</button>
+            <input type="number" value={this.state.value} onChange={e => this.setState({ value: parseInt(e.target.value) })}/>
+            <button onClick={() => this.setState({ value: this.state.value + 1 })}>next</button>
+          </Row>
           <Row className="show-grid">
             <Col xs={12}>
-              <Carousel>
-                <CarouselItemTypeA/>
-                <CarouselItemTypeB/>
-                <CarouselItemTypeA/>
-                <CarouselItemTypeB/>
-                <CarouselItemTypeB/>
-                <CarouselItemTypeA/>
-                <CarouselItemTypeB/>
-                <CarouselItemTypeB/>
-                <CarouselItemTypeA/>
-                <CarouselItemTypeB/>
+              <Carousel value={this.state.value}>
+                <img style={{ maxHeight: '300px' }} src="https://images3.memedroid.com/images/UPLOADED139/58ce2eb545235.jpeg"/>
+                <CarouselItemTypeB>two</CarouselItemTypeB>
+                <CarouselItemTypeA>three</CarouselItemTypeA>
+                <CarouselItemTypeB>four</CarouselItemTypeB>
+                <CarouselItemTypeB>five</CarouselItemTypeB>
+                <CarouselItemTypeA>six</CarouselItemTypeA>
+                <CarouselItemTypeB>seven</CarouselItemTypeB>
+                <CarouselItemTypeB>eight</CarouselItemTypeB>
+                <CarouselItemTypeA>nine</CarouselItemTypeA>
+                <CarouselItemTypeB>ten</CarouselItemTypeB>
               </Carousel>
             </Col>
           </Row>
