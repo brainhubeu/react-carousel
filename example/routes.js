@@ -6,6 +6,7 @@ import { createBrowserHistory } from 'history';
 
 import App from './containers/App';
 import HomePage from './pages/HomePage';
+import DragPage from './pages/DragPage';
 import NotFoundPage from './pages/NotFoundPage.js';
 
 export default class Routes extends Component {
@@ -14,6 +15,7 @@ export default class Routes extends Component {
       <ConnectedRouter history={createBrowserHistory()}>
         <App>
           <Switch>
+            <Route exact path="/drag" component={DragPage} />
             <Route exact path="/" component={HomePage} />
             <Route path="*" component={NotFoundPage} />
           </Switch>
