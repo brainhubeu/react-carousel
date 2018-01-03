@@ -41,6 +41,7 @@ class HomePage extends Component {
                 arrowLeft={<Icon style={{ cursor: 'pointer' }} name="arrow-left" />}
                 arrowRight={<Icon style={{ cursor: 'pointer' }} name="arrow-right" />}
                 clickToChange
+                centered
               >
                 <img style={imgStyle} src="https://images3.memedroid.com/images/UPLOADED139/58ce2eb545235.jpeg"/>
                 <img style={imgStyle} src="http://mymemes.biz/wp-content/uploads/2017/10/yoda-meme-59dc8f21e91ef.jpg"/>

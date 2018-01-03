@@ -21,6 +21,7 @@ export default class Carousel extends Component {
     arrowRight: PropTypes.element,
     autoPlay: PropTypes.number,
     clickToChange: PropTypes.bool,
+    centered: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.node),
     className: PropTypes.string,
   };
@@ -171,22 +172,34 @@ export default class Carousel extends Component {
 
 
   /* positioning */
-  getNearestSlideIndex = () => Math.round(-this.getTransformOffset() / this.getCarouselElementWidth());
+  getNearestSlideIndex = () => {
+    if (this.props.centered) {
+      return -Math.round((this.getTransformOffset() - (this.state.carouselWidth / 2) + (this.getCarouselElementWidth() / 2)) / this.getCarouselElementWidth());
+    }
+    return -Math.round(this.getTransformOffset() / this.getCarouselElementWidth());
+  };
 
   getCurrentValue = () => this.clamp(isNil(this.props.value) ? this.state.value : this.props.value);
 
   getCarouselElementWidth = () => this.state.carouselWidth / this.props.slidesPerPage;
 
   getTransformOffset = () => {
-    return this.state.dragOffset - this.getCurrentValue() * this.getCarouselElementWidth();
+    const additionalOffset = this.props.centered
+      ? (this.state.carouselWidth / 2) - (this.getCarouselElementWidth() / 2)
+      : 0;
+
+    return this.state.dragOffset - this.getCurrentValue() * this.getCarouselElementWidth() + additionalOffset;
   };
 
 
   /* rendering */
   renderCarouselItems = () => {
+    const transformOffset = this.getTransformOffset();
+    const trackWidth = this.state.carouselWidth * this.props.children.length;
+
     const trackStyles = {
-      width: `${this.state.carouselWidth * this.props.children.length}px`,
-      transform: `translateX(${this.getTransformOffset()}px)`,
+      width: `${trackWidth}px`,
+      transform: `translateX(${transformOffset}px)`,
     };
     const transitionEnabled = this.state.dragStart === null;
 
@@ -205,6 +218,7 @@ export default class Carousel extends Component {
               width={this.getCarouselElementWidth()}
               onMouseDown={this.onMouseDown(index)}
               onTouchStart={this.onTouchStart(index)}
+              clickable={this.props.clickToChange}
             >
               {carouselItem}
             </CarouselItem>
