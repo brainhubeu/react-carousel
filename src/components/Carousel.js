@@ -1,8 +1,8 @@
+/* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
 import has from 'lodash/has';
-import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -53,16 +53,15 @@ export default class Carousel extends Component {
       transitionEnabled: false,
     };
     this.interval = null;
-    this.node = null;
   }
 
 
   /* initial handlers and positioning setup */
   componentDidMount() {
-    this.node = ReactDom.findDOMNode(this);
+    // this.node = ReactDom.findDOMNode(this);
 
     // adding listener to remove transition when animation finished
-    ReactDom.findDOMNode(this.trackRef).addEventListener('transitionend', this.onTransitionEnd);
+    this.trackRef.addEventListener('transitionend', this.onTransitionEnd);
 
     // adding event listeners for swipe
     this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
@@ -94,7 +93,7 @@ export default class Carousel extends Component {
   }
 
   componentWillUnmount() {
-    ReactDom.findDOMNode(this.trackRef).removeEventListener('transitionend', this.onTransitionEnd);
+    this.trackRef.removeEventListener('transitionend', this.onTransitionEnd);
     this.node.ownerDocument.removeEventListener('mousemove', this.onMouseMove);
     this.node.ownerDocument.removeEventListener('mouseup', this.onMouseUp);
     this.node.ownerDocument.removeEventListener('touchmove', this.onTouchMove);
@@ -233,10 +232,13 @@ export default class Carousel extends Component {
 
   /* positioning */
   getNearestSlideIndex = () => {
+    const transformOffset = this.getTransformOffset();
+    const slideWidth = this.getCarouselElementWidth();
+
     if (this.getProp('centered')) {
-      return -Math.round((this.getTransformOffset() - (this.state.carouselWidth / 2) + (this.getCarouselElementWidth() / 2)) / this.getCarouselElementWidth());
+      return -Math.round((transformOffset - (this.state.carouselWidth / 2) + (slideWidth / 2)) / slideWidth);
     }
-    return -Math.round(this.getTransformOffset() / this.getCarouselElementWidth());
+    return -Math.round(transformOffset / this.getCarouselElementWidth());
   };
 
   getCurrentValue = () => this.clamp(isNil(this.props.value) ? this.state.value : this.props.value);
@@ -334,7 +336,10 @@ export default class Carousel extends Component {
 
   render() {
     return (
-      <div className={classnames('BrainhubCarousel', this.getProp('className'))}>
+      <div
+        className={classnames('BrainhubCarousel', this.getProp('className'))}
+        ref={el => this.node = el}
+      >
         {this.renderArrowLeft()}
         {this.renderCarouselItems()}
         {this.renderArrowRight()}
