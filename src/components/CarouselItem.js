@@ -8,9 +8,9 @@ export default class CarouselItem extends Component {
   };
   render() {
     return (
-      <div className="carousel-item">
+      <li className="carousel-item">
         {this.props.carouselItem}
-      </div>
+      </li>
     );
   }
 }

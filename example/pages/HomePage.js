@@ -23,6 +23,12 @@ class HomePage extends Component {
                 <CarouselItemTypeB/>
                 <CarouselItemTypeA/>
                 <CarouselItemTypeB/>
+                <CarouselItemTypeB/>
+                <CarouselItemTypeA/>
+                <CarouselItemTypeB/>
+                <CarouselItemTypeB/>
+                <CarouselItemTypeA/>
+                <CarouselItemTypeB/>
               </Carousel>
             </Col>
           </Row>
