@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { PageHeader, Grid, Row, Col } from 'react-bootstrap';
+import Icon from 'react-fa';
 import Carousel from '../../src/index';
 import CarouselItemTypeA from './../components/CarouselItemTypeA';
 import CarouselItemTypeB from './../components/CarouselItemTypeB';
@@ -33,7 +34,8 @@ class HomePage extends Component {
                 onChange={value => this.setState({ value })}
                 slidesPerPage={2}
                 slidesPerScroll={2}
-                autoPlay={3000}
+                arrowLeft={<Icon style={{ cursor: 'pointer' }} name="arrow-left" />}
+                arrowRight={<Icon style={{ cursor: 'pointer' }} name="arrow-right" />}
               >
                 <img style={{ maxHeight: '300px' }} src="https://images3.memedroid.com/images/UPLOADED139/58ce2eb545235.jpeg"/>
                 <CarouselItemTypeB>two</CarouselItemTypeB>
