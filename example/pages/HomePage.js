@@ -36,6 +36,7 @@ class HomePage extends Component {
                 slidesPerScroll={2}
                 arrowLeft={<Icon style={{ cursor: 'pointer' }} name="arrow-left" />}
                 arrowRight={<Icon style={{ cursor: 'pointer' }} name="arrow-right" />}
+                clickToChange
               >
                 <img style={{ maxHeight: '300px' }} src="https://images3.memedroid.com/images/UPLOADED139/58ce2eb545235.jpeg"/>
                 <CarouselItemTypeB>two</CarouselItemTypeB>

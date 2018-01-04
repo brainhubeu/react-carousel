@@ -20,6 +20,7 @@ export default class Carousel extends Component {
     arrowLeft: PropTypes.element,
     arrowRight: PropTypes.element,
     autoPlay: PropTypes.number,
+    clickToChange: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.node),
     className: PropTypes.string,
   };
@@ -90,6 +91,8 @@ export default class Carousel extends Component {
     this.changeSlide(this.getCurrentValue() - this.props.slidesPerScroll);
   }
 
+  itemOnClickHandler = index => () => this.changeSlide(index);
+
 
   /* positioning */
   getCurrentValue = () => {
@@ -116,7 +119,11 @@ export default class Carousel extends Component {
       <div className="BrainhubCarousel__trackContainer">
         <ul className="BrainhubCarousel__track" style={trackStyles}>
           {this.props.children.map((carouselItem, index) => (
-            <CarouselItem key={index} width={this.getCarouselElementWidth()}>
+            <CarouselItem
+              key={index}
+              width={this.getCarouselElementWidth()}
+              onClick={this.props.clickToChange && this.itemOnClickHandler(index)}
+            >
               {carouselItem}
             </CarouselItem>
           ))}
