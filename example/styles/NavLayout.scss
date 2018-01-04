@@ -1,0 +1,12 @@
+.NavLayout {
+  display: flex;
+  flex-direction: column;
+  .NavLayout__header {
+    display: flex;
+    background-color: #7f7f7f;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.75em;
+  }
+}
+

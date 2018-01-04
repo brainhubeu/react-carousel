@@ -1,0 +1,22 @@
+$inactiveBackground: #7f7f7f;
+$inactiveText: #cacaca;
+
+$activeBackground: #08122c;
+$activeText: #ffffff;
+
+.NavLink {
+  display: inline-block;
+  position: relative;
+  flex-grow: 1;
+  border: none;
+  background: $inactiveBackground;
+  color: $inactiveText;
+  text-align: center;
+  padding: 1em 0.5em;
+  cursor: pointer;
+  &.NavLink--active {
+    background: $activeBackground;
+    color: $activeText;
+  }
+}
+

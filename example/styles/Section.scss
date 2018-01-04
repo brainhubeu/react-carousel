@@ -1,0 +1,19 @@
+.Section {
+  .Section__title {
+    padding: 1em 0;
+  }
+  .Section__description {
+    padding: 1em 0;
+  }
+  .Section__content {
+    padding: 1em 0;
+  }
+  .Section__code {
+    padding: 1em 0;
+    display: flex;
+    justify-content: center;
+    pre {
+      padding: 1em !important;
+    }
+  }
+}
