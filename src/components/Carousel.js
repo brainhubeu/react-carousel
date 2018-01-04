@@ -10,6 +10,7 @@ import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
 import '../styles/Carousel.scss';
+import CarouselIndicators from './CarouselIndicators';
 
 export default class Carousel extends Component {
   static propTypes = {
@@ -133,7 +134,7 @@ export default class Carousel extends Component {
     const currentValue = this.clamp(isNil(this.props.value) ? this.state.value : this.props.value);
     const prevValue = this.clamp(isNil(prevProps.value) ? prevState.value : prevProps.value);
     return currentValue !== prevValue;
-  }
+  };
 
 
   /* event handlers */
@@ -156,7 +157,7 @@ export default class Carousel extends Component {
       clicked: index,
       dragStart: e.pageX,
     });
-  }
+  };
 
   onMouseMove = e => {
     if (this.state.dragStart !== null) {
@@ -164,7 +165,7 @@ export default class Carousel extends Component {
         dragOffset: e.pageX - this.state.dragStart,
       });
     }
-  }
+  };
 
   onTouchStart = index => e => {
     e.preventDefault();
@@ -286,6 +287,7 @@ export default class Carousel extends Component {
               {carouselItem}
             </CarouselItem>
           ))}
+
         </ul>
       </div>
     );
@@ -334,15 +336,24 @@ export default class Carousel extends Component {
     return null;
   };
 
+  renderIndicators = () =>
+    <CarouselIndicators
+      indicators={this.props.children}
+      currentItem={this.getCurrentValue()}
+    />;
+
   render() {
     return (
-      <div
-        className={classnames('BrainhubCarousel', this.getProp('className'))}
-        ref={el => this.node = el}
-      >
-        {this.renderArrowLeft()}
-        {this.renderCarouselItems()}
-        {this.renderArrowRight()}
+      <div>
+        <div
+          className={classnames('BrainhubCarousel', this.getProp('className'))}
+          ref={el => this.node = el}
+        >
+          {this.renderArrowLeft()}
+          {this.renderCarouselItems()}
+          {this.renderArrowRight()}
+        </div>
+        {this.renderIndicators()}
       </div>
     );
   }

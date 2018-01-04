@@ -1,5 +1,3 @@
-import React from 'react';
-import { mount } from 'enzyme';
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { JSDOM } from 'jsdom';
