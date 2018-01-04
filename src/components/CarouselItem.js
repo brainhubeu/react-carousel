@@ -5,16 +5,19 @@ import '../styles/CarouselItem.scss';
 
 export default class CarouselItem extends Component {
   static propTypes = {
-    onClick: PropTypes.func,
+    onMouseDown: PropTypes.func,
+    onTouchStart: PropTypes.func,
+    clickable: PropTypes.bool,
     children: PropTypes.node,
     width: PropTypes.number,
   };
   render() {
     return (
       <li
-        className={classname('BrainhubCarouselItem', { 'BrainhubCarouselItem--clickable': this.props.onClick })}
+        className={classname('BrainhubCarouselItem', { 'BrainhubCarouselItem--clickable': this.props.clickable })}
         style={{ width: `${this.props.width}px` }}
-        onClick={this.props.onClick}
+        onMouseDown={this.props.onMouseDown}
+        onTouchStart={this.props.onTouchStart}
       >
         {this.props.children}
       </li>
