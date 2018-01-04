@@ -7,7 +7,7 @@ export default class CarouselItem extends Component {
     return (
       <div className="carousel-item-container__type-b">
         <div>
-          some content B
+          {this.props.children}
         </div>
       </div>
     );
