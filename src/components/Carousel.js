@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
-import ReactDom from 'react-dom';
+import has from 'lodash/has';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -14,6 +15,7 @@ export default class Carousel extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
+    children: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
     arrows: PropTypes.bool,
@@ -21,48 +23,240 @@ export default class Carousel extends Component {
     arrowRight: PropTypes.element,
     autoPlay: PropTypes.number,
     clickToChange: PropTypes.bool,
-    children: PropTypes.arrayOf(PropTypes.node),
+    centered: PropTypes.bool,
+    animationSpeed: PropTypes.number,
     className: PropTypes.string,
+    breakpoints: PropTypes.objectOf(PropTypes.shape({
+      slidesPerPage: PropTypes.number,
+      slidesPerScroll: PropTypes.number,
+      arrows: PropTypes.bool,
+      arrowLeft: PropTypes.element,
+      arrowRight: PropTypes.element,
+      autoPlay: PropTypes.number,
+      clickToChange: PropTypes.bool,
+      centered: PropTypes.bool,
+      animationSpeed: PropTypes.number,
+      className: PropTypes.string,
+    })),
   };
   static defaultProps = {
     slidesPerPage: 1,
     slidesPerScroll: 1,
+    animationSpeed: 500,
   };
+
   constructor(props) {
     super(props);
     this.state = {
       value: 0,
       carouselWidth: 0,
+      windowWidth: 0,
+      clicked: null,
+      dragOffset: 0,
+      dragStart: null,
+      transitionEnabled: false,
     };
     this.interval = null;
   }
 
 
-  /* initial handlers and positioning setup */
+  /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
-    this.node = ReactDom.findDOMNode(this);
+    // adding listener to remove transition when animation finished
+    this.trackRef.addEventListener('transitionend', this.onTransitionEnd);
+
+    // adding event listeners for swipe
+    this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
+    this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
+    this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, true);
+    this.node.ownerDocument.addEventListener('touchend', this.onMouseUpTouchEnd, true);
+
+    // setting size of a carousel in state
     window.addEventListener('resize', this.onResize);
     this.onResize();
-    if (!isNil(this.props.autoPlay)) {
-      this.interval = setInterval(this.nextSlide, this.props.autoPlay);
+
+    // setting autoplay interval
+    this.resetInterval();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const valueChanged = this.checkIfValueChanged(prevProps, prevState);
+    if (valueChanged) {
+      this.setState({ transitionEnabled: true }); // we allow animation only when value changed, to prevent strange behaviour on window resize
+    }
+
+    if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
+      this.resetInterval();
     }
   }
 
   componentWillUnmount() {
+    this.trackRef.removeEventListener('transitionend', this.onTransitionEnd);
+    this.node.ownerDocument.removeEventListener('mousemove', this.onMouseMove);
+    this.node.ownerDocument.removeEventListener('mouseup', this.onMouseUp);
+    this.node.ownerDocument.removeEventListener('touchmove', this.onTouchMove);
+    this.node.ownerDocument.removeEventListener('touchend', this.onTouchEnd);
     window.removeEventListener('resize', this.onResize);
-    if (!isNil(this.props.autoPlay)) {
+    if (this.interval) {
       clearInterval(this.interval);
     }
   }
 
-  onResize = throttle(() => {
-    if (this.node.offsetWidth !== this.state.carouselWidth) {
-      this.setState({ carouselWidth: this.node.offsetWidth });
+  /* ========== tools ========== */
+  /**
+   * Returns the value of a prop based on the current window width and breakpoints provided
+   * @param {string} propName name of the prop you want to get
+   * @param {object} customProps props object (used e.g. when you want to get prop from prevProps object instead of this.props)
+   * @return {any} props value
+   */
+  getProp = (propName, customProps = null) => {
+    const props = customProps || this.props;
+    let activeBreakpoint = null;
+    if (props.breakpoints) {
+      const windowWidth = this.state.windowWidth;
+      const resolutions = Object.keys(props.breakpoints);
+      resolutions.forEach(resolutionString => {
+        const resolution = parseInt(resolutionString);
+        if (windowWidth <= resolution) {
+          if (!activeBreakpoint || activeBreakpoint > resolution) {
+            activeBreakpoint = resolution;
+          }
+        }
+      });
     }
+
+    if (activeBreakpoint) {
+      if (has(props.breakpoints[activeBreakpoint], propName)) {
+        return props.breakpoints[activeBreakpoint][propName];
+      }
+    }
+    return props[propName];
+  };
+
+  /**
+   * Check if this.props.value (or this.state.value in case of uncontrolled element) changed after update
+   * @param {object} prevProps
+   * @param {object} prevState
+   * @return {boolean} result
+   */
+  checkIfValueChanged = (prevProps, prevState) => {
+    const currentValue = this.clamp(isNil(this.props.value) ? this.state.value : this.props.value);
+    const prevValue = this.clamp(isNil(prevProps.value) ? prevState.value : prevProps.value);
+    return currentValue !== prevValue;
+  };
+
+  resetInterval = () => {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    const autoPlay = this.getProp('autoPlay');
+    if (!isNil(autoPlay)) {
+      this.interval = setInterval(this.nextSlide, autoPlay);
+    }
+  };
+
+
+  /* event handlers */
+  /**
+   * Handler setting the carouselWidth value in state (used to set proper width of track and slides)
+   * throttled to improve performance
+   * @type {Function}
+   */
+  onResize = throttle(() => {
+    this.setState({
+      carouselWidth: this.node.offsetWidth,
+      windowWidth: window.innerWidth,
+    });
   }, config.resizeEventListenerThrottle);
 
+  /**
+   * Function that creates a function handling beginning of mouse drag, setting index of clicked item and coordinates of click in the state
+   * @param {number} index of the element drag started on
+   * @return {function} handler
+   */
+  onMouseDown = index => e => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({
+      clicked: index,
+      dragStart: e.pageX,
+    });
+  }
 
-  /* control */
+  /**
+   * Function handling mouse move if drag has started. Sets dragOffset in the state.
+   * @param {event} e event
+   */
+  onMouseMove = e => {
+    if (this.state.dragStart !== null) {
+      this.setState({
+        dragOffset: e.pageX - this.state.dragStart,
+      });
+    }
+  }
+
+  /**
+   * Function that creates a function handling beginning of touch drag, setting index of touched item and coordinates of touch in the state
+   * @param {number} index of the element drag started on
+   * @return {function} handler
+   */
+  onTouchStart = index => e => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({
+      clicked: index,
+      dragStart: e.changedTouches[0].pageX,
+    });
+  };
+
+  /**
+   * Function handling touch move if drag has started. Sets dragOffset in the state.
+   * @param {event} e event
+   */
+  onTouchMove = e => {
+    if (this.state.dragStart !== null) {
+      this.setState({
+        dragOffset: e.changedTouches[0].pageX - this.state.dragStart,
+      });
+    }
+  };
+
+  /**
+   * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
+   * if drag was short (or it was just a click) it changes slide to the clicked (or touched) one.
+   * It resets clicked index, dragOffset and dragStart values in state.
+   * @param {event} e event
+   */
+  onMouseUpTouchEnd = e => {
+    if (this.state.dragStart !== null) {
+      e.preventDefault();
+      if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
+        this.changeSlide(this.getNearestSlideIndex());
+      } else if (this.getProp('clickToChange')) {
+        this.changeSlide(this.state.clicked);
+      }
+      this.setState({
+        clicked: null,
+        dragOffset: 0,
+        dragStart: null,
+      });
+    }
+  };
+
+  /**
+   * Handler setting transitionEnabled value in state to false after transition animation ends
+   */
+  onTransitionEnd = () => {
+    this.setState({ transitionEnabled: false });
+  };
+
+
+  /* ========== control ========== */
+  /**
+   * Clamps number between 0 and last slide index.
+   * @param {number} value to be clamped
+   * @return {number} new value
+   */
   clamp = value => {
     const maxValue = this.props.children.length - 1;
     if (value > maxValue) {
@@ -72,8 +266,13 @@ export default class Carousel extends Component {
       return 0;
     }
     return value;
-  }
+  };
 
+  /**
+   * Clamps a provided value and set's it in local state (in case of uncontrolled component) or triggers onChange (in case of controlled component)
+   * @param {number} value desired index to change current value to
+   * @return {undefined}
+   */
   changeSlide = value => {
     if (isNil(this.props.value)) {
       return this.setState({ value: this.clamp(value) });
@@ -81,48 +280,83 @@ export default class Carousel extends Component {
     if (this.props.onChange) {
       this.props.onChange(this.clamp(value));
     }
-  }
+  };
 
-  nextSlide = () => {
-    this.changeSlide(this.getCurrentValue() + this.props.slidesPerScroll);
-  }
+  nextSlide = () => this.changeSlide(this.getCurrentValue() + this.getProp('slidesPerScroll'));
 
-  prevSlide = () => {
-    this.changeSlide(this.getCurrentValue() - this.props.slidesPerScroll);
-  }
-
-  itemOnClickHandler = index => () => this.changeSlide(index);
+  prevSlide = () => this.changeSlide(this.getCurrentValue() - this.getProp('slidesPerScroll'));
 
 
-  /* positioning */
-  getCurrentValue = () => {
-    const value = isNil(this.props.value) ? this.state.value : this.props.value;
-    return this.clamp(value);
-  }
+  /* ========== positioning ========== */
+  /**
+   * Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
+   * @return {number} index
+   */
+  getNearestSlideIndex = () => {
+    const transformOffset = this.getTransformOffset();
+    const slideWidth = this.getCarouselElementWidth();
 
-  getCarouselElementWidth = () => {
-    return this.state.carouselWidth / this.props.slidesPerPage;
-  }
+    if (this.getProp('centered')) {
+      return -Math.round((transformOffset - (this.state.carouselWidth / 2) + (slideWidth / 2)) / slideWidth);
+    }
+    return -Math.round(transformOffset / this.getCarouselElementWidth());
+  };
 
+  /**
+   * Returns the current slide index (from either props or internal state)
+   * @return {number} index
+   */
+  getCurrentValue = () => this.clamp(isNil(this.props.value) ? this.state.value : this.props.value);
+
+  /**
+   * Calculates width of a single slide in a carousel
+   * @return {number} width of a slide in px
+   */
+  getCarouselElementWidth = () => this.state.carouselWidth / this.getProp('slidesPerPage');
+
+  /**
+   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)
+   * @return {number} offset in px
+   */
   getTransformOffset = () => {
-    return -(this.getCurrentValue() * this.getCarouselElementWidth());
-  }
+    const additionalOffset = this.getProp('centered')
+      ? (this.state.carouselWidth / 2) - (this.getCarouselElementWidth() / 2)
+      : 0;
+
+    return this.state.dragOffset - this.getCurrentValue() * this.getCarouselElementWidth() + additionalOffset;
+  };
 
 
-  /* rendering */
+  /* ========== rendering ========== */
   renderCarouselItems = () => {
+    const transformOffset = this.getTransformOffset();
+    const trackWidth = this.state.carouselWidth * this.props.children.length;
+    const animationSpeed = this.getProp('animationSpeed');
+    const transitionEnabled = this.state.transitionEnabled;
+
     const trackStyles = {
-      width: `${this.state.carouselWidth * this.props.children.length}px`,
-      transform: `translateX(${this.getTransformOffset()}px)`,
+      width: `${trackWidth}px`,
+      transform: `translateX(${transformOffset}px)`,
+      transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
+
     return (
       <div className="BrainhubCarousel__trackContainer">
-        <ul className="BrainhubCarousel__track" style={trackStyles}>
+        <ul
+          className={classnames(
+            'BrainhubCarousel__track',
+            { 'BrainhubCarousel__track--transition': transitionEnabled }
+          )}
+          style={trackStyles}
+          ref={el => this.trackRef = el}
+        >
           {this.props.children.map((carouselItem, index) => (
             <CarouselItem
               key={index}
               width={this.getCarouselElementWidth()}
-              onClick={this.props.clickToChange && this.itemOnClickHandler(index)}
+              onMouseDown={this.onMouseDown(index)}
+              onTouchStart={this.onTouchStart(index)}
+              clickable={this.getProp('clickToChange')}
             >
               {carouselItem}
             </CarouselItem>
@@ -130,24 +364,33 @@ export default class Carousel extends Component {
         </ul>
       </div>
     );
-  }
+  };
 
+  /**
+   * Adds onClick handler to the arrow if possible (if it does not already have one)
+   * @param {ReactElement} element to render
+   * @param {function} onClick handler to be added to element
+   * @return {ReactElement} element with added handler
+   */
   renderArrowWithAddedHandler = (element, onClick) => {
     if (!element.props.onClick) {
       return React.cloneElement(element, { onClick });
     }
     return element;
-  }
+  };
 
+  /**
+   * Renders arrow left
+   * @return {ReactElement} element
+   */
   renderArrowLeft = () => {
-    if (this.props.arrowLeft) {
-      return this.renderArrowWithAddedHandler(this.props.arrowLeft, this.prevSlide);
+    if (this.getProp('arrowLeft')) {
+      return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide);
     }
-    if (this.props.arrows) {
+    if (this.getProp('arrows')) {
       return (
         <div
           className="BrainhubCarousel__arrows BrainhubCarousel__arrow-left"
-          type="button"
           onClick={this.prevSlide}
         >
           &lt;
@@ -155,17 +398,20 @@ export default class Carousel extends Component {
       );
     }
     return null;
-  }
+  };
 
+  /**
+   * Renders arrow right
+   * @return {ReactElement} element
+   */
   renderArrowRight = () => {
-    if (this.props.arrowRight) {
-      return this.renderArrowWithAddedHandler(this.props.arrowRight, this.nextSlide);
+    if (this.getProp('arrowRight')) {
+      return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide);
     }
-    if (this.props.arrows) {
+    if (this.getProp('arrows')) {
       return (
         <div
           className="BrainhubCarousel__arrows BrainhubCarousel__arrow-right"
-          type="button"
           onClick={this.nextSlide}
         >
           &gt;
@@ -173,21 +419,14 @@ export default class Carousel extends Component {
       );
     }
     return null;
-  }
-
-  renderCarouselDots = () => {
-    return (
-      <ul className="BrainhubCarousel__dots">
-        {this.props.children.map((carouselItem, index) => (
-          <li key={index}><button>{index + 1}</button></li>
-        ))}
-      </ul>
-    );
-  }
+  };
 
   render() {
     return (
-      <div className={classnames('BrainhubCarousel', this.props.className)}>
+      <div
+        className={classnames('BrainhubCarousel', this.getProp('className'))}
+        ref={el => this.node = el}
+      >
         {this.renderArrowLeft()}
         {this.renderCarouselItems()}
         {this.renderArrowRight()}

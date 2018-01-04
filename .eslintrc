@@ -7,5 +7,8 @@
     "import/resolve": {
       "moduleDirectory": ["node_modules", "src"]
     }
+  },
+  "rules": {
+    "no-invalid-this": 0
   }
 }
