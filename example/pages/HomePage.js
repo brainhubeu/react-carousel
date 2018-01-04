@@ -22,13 +22,19 @@ class HomePage extends Component {
             Carousel
           </PageHeader>
           <Row>
-            <button onClick={() => this.setState({ value: this.state.value - 1 })}>prev</button>
+            <button onClick={() => this.setState({ value: this.state.value - 1 })}>-</button>
             <input type="number" value={this.state.value} onChange={e => this.setState({ value: parseInt(e.target.value) })}/>
-            <button onClick={() => this.setState({ value: this.state.value + 1 })}>next</button>
+            <button onClick={() => this.setState({ value: this.state.value + 1 })}>+</button>
           </Row>
           <Row className="show-grid">
             <Col xs={12}>
-              <Carousel value={this.state.value}>
+              <Carousel
+                value={this.state.value}
+                onChange={value => this.setState({ value })}
+                slidesPerPage={2}
+                slidesPerScroll={2}
+                autoPlay={3000}
+              >
                 <img style={{ maxHeight: '300px' }} src="https://images3.memedroid.com/images/UPLOADED139/58ce2eb545235.jpeg"/>
                 <CarouselItemTypeB>two</CarouselItemTypeB>
                 <CarouselItemTypeA>three</CarouselItemTypeA>
