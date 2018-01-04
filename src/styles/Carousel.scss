@@ -15,7 +15,7 @@ $dots-color: black;
       padding: 0;
 
       &.BrainhubCarousel__track--transition {
-        transition: transform .5s ease-in-out;
+        transition: transform ease-in-out;
       }
     }
   }

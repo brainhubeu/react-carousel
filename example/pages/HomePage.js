@@ -44,7 +44,7 @@ class HomePage extends Component {
                 centered
                 breakpoints={{
                   1000: { slidesPerPage: 2, clickToChange: null, centered: null },
-                  700: { slidesPerPage: 1, slidesPerScroll: 1, arrowLeft: null, arrowRight: null },
+                  700: { slidesPerPage: 1, slidesPerScroll: 1, arrowLeft: null, arrowRight: null, animationSpeed: 2000 },
                 }}
               >
                 <img style={imgStyle} src="https://images3.memedroid.com/images/UPLOADED139/58ce2eb545235.jpeg"/>
