@@ -332,13 +332,13 @@ export default class Carousel extends Component {
     const transformOffset = this.getTransformOffset();
     const trackWidth = this.state.carouselWidth * this.props.children.length;
     const animationSpeed = this.getProp('animationSpeed');
+    const transitionEnabled = this.state.transitionEnabled;
 
     const trackStyles = {
       width: `${trackWidth}px`,
       transform: `translateX(${transformOffset}px)`,
-      transitionDuration: `${animationSpeed}ms, ${animationSpeed}ms`,
+      transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
-    const transitionEnabled = this.state.transitionEnabled;
 
     return (
       <div className="BrainhubCarousel__trackContainer">
