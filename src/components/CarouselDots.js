@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/Carousel.scss';
+import '../styles/CarouselDots.scss';
 
-export default class CarouselIndicators extends Component {
+export default class CarouselDots extends Component {
   static propTypes = {
     indicators: PropTypes.node.isRequired,
     currentItem: PropTypes.number.isRequired,

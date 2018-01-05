@@ -10,7 +10,6 @@ import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
 import '../styles/Carousel.scss';
-import CarouselIndicators from './CarouselIndicators';
 
 export default class Carousel extends Component {
   static propTypes = {
@@ -336,24 +335,15 @@ export default class Carousel extends Component {
     return null;
   };
 
-  renderIndicators = () =>
-    <CarouselIndicators
-      indicators={this.props.children}
-      currentItem={this.getCurrentValue()}
-    />;
-
   render() {
     return (
-      <div>
-        <div
-          className={classnames('BrainhubCarousel', this.getProp('className'))}
-          ref={el => this.node = el}
-        >
-          {this.renderArrowLeft()}
-          {this.renderCarouselItems()}
-          {this.renderArrowRight()}
-        </div>
-        {this.renderIndicators()}
+      <div
+        className={classnames('BrainhubCarousel', this.getProp('className'))}
+        ref={el => this.node = el}
+      >
+        {this.renderArrowLeft()}
+        {this.renderCarouselItems()}
+        {this.renderArrowRight()}
       </div>
     );
   }
