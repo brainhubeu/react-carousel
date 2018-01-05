@@ -40,7 +40,7 @@ export default class PerPagePage extends Component {
   render() {
     return (
       <NavLayout>
-        <Section title="Click to change" description="clickToChange boolean prop turns on/off changing slide by clicking on it" code={code}>
+        <Section title="Click to change" description="clickToChange boolean prop turns changing slide on click on or off" code={code}>
           <Carousel
             slidesPerPage={4}
             clickToChange

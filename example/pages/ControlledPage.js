@@ -29,7 +29,8 @@ constructor(props) {
   };
 }
 
-onChange = e => this.setState({ value: e.target.value });
+// we check if we got event from input (and it has target property) or just value from Carousel 
+onChange = e => this.setState({ value: e.target ? e.target.value : e });
 
 render() {
   return (
@@ -56,7 +57,7 @@ export default class ControlledPage extends Component {
     };
   }
 
-  onChange = e => this.setState({ value: e.target.value });
+  onChange = e => this.setState({ value: e.target ? e.target.value : e });
 
   render() {
     return (
