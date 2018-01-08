@@ -1,0 +1,23 @@
+.Section {
+  padding: 0 1em;
+  .Section__title {
+    padding: 1em 0;
+    font-weight: bold;
+    font-size: 2em;
+  }
+  .Section__description {
+    padding: 1em 0;
+    font-size: 1.5em;
+  }
+  .Section__content {
+    padding: 1em 0;
+  }
+  .Section__code {
+    padding: 1em 0;
+    display: flex;
+    justify-content: center;
+    pre {
+      padding: 1em !important;
+    }
+  }
+}
