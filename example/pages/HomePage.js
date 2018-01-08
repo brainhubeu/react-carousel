@@ -18,8 +18,6 @@ import transportImage from '../assets/images/transport.jpg';
 
 
 export default class HomePage extends Component {
-  static propTypes = {};
-
   render() {
     return (
       <NavLayout>
