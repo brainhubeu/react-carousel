@@ -9,7 +9,7 @@
 React carousel 
 
 ## Why?
-There are some great carousels (like slick) that does not have real react implementations. This library provides you with carousel that is not merely wrapper for some jQuery solution, can be used as controlled or uncontrolled element (similar to [inputs](https://reactjs.org/docs/uncontrolled-components.html)), and has tons of useful features.
+There are some great carousels (like slick) that do not have real React implementations. This library provides you with carousel that is not merely a wrapper for some jQuery solution, can be used as controlled or uncontrolled element (similar to [inputs](https://reactjs.org/docs/uncontrolled-components.html)), and has tons of useful features.
 
 ## Installation
 `npm i @brainhubeu/react-carousel`
@@ -33,7 +33,7 @@ render() {
 ```
 
 ### Carousel as controlled element
-You can control which slides is being shown by providing Carousel with value and onChange props
+You can control which slides are being shown by providing Carousel with value and onChange props
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
 
@@ -66,7 +66,7 @@ render() {
 ```
 
 Where:
-* `value` is current slide index (zero based, in the example above imageOne has index 0, imageTwo has index 1 and so on)
+* `value` is the current slide's index (zero based, in the example above imageOne has index 0, imageTwo has index 1 and so on)
 * `onChange` handler triggered when carousel wants to change current slide (e.g. on arrow click or on swipe)
 
 ### Adding arrows
@@ -111,7 +111,7 @@ render() {
 
 Where:
 * `arrows` is boolean indicating if default arrows should be rendered
-* `arrowLeft` and `arrowRight` react elements to be used instead of default arrows (when you provided custom arrows you don't have to use `arrows` prop)
+* `arrowLeft` and `arrowRight` are React elements to be used instead of default arrows (when you provided custom arrows you don't have to use `arrows` prop)
 
 ### Additional options
 ```javascript
@@ -137,12 +137,12 @@ render() {
 ```
 
 Where:
-* `slidesPerPage` is a **number** of slides visible at once 
-* `slidesPerScroll` is a **number** by which value will change on autoPlay and when arrow is clicked 
+* `slidesPerPage` is the **number** of slides visible at once 
+* `slidesPerScroll` is the **number** by which value will change on autoPlay and when arrow is clicked 
 * `animationSpeed` (*number*) transition duration in milliseconds
-* `autoPlay` *number* of milliseconds between current slide is being automatically changed
-* `clickToChange` *boolean* indicating if clicking on a slide should trigger changing current value
-* `centered` *boolean* indicating if current active slide should be aligned to the center or to the left of a carousel
+* `autoPlay` (*number*) slide change interval in milliseconds
+* `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
+* `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
 
 
 ### Responsive
@@ -159,7 +159,7 @@ render() {
       clickToChange
       centered
       breakpoints={{
-        1000: { // this props will be applied when screen width is less than 1000px
+        1000: { // these props will be applied when screen width is less than 1000px
           slidesPerPage: 2,
           clickToChange: false,
           centered: false,
