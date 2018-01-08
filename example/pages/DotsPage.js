@@ -43,6 +43,24 @@ render() {
         <img className="img-example" src={anotherImage} />
       </Carousel>
       <Dots value={this.state.value} onChange={this.onChange} number={12} />
+      <Dots
+        value={this.state.value}
+        onChange={this.onChange}
+        thumbnails={[
+          (<img key={1} className="img-example-small" src={abstractImage} />),
+          (<img key={2} className="img-example-small" src={animalsImage} />),
+          (<img key={3} className="img-example-small" src={businessImage} />),
+          (<img key={4} className="img-example-small" src={cityImage} />),
+          (<img key={5} className="img-example-small" src={fashionImage} />),
+          (<img key={6} className="img-example-small" src={foodImage} />),
+          (<img key={7} className="img-example-small" src={natureImage} />),
+          (<img key={8} className="img-example-small" src={nightlifeImage} />),
+          (<img key={9} className="img-example-small" src={peopleImage} />),
+          (<img key={10} className="img-example-small" src={sportsImage} />),
+          (<img key={11} className="img-example-small" src={technicsImage} />),
+          (<img key={12} className="img-example-small" src={transportImage} />),
+        ]}
+      />
     </div>
   );
 }
@@ -61,7 +79,7 @@ export default class ControlledPage extends Component {
   render() {
     return (
       <NavLayout>
-        <Section title="Dots component" description="You can show navigation dots using Dots component" code={code}>
+        <Section title="Dots component" description="You can show navigation dots using Dots component. To show navigation thumbnails use `thumbnails` prop" code={code}>
           <Carousel
             value={this.state.value}
             onChange={this.onChange}
@@ -80,6 +98,24 @@ export default class ControlledPage extends Component {
             <img className="img-example" src={transportImage} />
           </Carousel>
           <Dots value={this.state.value} onChange={this.onChange} number={12} />
+          <Dots
+            value={this.state.value}
+            onChange={this.onChange}
+            thumbnails={[
+              (<img key={1} className="img-example-small" src={abstractImage} />),
+              (<img key={2} className="img-example-small" src={animalsImage} />),
+              (<img key={3} className="img-example-small" src={businessImage} />),
+              (<img key={4} className="img-example-small" src={cityImage} />),
+              (<img key={5} className="img-example-small" src={fashionImage} />),
+              (<img key={6} className="img-example-small" src={foodImage} />),
+              (<img key={7} className="img-example-small" src={natureImage} />),
+              (<img key={8} className="img-example-small" src={nightlifeImage} />),
+              (<img key={9} className="img-example-small" src={peopleImage} />),
+              (<img key={10} className="img-example-small" src={sportsImage} />),
+              (<img key={11} className="img-example-small" src={technicsImage} />),
+              (<img key={12} className="img-example-small" src={transportImage} />),
+            ]}
+          />
         </Section>
       </NavLayout>
     );
