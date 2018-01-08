@@ -51,7 +51,6 @@ export default class ArrowsPage extends Component {
             slidesPerScroll={2}
             arrowLeft={<Icon className="icon-example" name="arrow-left" />}
             arrowRight={<Icon className="icon-example" name="arrow-right" />}
-            centered
           >
             <img className="img-example" src={abstractImage} />
             <img className="img-example" src={animalsImage} />
