@@ -10,11 +10,16 @@ $dots-color: black;
   font-size: 0;
   line-height: 0;
 
-  button {
+  .BrainhubCarousel__dot {
     outline: 0;
     padding: 10px;
     border: none;
     opacity: 0.5;
+    cursor: pointer;
+
+    &.BrainhubCarousel__dot--selected {
+      opacity: 1 !important;
+    }
 
     &:hover {
       opacity: 1;
@@ -31,22 +36,17 @@ $dots-color: black;
       background: $dots-color;
     }
   }
-}
 
-.brainhub-carousel__dots {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 0;
-  line-height: 0;
-
-  button {
+  .BrainhubCarousel_thumbnail {
     outline: 0;
     padding: 10px;
     border: none;
     opacity: 0.5;
+    cursor: pointer;
+
+    &.BrainhubCarousel__thumbnail--selected {
+      opacity: 1 !important;
+    }
 
     &:hover {
       opacity: 1;
@@ -63,8 +63,4 @@ $dots-color: black;
       background: $dots-color;
     }
   }
-}
-
-.brainhub-carousel__dots--selected {
-  opacity: 1 !important;
 }
