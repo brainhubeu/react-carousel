@@ -15,6 +15,7 @@ import AnimationPage from './pages/AnimationPage';
 import SlidesPage from './pages/SlidesPage';
 import AutoplayPage from './pages/AutoplayPage';
 import InfinitePage from './pages/InfinitePage';
+import DotsPage from './pages/DotsPage';
 import NotFoundPage from './pages/NotFoundPage.js';
 
 export default class Routes extends Component {
@@ -34,6 +35,7 @@ export default class Routes extends Component {
             <Route exact path="/slides" component={SlidesPage} />
             <Route exact path="/autoplay" component={AutoplayPage} />
             <Route exact path="/infinite" component={InfinitePage} />
+            <Route exact path="/dots" component={DotsPage} />
             <Route path="*" component={NotFoundPage} />
           </Switch>
         </App>

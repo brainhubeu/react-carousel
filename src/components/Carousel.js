@@ -262,7 +262,7 @@ export default class Carousel extends Component {
       clicked: index,
       dragStart: e.pageX,
     });
-  }
+  };
 
   /**
    * Function handling mouse move if drag has started. Sets dragOffset in the state.
@@ -274,7 +274,7 @@ export default class Carousel extends Component {
         dragOffset: e.pageX - this.state.dragStart,
       });
     }
-  }
+  };
 
   /**
    * Function that creates a function handling beginning of touch drag, setting index of touched item and coordinates of touch in the state

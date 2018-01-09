@@ -216,6 +216,79 @@ render() {
 }
 ```
 
+### Showing dots or thumbnails
+There is a separate Dots component that can be used to show navigation dots.
+```javascript
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+
+...
+
+constructor(props) {
+  super(props);
+  this.state = {
+    value: 0,
+  };
+}
+
+onChange = value => this.setState({ value });
+
+render() {
+  return (
+    <div>
+      <Carousel
+        value={this.state.value}
+        onChange={this.onChange}
+      >
+        <img className="img-example" src={someImage} />
+        ...
+        <img className="img-example" src={anotherImage} />
+      </Carousel>
+      <Dots value={this.state.value} onChange={this.onChange} number={12} />
+    </div>
+  );
+}
+```
+
+It can also show thumbnails instead of dots
+```javascript
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+
+...
+
+constructor(props) {
+  super(props);
+  this.state = {
+    value: 0,
+  };
+}
+
+onChange = value => this.setState({ value });
+
+render() {
+  return (
+    <div>
+      <Carousel
+        value={this.state.value}
+        onChange={this.onChange}
+      >
+        <img className="img-example" src={someImage} />
+        ...
+        <img className="img-example" src={anotherImage} />
+      </Carousel>
+      <Dots
+        value={this.state.value}
+        onChange={this.onChange}
+        thumbnails={[
+          (<img key={1} className="img-example-small" src={abstractImage} />),
+          ...
+          (<img key={12} className="img-example-small" src={transportImage} />),
+        ]}
+      />
+    </div>
+  );
+}
+```
+
 Note: In the example above you cannot leave clickToChange value out in 500 breakpoint. In that case value from 1000 breakpoint will not be applied as the options are not inherited from higher to lower resolutions, only from default to current resolution.
 
 ## Example app
