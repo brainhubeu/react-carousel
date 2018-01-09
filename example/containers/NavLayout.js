@@ -24,6 +24,7 @@ class NavLayout extends Component {
           <NavLink to="/arrows" >Arrows</NavLink>
           <NavLink to="/responsive" >Responsive</NavLink>
           <NavLink to="/animation" >Animation</NavLink>
+          <NavLink to="/slides" >Arrays</NavLink>
           <NavLink to="/autoplay" >Autoplay</NavLink>
           <NavLink to="/dots" >Dots</NavLink>
         </div>

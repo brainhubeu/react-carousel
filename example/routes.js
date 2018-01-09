@@ -12,6 +12,7 @@ import ClickToChangePage from './pages/ClickToChangePage';
 import ArrowsPage from './pages/ArrowsPage';
 import ResponsivePage from './pages/ResponsivePage';
 import AnimationPage from './pages/AnimationPage';
+import SlidesPage from './pages/SlidesPage';
 import AutoplayPage from './pages/AutoplayPage';
 import DotsPage from './pages/DotsPage';
 import NotFoundPage from './pages/NotFoundPage.js';
@@ -30,6 +31,7 @@ export default class Routes extends Component {
             <Route exact path="/arrows" component={ArrowsPage} />
             <Route exact path="/responsive" component={ResponsivePage} />
             <Route exact path="/animation" component={AnimationPage} />
+            <Route exact path="/slides" component={SlidesPage} />
             <Route exact path="/autoplay" component={AutoplayPage} />
             <Route exact path="/dots" component={DotsPage} />
             <Route path="*" component={NotFoundPage} />
