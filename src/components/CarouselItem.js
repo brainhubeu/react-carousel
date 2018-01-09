@@ -15,7 +15,11 @@ export default class CarouselItem extends Component {
     return (
       <li
         className={classname('BrainhubCarouselItem', { 'BrainhubCarouselItem--clickable': this.props.clickable })}
-        style={{ width: `${this.props.width}px` }}
+        style={{
+          width: `${this.props.width}px`,
+          maxWidth: `${this.props.width}px`,
+          minWidth: `${this.props.width}px`,
+        }}
         onMouseDown={this.props.onMouseDown}
         onTouchStart={this.props.onTouchStart}
       >

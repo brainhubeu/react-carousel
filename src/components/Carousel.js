@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
 import has from 'lodash/has';
+import concat from 'lodash/concat';
+import times from 'lodash/times';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -54,13 +56,13 @@ export default class Carousel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
       carouselWidth: 0,
       windowWidth: 0,
       clicked: null,
       dragOffset: 0,
       dragStart: null,
       transitionEnabled: false,
+      infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
     };
     this.interval = null;
   }
@@ -68,6 +70,10 @@ export default class Carousel extends Component {
 
   /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
+    // TODO remove this debug
+    window.getState = () => this.state;
+    window.getSlidesBounds = this.getSlidesBounds;
+
     // adding listener to remove transition when animation finished
     this.trackRef && this.trackRef.addEventListener('transitionend', this.onTransitionEnd);
 
@@ -87,12 +93,17 @@ export default class Carousel extends Component {
     this.resetInterval();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const valueChanged = this.checkIfValueChanged(prevProps, prevState);
-    if (valueChanged) {
-      this.setState({ transitionEnabled: true }); // we allow animation only when value changed, to prevent strange behaviour on window resize
-    }
+  componentWillReceiveProps(nextProps) {
+    const valueChanged = this.checkIfValueChanged(nextProps);
 
+    this.setState({
+      infiniteTransitionFrom: this.getCurrentValue(),
+      transitionEnabled: valueChanged ? true : this.state.transitionEnabled,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const valueChanged = this.checkIfValueChanged(prevProps);
     if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
       this.resetInterval();
     }
@@ -115,6 +126,8 @@ export default class Carousel extends Component {
   }
 
   /* ========== tools ========== */
+  getCurrentValue = () => this.props.value;
+
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
    * @param {string} propName name of the prop you want to get
@@ -146,14 +159,14 @@ export default class Carousel extends Component {
   };
 
   /**
-   * Check if this.props.value (or this.state.value in case of uncontrolled element) changed after update
+   * Check if this.props.value changed after update
    * @param {object} prevProps
    * @param {object} prevState
    * @return {boolean} result
    */
-  checkIfValueChanged = (prevProps, prevState) => {
-    const currentValue = this.clamp(isNil(this.props.value) ? this.state.value : this.props.value);
-    const prevValue = this.clamp(isNil(prevProps.value) ? prevState.value : prevProps.value);
+  checkIfValueChanged = prevProps => {
+    const currentValue = this.getProp('infinite') ? this.props.value : this.clamp(this.props.value);
+    const prevValue = this.getProp('infinite') ? prevProps.value : this.clamp(prevProps.value);
     return currentValue !== prevValue;
   };
 
@@ -178,6 +191,49 @@ export default class Carousel extends Component {
       return this.props.children;
     }
     return [this.props.children];
+  };
+
+  /* infinite calculations */
+  getSlidesBounds = (customValue = null) => {
+    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
+    const length = this.getChildren().length;
+    const times = ((value + 1) / length);
+    const ceil = Math.ceil(times);
+
+    return {
+      low: (ceil - 1) * length,
+      high: ceil * length - 1,
+    };
+  };
+
+  getTargetMod = () => {
+    const value = this.getCurrentValue();
+    const length = this.getChildren().length;
+    let targetSlide;
+    if (this.getCurrentValue() >= 0) {
+      targetSlide = value % length;
+    } else {
+      targetSlide = (length - Math.abs(value % length)) % length;
+    }
+    return targetSlide;
+  };
+
+  getTargetSlide = () => {
+    const value = this.getCurrentValue();
+    const length = this.getChildren().length;
+
+    const mod = this.getTargetMod();
+
+    if (!isNil(this.state.infiniteTransitionFrom)) {
+      const bounds = this.getSlidesBounds(this.state.infiniteTransitionFrom);
+
+      if (value > bounds.high) {
+        return mod + length;
+      } else if (value < bounds.low) {
+        return mod - length;
+      }
+    }
+    return mod;
   };
 
 
@@ -274,7 +330,10 @@ export default class Carousel extends Component {
    * Handler setting transitionEnabled value in state to false after transition animation ends
    */
   onTransitionEnd = () => {
-    this.setState({ transitionEnabled: false });
+    this.setState({
+      transitionEnabled: false,
+      infiniteTransitionFrom: null,
+    });
   };
 
 
@@ -296,22 +355,17 @@ export default class Carousel extends Component {
   };
 
   /**
-   * Clamps a provided value and set's it in local state (in case of uncontrolled component) or triggers onChange (in case of controlled component)
+   * Clamps a provided value and triggers onChange
    * @param {number} value desired index to change current value to
    * @return {undefined}
    */
   changeSlide = value => {
-    if (isNil(this.props.value)) {
-      return this.setState({ value: this.clamp(value) });
-    }
-    if (this.props.onChange) {
-      this.props.onChange(this.clamp(value));
-    }
+    this.props.onChange(this.getProp('infinite') ? value : this.clamp(value));
   };
 
-  nextSlide = () => this.changeSlide(this.getCurrentValue() + this.getProp('slidesPerScroll'));
+  nextSlide = () => this.changeSlide(this.getCurrentSlideIndex() + this.getProp('slidesPerScroll'));
 
-  prevSlide = () => this.changeSlide(this.getCurrentValue() - this.getProp('slidesPerScroll'));
+  prevSlide = () => this.changeSlide(this.getCurrentSlideIndex() - this.getProp('slidesPerScroll'));
 
 
   /* ========== positioning ========== */
@@ -320,20 +374,20 @@ export default class Carousel extends Component {
    * @return {number} index
    */
   getNearestSlideIndex = () => {
-    const transformOffset = this.getTransformOffset();
-    const slideWidth = this.getCarouselElementWidth();
-
-    if (this.getProp('centered')) {
-      return -Math.round((transformOffset - (this.state.carouselWidth / 2) + (slideWidth / 2)) / slideWidth);
-    }
-    return -Math.round(transformOffset / this.getCarouselElementWidth());
+    const slideIndexOffset = -Math.round(this.state.dragOffset / this.getCarouselElementWidth());
+    return this.getCurrentValue() + slideIndexOffset;
   };
 
   /**
    * Returns the current slide index (from either props or internal state)
    * @return {number} index
    */
-  getCurrentValue = () => this.clamp(isNil(this.props.value) ? this.state.value : this.props.value);
+  getCurrentSlideIndex = () => {
+    if (this.getProp('infinite')) {
+      return this.getTargetSlide();
+    }
+    return this.clamp(this.getCurrentValue());
+  };
 
   /**
    * Calculates width of a single slide in a carousel
@@ -350,8 +404,11 @@ export default class Carousel extends Component {
       ? (this.state.carouselWidth / 2) - (this.getCarouselElementWidth() / 2)
       : 0;
     const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
+    const currentValue = this.getProp('infinite')
+      ? this.getCurrentSlideIndex() + config.numberOfInfiniteClones * this.getChildren().length
+      : this.getCurrentSlideIndex();
 
-    return dragOffset - this.getCurrentValue() * this.getCarouselElementWidth() + additionalOffset;
+    return dragOffset - currentValue * this.getCarouselElementWidth() + additionalOffset;
   };
 
 
@@ -359,7 +416,8 @@ export default class Carousel extends Component {
   renderCarouselItems = () => {
     const transformOffset = this.getTransformOffset();
     const children = this.getChildren();
-    const trackWidth = this.state.carouselWidth * children.length;
+    const trackLengthMultiplier = 1 + (this.getProp('infinite') ? config.numberOfInfiniteClones * 2 : 0);
+    const trackWidth = this.state.carouselWidth * children.length * trackLengthMultiplier;
     const animationSpeed = this.getProp('animationSpeed');
     const transitionEnabled = this.state.transitionEnabled;
     const draggable = this.getProp('draggable') && children && children.length > 1;
@@ -369,6 +427,12 @@ export default class Carousel extends Component {
       transform: `translateX(${transformOffset}px)`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
+
+    let slides = children;
+    if (this.getProp('infinite')) {
+      const clones = times(config.numberOfInfiniteClones, () => children);
+      slides = concat(...clones, children, ...clones);
+    }
 
     return (
       <div className="BrainhubCarousel__trackContainer">
@@ -383,7 +447,7 @@ export default class Carousel extends Component {
           style={trackStyles}
           ref={el => this.trackRef = el}
         >
-          {children.map((carouselItem, index) => (
+          {slides.map((carouselItem, index) => (
             <CarouselItem
               key={index}
               width={this.getCarouselElementWidth()}
@@ -455,6 +519,15 @@ export default class Carousel extends Component {
   };
 
   render() {
+    // console.log('test', {
+    //   currentValue: this.getCurrentValue(),
+    //   currentSlide: this.getCurrentSlideIndex(),
+    //   slidesBounds: this.getSlidesBounds(),
+    //   targetMod: this.getTargetMod(),
+    //   targetSlide: this.getTargetSlide(),
+    //   transitionEnabled: this.state.transitionEnabled,
+    //   infiniteTransitionFrom: this.state.infiniteTransitionFrom,
+    // });
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
