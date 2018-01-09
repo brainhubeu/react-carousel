@@ -112,6 +112,7 @@ export default class Carousel extends Component {
     }
 
     window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('load', this.onResize);
     if (this.interval) {
       clearInterval(this.interval);
     }
