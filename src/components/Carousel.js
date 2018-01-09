@@ -170,11 +170,11 @@ export default class Carousel extends Component {
   }, config.resizeEventListenerThrottle);
 
   /**
-   * Function that creates a function handling beginning of mouse drag, setting index of clicked item and coordinates of click in the state
+   * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
+   * @param {event} e event
    * @param {number} index of the element drag started on
-   * @return {function} handler
    */
-  onMouseDown = index => e => {
+  onMouseDown = (e, index) => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({
@@ -196,11 +196,11 @@ export default class Carousel extends Component {
   }
 
   /**
-   * Function that creates a function handling beginning of touch drag, setting index of touched item and coordinates of touch in the state
+   * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
+   * @param {event} e event
    * @param {number} index of the element drag started on
-   * @return {function} handler
    */
-  onTouchStart = index => e => {
+  onTouchStart = (e, index) => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({
@@ -353,9 +353,10 @@ export default class Carousel extends Component {
           {this.props.children.map((carouselItem, index) => (
             <CarouselItem
               key={index}
+              index={index}
               width={this.getCarouselElementWidth()}
-              onMouseDown={this.onMouseDown(index)}
-              onTouchStart={this.onTouchStart(index)}
+              onMouseDown={this.onMouseDown}
+              onTouchStart={this.onTouchStart}
               clickable={this.getProp('clickToChange')}
             >
               {carouselItem}
