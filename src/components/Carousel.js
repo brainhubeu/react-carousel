@@ -83,6 +83,9 @@ export default class Carousel extends Component {
     window.addEventListener('resize', this.onResize);
     this.onResize();
 
+    // setting size of a carousel in state based on styling
+    window.addEventListener('load', this.onResize);
+
     // setting autoplay interval
     this.resetInterval();
   }
@@ -339,17 +342,7 @@ export default class Carousel extends Component {
    * Calculates width of a single slide in a carousel
    * @return {number} width of a slide in px
    */
-  getCarouselElementWidth = () => {
-    const slidesPerPage = this.getProp('slidesPerPage');
-    const carouselContainer = document.querySelector('.BrainhubCarousel__trackContainer');
-    if (carouselContainer) {
-      console.log('carr', carouselContainer.offsetWidth);
-
-      return carouselContainer.offsetWidth / slidesPerPage;
-    }
-
-    return this.state.carouselWidth / slidesPerPage;
-  };
+  getCarouselElementWidth = () => this.state.carouselWidth / this.getProp('slidesPerPage');
 
   /**
    * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)

@@ -47,6 +47,7 @@ export default class ArrowsPage extends Component {
       <NavLayout>
         <Section title="Adding arrows" description="You can turn default arrows on using arrows prop or set custom arrows using arrowLeft and arrowRight props" code={code}>
           <Carousel
+            centered
             slidesPerPage={4}
             slidesPerScroll={2}
             arrowLeft={<Icon className="icon-example" name="arrow-left" />}
