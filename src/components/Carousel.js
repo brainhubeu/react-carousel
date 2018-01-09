@@ -15,7 +15,8 @@ export default class Carousel extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
-    children: PropTypes.arrayOf(PropTypes.node),
+    children: PropTypes.node,
+    slides: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
     arrows: PropTypes.bool,
@@ -24,6 +25,8 @@ export default class Carousel extends Component {
     autoPlay: PropTypes.number,
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
+    infinite: PropTypes.bool,
+    draggable: PropTypes.bool,
     animationSpeed: PropTypes.number,
     className: PropTypes.string,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
@@ -35,6 +38,8 @@ export default class Carousel extends Component {
       autoPlay: PropTypes.number,
       clickToChange: PropTypes.bool,
       centered: PropTypes.bool,
+      infinite: PropTypes.bool,
+      draggable: PropTypes.bool,
       animationSpeed: PropTypes.number,
       className: PropTypes.string,
     })),
@@ -43,6 +48,7 @@ export default class Carousel extends Component {
     slidesPerPage: 1,
     slidesPerScroll: 1,
     animationSpeed: 500,
+    draggable: true,
   };
 
   constructor(props) {
@@ -63,13 +69,15 @@ export default class Carousel extends Component {
   /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
     // adding listener to remove transition when animation finished
-    this.trackRef.addEventListener('transitionend', this.onTransitionEnd);
+    this.trackRef && this.trackRef.addEventListener('transitionend', this.onTransitionEnd);
 
     // adding event listeners for swipe
-    this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
-    this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-    this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, true);
-    this.node.ownerDocument.addEventListener('touchend', this.onMouseUpTouchEnd, true);
+    if (this.node) {
+      this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
+      this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
+      this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, true);
+      this.node.ownerDocument.addEventListener('touchend', this.onMouseUpTouchEnd, true);
+    }
 
     // setting size of a carousel in state
     window.addEventListener('resize', this.onResize);
@@ -91,11 +99,15 @@ export default class Carousel extends Component {
   }
 
   componentWillUnmount() {
-    this.trackRef.removeEventListener('transitionend', this.onTransitionEnd);
-    this.node.ownerDocument.removeEventListener('mousemove', this.onMouseMove);
-    this.node.ownerDocument.removeEventListener('mouseup', this.onMouseUp);
-    this.node.ownerDocument.removeEventListener('touchmove', this.onTouchMove);
-    this.node.ownerDocument.removeEventListener('touchend', this.onTouchEnd);
+    this.trackRef && this.trackRef.removeEventListener('transitionend', this.onTransitionEnd);
+
+    if (this.node) {
+      this.node.ownerDocument.removeEventListener('mousemove', this.onMouseMove);
+      this.node.ownerDocument.removeEventListener('mouseup', this.onMouseUp);
+      this.node.ownerDocument.removeEventListener('touchmove', this.onTouchMove);
+      this.node.ownerDocument.removeEventListener('touchend', this.onTouchEnd);
+    }
+
     window.removeEventListener('resize', this.onResize);
     if (this.interval) {
       clearInterval(this.interval);
@@ -155,6 +167,19 @@ export default class Carousel extends Component {
     }
   };
 
+  getChildren = () => {
+    if (!this.props.children) {
+      if (this.props.slides) {
+        return this.props.slides;
+      }
+      return [];
+    }
+    if (Array.isArray(this.props.children)) {
+      return this.props.children;
+    }
+    return [this.props.children];
+  };
+
 
   /* event handlers */
   /**
@@ -181,7 +206,7 @@ export default class Carousel extends Component {
       clicked: index,
       dragStart: e.pageX,
     });
-  }
+  };
 
   /**
    * Function handling mouse move if drag has started. Sets dragOffset in the state.
@@ -193,7 +218,7 @@ export default class Carousel extends Component {
         dragOffset: e.pageX - this.state.dragStart,
       });
     }
-  }
+  };
 
   /**
    * Function that creates a function handling beginning of touch drag, setting index of touched item and coordinates of touch in the state
@@ -230,10 +255,12 @@ export default class Carousel extends Component {
   onMouseUpTouchEnd = e => {
     if (this.state.dragStart !== null) {
       e.preventDefault();
-      if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
-        this.changeSlide(this.getNearestSlideIndex());
-      } else if (this.getProp('clickToChange')) {
-        this.changeSlide(this.state.clicked);
+      if (this.getProp('draggable')) {
+        if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
+          this.changeSlide(this.getNearestSlideIndex());
+        } else if (this.getProp('clickToChange')) {
+          this.changeSlide(this.state.clicked);
+        }
       }
       this.setState({
         clicked: null,
@@ -258,7 +285,7 @@ export default class Carousel extends Component {
    * @return {number} new value
    */
   clamp = value => {
-    const maxValue = this.props.children.length - 1;
+    const maxValue = this.getChildren().length - 1;
     if (value > maxValue) {
       return maxValue;
     }
@@ -322,17 +349,20 @@ export default class Carousel extends Component {
     const additionalOffset = this.getProp('centered')
       ? (this.state.carouselWidth / 2) - (this.getCarouselElementWidth() / 2)
       : 0;
+    const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
 
-    return this.state.dragOffset - this.getCurrentValue() * this.getCarouselElementWidth() + additionalOffset;
+    return dragOffset - this.getCurrentValue() * this.getCarouselElementWidth() + additionalOffset;
   };
 
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
     const transformOffset = this.getTransformOffset();
-    const trackWidth = this.state.carouselWidth * this.props.children.length;
+    const children = this.getChildren();
+    const trackWidth = this.state.carouselWidth * children.length;
     const animationSpeed = this.getProp('animationSpeed');
     const transitionEnabled = this.state.transitionEnabled;
+    const draggable = this.getProp('draggable') && children && children.length > 1;
 
     const trackStyles = {
       width: `${trackWidth}px`,
@@ -345,12 +375,15 @@ export default class Carousel extends Component {
         <ul
           className={classnames(
             'BrainhubCarousel__track',
-            { 'BrainhubCarousel__track--transition': transitionEnabled }
+            {
+              'BrainhubCarousel__track--transition': transitionEnabled,
+              'BrainhubCarousel__track--draggable': draggable,
+            }
           )}
           style={trackStyles}
           ref={el => this.trackRef = el}
         >
-          {this.props.children.map((carouselItem, index) => (
+          {children.map((carouselItem, index) => (
             <CarouselItem
               key={index}
               width={this.getCarouselElementWidth()}

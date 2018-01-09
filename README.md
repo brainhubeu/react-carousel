@@ -110,8 +110,40 @@ render() {
 ```
 
 Where:
-* `arrows` is boolean indicating if default arrows should be rendered
+* `arrows` is **boolean** indicating if default arrows should be rendered
 * `arrowLeft` and `arrowRight` are React elements to be used instead of default arrows (when you provided custom arrows you don't have to use `arrows` prop)
+
+### Passing slides as a prop
+
+```javascript
+import Carousel from '@brainhubeu/react-carousel';
+
+...
+
+render() {
+  const slides = [
+    (<img key={1} src={abstractImage} />),
+    (<img key={2} src={animalsImage} />),
+    (<img key={3} src={businessImage} />),
+    (<img key={4} src={cityImage} />),
+    (<img key={5} src={fashionImage} />),
+    (<img key={6} src={foodImage} />),
+    (<img key={7} src={natureImage} />),
+    (<img key={8} src={nightlifeImage} />),
+    (<img key={9} src={peopleImage} />),
+    (<img key={10} src={sportsImage} />),
+    (<img key={11} src={technicsImage} />),
+    (<img key={12} src={transportImage} />),
+  ];
+
+  return (
+    <Carousel slides={slides} />
+  );
+}
+```
+Where:
+* `slides` is an **array** of slides (it must be an array, if you want to use a component as an only slide you have to pass it as a child)
+
 
 ### Additional options
 ```javascript
@@ -180,6 +212,79 @@ render() {
       <img src={imageTwo} />
       <img src={imageThree} />
     </Carousel>
+  );
+}
+```
+
+### Showing dots or thumbnails
+There is a separate Dots component that can be used to show navigation dots.
+```javascript
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+
+...
+
+constructor(props) {
+  super(props);
+  this.state = {
+    value: 0,
+  };
+}
+
+onChange = value => this.setState({ value });
+
+render() {
+  return (
+    <div>
+      <Carousel
+        value={this.state.value}
+        onChange={this.onChange}
+      >
+        <img className="img-example" src={someImage} />
+        ...
+        <img className="img-example" src={anotherImage} />
+      </Carousel>
+      <Dots value={this.state.value} onChange={this.onChange} number={12} />
+    </div>
+  );
+}
+```
+
+It can also show thumbnails instead of dots
+```javascript
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+
+...
+
+constructor(props) {
+  super(props);
+  this.state = {
+    value: 0,
+  };
+}
+
+onChange = value => this.setState({ value });
+
+render() {
+  return (
+    <div>
+      <Carousel
+        value={this.state.value}
+        onChange={this.onChange}
+      >
+        <img className="img-example" src={someImage} />
+        ...
+        <img className="img-example" src={anotherImage} />
+      </Carousel>
+      <Dots
+        value={this.state.value}
+        onChange={this.onChange}
+        thumbnails={[
+          (<img key={1} className="img-example-small" src={abstractImage} />),
+          ...
+          (<img key={12} className="img-example-small" src={transportImage} />),
+        ]}
+      />
+    </div>
   );
 }
 ```
