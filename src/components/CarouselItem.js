@@ -14,7 +14,13 @@ export default class CarouselItem extends Component {
   render() {
     return (
       <li
-        className={classname('BrainhubCarouselItem', { 'BrainhubCarouselItem--clickable': this.props.clickable })}
+        className={classname(
+          'BrainhubCarouselItem',
+          {
+            'BrainhubCarouselItem--clickable': this.props.clickable,
+            'BrainhubCarouselItem--active': this.props.index === this.props.currentSlideIndex
+          }
+        )}
         style={{
           width: `${this.props.width}px`,
           maxWidth: `${this.props.width}px`,
@@ -24,6 +30,7 @@ export default class CarouselItem extends Component {
         onTouchStart={this.props.onTouchStart}
       >
         {this.props.children}
+        {/*<div className="debug-number">{this.props.index}</div>*/}
       </li>
     );
   }

@@ -96,6 +96,13 @@ export default class Carousel extends Component {
   componentWillReceiveProps(nextProps) {
     const valueChanged = this.checkIfValueChanged(nextProps);
 
+    console.log('willReceiveProps', { valueChanged, transitionEnabled: this.state.transitionEnabled, transitionFrom: this.state.infiniteTransitionFrom });
+
+    if (this.state.transitionEnabled) {
+      return this.setState({
+        transitionEnabled: valueChanged ? true : this.state.transitionEnabled,
+      });
+    }
     this.setState({
       infiniteTransitionFrom: this.getCurrentValue(),
       transitionEnabled: valueChanged ? true : this.state.transitionEnabled,
@@ -127,6 +134,24 @@ export default class Carousel extends Component {
 
   /* ========== tools ========== */
   getCurrentValue = () => this.props.value;
+
+  getNeededAdditionalClones = () => {
+    return Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+  };
+  getAdditionalClonesLeft = () => {
+    const additionalClones = this.getNeededAdditionalClones();
+    return additionalClones < 0 ? -additionalClones : 0;
+  };
+  getAdditionalClonesRight = () => {
+    const additionalClones = this.getNeededAdditionalClones();
+    return additionalClones > 0 ? additionalClones : 0;
+  };
+  getClonesLeft = () => config.numberOfInfiniteClones + this.getAdditionalClonesLeft();
+  getClonesRight = () => config.numberOfInfiniteClones + this.getAdditionalClonesRight();
+
+  getAdditionalClonesOffset = () => {
+    return -this.getChildren().length * this.getCarouselElementWidth() * this.getAdditionalClonesLeft();
+  };
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -193,6 +218,10 @@ export default class Carousel extends Component {
     return [this.props.children];
   };
 
+  getActiveSlideIndex = () => this.getProp('infinite')
+    ? this.getCurrentSlideIndex() + this.getClonesLeft() * this.getChildren().length
+    : this.getCurrentSlideIndex();
+
   /* infinite calculations */
   getSlidesBounds = (customValue = null) => {
     const value = isNil(customValue) ? this.getCurrentValue() : customValue;
@@ -206,11 +235,11 @@ export default class Carousel extends Component {
     };
   };
 
-  getTargetMod = () => {
-    const value = this.getCurrentValue();
+  getTargetMod = (customValue = null) => {
+    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
     const length = this.getChildren().length;
     let targetSlide;
-    if (this.getCurrentValue() >= 0) {
+    if (value >= 0) {
       targetSlide = value % length;
     } else {
       targetSlide = (length - Math.abs(value % length)) % length;
@@ -219,21 +248,13 @@ export default class Carousel extends Component {
   };
 
   getTargetSlide = () => {
-    const value = this.getCurrentValue();
-    const length = this.getChildren().length;
-
-    const mod = this.getTargetMod();
-
     if (!isNil(this.state.infiniteTransitionFrom)) {
-      const bounds = this.getSlidesBounds(this.state.infiniteTransitionFrom);
+      const mod = this.getTargetMod(this.state.infiniteTransitionFrom);
+      const value = this.getCurrentValue();
 
-      if (value > bounds.high) {
-        return mod + length;
-      } else if (value < bounds.low) {
-        return mod - length;
-      }
+      return mod + (value - this.state.infiniteTransitionFrom);
     }
-    return mod;
+    return this.getTargetMod();
   };
 
 
@@ -359,13 +380,11 @@ export default class Carousel extends Component {
    * @param {number} value desired index to change current value to
    * @return {undefined}
    */
-  changeSlide = value => {
-    this.props.onChange(this.getProp('infinite') ? value : this.clamp(value));
-  };
+  changeSlide = value => this.props.onChange(this.getProp('infinite') ? value : this.clamp(value));
 
-  nextSlide = () => this.changeSlide(this.getCurrentSlideIndex() + this.getProp('slidesPerScroll'));
+  nextSlide = () => this.changeSlide(this.getCurrentValue() + this.getProp('slidesPerScroll'));
 
-  prevSlide = () => this.changeSlide(this.getCurrentSlideIndex() - this.getProp('slidesPerScroll'));
+  prevSlide = () => this.changeSlide(this.getCurrentValue() - this.getProp('slidesPerScroll'));
 
 
   /* ========== positioning ========== */
@@ -404,11 +423,12 @@ export default class Carousel extends Component {
       ? (this.state.carouselWidth / 2) - (this.getCarouselElementWidth() / 2)
       : 0;
     const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
-    const currentValue = this.getProp('infinite')
-      ? this.getCurrentSlideIndex() + config.numberOfInfiniteClones * this.getChildren().length
-      : this.getCurrentSlideIndex();
+    const currentValue = this.getActiveSlideIndex();
+    const additionalClonesOffset = this.getAdditionalClonesOffset();
 
-    return dragOffset - currentValue * this.getCarouselElementWidth() + additionalOffset;
+    console.log('actual current value', { slideIndex: this.getCurrentSlideIndex(), clonesLeft: this.getClonesLeft(), clonesRight: this.getClonesRight(), clonesTimesChildren: this.getChildren().length, currentValue });
+
+    return dragOffset - currentValue * this.getCarouselElementWidth() + additionalOffset - additionalClonesOffset;
   };
 
 
@@ -416,13 +436,18 @@ export default class Carousel extends Component {
   renderCarouselItems = () => {
     const transformOffset = this.getTransformOffset();
     const children = this.getChildren();
-    const trackLengthMultiplier = 1 + (this.getProp('infinite') ? config.numberOfInfiniteClones * 2 : 0);
+
+    const numberOfClonesLeft = this.getClonesLeft();
+    const numberOfClonesRight = this.getClonesRight();
+
+    const trackLengthMultiplier = 1 + (this.getProp('infinite') ? numberOfClonesLeft + numberOfClonesRight : 0);
     const trackWidth = this.state.carouselWidth * children.length * trackLengthMultiplier;
     const animationSpeed = this.getProp('animationSpeed');
     const transitionEnabled = this.state.transitionEnabled;
     const draggable = this.getProp('draggable') && children && children.length > 1;
 
     const trackStyles = {
+      marginLeft: `${this.getAdditionalClonesOffset()}px`,
       width: `${trackWidth}px`,
       transform: `translateX(${transformOffset}px)`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
@@ -430,8 +455,10 @@ export default class Carousel extends Component {
 
     let slides = children;
     if (this.getProp('infinite')) {
-      const clones = times(config.numberOfInfiniteClones, () => children);
-      slides = concat(...clones, children, ...clones);
+      const clonesLeft = times(numberOfClonesLeft, () => children);
+      const clonesRight = times(numberOfClonesRight, () => children);
+      slides = concat(...clonesLeft, children, ...clonesRight);
+      console.log('clones', { left: numberOfClonesLeft, right: numberOfClonesRight, total: slides.length });
     }
 
     return (
@@ -449,7 +476,9 @@ export default class Carousel extends Component {
         >
           {slides.map((carouselItem, index) => (
             <CarouselItem
-              key={index}
+              key={Math.random()}
+              index={index}
+              currentSlideIndex={this.getActiveSlideIndex()}
               width={this.getCarouselElementWidth()}
               onMouseDown={this.onMouseDown(index)}
               onTouchStart={this.onTouchStart(index)}
@@ -519,15 +548,6 @@ export default class Carousel extends Component {
   };
 
   render() {
-    // console.log('test', {
-    //   currentValue: this.getCurrentValue(),
-    //   currentSlide: this.getCurrentSlideIndex(),
-    //   slidesBounds: this.getSlidesBounds(),
-    //   targetMod: this.getTargetMod(),
-    //   targetSlide: this.getTargetSlide(),
-    //   transitionEnabled: this.state.transitionEnabled,
-    //   infiniteTransitionFrom: this.state.infiniteTransitionFrom,
-    // });
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
