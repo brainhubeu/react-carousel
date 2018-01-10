@@ -70,10 +70,6 @@ export default class Carousel extends Component {
 
   /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
-    // TODO remove this debug
-    window.getState = () => this.state;
-    window.getSlidesBounds = this.getSlidesBounds;
-
     // adding listener to remove transition when animation finished
     this.trackRef && this.trackRef.addEventListener('transitionend', this.onTransitionEnd);
 
@@ -95,8 +91,6 @@ export default class Carousel extends Component {
 
   componentWillReceiveProps(nextProps) {
     const valueChanged = this.checkIfValueChanged(nextProps);
-
-    console.log('willReceiveProps', { valueChanged, transitionEnabled: this.state.transitionEnabled, transitionFrom: this.state.infiniteTransitionFrom });
 
     if (this.state.transitionEnabled) {
       return this.setState({
@@ -135,9 +129,9 @@ export default class Carousel extends Component {
   /* ========== tools ========== */
   getCurrentValue = () => this.props.value;
 
-  getNeededAdditionalClones = () => {
-    return Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
-  };
+  getNeededAdditionalClones = () =>
+    Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+
   getAdditionalClonesLeft = () => {
     const additionalClones = this.getNeededAdditionalClones();
     return additionalClones < 0 ? -additionalClones : 0;
@@ -149,9 +143,8 @@ export default class Carousel extends Component {
   getClonesLeft = () => config.numberOfInfiniteClones + this.getAdditionalClonesLeft();
   getClonesRight = () => config.numberOfInfiniteClones + this.getAdditionalClonesRight();
 
-  getAdditionalClonesOffset = () => {
-    return -this.getChildren().length * this.getCarouselElementWidth() * this.getAdditionalClonesLeft();
-  };
+  getAdditionalClonesOffset = () =>
+    -this.getChildren().length * this.getCarouselElementWidth() * this.getAdditionalClonesLeft();
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -426,8 +419,6 @@ export default class Carousel extends Component {
     const currentValue = this.getActiveSlideIndex();
     const additionalClonesOffset = this.getAdditionalClonesOffset();
 
-    console.log('actual current value', { slideIndex: this.getCurrentSlideIndex(), clonesLeft: this.getClonesLeft(), clonesRight: this.getClonesRight(), clonesTimesChildren: this.getChildren().length, currentValue });
-
     return dragOffset - currentValue * this.getCarouselElementWidth() + additionalOffset - additionalClonesOffset;
   };
 
@@ -458,7 +449,6 @@ export default class Carousel extends Component {
       const clonesLeft = times(numberOfClonesLeft, () => children);
       const clonesRight = times(numberOfClonesRight, () => children);
       slides = concat(...clonesLeft, children, ...clonesRight);
-      console.log('clones', { left: numberOfClonesLeft, right: numberOfClonesRight, total: slides.length });
     }
 
     return (
