@@ -15,14 +15,14 @@ export default class Section extends Component {
 
   render() {
     return (
-      <div className="Section">
+      <section className="Section">
         <div className="Section__title">{this.props.title}</div>
         <div className="Section__description">{this.props.description}</div>
         <div className="Section__content">{this.props.children}</div>
         <div className="Section__code">
           <SyntaxHighlighter language="jsx" style={coy}>{this.props.code}</SyntaxHighlighter>
         </div>
-      </div>
+      </section>
     );
   }
 }

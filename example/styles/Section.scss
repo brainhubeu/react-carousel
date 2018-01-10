@@ -1,5 +1,16 @@
+$sectionBg: #f7f7f8;
+$textColor: #333;
+
+@keyframes fade {
+  from {transform: translateX(-100px); opacity: 0;}
+  to {transform: translateX(0); opacity: 1;}
+}
+
 .Section {
-  padding: 0 1em;
+  background-color: $sectionBg;
+  color: $textColor;
+  padding: 1rem 2rem;
+  animation: fade 1s forwards;
   .Section__title {
     padding: 1em 0;
     font-weight: bold;

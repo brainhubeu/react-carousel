@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NavLink from '../components/NavLink';
+import routes from '../constants/routes';
 
 import '../styles/NavLayout.scss';
 
@@ -10,24 +11,22 @@ class NavLayout extends Component {
     history: PropTypes.shape({
       replace: PropTypes.func,
     }),
-  };
+  }
+
+  renderRoutes() {
+    return routes.map(route => (
+      <li key={route.path}>
+        <NavLink to={route.path} >{route.name}</NavLink>
+      </li>
+    ))
+  }
 
   render() {
     return (
       <div className="NavLayout">
-        <div className="NavLayout__header">
-          <NavLink to="/" >Home</NavLink>
-          <NavLink to="/simple" >Simple uncontrolled</NavLink>
-          <NavLink to="/controlled" >Controlled</NavLink>
-          <NavLink to="/perpage" >Items per page</NavLink>
-          <NavLink to="/clicktochange" >Click to change</NavLink>
-          <NavLink to="/arrows" >Arrows</NavLink>
-          <NavLink to="/responsive" >Responsive</NavLink>
-          <NavLink to="/animation" >Animation</NavLink>
-          <NavLink to="/slides" >Arrays</NavLink>
-          <NavLink to="/autoplay" >Autoplay</NavLink>
-          <NavLink to="/dots" >Dots</NavLink>
-        </div>
+        <ul className="NavLayout__header">
+          {this.renderRoutes()}
+        </ul>
         <div className="NavLayout__content">
           {this.props.children}
         </div>
