@@ -13,6 +13,15 @@ export default class CarouselItem extends Component {
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
   };
+
+  onMouseDown = event => {
+    this.props.onMouseDown(event, this.props.index);
+  };
+
+  onTouchStart = event => {
+    this.props.onTouchStart(event, this.props.index);
+  };
+
   render() {
     return (
       <li
@@ -28,8 +37,8 @@ export default class CarouselItem extends Component {
           maxWidth: `${this.props.width}px`,
           minWidth: `${this.props.width}px`,
         }}
-        onMouseDown={this.props.onMouseDown}
-        onTouchStart={this.props.onTouchStart}
+        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onTouchStart}
       >
         {this.props.children}
       </li>
