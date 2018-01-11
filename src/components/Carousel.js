@@ -466,7 +466,7 @@ export default class Carousel extends Component {
         >
           {slides.map((carouselItem, index) => (
             <CarouselItem
-              key={Math.random()}
+              key={index}
               currentSlideIndex={this.getActiveSlideIndex()}
               index={index}
               width={this.getCarouselElementWidth()}

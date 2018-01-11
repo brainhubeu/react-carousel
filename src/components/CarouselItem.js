@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 import '../styles/CarouselItem.scss';
 
-export default class CarouselItem extends Component {
+export default class CarouselItem extends PureComponent {
   static propTypes = {
     onMouseDown: PropTypes.func,
     onTouchStart: PropTypes.func,
