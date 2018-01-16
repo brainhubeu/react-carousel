@@ -83,6 +83,9 @@ export default class Carousel extends Component {
     window.addEventListener('resize', this.onResize);
     this.onResize();
 
+    // setting size of a carousel in state based on styling
+    window.addEventListener('load', this.onResize);
+
     // setting autoplay interval
     this.resetInterval();
   }
@@ -109,6 +112,7 @@ export default class Carousel extends Component {
     }
 
     window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('load', this.onResize);
     if (this.interval) {
       clearInterval(this.interval);
     }
@@ -187,12 +191,12 @@ export default class Carousel extends Component {
    * throttled to improve performance
    * @type {Function}
    */
-  onResize = throttle(() => {
-    this.setState({
-      carouselWidth: this.node.offsetWidth,
-      windowWidth: window.innerWidth,
-    });
-  }, config.resizeEventListenerThrottle);
+   onResize = throttle(() => {
+     this.setState({
+       carouselWidth: this.node.offsetWidth,
+       windowWidth: window.innerWidth,
+     });
+   }, config.resizeEventListenerThrottle);
 
   /**
    * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
@@ -404,11 +408,12 @@ export default class Carousel extends Component {
    * Adds onClick handler to the arrow if possible (if it does not already have one)
    * @param {ReactElement} element to render
    * @param {function} onClick handler to be added to element
+   * @param {string} className class of an element
    * @return {ReactElement} element with added handler
    */
-  renderArrowWithAddedHandler = (element, onClick) => {
+  renderArrowWithAddedHandler = (element, onClick, className) => {
     if (!element.props.onClick) {
-      return React.cloneElement(element, { onClick });
+      return React.cloneElement(element, { onClick, className: classnames(className, element.props.className) });
     }
     return element;
   };
@@ -419,7 +424,7 @@ export default class Carousel extends Component {
    */
   renderArrowLeft = () => {
     if (this.getProp('arrowLeft')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide);
+      return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
     }
     if (this.getProp('arrows')) {
       return (
@@ -440,7 +445,7 @@ export default class Carousel extends Component {
    */
   renderArrowRight = () => {
     if (this.getProp('arrowRight')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide);
+      return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
     }
     if (this.getProp('arrows')) {
       return (
