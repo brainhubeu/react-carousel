@@ -26,6 +26,7 @@ class NavLayout extends Component {
           <NavLink to="/animation" >Animation</NavLink>
           <NavLink to="/slides" >Arrays</NavLink>
           <NavLink to="/autoplay" >Autoplay</NavLink>
+          <NavLink to="/infinite" >Infinite</NavLink>
           <NavLink to="/dots" >Dots</NavLink>
         </div>
         <div className="NavLayout__content">

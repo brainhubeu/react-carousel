@@ -22,16 +22,28 @@ export default class HomePage extends Component {
     return (
       <NavLayout>
         <Carousel
-          slidesPerPage={4}
-          slidesPerScroll={2}
+          slidesPerPage={3}
+          slidesPerScroll={1}
           arrowLeft={<Icon className="icon-example" name="arrow-left" />}
           arrowRight={<Icon className="icon-example" name="arrow-right" />}
-          clickToChange
-          centered
           breakpoints={{
-            1000: { slidesPerPage: 2, clickToChange: null, centered: null },
-            700: { slidesPerPage: 1, slidesPerScroll: 1, arrowLeft: null, arrowRight: null, animationSpeed: 2000 },
+            1000: {
+              slidesPerPage: 2,
+              clickToChange: null,
+              centered: null,
+              infinite: false,
+            },
+            700: {
+              slidesPerPage: 1,
+              slidesPerScroll: 1,
+              arrowLeft: null,
+              arrowRight: null,
+              animationSpeed: 2000,
+              infinite: false,
+            },
           }}
+          infinite
+          centered
         >
           <img className="img-example" src={abstractImage} />
           <img className="img-example" src={animalsImage} />
@@ -50,3 +62,11 @@ export default class HomePage extends Component {
     );
   }
 }
+
+/*
+
+
+
+
+
+ */
