@@ -176,6 +176,26 @@ Where:
 * `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
 * `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
 
+### Infinite
+```javascript
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+
+...
+
+render() {
+  return (
+    <div>
+      <Carousel
+        infinite
+      >
+        <img className="img-example" src={someImage} />
+        ...
+        <img className="img-example" src={anotherImage} />
+      </Carousel>
+    </div>
+  );
+}
+```
 
 ### Responsive
 All props (except value, onChange, responsive, children) can be set to different values on different screen resolution
@@ -188,6 +208,7 @@ render() {
     <Carousel
       slidesPerPage={5}
       slidesPerScroll={2}
+      infinite
       clickToChange
       centered
       breakpoints={{
@@ -196,6 +217,7 @@ render() {
           clickToChange: false,
           centered: false,
           arrows: true,
+          infinite: false,
         },
         500: {
           slidesPerPage: 1,
@@ -205,6 +227,7 @@ render() {
           arrowLeft: (<Icon className="icon-example" name="arrow-left" />),
           arrowRight: (<Icon className="icon-example" name="arrow-right" />),
           animationSpeed: 2000,
+          infinite: false,
         },
       }}
     >

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Icon from 'react-fa';
 import NavLayout from '../containers/NavLayout';
-import Carousel from '../../src/index';
 import Section from '../containers/Section';
+
+import Carousel from '../../src/index';
 
 import abstractImage from '../assets/images/abstract.jpg';
 import animalsImage from '../assets/images/animals.jpg';
@@ -17,32 +18,42 @@ import sportsImage from '../assets/images/sports.jpg';
 import technicsImage from '../assets/images/technics.jpg';
 import transportImage from '../assets/images/transport.jpg';
 
-const code = `
-<Carousel
-  slidesPerPage={4}
->
-  <img className="img-example" src={abstractImage} />
-  <img className="img-example" src={animalsImage} />
-  <img className="img-example" src={businessImage} />
-  <img className="img-example" src={cityImage} />
-  <img className="img-example" src={fashionImage} />
-  <img className="img-example" src={foodImage} />
-  <img className="img-example" src={natureImage} />
-  <img className="img-example" src={nightlifeImage} />
-  <img className="img-example" src={peopleImage} />
-  <img className="img-example" src={sportsImage} />
-  <img className="img-example" src={technicsImage} />
-  <img className="img-example" src={transportImage} />
-</Carousel>
-`
 
-export default class HomePage extends Component {
+const code = `import Carousel from '@brainhubeu/react-carousel';
+import Icon from 'react-fa';
+
+...
+
+render() {
+  return (
+    <Carousel
+      slidesPerPage={4}
+      slidesPerScroll={2}
+      arrowLeft={<Icon className="icon-example" name="arrow-left" />}
+      arrowRight={<Icon className="icon-example" name="arrow-right" />}
+      centered
+      infinite
+    >
+      <img className="img-example" src={someImage} />
+      ...
+      <img className="img-example" src={anotherImage} />
+    </Carousel>
+  );
+}
+`;
+
+export default class ArrowsPage extends Component {
   render() {
     return (
       <NavLayout>
-        <Section code={code}>
+        <Section title="Infinite" description="" code={code}>
           <Carousel
             slidesPerPage={4}
+            slidesPerScroll={2}
+            arrowLeft={<Icon className="icon-example" name="arrow-left" />}
+            arrowRight={<Icon className="icon-example" name="arrow-right" />}
+            centered
+            infinite
           >
             <img className="img-example" src={abstractImage} />
             <img className="img-example" src={animalsImage} />
@@ -62,11 +73,3 @@ export default class HomePage extends Component {
     );
   }
 }
-
-/*
-
-
-
-
-
- */
