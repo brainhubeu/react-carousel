@@ -1,15 +1,20 @@
 .NavLayout {
   display: flex;
-  flex-direction: column;
+  min-height: 100vh;
   .NavLayout__header {
-    display: flex;
-    background-color: #7f7f7f;
+    width: 18rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-image: radial-gradient(circle at top center,#564f74 0%,#2f2a40 100%);
+    position: relative;
+    z-index: 1;
   }
   @media (max-width: 768px) {
     font-size: 0.75em;
   }
   .NavLayout__content {
-    padding: 0 1em;
+    width: calc(100% - 18rem);
   }
 }
 

@@ -12,6 +12,7 @@ import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
 import '../styles/Carousel.scss';
+import '../styles/Arrows.scss';
 
 export default class Carousel extends Component {
   static propTypes = {
@@ -510,12 +511,12 @@ export default class Carousel extends Component {
     }
     if (this.getProp('arrows')) {
       return (
-        <div
+        <button
           className="BrainhubCarousel__arrows BrainhubCarousel__arrow-left"
           onClick={this.prevSlide}
         >
-          &lt;
-        </div>
+          <span>prev</span>
+        </button>
       );
     }
     return null;
@@ -531,12 +532,12 @@ export default class Carousel extends Component {
     }
     if (this.getProp('arrows')) {
       return (
-        <div
+        <button
           className="BrainhubCarousel__arrows BrainhubCarousel__arrow-right"
           onClick={this.nextSlide}
         >
-          &gt;
-        </div>
+          <span>next</span>
+        </button>
       );
     }
     return null;
