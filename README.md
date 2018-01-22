@@ -271,6 +271,7 @@ render() {
   );
 }
 ```
+Note: In the example above you cannot leave clickToChange value out in 500 breakpoint. In that case value from 1000 breakpoint will not be applied as the options are not inherited from higher to lower resolutions, only from default to current resolution.
 
 It can also show thumbnails instead of dots
 ```javascript
@@ -311,8 +312,6 @@ render() {
   );
 }
 ```
-
-Note: In the example above you cannot leave clickToChange value out in 500 breakpoint. In that case value from 1000 breakpoint will not be applied as the options are not inherited from higher to lower resolutions, only from default to current resolution.
 
 ## Example app
 You can see how the carousel is used in the simple example app:
