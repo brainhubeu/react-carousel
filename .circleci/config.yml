@@ -74,7 +74,7 @@ jobs:
           command: npm run lint
   selenium:
     docker:
-      - image: selenium/standalone-chrome:3.1.0
+      - image: selenium/standalone-chrome:latest
     steps:
       - checkout
       - restore_cache:
