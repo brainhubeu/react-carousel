@@ -457,7 +457,7 @@ export default class Carousel extends Component {
     }
 
     return (
-      <div className="BrainhubCarousel__trackContainer">
+      <div className="BrainhubCarousel__trackContainer" ref={el => this.node = el}>
         <ul
           className={classnames(
             'BrainhubCarousel__track',
@@ -547,7 +547,6 @@ export default class Carousel extends Component {
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
-        ref={el => this.node = el}
       >
         {this.renderArrowLeft()}
         {this.renderCarouselItems()}
