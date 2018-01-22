@@ -45,6 +45,7 @@ render() {
           centered: false,
           arrowLeft: (<Icon className="icon-example" name="arrow-left" />),
           arrowRight: (<Icon className="icon-example" name="arrow-right" />),
+          addArrowClickHandler: true,
           animationSpeed: 2000,
         },
       }}
@@ -81,6 +82,7 @@ export default class ResponsivePage extends Component {
                 centered: false,
                 arrowLeft: (<Icon className="icon-example" name="arrow-left" />),
                 arrowRight: (<Icon className="icon-example" name="arrow-right" />),
+                addArrowClickHandler: true,
                 animationSpeed: 2000,
               },
             }}
