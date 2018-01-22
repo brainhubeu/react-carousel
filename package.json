@@ -11,7 +11,9 @@
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
     "example": "node tools/exampleServer.js",
-    "test": "mocha tools/testSetup.js \"./test/**/*.js\"",
+    "test-unit": "mocha tools/testSetup.js \"./test/unit/*.js\"",
+    "test-regression": "gemini test ./test/regression/*js",
+    "test-regression-update": "gemini update ./test/regression/*js",
     "test:coverage": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha -- --require ./tools/testSetup.js \"./test/**/*.js\" && open coverage/lcov-report/index.html",
     "test:coverage:ci": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha --report lcovonly -- --require ./tools/testSetup.js \"./test/**/*.js\"",
     "precommit": "npm run lint"
@@ -53,6 +55,7 @@
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
+    "gemini": "^5.1.2",
     "history": "^4.7.2",
     "html-webpack-plugin": "^2.29.0",
     "husky": "^0.14.3",
