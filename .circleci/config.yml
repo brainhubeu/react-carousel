@@ -15,7 +15,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-  test:
+  test-regression:
     docker:
       - image: circleci/node:8.9.1
     steps:
@@ -30,7 +30,24 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Test
+          name: Test-regression
+          command: npm run test-regression
+  test-unit:
+    docker:
+      - image: circleci/node:8.9.1
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm dependencies
+          command: npm install --production=false
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Test-unit
           command: npm run test:coverage:ci
       - run:
           name: Generate coveralls config
@@ -55,6 +72,23 @@ jobs:
       - run:
           name: Lint
           command: npm run lint
+  selenium:
+    docker:
+      - image: circleci/node:8.9.1
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm dependencies
+          command: npm install --production=false
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Selenium
+          command: npm run selenium-start
   compile:
     docker:
       - image: circleci/node:8.9.1
@@ -77,7 +111,12 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
+      - selenium
+      - test-regression:
+          requires:
+            - build
+            - selenium
+      - test-unit:
           requires:
             - build
       - lint:
