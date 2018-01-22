@@ -92,22 +92,9 @@ gemini.suite('BrainhubCarouselInfinite', suite => {
     })
     .capture('infinite scroll', (actions, find) => {
       const buttonRight = find('.fa-arrow-right');
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
-      actions.click(buttonRight);
+      for (let i = 0; i < 15; i++) {
+        actions.click(buttonRight);
+      }
       actions.wait(1000);
     });
 });
