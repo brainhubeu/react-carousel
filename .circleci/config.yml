@@ -18,35 +18,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-  test-regression:
-    docker:
-      - image: circleci/node:8.9.1-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm dependencies
-          command: npm install --production=false
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: Download Selenium
-          command: |
-            curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-      - run:
-          name: Start Selenium
-          command: |
-              java -jar selenium-server-standalone-3.5.3.jar
-          background: true
-      - run:
-          name: Regression test
-          command: chmod +x ./circleScript.sh && ./circleScript.sh
-      - store_artifacts:
-          path: ./html-report
-  test-unit:
+  test:
     docker:
       - image: circleci/node:8.9.1
     steps:
@@ -102,10 +74,7 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test-regression:
-          requires:
-            - build
-      - test-unit:
+      - test:
           requires:
             - build
       - lint:
