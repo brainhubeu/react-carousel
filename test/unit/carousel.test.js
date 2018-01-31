@@ -49,7 +49,7 @@ describe('Carousel', () => {
     const autoPlayValue = carousel.instance().getProp('autoPlay');
     expect(autoPlayValue).to.equal(3000);
   });
-  it('should return prop value depending on window size', () => {
+  it('slidesPerPage should be equal 2 if window width is greater than 500', () => {
     window.resizeTo(600, 600);
 
     const carousel = setup();
@@ -57,7 +57,7 @@ describe('Carousel', () => {
     const autoPlayValue = carousel.instance().getProp('slidesPerPage');
     expect(autoPlayValue).to.equal(2);
   });
-  it('should return prop value depending on window size', () => {
+  it('slidesPerPage should be equal 1 if window width is lesser than 500', () => {
     window.resizeTo(300, 300);
     const carousel = setup();
 
@@ -80,13 +80,21 @@ describe('Carousel', () => {
     expect(carousel.instance().getNearestSlideIndex()).to.equal(2);
   });
   it('get nearest slide index in centered carousel', () => {
-    const carousel = shallow(<Carousel centered={true} value={1}/>);
+    const carousel = shallow(<Carousel
+      value={1}
+      centered={true}>
+      <div/>
+      <div/>
+      <div/>
+      <div/>
+    </Carousel>
+    );
 
     carousel.instance().setState({
       carouselWidth: 1000,
-      dragOffset: -250,
+      dragOffset: -2500,
     });
-    expect(carousel.instance().getNearestSlideIndex()).to.equal(1);
+    expect(carousel.instance().getNearestSlideIndex()).to.equal(3);
   });
   it('get current slide index', () => {
     const carousel = shallow(
