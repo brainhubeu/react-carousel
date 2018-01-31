@@ -9,14 +9,6 @@ body {
 }
 
 // img-example
-.BrainhubCarouselItem {
-  &.BrainhubCarouselItem--active {
-    img {
-      box-shadow: 0px 0px 38px 5px rgba(0, 0, 0, 0.75);
-    }
-  }
-}
-
 .img-example {
   max-height: 300px;
   max-width: 100%;

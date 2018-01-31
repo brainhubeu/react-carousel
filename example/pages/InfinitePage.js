@@ -29,8 +29,7 @@ render() {
     <Carousel
       slidesPerPage={4}
       slidesPerScroll={2}
-      arrowLeft={<Icon className="icon-example" name="arrow-left" />}
-      arrowRight={<Icon className="icon-example" name="arrow-right" />}
+      arrows
       centered
       infinite
     >
@@ -50,8 +49,7 @@ export default class ArrowsPage extends Component {
           <Carousel
             slidesPerPage={4}
             slidesPerScroll={2}
-            arrowLeft={<Icon className="icon-example" name="arrow-left" />}
-            arrowRight={<Icon className="icon-example" name="arrow-right" />}
+            arrows
             centered
             infinite
           >

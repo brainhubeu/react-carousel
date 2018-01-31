@@ -31,6 +31,7 @@ render() {
       slidesPerScroll={2}
       arrowLeft={<Icon className="icon-example" name="arrow-left" />}
       arrowRight={<Icon className="icon-example" name="arrow-right" />}
+      addArrowClickHandler
       centered
     >
       <img className="img-example" src={someImage} />
@@ -50,8 +51,9 @@ export default class ArrowsPage extends Component {
             centered
             slidesPerPage={4}
             slidesPerScroll={2}
-            arrowLeft={<Icon className="icon-example" name="arrow-left" />}
+            arrowLeft={<div><Icon className="icon-example" name="arrow-left" /></div>}
             arrowRight={<Icon className="icon-example" name="arrow-right" />}
+            addArrowClickHandler
           >
             <img className="img-example" src={abstractImage} />
             <img className="img-example" src={animalsImage} />

@@ -16,7 +16,7 @@ $arrowWeight: 3px;
     font-size: 0;
     line-height: 0;
     background-color: $clickableAreaColor;
-    
+
     span {
         display: block;
         position: absolute;
@@ -38,14 +38,14 @@ $arrowWeight: 3px;
     }
 }
 
-.BrainhubCarousel__arrow-left {
+.BrainhubCarousel__arrowLeft {
     span {
        transform: translate(-50%, -50%) rotate(-135deg);
        margin-left: 0.35 * ( $arrowSize - $arrowWeight);
     }
 }
 
-.BrainhubCarousel__arrow-right {
+.BrainhubCarousel__arrowRight {
     span {
         transform: translate(-50%, -50%) rotate(45deg);
         margin-left: -0.35 * ( $arrowSize - $arrowWeight);

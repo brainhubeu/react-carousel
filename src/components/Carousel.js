@@ -25,6 +25,7 @@ export default class Carousel extends Component {
     arrows: PropTypes.bool,
     arrowLeft: PropTypes.element,
     arrowRight: PropTypes.element,
+    addArrowClickHandler: PropTypes.bool,
     autoPlay: PropTypes.number,
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
@@ -38,6 +39,7 @@ export default class Carousel extends Component {
       arrows: PropTypes.bool,
       arrowLeft: PropTypes.element,
       arrowRight: PropTypes.element,
+      addArrowClickHandler: PropTypes.bool,
       autoPlay: PropTypes.number,
       clickToChange: PropTypes.bool,
       centered: PropTypes.bool,
@@ -172,7 +174,6 @@ export default class Carousel extends Component {
         }
       });
     }
-
     if (activeBreakpoint) {
       if (has(props.breakpoints[activeBreakpoint], propName)) {
         return props.breakpoints[activeBreakpoint][propName];
@@ -263,8 +264,12 @@ export default class Carousel extends Component {
    * @type {Function}
    */
    onResize = throttle(() => {
+     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
+     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
+     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+
      this.setState({
-       carouselWidth: this.node.offsetWidth,
+       carouselWidth: width,
        windowWidth: window.innerWidth,
      });
    }, config.resizeEventListenerThrottle);
@@ -457,7 +462,7 @@ export default class Carousel extends Component {
     }
 
     return (
-      <div className="BrainhubCarousel__trackContainer" ref={el => this.node = el}>
+      <div className="BrainhubCarousel__trackContainer">
         <ul
           className={classnames(
             'BrainhubCarousel__track',
@@ -491,15 +496,18 @@ export default class Carousel extends Component {
    * Adds onClick handler to the arrow if possible (if it does not already have one)
    * @param {ReactElement} element to render
    * @param {function} onClick handler to be added to element
-   * @param {string} className class of an element
+   * @param {string} name of an element
    * @return {ReactElement} element with added handler
    */
-  renderArrowWithAddedHandler = (element, onClick, className) => {
-    if (!element.props.onClick) {
-      return React.cloneElement(element, { onClick, className: classnames(className, element.props.className) });
-    }
-    return element;
-  };
+  renderArrowWithAddedHandler = (element, onClick, name) => (
+    <div
+      className={classnames('BrainhubCarousel__customArrows', `BrainhubCarousel__custom-${name}`)}
+      ref={el => this[`${name}Node`] = el}
+      onClick={this.getProp('addArrowClickHandler') ? onClick : null}
+    >
+      {element}
+    </div>
+  );
 
   /**
    * Renders arrow left
@@ -512,8 +520,9 @@ export default class Carousel extends Component {
     if (this.getProp('arrows')) {
       return (
         <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrow-left"
+          className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
           onClick={this.prevSlide}
+          ref={el => this.arrowLeftNode = el}
         >
           <span>prev</span>
         </button>
@@ -533,8 +542,9 @@ export default class Carousel extends Component {
     if (this.getProp('arrows')) {
       return (
         <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrow-right"
+          className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
           onClick={this.nextSlide}
+          ref={el => this.arrowRightNode = el}
         >
           <span>next</span>
         </button>
@@ -547,6 +557,7 @@ export default class Carousel extends Component {
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
+        ref={el => this.node = el}
       >
         {this.renderArrowLeft()}
         {this.renderCarouselItems()}
