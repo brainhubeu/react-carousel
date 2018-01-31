@@ -1,9 +1,12 @@
 version: 2
+machine:
+  java:
+    version: openjdk7
 jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:8.9.1-browsers
     steps:
       - checkout
       - restore_cache:
@@ -17,7 +20,7 @@ jobs:
             - node_modules
   test-regression:
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:8.9.1-browsers
     steps:
       - checkout
       - restore_cache:
@@ -30,8 +33,19 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Test-regression
-          command: npm run test-regression
+          name: Download Selenium
+          command: |
+            curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      - run:
+          name: Start Selenium
+          command: |
+              java -jar selenium-server-standalone-3.5.3.jar
+          background: true
+      - run:
+          name: Regression test
+          command: chmod +x ./circleScript.sh && ./circleScript.sh
+      - store_artifacts:
+          path: ./html-report
   test-unit:
     docker:
       - image: circleci/node:8.9.1
@@ -47,17 +61,11 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Test-unit
-          command: npm run test:coverage:ci
-      - run:
-          name: Generate coveralls config
-          command: "echo repo_token: $REPO_TOKEN > ./.coveralls.yml"
-      - run:
-          name: Upload coverage to coveralls
-          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+          name: Test
+          command: npm run test-unit
   lint:
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:8.9.1-browsers
     steps:
       - checkout
       - restore_cache:
@@ -72,26 +80,9 @@ jobs:
       - run:
           name: Lint
           command: npm run lint
-  selenium:
-    docker:
-      - image: selenium/standalone-chrome:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm dependencies
-          command: npm install --production=false
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: Selenium
-          command: npm run selenium-start
   compile:
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:8.9.1-browsers
     steps:
       - checkout
       - restore_cache:
@@ -111,11 +102,9 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - selenium
       - test-regression:
           requires:
             - build
-            - selenium
       - test-unit:
           requires:
             - build

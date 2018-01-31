@@ -91,7 +91,7 @@ gemini.suite('BrainhubCarouselInfinite', suite => {
       actions.wait(1000);
     })
     .capture('infinite scroll', (actions, find) => {
-      const buttonRight = find('.fa-arrow-right');
+      const buttonRight = find('.BrainhubCarousel__arrowRight');
       for (let i = 0; i < 15; i++) {
         actions.click(buttonRight);
       }
