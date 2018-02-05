@@ -57,7 +57,7 @@ describe('Carousel', () => {
     const autoPlayValue = carousel.instance().getProp('slidesPerPage');
     expect(autoPlayValue).to.equal(2);
   });
-  it('slidesPerPage should be equal 1 if window width is lesser than 500', () => {
+  it('slidesPerPage should be equal 1 if window width is less than 500', () => {
     window.resizeTo(300, 300);
     const carousel = setup();
 
