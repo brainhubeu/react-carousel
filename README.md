@@ -323,7 +323,20 @@ and go to [localhost:3000](http://localhost:3000/).
 
 ## Unit tests
 ```
-npm test
+npm run test-unit
+```
+
+## Regression tests
+
+Install selenium if it is not installed
+```
+npm run selenium-install
+```
+
+```
+1. npm run selenium-start
+2. npm run example
+3. npm run test-regression
 ```
 
 ## Roadmap

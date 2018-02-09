@@ -1,9 +1,12 @@
 version: 2
+machine:
+  java:
+    version: openjdk7
 jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:8.9.1-browsers
     steps:
       - checkout
       - restore_cache:
@@ -31,16 +34,10 @@ jobs:
             - node_modules
       - run:
           name: Test
-          command: npm run test:coverage:ci
-      - run:
-          name: Generate coveralls config
-          command: "echo repo_token: $REPO_TOKEN > ./.coveralls.yml"
-      - run:
-          name: Upload coverage to coveralls
-          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+          command: npm run test-unit
   lint:
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:8.9.1-browsers
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +54,7 @@ jobs:
           command: npm run lint
   compile:
     docker:
-      - image: circleci/node:8.9.1
+      - image: circleci/node:8.9.1-browsers
     steps:
       - checkout
       - restore_cache:

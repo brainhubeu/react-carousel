@@ -38,7 +38,8 @@ export default [
   {
     path: '/autoplay',
     name: 'Autoplay',
-  },{
+  },
+  {
     path: '/infinite',
     name: 'Infinite',
   },
@@ -46,4 +47,4 @@ export default [
     path: '/dots',
     name: 'Dots',
   },
-]
+];
