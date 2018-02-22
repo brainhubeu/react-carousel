@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import superagent from 'superagent';
-import config from 'constants/config';
+import config from '../constants/config';
 
 const ApiClient = {
   formatUrl(path) {

@@ -33,7 +33,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
-      template: 'example/index.ejs',
+      template: 'example/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
