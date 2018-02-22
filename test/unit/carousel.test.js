@@ -1,10 +1,9 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { JSDOM } from 'jsdom';
 import Carousel from '../../src/components/Carousel';
-import { expect } from 'chai';
 
 const { document } = (new JSDOM('')).window;
 global.document = document;
