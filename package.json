@@ -6,11 +6,11 @@
     "npm": ">=4"
   },
   "scripts": {
-    "lint": "esw webpack.config.* src tools test features --color",
+    "lint": "esw tools test features --color",
     "clean-dist": "rm -rf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "parcel build example/index.html --public-url ./",
-    "example": "parcel example/index.html",
+    "example": "parcel example/index.html -p 3000",
     "selenium-start": "selenium-standalone start",
     "selenium-install": "selenium-standalone install",
     "test": "npm run test-unit && npm run test-regression",
@@ -57,12 +57,10 @@
     "eslint-config-brainhub": "^1.6.3",
     "eslint-watch": "^3.1.2",
     "express": "^4.15.2",
-    "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "gemini": "^5.1.2",
     "history": "^4.7.2",
     "html-reporter": "^2.0.0",
-    "html-webpack-plugin": "^2.29.0",
     "husky": "^0.14.3",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.5",
@@ -93,10 +91,7 @@
     "sinon-chai": "^2.11.0",
     "style-loader": "^0.18.2",
     "superagent": "^3.5.2",
-    "url-loader": "^0.5.9",
-    "webpack": "^3.0.0",
-    "webpack-dev-middleware": "^1.11.0",
-    "webpack-hot-middleware": "^2.18.0"
+    "url-loader": "^0.5.9"
   },
   "peerDependencies": {
     "react": ">0.14.0 || >15.0.0",
