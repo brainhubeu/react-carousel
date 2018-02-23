@@ -16,6 +16,7 @@ $dots-color: black;
     border: none;
     opacity: 0.5;
     cursor: pointer;
+    -webkit-appearance: none;
 
     &.BrainhubCarousel__dot--selected {
       opacity: 1 !important;
@@ -63,4 +64,8 @@ $dots-color: black;
       background: $dots-color;
     }
   }
+}
+
+.BrainhubCarousel__thumbnail[type=button] {
+  -webkit-appearance: none
 }
