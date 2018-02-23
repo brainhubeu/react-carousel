@@ -79,14 +79,13 @@ describe('Carousel', () => {
     expect(carousel.instance().getNearestSlideIndex()).to.equal(2);
   });
   it('get nearest slide index in centered carousel', () => {
-    const carousel = shallow(<Carousel
-      value={1}
-      centered={true}>
-      <div/>
-      <div/>
-      <div/>
-      <div/>
-    </Carousel>
+    const carousel = shallow(
+      <Carousel value={1} centered>
+        <div/>
+        <div/>
+        <div/>
+        <div/>
+      </Carousel>
     );
 
     carousel.instance().setState({
