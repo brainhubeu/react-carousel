@@ -350,6 +350,6 @@ react-carousel is copyright © 2014-2018 [Brainhub](https://brainhub.eu/) It is 
 
 react-carousel is maintained by the Brainhub development team. It is funded by Brainhub and the names and logos for Brainhub are trademarks of Brainhub Sp. z o.o.. You can check other open-source projects supported/developed by our teammates here. 
 
-[![Brainhub](https://avatars0.githubusercontent.com/u/20307185?s=200&v=4)](https://brainhub.eu/?utm_source=github)
+[![Brainhub](https://raw.githubusercontent.com/brainhubeu/brainhubeu.github.io/master/brainhub.svg)](https://brainhub.eu/?utm_source=github)
 
 We love open-source JavaScript software! See our other projects or hire us to build your next web, desktop and mobile application with JavaScript.
