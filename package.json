@@ -1,10 +1,13 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=4"
   },
+  "files": [
+    "./lib/"
+  ],
   "scripts": {
     "lint": "esw webpack.config.* src tools test features --color",
     "clean-dist": "rm -rf ./lib && mkdir lib",
