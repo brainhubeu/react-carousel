@@ -16,6 +16,10 @@ export default [
     name: 'Items per page',
   },
   {
+    path: '/draggable',
+    name: 'Draggable',
+  },
+  {
     path: '/clicktochange',
     name: 'Click to chang',
   },
