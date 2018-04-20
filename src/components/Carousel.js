@@ -31,6 +31,7 @@ export default class Carousel extends Component {
     centered: PropTypes.bool,
     infinite: PropTypes.bool,
     draggable: PropTypes.bool,
+    keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
     className: PropTypes.string,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
@@ -45,6 +46,7 @@ export default class Carousel extends Component {
       centered: PropTypes.bool,
       infinite: PropTypes.bool,
       draggable: PropTypes.bool,
+      keepDirectionWhenDragging: PropTypes.bool,
       animationSpeed: PropTypes.number,
       className: PropTypes.string,
     })),
@@ -396,7 +398,16 @@ export default class Carousel extends Component {
    * @return {number} index
    */
   getNearestSlideIndex = () => {
-    const slideIndexOffset = -Math.round(this.state.dragOffset / this.getCarouselElementWidth());
+    let slideIndexOffset = 0;
+    if (this.getProp('keepDirectionWhenDragging')) {
+      if (this.state.dragOffset > 0) {
+        slideIndexOffset = -Math.ceil(this.state.dragOffset / this.getCarouselElementWidth());
+      } else {
+        slideIndexOffset = -Math.floor(this.state.dragOffset / this.getCarouselElementWidth());
+      }
+    } else {
+      slideIndexOffset = -Math.round(this.state.dragOffset / this.getCarouselElementWidth());
+    }
     return this.getCurrentValue() + slideIndexOffset;
   };
 

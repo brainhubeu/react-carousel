@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import SimplePage from './pages/SimplePage';
 import ControlledPage from './pages/ControlledPage';
 import PerPagePage from './pages/PerPagePage';
+import DraggablePage from './pages/DraggablePage';
 import ClickToChangePage from './pages/ClickToChangePage';
 import ArrowsPage from './pages/ArrowsPage';
 import ResponsivePage from './pages/ResponsivePage';
@@ -28,6 +29,7 @@ export default class Routes extends Component {
             <Route exact path="/simple" component={SimplePage} />
             <Route exact path="/controlled" component={ControlledPage} />
             <Route exact path="/perpage" component={PerPagePage} />
+            <Route exact path="/draggable" component={DraggablePage} />
             <Route exact path="/clicktochange" component={ClickToChangePage} />
             <Route exact path="/arrows" component={ArrowsPage} />
             <Route exact path="/responsive" component={ResponsivePage} />
