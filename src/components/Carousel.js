@@ -200,7 +200,11 @@ export default class Carousel extends Component {
     }
     const autoPlay = this.getProp('autoPlay');
     if (!isNil(autoPlay)) {
-      this.interval = setInterval(this.nextSlide, autoPlay);
+      this.interval = setInterval(() => {
+        if (!document.hidden) {
+          this.nextSlide();
+        }
+      }, autoPlay);
     }
   };
 
