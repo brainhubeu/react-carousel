@@ -325,6 +325,8 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onTouchMove = e => {
+    e.preventDefault();
+    e.stopPropagation();
     if (this.state.dragStart !== null) {
       this.setState({
         dragOffset: e.changedTouches[0].pageX - this.state.dragStart,
