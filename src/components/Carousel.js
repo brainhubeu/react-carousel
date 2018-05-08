@@ -22,6 +22,7 @@ export default class Carousel extends Component {
     slides: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
+    offset: PropTypes.number,
     arrows: PropTypes.bool,
     arrowLeft: PropTypes.element,
     arrowRight: PropTypes.element,
@@ -498,6 +499,7 @@ export default class Carousel extends Component {
               currentSlideIndex={this.getActiveSlideIndex()}
               index={index}
               width={this.getCarouselElementWidth()}
+              offset={index !== slides.length ? this.props.offset : 0}
               onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
               clickable={this.getProp('clickToChange')}

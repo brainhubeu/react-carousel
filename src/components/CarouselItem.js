@@ -10,6 +10,7 @@ export default class CarouselItem extends PureComponent {
     clickable: PropTypes.bool,
     children: PropTypes.node,
     width: PropTypes.number,
+    offset: PropTypes.number,
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
   };
@@ -33,6 +34,8 @@ export default class CarouselItem extends PureComponent {
           }
         )}
         style={{
+          paddingRight: `${this.props.offset / 2}px`,
+          paddingLeft: `${this.props.offset / 2}px`,
           width: `${this.props.width}px`,
           maxWidth: `${this.props.width}px`,
           minWidth: `${this.props.width}px`,
