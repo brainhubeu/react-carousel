@@ -18,7 +18,6 @@ import transportImage from '../assets/images/transport.jpg';
 
 const code = `
 <Carousel
-  slidesPerPage={4}
   offset={50}
 >
   <img className="img-example" src={abstractImage} />
@@ -42,7 +41,6 @@ export default class HomePage extends Component {
       <NavLayout>
         <Section title="Offset per page" description="You can use `offset` prop to set offset between slides" code={code}>
           <Carousel
-            slidesPerPage={4}
             offset={50}
           >
             <img className="img-example" src={abstractImage} />
