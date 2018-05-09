@@ -1,85 +1,43 @@
 version: 2
-machine:
-  java:
-    version: openjdk7
 jobs:
-  build:
-    working_directory: ~/app
-    docker:
-      - image: circleci/node:8.9.1-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm dependencies
-          command: npm install --production=false
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
   test:
     docker:
-      - image: circleci/node:8.9.1
+      - image: registry.dev.brainhub.pl/tools/rancher-circleci
+        auth:
+          username: $HARBOR_USER
+          password: $HARBOR_PASSWORD
+    working_directory: ~/app
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm dependencies
-          command: npm install --production=false
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: Test
-          command: npm run test-unit
-  lint:
+      - setup_remote_docker
+      - run: docker login -u $HARBOR_USER -p $HARBOR_PASSWORD registry.dev.brainhub.pl
+      - run: docker build --build-arg NODE_ENV=development -t registry.dev.brainhub.pl/react-carousel/react-carousel .
+      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run lint'
+      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test-unit'
+
+  build_and_deploy:
     docker:
-      - image: circleci/node:8.9.1-browsers
+      - image: registry.dev.brainhub.pl/tools/rancher-circleci
+        auth:
+          username: $HARBOR_USER
+          password: $HARBOR_PASSWORD
+    working_directory: ~/app
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm dependencies
-          command: npm install --production=false
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: Lint
-          command: npm run lint
-  compile:
-    docker:
-      - image: circleci/node:8.9.1-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm dependencies
-          command: npm install --production=false
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: Compile
-          command: npm run build
+      - setup_remote_docker
+      - run: docker login -u $HARBOR_USER -p $HARBOR_PASSWORD registry.dev.brainhub.pl
+      - run: docker build -t registry.dev.brainhub.pl/react-carousel/react-carousel .
+      - run: docker push registry.dev.brainhub.pl/react-carousel/react-carousel:latest
+      - run: rancher-compose --project-name react-carousel --verbose up -d --force-upgrade --pull --confirm-upgrade react-carousel
+
 workflows:
   version: 2
-  build_and_test:
+  test_and_deploy:
     jobs:
-      - build
-      - test:
+      - test
+      - build_and_deploy:
           requires:
-            - build
-      - lint:
-          requires:
-            - build
-      - compile:
-          requires:
-            - build
+            - test
+          filters:
+            branches:
+              only: master
