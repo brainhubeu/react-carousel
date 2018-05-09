@@ -21,7 +21,7 @@ export default [
   },
   {
     path: '/clicktochange',
-    name: 'Click to chang',
+    name: 'Click to change',
   },
   {
     path: '/arrows',
