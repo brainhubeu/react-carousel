@@ -16,6 +16,10 @@ export default [
     name: 'Items per page',
   },
   {
+    path: '/width',
+    name: 'Item width',
+  },
+  {
     path: '/offset',
     name: 'Offset per slide',
   },
