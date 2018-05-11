@@ -17,6 +17,7 @@ import SlidesPage from './pages/SlidesPage';
 import AutoplayPage from './pages/AutoplayPage';
 import InfinitePage from './pages/InfinitePage';
 import DotsPage from './pages/DotsPage';
+import OffsetPage from './pages/OffsetPage';
 import NotFoundPage from './pages/NotFoundPage.js';
 
 export default class Routes extends Component {
@@ -27,6 +28,7 @@ export default class Routes extends Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/simple" component={SimplePage} />
+            <Route exact path="/offset" component={OffsetPage} />
             <Route exact path="/controlled" component={ControlledPage} />
             <Route exact path="/perpage" component={PerPagePage} />
             <Route exact path="/draggable" component={DraggablePage} />

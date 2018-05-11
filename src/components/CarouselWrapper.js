@@ -22,7 +22,6 @@ export default class CarouselWrapper extends Component {
   render() {
     const { value, onChange, ...rest } = this.props;
     const isControlled = !isNil(value);
-
     return (
       <Carousel
         value={isControlled ? parseInt(value) : this.state.value}

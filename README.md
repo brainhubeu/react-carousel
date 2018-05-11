@@ -157,6 +157,7 @@ render() {
       slidesPerScroll={2}
       animationSpeed={1500}
       autoPlay={3000}
+      offset={50}
       clickToChange
       centered
     >
@@ -173,6 +174,7 @@ Where:
 * `slidesPerScroll` is the **number** by which value will change on autoPlay and when arrow is clicked 
 * `animationSpeed` (*number*) transition duration in milliseconds
 * `autoPlay` (*number*) slide change interval in milliseconds
+* `offset` (*number*) padding between items
 * `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
 * `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
 
