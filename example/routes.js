@@ -18,7 +18,8 @@ import AutoplayPage from './pages/AutoplayPage';
 import InfinitePage from './pages/InfinitePage';
 import DotsPage from './pages/DotsPage';
 import OffsetPage from './pages/OffsetPage';
-import NotFoundPage from './pages/NotFoundPage.js';
+import WidthPage from './pages/WidthPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default class Routes extends Component {
   render() {
@@ -40,6 +41,7 @@ export default class Routes extends Component {
             <Route exact path="/autoplay" component={AutoplayPage} />
             <Route exact path="/infinite" component={InfinitePage} />
             <Route exact path="/dots" component={DotsPage} />
+            <Route exact path="/width" component={WidthPage} />
             <Route path="*" component={NotFoundPage} />
           </Switch>
         </App>

@@ -18,8 +18,7 @@ import transportImage from '../assets/images/transport.jpg';
 
 const code = `
 <Carousel
-  itemWidth={250}
-  offset={50}
+     itemWidth={200}
 >
   <img className="img-example" src={abstractImage} />
   <img className="img-example" src={animalsImage} />
@@ -36,14 +35,13 @@ const code = `
 </Carousel>
 `
 
-export default class OffsetPage extends Component {
+export default class WidthPage extends Component {
   render() {
     return (
       <NavLayout>
-        <Section title="Offset per page" description="You can use `offset` prop to set offset between slides" code={code}>
+        <Section title="Item width" description="You can use `itemWidth` prop to set width for every item in slider" code={code}>
           <Carousel
-            itemWidth={250}
-            offset={50}
+            itemWidth={200}
           >
             <img className="img-example" src={abstractImage} />
             <img className="img-example" src={animalsImage} />

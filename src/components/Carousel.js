@@ -22,6 +22,7 @@ export default class Carousel extends Component {
     slides: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
+    itemWidth: PropTypes.number,
     offset: PropTypes.number,
     arrows: PropTypes.bool,
     arrowLeft: PropTypes.element,
@@ -434,7 +435,7 @@ export default class Carousel extends Component {
    * Calculates width of a single slide in a carousel
    * @return {number} width of a slide in px
    */
-  getCarouselElementWidth = () => this.state.carouselWidth / this.getProp('slidesPerPage');
+  getCarouselElementWidth = () => this.props.itemWidth || this.state.carouselWidth / this.getProp('slidesPerPage');
 
   /**
    * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)
