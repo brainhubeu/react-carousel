@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
+/* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
@@ -100,7 +101,6 @@ export default class Carousel extends Component {
     this.resetInterval();
   }
 
-  /* eslint-disable react/no-deprecated */
   componentWillReceiveProps(nextProps) {
     const valueChanged = this.checkIfValueChanged(nextProps);
 
@@ -114,7 +114,6 @@ export default class Carousel extends Component {
       transitionEnabled: valueChanged ? true : this.state.transitionEnabled,
     });
   }
-  /* eslint-enable react/no-deprecated */
 
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
