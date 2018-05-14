@@ -100,6 +100,7 @@ export default class Carousel extends Component {
     this.resetInterval();
   }
 
+  /* eslint-disable react/no-deprecated */
   componentWillReceiveProps(nextProps) {
     const valueChanged = this.checkIfValueChanged(nextProps);
 
@@ -113,6 +114,7 @@ export default class Carousel extends Component {
       transitionEnabled: valueChanged ? true : this.state.transitionEnabled,
     });
   }
+  /* eslint-enable react/no-deprecated */
 
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
