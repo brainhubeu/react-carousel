@@ -11,7 +11,19 @@ export default class CarouselDots extends Component {
     onChange: PropTypes.func,
   };
 
-  onChange = index => () => this.props.onChange(index);
+  onChange = index => () => {
+    const numberOfSlides = this.props.number || this.props.thumbnails.length;
+    const moduloItem = this.calculateButtonValue() % numberOfSlides;
+
+    return this.props.onChange(this.props.value - ( moduloItem - index));
+  };
+
+  calculateButtonValue = () => {
+    const numberOfSlides = this.props.number || this.props.thumbnails.length;
+    return this.props.value >= 0
+      ? this.props.value
+      : this.props.value + numberOfSlides * Math.ceil(Math.abs(this.props.value/numberOfSlides));
+  };
 
   renderCarouselDots() {
     if (this.props.thumbnails) {
@@ -20,7 +32,7 @@ export default class CarouselDots extends Component {
           <div
             className={classnames(
               'BrainhubCarousel__thumbnail',
-              { 'BrainhubCarousel__thumbnail--selected': index === this.props.value }
+              { 'BrainhubCarousel__thumbnail--selected': this.calculateButtonValue() === this.props.value }
             )}
             type="button"
             onClick={this.onChange(index)}
@@ -30,6 +42,7 @@ export default class CarouselDots extends Component {
         </li>
       ));
     }
+
     const dots = [];
     for (let i = 0; i < this.props.number; i++) {
       dots.push(
@@ -37,7 +50,7 @@ export default class CarouselDots extends Component {
           <div
             className={classnames(
               'BrainhubCarousel__dot',
-              { 'BrainhubCarousel__dot--selected': i === this.props.value }
+              { 'BrainhubCarousel__dot--selected': i === this.calculateButtonValue() % this.props.number }
             )}
             type="button"
             onClick={this.onChange(i)}

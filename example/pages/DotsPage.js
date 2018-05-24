@@ -37,6 +37,7 @@ render() {
       <Carousel
         value={this.state.value}
         onChange={this.onChange}
+        infinite
       >
         <img className="img-example" src={someImage} />
         ...
@@ -83,6 +84,7 @@ export default class ControlledPage extends Component {
           <Carousel
             value={this.state.value}
             onChange={this.onChange}
+            infinite
           >
             <img className="img-example" src={abstractImage} />
             <img className="img-example" src={animalsImage} />
