@@ -16,12 +16,20 @@ export default [
     name: 'Items per page',
   },
   {
+    path: '/width',
+    name: 'Item width',
+  },
+  {
+    path: '/offset',
+    name: 'Offset per slide',
+  },
+  {
     path: '/draggable',
     name: 'Draggable',
   },
   {
     path: '/clicktochange',
-    name: 'Click to chang',
+    name: 'Click to change',
   },
   {
     path: '/arrows',

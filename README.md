@@ -157,6 +157,8 @@ render() {
       slidesPerScroll={2}
       animationSpeed={1500}
       autoPlay={3000}
+      offset={50}
+      itemWidth={250}
       clickToChange
       centered
     >
@@ -173,6 +175,8 @@ Where:
 * `slidesPerScroll` is the **number** by which value will change on autoPlay and when arrow is clicked 
 * `animationSpeed` (*number*) transition duration in milliseconds
 * `autoPlay` (*number*) slide change interval in milliseconds
+* `offset` (*number*) padding between items
+* `itemWidth` (*number*) determines custom width for each slide in carousel
 * `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
 * `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
 
@@ -350,6 +354,6 @@ react-carousel is copyright © 2014-2018 [Brainhub](https://brainhub.eu/) It is 
 
 react-carousel is maintained by the Brainhub development team. It is funded by Brainhub and the names and logos for Brainhub are trademarks of Brainhub Sp. z o.o.. You can check other open-source projects supported/developed by our teammates here. 
 
-[![Brainhub](http://brainhubeu.github.io/brainhub.svg)](https://brainhub.eu/?utm_source=github)
+[![Brainhub](https://brainhub.eu/brainhub.svg)](https://brainhub.eu/?utm_source=github)
 
 We love open-source JavaScript software! See our other projects or hire us to build your next web, desktop and mobile application with JavaScript.

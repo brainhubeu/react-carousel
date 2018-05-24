@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
+/* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
@@ -22,6 +23,8 @@ export default class Carousel extends Component {
     slides: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
+    itemWidth: PropTypes.number,
+    offset: PropTypes.number,
     arrows: PropTypes.bool,
     arrowLeft: PropTypes.element,
     arrowRight: PropTypes.element,
@@ -82,8 +85,8 @@ export default class Carousel extends Component {
     if (this.node) {
       this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
       this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.ownerDocument.addEventListener('touchstart', this.onTouchStart, { passive: false });
-      this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, true);
+      this.node.ownerDocument.addEventListener('touchstart', this.onTouchStart, true);
+      this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, { passive: false });
       this.node.ownerDocument.addEventListener('touchend', this.onMouseUpTouchEnd, true);
     }
 
@@ -313,10 +316,6 @@ export default class Carousel extends Component {
    * @param {number} index of the element drag started on
    */
   onTouchStart = (e, index) => {
-    if (this.state.dragStart) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
     this.setState({
       clicked: index,
       dragStart: e.changedTouches[0].pageX,
@@ -328,6 +327,10 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onTouchMove = e => {
+    if (Math.abs(this.state.dragOffset) > 10) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (this.state.dragStart !== null) {
       this.setState({
         dragOffset: e.changedTouches[0].pageX - this.state.dragStart,
@@ -433,7 +436,7 @@ export default class Carousel extends Component {
    * Calculates width of a single slide in a carousel
    * @return {number} width of a slide in px
    */
-  getCarouselElementWidth = () => this.state.carouselWidth / this.getProp('slidesPerPage');
+  getCarouselElementWidth = () => this.props.itemWidth || this.state.carouselWidth / this.getProp('slidesPerPage');
 
   /**
    * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)
@@ -498,6 +501,7 @@ export default class Carousel extends Component {
               currentSlideIndex={this.getActiveSlideIndex()}
               index={index}
               width={this.getCarouselElementWidth()}
+              offset={index !== slides.length ? this.props.offset : 0}
               onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
               clickable={this.getProp('clickToChange')}
