@@ -20,10 +20,6 @@ export default class Carousel extends Component {
     slidesPerScroll: PropTypes.number,
     itemWidth: PropTypes.number,
     offset: PropTypes.number,
-    arrows: PropTypes.bool,
-    arrowLeft: PropTypes.element,
-    arrowRight: PropTypes.element,
-    addArrowClickHandler: PropTypes.bool,
     autoPlay: PropTypes.number,
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
@@ -32,22 +28,6 @@ export default class Carousel extends Component {
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
     className: PropTypes.string,
-    breakpoints: PropTypes.objectOf(PropTypes.shape({
-      slidesPerPage: PropTypes.number,
-      slidesPerScroll: PropTypes.number,
-      arrows: PropTypes.bool,
-      arrowLeft: PropTypes.element,
-      arrowRight: PropTypes.element,
-      addArrowClickHandler: PropTypes.bool,
-      autoPlay: PropTypes.number,
-      clickToChange: PropTypes.bool,
-      centered: PropTypes.bool,
-      infinite: PropTypes.bool,
-      draggable: PropTypes.bool,
-      keepDirectionWhenDragging: PropTypes.bool,
-      animationSpeed: PropTypes.number,
-      className: PropTypes.string,
-    })),
   };
   static defaultProps = {
     slidesPerPage: 1,
@@ -160,24 +140,6 @@ export default class Carousel extends Component {
    */
   getProp = (propName, customProps = null) => {
     const props = customProps || this.props;
-    let activeBreakpoint = null;
-    if (props.breakpoints) {
-      const windowWidth = this.state.windowWidth;
-      const resolutions = Object.keys(props.breakpoints);
-      resolutions.forEach(resolutionString => {
-        const resolution = parseInt(resolutionString);
-        if (windowWidth <= resolution) {
-          if (!activeBreakpoint || activeBreakpoint > resolution) {
-            activeBreakpoint = resolution;
-          }
-        }
-      });
-    }
-    if (activeBreakpoint) {
-      if (props.breakpoints[activeBreakpoint][propName] !== undefined) {
-        return props.breakpoints[activeBreakpoint][propName];
-      }
-    }
     return props[propName];
   };
 
@@ -267,18 +229,13 @@ export default class Carousel extends Component {
    * @type {Function}
    */
    onResize = throttle(() => {
-     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
-     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
-     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+     const width = this.node.offsetWidth;
 
      this.setState({
        carouselWidth: width,
        windowWidth: window.innerWidth,
      });
    }, config.resizeEventListenerThrottle);
-
-
-
 
    /**
    * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
@@ -480,76 +437,13 @@ export default class Carousel extends Component {
     );
   };
 
-  /**
-   * Adds onClick handler to the arrow if possible (if it does not already have one)
-   * @param {ReactElement} element to render
-   * @param {function} onClick handler to be added to element
-   * @param {string} name of an element
-   * @return {ReactElement} element with added handler
-   */
-  renderArrowWithAddedHandler = (element, onClick, name) => (
-    <div
-      className={classnames('BrainhubCarousel__customArrows', `BrainhubCarousel__custom-${name}`)}
-      ref={el => this[`${name}Node`] = el}
-      onClick={this.getProp('addArrowClickHandler') ? onClick : null}
-    >
-      {element}
-    </div>
-  );
-
-  /**
-   * Renders arrow left
-   * @return {ReactElement} element
-   */
-  renderArrowLeft = () => {
-    if (this.getProp('arrowLeft')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
-    }
-    if (this.getProp('arrows')) {
-      return (
-        <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
-          onClick={this.prevSlide}
-          ref={el => this.arrowLeftNode = el}
-        >
-          <span>prev</span>
-        </button>
-      );
-    }
-    return null;
-  };
-
-  /**
-   * Renders arrow right
-   * @return {ReactElement} element
-   */
-  renderArrowRight = () => {
-    if (this.getProp('arrowRight')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
-    }
-    if (this.getProp('arrows')) {
-      return (
-        <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
-          onClick={this.nextSlide}
-          ref={el => this.arrowRightNode = el}
-        >
-          <span>next</span>
-        </button>
-      );
-    }
-    return null;
-  };
-
   render() {
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
         ref={el => this.node = el}
       >
-        {this.renderArrowLeft()}
         {this.renderCarouselItems()}
-        {this.renderArrowRight()}
       </div>
     );
   }

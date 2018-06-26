@@ -54,9 +54,5 @@ export default [
   {
     path: '/infinite',
     name: 'Infinite',
-  },
-  {
-    path: '/dots',
-    name: 'Dots',
-  },
+  }
 ];

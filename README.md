@@ -1,23 +1,22 @@
 # react-carousel
 
-> Feature-rich, react-way carousel component that does not suck 
+> Feature-rich, react-way carousel component that does not suck
 
-[![CircleCI](https://circleci.com/gh/brainhubeu/react-carousel.svg?style=svg)](https://circleci.com/gh/brainhubeu/react-carousel)
-[![npm](https://img.shields.io/npm/v/@brainhubeu/react-carousel.svg)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
-[![npm](https://img.shields.io/npm/l/@brainhubeu/react-carousel.svg)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
+[![npm](https://img.shields.io/npm/v/@4c/react-carousel.svg)](https://www.npmjs.com/package/@4c/react-carousel)
+[![npm](https://img.shields.io/npm/l/@4c/react-carousel.svg)](https://www.npmjs.com/package/@4c/react-carousel)
 
-React carousel 
+React carousel
 
 ## Why?
 There are some great carousels (like slick) that do not have real React implementations. This library provides you with carousel that is not merely a wrapper for some jQuery solution, can be used as controlled or uncontrolled element (similar to [inputs](https://reactjs.org/docs/uncontrolled-components.html)), and has tons of useful features.
 
 ## Installation
-`npm i @brainhubeu/react-carousel`
+`npm i @4c/react-carousel`
 
 ## Usage
 By default the component does not need anything except children to render simple carousel.
 ```javascript
-import Carousel from '@brainhubeu/react-carousel';
+import Carousel from '@4c/react-carousel';
 
 ...
 
@@ -35,7 +34,7 @@ render() {
 ### Carousel as controlled element
 You can control which slides are being shown by providing Carousel with value and onChange props
 ```javascript
-import Carousel from '@brainhubeu/react-carousel';
+import Carousel from '@4c/react-carousel';
 
 ...
 
@@ -46,7 +45,7 @@ constructor(props) {
   };
 }
 
-// we check if we got event from input (and it has target property) or just value from Carousel 
+// we check if we got event from input (and it has target property) or just value from Carousel
 onChange = e => this.setState({ value: e.target ? e.target.value : e });
 render() {
   return (
@@ -69,54 +68,11 @@ Where:
 * `value` is the current slide's index (zero based, in the example above imageOne has index 0, imageTwo has index 1 and so on)
 * `onChange` handler triggered when carousel wants to change current slide (e.g. on arrow click or on swipe)
 
-### Adding arrows
-You can enable default arrows or provide carousel with your own arrowLeft and arrowRight components
-```javascript
-import Carousel from '@brainhubeu/react-carousel';
-
-...
-
-render() {
-  return (
-    <Carousel
-      arrows
-    >
-      <img src={imageOne} />
-      <img src={imageTwo} />
-      <img src={imageThree} />
-    </Carousel>
-  );
-}
-```
-
-```javascript
-import Carousel from '@brainhubeu/react-carousel';
-import Icon from 'react-fa';
-
-...
-
-render() {
-  return (
-    <Carousel
-      arrowLeft={<Icon className="icon-example" name="arrow-left" />}
-      arrowRight={<Icon className="icon-example" name="arrow-right" />}
-    >
-      <img src={imageOne} />
-      <img src={imageTwo} />
-      <img src={imageThree} />
-    </Carousel>
-  );
-}
-```
-
-Where:
-* `arrows` is **boolean** indicating if default arrows should be rendered
-* `arrowLeft` and `arrowRight` are React elements to be used instead of default arrows (when you provided custom arrows you don't have to use `arrows` prop)
 
 ### Passing slides as a prop
 
 ```javascript
-import Carousel from '@brainhubeu/react-carousel';
+import Carousel from '@4c/react-carousel';
 
 ...
 
@@ -147,7 +103,7 @@ Where:
 
 ### Additional options
 ```javascript
-import Carousel from '@brainhubeu/react-carousel';
+import Carousel from '@4c/react-carousel';
 import Icon from 'react-fa';
 ...
 render() {
@@ -171,8 +127,8 @@ render() {
 ```
 
 Where:
-* `slidesPerPage` is the **number** of slides visible at once 
-* `slidesPerScroll` is the **number** by which value will change on autoPlay and when arrow is clicked 
+* `slidesPerPage` is the **number** of slides visible at once
+* `slidesPerScroll` is the **number** by which value will change on autoPlay and when arrow is clicked
 * `animationSpeed` (*number*) transition duration in milliseconds
 * `autoPlay` (*number*) slide change interval in milliseconds
 * `offset` (*number*) padding between items
@@ -182,7 +138,7 @@ Where:
 
 ### Infinite
 ```javascript
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import Carousel, { Dots } from '@4c/react-carousel';
 
 ...
 
@@ -204,7 +160,7 @@ render() {
 ### Responsive
 All props (except value, onChange, responsive, children) can be set to different values on different screen resolution
 ```javascript
-import Carousel from '@brainhubeu/react-carousel';
+import Carousel from '@4c/react-carousel';
 import Icon from 'react-fa';
 ...
 render() {
@@ -248,7 +204,7 @@ Note: In the example above you cannot leave clickToChange value out in 500 break
 ### Showing dots or thumbnails
 There is a separate Dots component that can be used to show navigation dots.
 ```javascript
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import Carousel, { Dots } from '@4c/react-carousel';
 
 ...
 
@@ -280,7 +236,7 @@ render() {
 
 It can also show thumbnails instead of dots
 ```javascript
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import Carousel, { Dots } from '@4c/react-carousel';
 
 ...
 
@@ -352,8 +308,4 @@ react-carousel is copyright © 2014-2018 [Brainhub](https://brainhub.eu/) It is 
 
 ## About
 
-react-carousel is maintained by the Brainhub development team. It is funded by Brainhub and the names and logos for Brainhub are trademarks of Brainhub Sp. z o.o.. You can check other open-source projects supported/developed by our teammates here. 
-
-[![Brainhub](https://brainhub.eu/brainhub.svg)](https://brainhub.eu/?utm_source=github)
-
-We love open-source JavaScript software! See our other projects or hire us to build your next web, desktop and mobile application with JavaScript.
+`@4c/react-carousel` is a fork!

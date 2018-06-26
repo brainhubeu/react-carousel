@@ -18,7 +18,7 @@ import technicsImage from '../assets/images/technics.jpg';
 import transportImage from '../assets/images/transport.jpg';
 
 
-const code = `import Carousel from '@brainhubeu/react-carousel';
+const code = `import Carousel from '@4c/react-carousel';
 
 ...
 
