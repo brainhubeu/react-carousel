@@ -2,9 +2,6 @@
 /* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
-import isNil from 'lodash/isNil';
-import has from 'lodash/has';
-import concat from 'lodash/concat';
 import times from 'lodash/times';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -12,8 +9,6 @@ import classnames from 'classnames';
 import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
-import '../styles/Carousel.scss';
-import '../styles/Arrows.scss';
 
 export default class Carousel extends Component {
   static propTypes = {
@@ -83,11 +78,9 @@ export default class Carousel extends Component {
 
     // adding event listeners for swipe
     if (this.node) {
-      this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
-      this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.ownerDocument.addEventListener('touchstart', this.onTouchStart, true);
-      this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, { passive: false });
-      this.node.ownerDocument.addEventListener('touchend', this.onMouseUpTouchEnd, true);
+      this.node.addEventListener('touchstart', this.onTouchStart, true);
+      this.node.addEventListener('touchmove', this.onTouchMove, { passive: false });
+      this.node.addEventListener('touchend', this.onMouseUpTouchEnd, true);
     }
 
     // setting size of a carousel in state
@@ -181,7 +174,7 @@ export default class Carousel extends Component {
       });
     }
     if (activeBreakpoint) {
-      if (has(props.breakpoints[activeBreakpoint], propName)) {
+      if (props.breakpoints[activeBreakpoint][propName] !== undefined) {
         return props.breakpoints[activeBreakpoint][propName];
       }
     }
@@ -205,7 +198,7 @@ export default class Carousel extends Component {
       clearInterval(this.interval);
     }
     const autoPlay = this.getProp('autoPlay');
-    if (!isNil(autoPlay)) {
+    if (autoPlay != null) {
       this.interval = setInterval(() => {
         if (!document.hidden) {
           this.nextSlide();
@@ -233,7 +226,7 @@ export default class Carousel extends Component {
 
   /* infinite calculations */
   getSlidesBounds = (customValue = null) => {
-    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
+    const value = customValue == null ? this.getCurrentValue() : customValue;
     const length = this.getChildren().length;
     const times = ((value + 1) / length);
     const ceil = Math.ceil(times);
@@ -245,7 +238,7 @@ export default class Carousel extends Component {
   };
 
   getTargetMod = (customValue = null) => {
-    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
+    const value = customValue == null ? this.getCurrentValue() : customValue;
     const length = this.getChildren().length;
     let targetSlide;
     if (value >= 0) {
@@ -257,7 +250,7 @@ export default class Carousel extends Component {
   };
 
   getTargetSlide = () => {
-    if (!isNil(this.state.infiniteTransitionFrom)) {
+    if (this.state.infiniteTransitionFrom != null) {
       const mod = this.getTargetMod(this.state.infiniteTransitionFrom);
       const value = this.getCurrentValue();
 
@@ -284,33 +277,10 @@ export default class Carousel extends Component {
      });
    }, config.resizeEventListenerThrottle);
 
-  /**
-   * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
-   * @param {event} e event
-   * @param {number} index of the element drag started on
-   */
-  onMouseDown = (e, index) => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.setState({
-      clicked: index,
-      dragStart: e.pageX,
-    });
-  };
 
-  /**
-   * Function handling mouse move if drag has started. Sets dragOffset in the state.
-   * @param {event} e event
-   */
-  onMouseMove = e => {
-    if (this.state.dragStart !== null) {
-      this.setState({
-        dragOffset: e.pageX - this.state.dragStart,
-      });
-    }
-  };
 
-  /**
+
+   /**
    * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
    * @param {event} e event
    * @param {number} index of the element drag started on
@@ -327,10 +297,6 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset) > 10) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
     if (this.state.dragStart !== null) {
       this.setState({
         dragOffset: e.changedTouches[0].pageX - this.state.dragStart,
@@ -346,9 +312,10 @@ export default class Carousel extends Component {
    */
   onMouseUpTouchEnd = e => {
     if (this.state.dragStart !== null) {
-      e.preventDefault();
       if (this.getProp('draggable')) {
         if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
+          e.preventDefault();
+
           this.changeSlide(this.getNearestSlideIndex());
         } else if (this.getProp('clickToChange')) {
           this.changeSlide(this.state.clicked);
@@ -479,7 +446,7 @@ export default class Carousel extends Component {
     if (this.getProp('infinite')) {
       const clonesLeft = times(numberOfClonesLeft, () => children);
       const clonesRight = times(numberOfClonesRight, () => children);
-      slides = concat(...clonesLeft, children, ...clonesRight);
+      slides = [...clonesLeft, children, ...clonesRight];
     }
 
     return (
@@ -502,7 +469,6 @@ export default class Carousel extends Component {
               index={index}
               width={this.getCarouselElementWidth()}
               offset={index !== slides.length ? this.props.offset : 0}
-              onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
               clickable={this.getProp('clickToChange')}
             >

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
-import '../styles/CarouselItem.scss';
 
 export default class CarouselItem extends PureComponent {
   static propTypes = {
@@ -15,9 +14,6 @@ export default class CarouselItem extends PureComponent {
     currentSlideIndex: PropTypes.number,
   };
 
-  onMouseDown = event => {
-    this.props.onMouseDown(event, this.props.index);
-  };
 
   onTouchStart = event => {
     this.props.onTouchStart(event, this.props.index);
@@ -40,7 +36,6 @@ export default class CarouselItem extends PureComponent {
           maxWidth: `${this.props.width}px`,
           minWidth: `${this.props.width}px`,
         }}
-        onMouseDown={this.onMouseDown}
         onTouchStart={this.onTouchStart}
       >
         {this.props.children}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
 
 import Carousel from './Carousel';
@@ -21,7 +20,7 @@ export default class CarouselWrapper extends Component {
 
   render() {
     const { value, onChange, ...rest } = this.props;
-    const isControlled = !isNil(value);
+    const isControlled = value != null;
     return (
       <Carousel
         value={isControlled ? parseInt(value) : this.state.value}

@@ -9,6 +9,8 @@
     }
   },
   "rules": {
-    "no-invalid-this": 0
+    "no-invalid-this": 0,
+    "no-undefined": "off",
+    "eqeqeq": "off"
   }
 }
