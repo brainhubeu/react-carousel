@@ -2,9 +2,6 @@
 /* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
-import isNil from 'lodash/isNil';
-import has from 'lodash/has';
-import concat from 'lodash/concat';
 import times from 'lodash/times';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -12,8 +9,6 @@ import classnames from 'classnames';
 import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
-import '../styles/Carousel.scss';
-import '../styles/Arrows.scss';
 
 export default class Carousel extends Component {
   static propTypes = {
@@ -25,10 +20,6 @@ export default class Carousel extends Component {
     slidesPerScroll: PropTypes.number,
     itemWidth: PropTypes.number,
     offset: PropTypes.number,
-    arrows: PropTypes.bool,
-    arrowLeft: PropTypes.element,
-    arrowRight: PropTypes.element,
-    addArrowClickHandler: PropTypes.bool,
     autoPlay: PropTypes.number,
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
@@ -37,22 +28,6 @@ export default class Carousel extends Component {
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
     className: PropTypes.string,
-    breakpoints: PropTypes.objectOf(PropTypes.shape({
-      slidesPerPage: PropTypes.number,
-      slidesPerScroll: PropTypes.number,
-      arrows: PropTypes.bool,
-      arrowLeft: PropTypes.element,
-      arrowRight: PropTypes.element,
-      addArrowClickHandler: PropTypes.bool,
-      autoPlay: PropTypes.number,
-      clickToChange: PropTypes.bool,
-      centered: PropTypes.bool,
-      infinite: PropTypes.bool,
-      draggable: PropTypes.bool,
-      keepDirectionWhenDragging: PropTypes.bool,
-      animationSpeed: PropTypes.number,
-      className: PropTypes.string,
-    })),
   };
   static defaultProps = {
     slidesPerPage: 1,
@@ -83,11 +58,9 @@ export default class Carousel extends Component {
 
     // adding event listeners for swipe
     if (this.node) {
-      this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
-      this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.ownerDocument.addEventListener('touchstart', this.onTouchStart, true);
-      this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, { passive: false });
-      this.node.ownerDocument.addEventListener('touchend', this.onMouseUpTouchEnd, true);
+      this.node.addEventListener('touchstart', this.onTouchStart, true);
+      this.node.addEventListener('touchmove', this.onTouchMove, { passive: false });
+      this.node.addEventListener('touchend', this.onMouseUpTouchEnd, true);
     }
 
     // setting size of a carousel in state
@@ -167,24 +140,6 @@ export default class Carousel extends Component {
    */
   getProp = (propName, customProps = null) => {
     const props = customProps || this.props;
-    let activeBreakpoint = null;
-    if (props.breakpoints) {
-      const windowWidth = this.state.windowWidth;
-      const resolutions = Object.keys(props.breakpoints);
-      resolutions.forEach(resolutionString => {
-        const resolution = parseInt(resolutionString);
-        if (windowWidth <= resolution) {
-          if (!activeBreakpoint || activeBreakpoint > resolution) {
-            activeBreakpoint = resolution;
-          }
-        }
-      });
-    }
-    if (activeBreakpoint) {
-      if (has(props.breakpoints[activeBreakpoint], propName)) {
-        return props.breakpoints[activeBreakpoint][propName];
-      }
-    }
     return props[propName];
   };
 
@@ -205,7 +160,7 @@ export default class Carousel extends Component {
       clearInterval(this.interval);
     }
     const autoPlay = this.getProp('autoPlay');
-    if (!isNil(autoPlay)) {
+    if (autoPlay != null) {
       this.interval = setInterval(() => {
         if (!document.hidden) {
           this.nextSlide();
@@ -233,7 +188,7 @@ export default class Carousel extends Component {
 
   /* infinite calculations */
   getSlidesBounds = (customValue = null) => {
-    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
+    const value = customValue == null ? this.getCurrentValue() : customValue;
     const length = this.getChildren().length;
     const times = ((value + 1) / length);
     const ceil = Math.ceil(times);
@@ -245,7 +200,7 @@ export default class Carousel extends Component {
   };
 
   getTargetMod = (customValue = null) => {
-    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
+    const value = customValue == null ? this.getCurrentValue() : customValue;
     const length = this.getChildren().length;
     let targetSlide;
     if (value >= 0) {
@@ -257,7 +212,7 @@ export default class Carousel extends Component {
   };
 
   getTargetSlide = () => {
-    if (!isNil(this.state.infiniteTransitionFrom)) {
+    if (this.state.infiniteTransitionFrom != null) {
       const mod = this.getTargetMod(this.state.infiniteTransitionFrom);
       const value = this.getCurrentValue();
 
@@ -274,9 +229,7 @@ export default class Carousel extends Component {
    * @type {Function}
    */
    onResize = throttle(() => {
-     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
-     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
-     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+     const width = this.node.offsetWidth;
 
      this.setState({
        carouselWidth: width,
@@ -284,33 +237,7 @@ export default class Carousel extends Component {
      });
    }, config.resizeEventListenerThrottle);
 
-  /**
-   * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
-   * @param {event} e event
-   * @param {number} index of the element drag started on
-   */
-  onMouseDown = (e, index) => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.setState({
-      clicked: index,
-      dragStart: e.pageX,
-    });
-  };
-
-  /**
-   * Function handling mouse move if drag has started. Sets dragOffset in the state.
-   * @param {event} e event
-   */
-  onMouseMove = e => {
-    if (this.state.dragStart !== null) {
-      this.setState({
-        dragOffset: e.pageX - this.state.dragStart,
-      });
-    }
-  };
-
-  /**
+   /**
    * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
    * @param {event} e event
    * @param {number} index of the element drag started on
@@ -327,10 +254,6 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset) > 10) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
     if (this.state.dragStart !== null) {
       this.setState({
         dragOffset: e.changedTouches[0].pageX - this.state.dragStart,
@@ -346,9 +269,10 @@ export default class Carousel extends Component {
    */
   onMouseUpTouchEnd = e => {
     if (this.state.dragStart !== null) {
-      e.preventDefault();
       if (this.getProp('draggable')) {
         if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
+          e.preventDefault();
+
           this.changeSlide(this.getNearestSlideIndex());
         } else if (this.getProp('clickToChange')) {
           this.changeSlide(this.state.clicked);
@@ -479,7 +403,7 @@ export default class Carousel extends Component {
     if (this.getProp('infinite')) {
       const clonesLeft = times(numberOfClonesLeft, () => children);
       const clonesRight = times(numberOfClonesRight, () => children);
-      slides = concat(...clonesLeft, children, ...clonesRight);
+      slides = [...clonesLeft, children, ...clonesRight];
     }
 
     return (
@@ -502,7 +426,6 @@ export default class Carousel extends Component {
               index={index}
               width={this.getCarouselElementWidth()}
               offset={index !== slides.length ? this.props.offset : 0}
-              onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
               clickable={this.getProp('clickToChange')}
             >
@@ -514,76 +437,13 @@ export default class Carousel extends Component {
     );
   };
 
-  /**
-   * Adds onClick handler to the arrow if possible (if it does not already have one)
-   * @param {ReactElement} element to render
-   * @param {function} onClick handler to be added to element
-   * @param {string} name of an element
-   * @return {ReactElement} element with added handler
-   */
-  renderArrowWithAddedHandler = (element, onClick, name) => (
-    <div
-      className={classnames('BrainhubCarousel__customArrows', `BrainhubCarousel__custom-${name}`)}
-      ref={el => this[`${name}Node`] = el}
-      onClick={this.getProp('addArrowClickHandler') ? onClick : null}
-    >
-      {element}
-    </div>
-  );
-
-  /**
-   * Renders arrow left
-   * @return {ReactElement} element
-   */
-  renderArrowLeft = () => {
-    if (this.getProp('arrowLeft')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
-    }
-    if (this.getProp('arrows')) {
-      return (
-        <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
-          onClick={this.prevSlide}
-          ref={el => this.arrowLeftNode = el}
-        >
-          <span>prev</span>
-        </button>
-      );
-    }
-    return null;
-  };
-
-  /**
-   * Renders arrow right
-   * @return {ReactElement} element
-   */
-  renderArrowRight = () => {
-    if (this.getProp('arrowRight')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
-    }
-    if (this.getProp('arrows')) {
-      return (
-        <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
-          onClick={this.nextSlide}
-          ref={el => this.arrowRightNode = el}
-        >
-          <span>next</span>
-        </button>
-      );
-    }
-    return null;
-  };
-
   render() {
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
         ref={el => this.node = el}
       >
-        {this.renderArrowLeft()}
         {this.renderCarouselItems()}
-        {this.renderArrowRight()}
       </div>
     );
   }

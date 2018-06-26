@@ -18,7 +18,7 @@ import technicsImage from '../assets/images/technics.jpg';
 import transportImage from '../assets/images/transport.jpg';
 
 
-const code = `import Carousel from '@brainhubeu/react-carousel';
+const code = `import Carousel from '@4c/react-carousel';
 
 ...
 
@@ -29,7 +29,7 @@ constructor(props) {
   };
 }
 
-// we check if we got event from input (and it has target property) or just value from Carousel 
+// we check if we got event from input (and it has target property) or just value from Carousel
 onChange = e => this.setState({ value: e.target ? e.target.value : e });
 
 render() {
