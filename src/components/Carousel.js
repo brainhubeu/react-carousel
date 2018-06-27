@@ -12,6 +12,7 @@ import classnames from 'classnames';
 import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
+import Dots from './CarouselDots';
 import '../styles/Carousel.scss';
 import '../styles/Arrows.scss';
 
@@ -36,6 +37,7 @@ export default class Carousel extends Component {
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
+    dots: PropTypes.bool,
     className: PropTypes.string,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
@@ -51,6 +53,7 @@ export default class Carousel extends Component {
       draggable: PropTypes.bool,
       keepDirectionWhenDragging: PropTypes.bool,
       animationSpeed: PropTypes.number,
+      dots: PropTypes.bool,
       className: PropTypes.string,
     })),
   };
@@ -575,6 +578,13 @@ export default class Carousel extends Component {
     return null;
   };
 
+  renderDots() {
+    if (this.getProp('dots')) {
+      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} />;
+    }
+    return null;
+  }
+
   render() {
     return (
       <div
@@ -584,6 +594,7 @@ export default class Carousel extends Component {
         {this.renderArrowLeft()}
         {this.renderCarouselItems()}
         {this.renderArrowRight()}
+        {this.renderDots()}
       </div>
     );
   }

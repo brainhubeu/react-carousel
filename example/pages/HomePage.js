@@ -43,6 +43,7 @@ export default class HomePage extends Component {
         <Section code={code}>
           <Carousel
             slidesPerPage={4}
+            dots
           >
             <img className="img-example" src={abstractImage} />
             <img className="img-example" src={animalsImage} />
@@ -62,11 +63,3 @@ export default class HomePage extends Component {
     );
   }
 }
-
-/*
-
-
-
-
-
- */
