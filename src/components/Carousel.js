@@ -194,7 +194,6 @@ export default class Carousel extends Component {
   /**
    * Check if this.props.value changed after update
    * @param {object} prevProps
-   * @param {object} prevState
    * @return {boolean} result
    */
   checkIfValueChanged = prevProps => {

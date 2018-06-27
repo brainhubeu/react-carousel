@@ -19,6 +19,7 @@ import transportImage from '../assets/images/transport.jpg';
 
 
 const code = `import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 

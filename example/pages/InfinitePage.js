@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Icon from 'react-fa';
 import NavLayout from '../containers/NavLayout';
 import Section from '../containers/Section';
 
@@ -20,6 +19,7 @@ import transportImage from '../assets/images/transport.jpg';
 
 
 const code = `import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 import Icon from 'react-fa';
 
 ...

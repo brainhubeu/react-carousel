@@ -21,6 +21,7 @@ import transportImage from '../assets/images/transport.jpg';
 
 const code = `import Carousel from '@brainhubeu/react-carousel';
 import Icon from 'react-fa';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 

@@ -16,8 +16,10 @@ There are some great carousels (like slick) that do not have real React implemen
 
 ## Usage
 By default the component does not need anything except children to render simple carousel.
+Remember that styles does not have to be imported everytime you use carousel, you can do it once in an entry point of your bundle.
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
@@ -36,6 +38,7 @@ render() {
 You can control which slides are being shown by providing Carousel with value and onChange props
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
@@ -73,6 +76,7 @@ Where:
 You can enable default arrows or provide carousel with your own arrowLeft and arrowRight components
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
@@ -92,6 +96,7 @@ render() {
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
 import Icon from 'react-fa';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
@@ -117,6 +122,7 @@ Where:
 
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
@@ -148,7 +154,8 @@ Where:
 ### Additional options
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
-import Icon from 'react-fa';
+import '@brainhubeu/react-carousel/lib/style.css';
+
 ...
 render() {
   return (
@@ -183,6 +190,7 @@ Where:
 ### Infinite
 ```javascript
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
@@ -249,6 +257,7 @@ Note: In the example above you cannot leave clickToChange value out in 500 break
 There is a separate Dots component that can be used to show navigation dots.
 ```javascript
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
@@ -281,6 +290,7 @@ render() {
 It can also show thumbnails instead of dots
 ```javascript
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 ...
 
