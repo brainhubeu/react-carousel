@@ -16,6 +16,7 @@ There are some great carousels (like slick) that do not have real React implemen
 
 ## Usage
 By default the component does not need anything except children to render simple carousel.
+Remember that styles does not have to be imported everytime you use carousel, you can do it once in an entry point of your bundle.
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
