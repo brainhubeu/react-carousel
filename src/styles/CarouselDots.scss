@@ -52,20 +52,9 @@ $dots-color: black;
     &:hover {
       opacity: 1;
     }
-
-    &:before {
-      content: '';
-      display: block;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      padding: 0;
-      border: none;
-      background: $dots-color;
-    }
   }
 }
 
 .BrainhubCarousel__thumbnail[type=button] {
-  -webkit-appearance: none
+  -webkit-appearance: none;
 }
