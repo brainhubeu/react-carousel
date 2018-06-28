@@ -1,0 +1,124 @@
+{
+  "assetsByChunkName": {
+    "path---docs-examples-click-to-change": [
+      "path---docs-examples-click-to-change-8f5338ee37d4130b5cc1.js",
+      "path---docs-examples-click-to-change-8f5338ee37d4130b5cc1.js.map"
+    ],
+    "path---docs-examples-controlled": [
+      "path---docs-examples-controlled-14d466e6d519e7a879fb.js",
+      "path---docs-examples-controlled-14d466e6d519e7a879fb.js.map"
+    ],
+    "path---docs-examples-default-arrows": [
+      "path---docs-examples-default-arrows-bf7f4ff4dbb61782d202.js",
+      "path---docs-examples-default-arrows-bf7f4ff4dbb61782d202.js.map"
+    ],
+    "path---docs-examples-simple-usage": [
+      "path---docs-examples-simple-usage-bff02f10288f74f2a9c9.js",
+      "path---docs-examples-simple-usage-bff02f10288f74f2a9c9.js.map"
+    ],
+    "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js": [
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-4cb3a7d59986f152b3dd.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-4cb3a7d59986f152b3dd.js.map"
+    ],
+    "path---": [
+      "path----3373e558c5bb0c388ae6.js",
+      "path----3373e558c5bb0c388ae6.js.map"
+    ],
+    "path---docs-examples-animation": [
+      "path---docs-examples-animation-fc925ee5007685010dc6.js",
+      "path---docs-examples-animation-fc925ee5007685010dc6.js.map"
+    ],
+    "path---docs-getting-started": [
+      "path---docs-getting-started-ac64af802db4ca4e71a0.js",
+      "path---docs-getting-started-ac64af802db4ca4e71a0.js.map"
+    ],
+    "path---docs-examples-responsive": [
+      "path---docs-examples-responsive-54f6b98c6bb5674f2582.js",
+      "path---docs-examples-responsive-54f6b98c6bb5674f2582.js.map"
+    ],
+    "path---docs-examples-multiple-items": [
+      "path---docs-examples-multiple-items-526d00fd77b0bd815cdc.js",
+      "path---docs-examples-multiple-items-526d00fd77b0bd815cdc.js.map"
+    ],
+    "path---docs-examples-centered": [
+      "path---docs-examples-centered-1934fae4cd32f6cc234b.js",
+      "path---docs-examples-centered-1934fae4cd32f6cc234b.js.map"
+    ],
+    "path---landing": [
+      "path---landing-a0e39f21c11f6a62c5ab.js",
+      "path---landing-a0e39f21c11f6a62c5ab.js.map"
+    ],
+    "path---docs-api-dots": [
+      "path---docs-api-dots-742ebb3c1c94adc756d2.js",
+      "path---docs-api-dots-742ebb3c1c94adc756d2.js.map"
+    ],
+    "path---docs-api-carousel": [
+      "path---docs-api-carousel-708808b384a644b39f74.js",
+      "path---docs-api-carousel-708808b384a644b39f74.js.map"
+    ],
+    "path---index": [
+      "path---index-fabf0a82e327c1d00460.js",
+      "path---index-fabf0a82e327c1d00460.js.map"
+    ],
+    "path---docs-examples-simple-dots": [
+      "path---docs-examples-simple-dots-9d36bc9ccd659871de63.js",
+      "path---docs-examples-simple-dots-9d36bc9ccd659871de63.js.map"
+    ],
+    "component---src-pages-landing-js": [
+      "component---src-pages-landing-js-f370959d2c4b22735488.js",
+      "component---src-pages-landing-js-f370959d2c4b22735488.js.map"
+    ],
+    "component---src-pages-404-js": [
+      "component---src-pages-404-js-23f9dfcad6da6c583751.js",
+      "component---src-pages-404-js-23f9dfcad6da6c583751.js.map"
+    ],
+    "commons": [
+      "commons-56b8264ec1e7d9adc97d.js",
+      "build-js-styles.css",
+      "commons-56b8264ec1e7d9adc97d.js.map",
+      "build-js-styles.css.map"
+    ],
+    "path---404-html": [
+      "path---404-html-a0e39f21c11f6a62c5ab.js",
+      "path---404-html-a0e39f21c11f6a62c5ab.js.map"
+    ],
+    "path---docs-examples-custom-arrows": [
+      "path---docs-examples-custom-arrows-3e63224a43084945c2bd.js",
+      "path---docs-examples-custom-arrows-3e63224a43084945c2bd.js.map"
+    ],
+    "path---docs-examples-dots": [
+      "path---docs-examples-dots-88f5e6f10f96d2bfb8a8.js",
+      "path---docs-examples-dots-88f5e6f10f96d2bfb8a8.js.map"
+    ],
+    "path---docs-examples-slides-per-scroll": [
+      "path---docs-examples-slides-per-scroll-6aa969f68e1723bbf726.js",
+      "path---docs-examples-slides-per-scroll-6aa969f68e1723bbf726.js.map"
+    ],
+    "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js": [
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-f9a6a5e6bab2fda5301b.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-f9a6a5e6bab2fda5301b.js.map"
+    ],
+    "path---docs-examples-infinite": [
+      "path---docs-examples-infinite-b6c8dc0c7ec94a8f187a.js",
+      "path---docs-examples-infinite-b6c8dc0c7ec94a8f187a.js.map"
+    ],
+    "path---docs-examples-thumbnails": [
+      "path---docs-examples-thumbnails-976f0a8d09d087614b86.js",
+      "path---docs-examples-thumbnails-976f0a8d09d087614b86.js.map"
+    ],
+    "app": [
+      "app-068f189e224ae1ceb20f.js",
+      "build-js-styles.css",
+      "app-068f189e224ae1ceb20f.js.map",
+      "build-js-styles.css.map"
+    ],
+    "path---docs-examples-draggable": [
+      "path---docs-examples-draggable-7ab1da4d05b508488bfa.js",
+      "path---docs-examples-draggable-7ab1da4d05b508488bfa.js.map"
+    ],
+    "path---404": [
+      "path---404-a0e39f21c11f6a62c5ab.js",
+      "path---404-a0e39f21c11f6a62c5ab.js.map"
+    ]
+  }
+}
