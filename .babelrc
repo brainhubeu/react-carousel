@@ -8,11 +8,6 @@
     "transform-decorators-legacy"
   ],
   "env": {
-    "development": {
-      "presets": [
-        "react-hmre"
-      ]
-    },
     "production": {
       "plugins": [
         "transform-react-constant-elements",

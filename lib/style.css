@@ -58,25 +58,16 @@
       padding: 0;
       border: none;
       background: black; }
-  .BrainhubCarousel__dots .BrainhubCarousel_thumbnail {
+  .BrainhubCarousel__dots .BrainhubCarousel__thumbnail {
     outline: 0;
     padding: 10px;
     border: none;
     opacity: 0.5;
     cursor: pointer; }
-    .BrainhubCarousel__dots .BrainhubCarousel_thumbnail.BrainhubCarousel__thumbnail--selected {
+    .BrainhubCarousel__dots .BrainhubCarousel__thumbnail.BrainhubCarousel__thumbnail--selected {
       opacity: 1 !important; }
-    .BrainhubCarousel__dots .BrainhubCarousel_thumbnail:hover {
+    .BrainhubCarousel__dots .BrainhubCarousel__thumbnail:hover {
       opacity: 1; }
-    .BrainhubCarousel__dots .BrainhubCarousel_thumbnail:before {
-      content: '';
-      display: block;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      padding: 0;
-      border: none;
-      background: black; }
 
 .BrainhubCarousel__thumbnail[type=button] {
   -webkit-appearance: none; }
