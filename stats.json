@@ -1,48 +1,48 @@
 {
   "assetsByChunkName": {
     "path---docs-examples-click-to-change": [
-      "path---docs-examples-click-to-change-8f5338ee37d4130b5cc1.js",
-      "path---docs-examples-click-to-change-8f5338ee37d4130b5cc1.js.map"
+      "path---docs-examples-click-to-change-c10f401f29781887a804.js",
+      "path---docs-examples-click-to-change-c10f401f29781887a804.js.map"
     ],
     "path---docs-examples-controlled": [
-      "path---docs-examples-controlled-14d466e6d519e7a879fb.js",
-      "path---docs-examples-controlled-14d466e6d519e7a879fb.js.map"
+      "path---docs-examples-controlled-732aba9b8877dead2411.js",
+      "path---docs-examples-controlled-732aba9b8877dead2411.js.map"
     ],
     "path---docs-examples-default-arrows": [
-      "path---docs-examples-default-arrows-bf7f4ff4dbb61782d202.js",
-      "path---docs-examples-default-arrows-bf7f4ff4dbb61782d202.js.map"
+      "path---docs-examples-default-arrows-e78d29f97d30145f37e1.js",
+      "path---docs-examples-default-arrows-e78d29f97d30145f37e1.js.map"
     ],
     "path---docs-examples-simple-usage": [
-      "path---docs-examples-simple-usage-bff02f10288f74f2a9c9.js",
-      "path---docs-examples-simple-usage-bff02f10288f74f2a9c9.js.map"
+      "path---docs-examples-simple-usage-871448bd89f31f0d2038.js",
+      "path---docs-examples-simple-usage-871448bd89f31f0d2038.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js": [
       "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-4cb3a7d59986f152b3dd.js",
       "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-4cb3a7d59986f152b3dd.js.map"
     ],
     "path---": [
-      "path----3373e558c5bb0c388ae6.js",
-      "path----3373e558c5bb0c388ae6.js.map"
+      "path----e53f1ea22943aa3f08c5.js",
+      "path----e53f1ea22943aa3f08c5.js.map"
     ],
     "path---docs-examples-animation": [
-      "path---docs-examples-animation-fc925ee5007685010dc6.js",
-      "path---docs-examples-animation-fc925ee5007685010dc6.js.map"
+      "path---docs-examples-animation-06d223321ca4ad0d3e81.js",
+      "path---docs-examples-animation-06d223321ca4ad0d3e81.js.map"
     ],
     "path---docs-getting-started": [
       "path---docs-getting-started-ac64af802db4ca4e71a0.js",
       "path---docs-getting-started-ac64af802db4ca4e71a0.js.map"
     ],
     "path---docs-examples-responsive": [
-      "path---docs-examples-responsive-54f6b98c6bb5674f2582.js",
-      "path---docs-examples-responsive-54f6b98c6bb5674f2582.js.map"
+      "path---docs-examples-responsive-755c7dedd599ec567e78.js",
+      "path---docs-examples-responsive-755c7dedd599ec567e78.js.map"
     ],
     "path---docs-examples-multiple-items": [
-      "path---docs-examples-multiple-items-526d00fd77b0bd815cdc.js",
-      "path---docs-examples-multiple-items-526d00fd77b0bd815cdc.js.map"
+      "path---docs-examples-multiple-items-69451bc4fb90faa81f36.js",
+      "path---docs-examples-multiple-items-69451bc4fb90faa81f36.js.map"
     ],
     "path---docs-examples-centered": [
-      "path---docs-examples-centered-1934fae4cd32f6cc234b.js",
-      "path---docs-examples-centered-1934fae4cd32f6cc234b.js.map"
+      "path---docs-examples-centered-0bb6430e8a94e1047884.js",
+      "path---docs-examples-centered-0bb6430e8a94e1047884.js.map"
     ],
     "path---landing": [
       "path---landing-a0e39f21c11f6a62c5ab.js",
@@ -61,8 +61,8 @@
       "path---index-fabf0a82e327c1d00460.js.map"
     ],
     "path---docs-examples-simple-dots": [
-      "path---docs-examples-simple-dots-9d36bc9ccd659871de63.js",
-      "path---docs-examples-simple-dots-9d36bc9ccd659871de63.js.map"
+      "path---docs-examples-simple-dots-fc61d422233c4ddc6157.js",
+      "path---docs-examples-simple-dots-fc61d422233c4ddc6157.js.map"
     ],
     "component---src-pages-landing-js": [
       "component---src-pages-landing-js-f370959d2c4b22735488.js",
@@ -83,24 +83,24 @@
       "path---404-html-a0e39f21c11f6a62c5ab.js.map"
     ],
     "path---docs-examples-custom-arrows": [
-      "path---docs-examples-custom-arrows-3e63224a43084945c2bd.js",
-      "path---docs-examples-custom-arrows-3e63224a43084945c2bd.js.map"
+      "path---docs-examples-custom-arrows-5bc7676c7aff64a61446.js",
+      "path---docs-examples-custom-arrows-5bc7676c7aff64a61446.js.map"
     ],
     "path---docs-examples-dots": [
       "path---docs-examples-dots-88f5e6f10f96d2bfb8a8.js",
       "path---docs-examples-dots-88f5e6f10f96d2bfb8a8.js.map"
     ],
     "path---docs-examples-slides-per-scroll": [
-      "path---docs-examples-slides-per-scroll-6aa969f68e1723bbf726.js",
-      "path---docs-examples-slides-per-scroll-6aa969f68e1723bbf726.js.map"
+      "path---docs-examples-slides-per-scroll-ef0c2ea2f618ea09395a.js",
+      "path---docs-examples-slides-per-scroll-ef0c2ea2f618ea09395a.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js": [
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-f9a6a5e6bab2fda5301b.js",
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-f9a6a5e6bab2fda5301b.js.map"
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-b6f5d0ae55eac653e2e9.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-b6f5d0ae55eac653e2e9.js.map"
     ],
     "path---docs-examples-infinite": [
-      "path---docs-examples-infinite-b6c8dc0c7ec94a8f187a.js",
-      "path---docs-examples-infinite-b6c8dc0c7ec94a8f187a.js.map"
+      "path---docs-examples-infinite-5a28d5649259041af47a.js",
+      "path---docs-examples-infinite-5a28d5649259041af47a.js.map"
     ],
     "path---docs-examples-thumbnails": [
       "path---docs-examples-thumbnails-976f0a8d09d087614b86.js",
@@ -113,8 +113,8 @@
       "build-js-styles.css.map"
     ],
     "path---docs-examples-draggable": [
-      "path---docs-examples-draggable-7ab1da4d05b508488bfa.js",
-      "path---docs-examples-draggable-7ab1da4d05b508488bfa.js.map"
+      "path---docs-examples-draggable-9df8d7d2a8872c853558.js",
+      "path---docs-examples-draggable-9df8d7d2a8872c853558.js.map"
     ],
     "path---404": [
       "path---404-a0e39f21c11f6a62c5ab.js",
