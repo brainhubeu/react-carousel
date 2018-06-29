@@ -1,5 +1,5 @@
 ## Thumbnails
-You can use Carousel as controlled component
+You can use Carousel as controlled component. Provided value will be clamped depending on the number of slides. E.g. if there are 3 slides all values bigger than 2 (index of the last element) will evaluate to 2.
 ```jsx render
 class MyCarousel extends React.Component {
   constructor() {
@@ -15,6 +15,7 @@ class MyCarousel extends React.Component {
   render() {
     return (
     <div>
+      <input value={this.state.value} onChange={e => this.onChange(parseInt(e.target.value || 0))}/>
       <Carousel
         value={this.state.value}
         onChange={this.onChange}
@@ -23,7 +24,7 @@ class MyCarousel extends React.Component {
           (<img src={imageTwo} />),
           (<img src={imageThree} />),
         ]}
-        arrow
+        arrows
         clickToChange
       />
     </div>
