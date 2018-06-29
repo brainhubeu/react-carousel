@@ -5,13 +5,13 @@ const pluginConfigFactory = require('@brainhubeu/gatsby-docs-kit/plugins');
 
 module.exports = {
   siteMetadata: {
-    title: 'Brainhub template',
-    description: 'Default template for open-source libraries',
+    title: 'React-carousel',
+    description: 'Feature-rich, react-way react component that does not suck',
     image: 'https://cdn-images-1.medium.com/max/1200/1*CLUFZFaXF6NG27NA3d_JkQ.jpeg',
-    url: 'https://screencloud.dev.brainhub.pl/',
+    url: 'https://brainhubeu.github.io/react-carousel',
     type: 'article',
-    siteName: 'Brainhub template',
-    githubUrl: 'https://github.com/brainhubeu',
+    siteName: 'React-carousel',
+    githubUrl: 'https://github.com/brainhubeu/react-carousel/',
   },
 
   // URL prefix on production environment. For more info see https://www.gatsbyjs.org/docs/path-prefix/
