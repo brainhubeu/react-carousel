@@ -15,7 +15,11 @@ class MyCarousel extends React.Component {
   render() {
     return (
     <div>
-      <input value={this.state.value} onChange={e => this.onChange(parseInt(e.target.value || 0))}/>
+      <input
+        type="number"
+        value={this.state.value}
+        onChange={e => this.onChange(parseInt(e.target.value || 0))}
+      />
       <Carousel
         value={this.state.value}
         onChange={this.onChange}
