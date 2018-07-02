@@ -1,0 +1,92 @@
+@import './variables.scss';
+
+.landing {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 2*#{$mainNavHeight} - 64px);
+}
+
+.landing__header {
+  text-transform: uppercase;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.btn__wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.landing__btn {
+  display: inline-block;
+  background-color: $colorBHBg;
+  text-decoration: none;
+  color: $white;
+  padding: 1rem 2rem;
+  margin: 2rem;
+  position: relative;
+  overflow: hidden;
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background-color: $colorBHMain;
+    transition: width .3s ease-out;
+  }
+
+  &:after {
+    left: 0;
+  }
+
+  &:before {
+    right: 0;
+  }
+
+  &:hover {
+    color: $white;
+
+    &:after,
+    &:before {
+      width: 0;
+    }
+  }
+}
+
+.landing__btn--alt {
+  composes: landing__btn;
+  background-color: transparent;
+  color: rgba($colorBHBg, .7);
+  transition: color .3s;
+
+  &:after,
+  &:before {
+    background-color: transparent;
+    border-style: solid;
+    border-color: $colorBHMain;
+  }
+
+  &:after {
+    border-width: 1px 0 1px 1px;
+  }
+
+  &:before {
+    border-width: 1px 1px 1px 0;
+  }
+
+  &:hover {
+    color: $colorBHMain;
+  }
+}
