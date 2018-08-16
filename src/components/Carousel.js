@@ -74,6 +74,7 @@ export default class Carousel extends Component {
       dragStart: null,
       transitionEnabled: false,
       infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
+      isAutoPlayStopped: false,
     };
     this.interval = null;
   }
@@ -209,7 +210,7 @@ export default class Carousel extends Component {
     const autoPlay = this.getProp('autoPlay');
     if (!isNil(autoPlay)) {
       this.interval = setInterval(() => {
-        if (!document.hidden) {
+        if (!document.hidden && !this.state.isAutoPlayStopped) {
           this.nextSlide();
         }
       }, autoPlay);
@@ -374,6 +375,27 @@ export default class Carousel extends Component {
     });
   };
 
+  /**
+   * Function handling mouse hover over element
+   * Stops auto play
+   */
+  onMouseEnter = () => {
+    this.setState({
+      isAutoPlayStopped: true,
+    });
+  };
+
+  /**
+   * Function handling mouse leaving element
+   * Resumes auto play
+   */
+  onMouseLeave = () => {
+    this.setState({
+      isAutoPlayStopped: false,
+    });
+    this.resetInterval();
+  };
+
 
   /* ========== control ========== */
   /**
@@ -484,6 +506,8 @@ export default class Carousel extends Component {
       slides = concat(...clonesLeft, children, ...clonesRight);
     }
 
+    const isAutoPlay = this.getProp('autoPlay');
+
     return (
       <div className="BrainhubCarousel__trackContainer">
         <ul
@@ -496,6 +520,8 @@ export default class Carousel extends Component {
           )}
           style={trackStyles}
           ref={el => this.trackRef = el}
+          onMouseEnter={isAutoPlay ? this.onMouseEnter : null}
+          onMouseLeave={isAutoPlay ? this.onMouseLeave : null}
         >
           {slides.map((carouselItem, index) => (
             <CarouselItem
