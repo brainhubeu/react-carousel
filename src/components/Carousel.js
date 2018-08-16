@@ -31,6 +31,7 @@ export default class Carousel extends Component {
     arrowRight: PropTypes.element,
     addArrowClickHandler: PropTypes.bool,
     autoPlay: PropTypes.number,
+    stopAutoPlayOnHover: PropTypes.bool,
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
     infinite: PropTypes.bool,
@@ -47,6 +48,7 @@ export default class Carousel extends Component {
       arrowRight: PropTypes.element,
       addArrowClickHandler: PropTypes.bool,
       autoPlay: PropTypes.number,
+      stopAutoPlayOnHover: PropTypes.bool,
       clickToChange: PropTypes.bool,
       centered: PropTypes.bool,
       infinite: PropTypes.bool,
@@ -507,6 +509,8 @@ export default class Carousel extends Component {
     }
 
     const isAutoPlay = this.getProp('autoPlay');
+    const isStopAutoPlayOnHover = this.getProp('stopAutoPlayOnHover');
+    const handleAutoPlayEvent = action => (isAutoPlay && isStopAutoPlayOnHover) ? action : null;
 
     return (
       <div className="BrainhubCarousel__trackContainer">
@@ -520,8 +524,8 @@ export default class Carousel extends Component {
           )}
           style={trackStyles}
           ref={el => this.trackRef = el}
-          onMouseEnter={isAutoPlay ? this.onMouseEnter : null}
-          onMouseLeave={isAutoPlay ? this.onMouseLeave : null}
+          onMouseEnter={handleAutoPlayEvent(this.onMouseEnter)}
+          onMouseLeave={handleAutoPlayEvent(this.onMouseLeave)}
         >
           {slides.map((carouselItem, index) => (
             <CarouselItem
