@@ -31,6 +31,7 @@ export default class Carousel extends Component {
     arrowRight: PropTypes.element,
     addArrowClickHandler: PropTypes.bool,
     autoPlay: PropTypes.number,
+    stopAutoPlayOnHover: PropTypes.bool,
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
     infinite: PropTypes.bool,
@@ -47,6 +48,7 @@ export default class Carousel extends Component {
       arrowRight: PropTypes.element,
       addArrowClickHandler: PropTypes.bool,
       autoPlay: PropTypes.number,
+      stopAutoPlayOnHover: PropTypes.bool,
       clickToChange: PropTypes.bool,
       centered: PropTypes.bool,
       infinite: PropTypes.bool,
@@ -74,6 +76,7 @@ export default class Carousel extends Component {
       dragStart: null,
       transitionEnabled: false,
       infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
+      isAutoPlayStopped: false,
     };
     this.interval = null;
   }
@@ -209,7 +212,7 @@ export default class Carousel extends Component {
     const autoPlay = this.getProp('autoPlay');
     if (!isNil(autoPlay)) {
       this.interval = setInterval(() => {
-        if (!document.hidden) {
+        if (!document.hidden && !this.state.isAutoPlayStopped) {
           this.nextSlide();
         }
       }, autoPlay);
@@ -374,6 +377,27 @@ export default class Carousel extends Component {
     });
   };
 
+  /**
+   * Function handling mouse hover over element
+   * Stops auto play
+   */
+  onMouseEnter = () => {
+    this.setState({
+      isAutoPlayStopped: true,
+    });
+  };
+
+  /**
+   * Function handling mouse leaving element
+   * Resumes auto play
+   */
+  onMouseLeave = () => {
+    this.setState({
+      isAutoPlayStopped: false,
+    });
+    this.resetInterval();
+  };
+
 
   /* ========== control ========== */
   /**
@@ -484,6 +508,10 @@ export default class Carousel extends Component {
       slides = concat(...clonesLeft, children, ...clonesRight);
     }
 
+    const isAutoPlay = this.getProp('autoPlay');
+    const isStopAutoPlayOnHover = this.getProp('stopAutoPlayOnHover');
+    const handleAutoPlayEvent = action => (isAutoPlay && isStopAutoPlayOnHover) ? action : null;
+
     return (
       <div className="BrainhubCarousel__trackContainer">
         <ul
@@ -496,6 +524,8 @@ export default class Carousel extends Component {
           )}
           style={trackStyles}
           ref={el => this.trackRef = el}
+          onMouseEnter={handleAutoPlayEvent(this.onMouseEnter)}
+          onMouseLeave={handleAutoPlayEvent(this.onMouseLeave)}
         >
           {slides.map((carouselItem, index) => (
             <CarouselItem

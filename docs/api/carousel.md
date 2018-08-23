@@ -22,6 +22,8 @@
 
 * ```autoPlay: Number```: Slide change interval in milliseconds.
 
+* ```stopAutoPlayOnHover: Boolean```: Determines if autoPlay should stop when mouse hover over carousel.
+
 * ```clickToChange: Boolean``` Clicking on a slide changes current slide to the clicked one.
 
 * ```centered: Boolean``` Alignes active slide to the center of the carousel.
