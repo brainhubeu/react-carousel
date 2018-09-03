@@ -35,12 +35,12 @@ jobs:
       - image: circleci/node:8.11
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/app
+      - run:
+          name: Install Dependencies
+          command: yarn install
       - run:
           name: npm publish
           command: |
-            echo NPM_TOKEN=$NPM_TOKEN
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/app/.npmrc
             npm publish
 
