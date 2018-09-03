@@ -1,43 +1,45 @@
 version: 2
 jobs:
-  test:
+  lint_and_test:
     docker:
-      - image: registry.dev.brainhub.pl/tools/rancher-circleci
-        auth:
-          username: $HARBOR_USER
-          password: $HARBOR_PASSWORD
-    working_directory: ~/app
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run: docker login -u $HARBOR_USER -p $HARBOR_PASSWORD registry.dev.brainhub.pl
-      - run: docker build --build-arg NODE_ENV=development -t registry.dev.brainhub.pl/react-carousel/react-carousel .
-      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run lint'
-      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test-unit'
+      - image: circleci/node:8.11
 
-  build_and_deploy:
-    docker:
-      - image: registry.dev.brainhub.pl/tools/rancher-circleci
-        auth:
-          username: $HARBOR_USER
-          password: $HARBOR_PASSWORD
-    working_directory: ~/app
     steps:
       - checkout
-      - setup_remote_docker
-      - run: docker login -u $HARBOR_USER -p $HARBOR_PASSWORD registry.dev.brainhub.pl
-      - run: docker build -t registry.dev.brainhub.pl/react-carousel/react-carousel .
-      - run: docker push registry.dev.brainhub.pl/react-carousel/react-carousel:latest
-      - run: rancher-compose --project-name react-carousel --verbose up -d --force-upgrade --pull --confirm-upgrade react-carousel
+      - run:
+          name: yarn install
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            yarn install --non-interactive
+      - run: yarn lint
+      - run: yarn test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .npmrc
+
+  publish_package:
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: npm publish
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            npm publish
 
 workflows:
   version: 2
-  test_and_deploy:
+  lint_and_test_and_publish:
     jobs:
-      - test
-      - build_and_deploy:
+      - lint_and_test
+      - publish_package:
           requires:
-            - test
+            - lint_and_test
           filters:
             branches:
-              only: master
+              only:
+                - master
