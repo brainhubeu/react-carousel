@@ -36,7 +36,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: .
+          at: ~/app
       - run:
           name: npm publish
           command: |
