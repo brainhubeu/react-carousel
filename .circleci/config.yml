@@ -35,13 +35,16 @@ jobs:
       - image: circleci/node:8.11
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: yarn install
+      - persist_to_workspace:
+          root: ~/app
+          paths:
+            - .npmrc
+      - attach_workspace:
+          at: ~/app
       - run:
           name: npm publish
           command: |
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/app/.npmrc
             npm publish
 
 workflows:
