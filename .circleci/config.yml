@@ -41,6 +41,7 @@ jobs:
           name: npm publish
           command: |
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            yarn install
             npm publish
 
 workflows:
