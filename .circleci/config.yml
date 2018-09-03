@@ -57,7 +57,9 @@ workflows:
             - test
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - FER-314-auto-publish
       - publish_package:
           requires:
             - build_and_deploy
