@@ -15,6 +15,9 @@ jobs:
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run lint'
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test-unit'
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+      - run:
+          name: Install Dependencies
+          command: yarn install
       - persist_to_workspace:
           root: ~/app
           paths:
