@@ -14,6 +14,7 @@ jobs:
       - run: docker build --build-arg NODE_ENV=development -t registry.dev.brainhub.pl/react-carousel/react-carousel .
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run lint'
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test-unit'
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
       - persist_to_workspace:
           root: ~/app
           paths:
@@ -62,7 +63,7 @@ workflows:
                 - FER-314-auto-publish
       - publish_package:
           requires:
-            - build_and_deploy
+            - test
           filters:
             branches:
               only:
