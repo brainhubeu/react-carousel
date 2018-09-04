@@ -23,6 +23,7 @@ jobs:
       - run:
           name: Install npm dependencies
           command: yarn install --non-interactive
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
       - persist_to_workspace:
           root: .
           paths:
