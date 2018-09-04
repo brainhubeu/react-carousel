@@ -15,14 +15,25 @@ jobs:
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run lint'
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test-unit'
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+  raw_build:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Install Dependencies
-          command: yarn install
+          name: Install npm dependencies
+          command: yarn install --non-interactive
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
       - persist_to_workspace:
           root: ~/app
           paths:
             - .npmrc
-
   build_and_deploy:
     docker:
       - image: registry.dev.brainhub.pl/tools/rancher-circleci
@@ -66,7 +77,7 @@ workflows:
                 - FER-314-auto-publish
       - publish_package:
           requires:
-            - test
+            - raw_build
           filters:
             branches:
               only:
