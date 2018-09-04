@@ -48,8 +48,9 @@ jobs:
       - image: circleci/node:8.11
     steps:
       - checkout
-      - attach_workspace:
-          at: .
+      - run:
+          name: Install npm dependencies
+          command: yarn install --non-interactive
       - run:
           name: npm publish
           command: |
