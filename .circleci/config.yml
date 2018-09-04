@@ -68,8 +68,6 @@ workflows:
               only:
                 - master
       - publish_package:
-          requires:
-            - simple_build
           filters:
             branches:
               only:
