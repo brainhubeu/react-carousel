@@ -15,7 +15,7 @@ jobs:
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run lint'
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test-unit'
       - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-  raw_build:
+  simple_build:
     docker:
       - image: circleci/node:8.11
     steps:
@@ -69,7 +69,7 @@ workflows:
                 - master
       - publish_package:
           requires:
-            - raw_build
+            - simple_build
           filters:
             branches:
               only:
