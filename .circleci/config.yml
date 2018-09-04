@@ -59,6 +59,7 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
+      - simple_build
       - test
       - build_and_deploy:
           requires:
@@ -68,6 +69,8 @@ workflows:
               only:
                 - master
       - publish_package:
+          requires:
+            - simple_build
           filters:
             branches:
               only:
