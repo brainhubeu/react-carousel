@@ -30,14 +30,38 @@ jobs:
       - run: docker push registry.dev.brainhub.pl/react-carousel/react-carousel:latest
       - run: rancher-compose --project-name react-carousel --verbose up -d --force-upgrade --pull --confirm-upgrade react-carousel
 
+  publish_package:
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+      - run:
+          name: npm publish
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            npm publish
+      - run:
+          name: publish gh pages
+          command: ./tools/deploy-gh-pages.sh
+
 workflows:
   version: 2
   test_and_deploy:
     jobs:
       - test
-      - build_and_deploy:
+      # TODO revert build_and_deploy when brainhub registry is up
+      #- build_and_deploy:
+          #requires:
+            #- test
+          #filters:
+            #branches:
+              #only:
+                #- master
+                #- check-publish
+      - publish_package:
           requires:
             - test
           filters:
             branches:
-              only: master
+              only:
+                - master
