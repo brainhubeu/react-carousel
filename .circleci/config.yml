@@ -13,7 +13,7 @@ jobs:
       - run: docker login -u $HARBOR_USER -p $HARBOR_PASSWORD registry.dev.brainhub.pl
       - run: docker build --build-arg NODE_ENV=development -t registry.dev.brainhub.pl/react-carousel/react-carousel .
       - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run lint'
-      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test-unit'
+      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' registry.dev.brainhub.pl/react-carousel/react-carousel -c 'npm run test'
 
   build_and_deploy:
     docker:

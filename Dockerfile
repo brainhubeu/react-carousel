@@ -1,4 +1,4 @@
-FROM node:8.5.0
+FROM node:8.11.4
 
 RUN rm -rf /app
 RUN mkdir -p /app
@@ -11,5 +11,3 @@ RUN npm install
 COPY . /app
 
 ENV PORT 8080
-
-CMD [ "npm", "run", "example" ]
