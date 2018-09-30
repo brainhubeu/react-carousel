@@ -9,7 +9,7 @@
     "lib/*"
   ],
   "scripts": {
-    "lint": "eslint src tools test features --color",
+    "lint": "eslint src test",
     "clean-dist": "rm -rf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
+    "babel-loader": "^7.1.5",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
@@ -34,14 +34,15 @@
     "babel-preset-stage-1": "^6.24.1",
     "classnames": "^2.2.5",
     "enzyme": "^2.9.1",
-    "eslint": "^4.1.1",
+    "eslint": "^5.6.1",
     "eslint-config-brainhub": "^1.6.3",
     "eslint-watch": "^4.0.2",
     "jest": "^23.5.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1"
   },
   "peerDependencies": {
     "react": ">0.14.0 || >15.0.0",
