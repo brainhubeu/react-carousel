@@ -1,13 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-import { JSDOM } from 'jsdom';
 import Carousel from '../../src/components/Carousel';
-
-const { document } = (new JSDOM('')).window;
-global.document = document;
-global.window = document.defaultView;
 
 // Simulate window resize event
 const resizeEvent = document.createEvent('Event');
@@ -18,9 +11,6 @@ window.resizeTo = (width, height) => {
   window.innerHeight = height || global.window.innerHeight;
   window.dispatchEvent(resizeEvent);
 };
-
-chai.use(chaiEnzyme());
-chai.should();
 
 const setup = () =>
   mount(
@@ -46,7 +36,7 @@ describe('Carousel', () => {
     const carousel = setup();
 
     const autoPlayValue = carousel.instance().getProp('autoPlay');
-    expect(autoPlayValue).to.equal(3000);
+    expect(autoPlayValue).toEqual(3000);
   });
   it('slidesPerPage should be equal 2 if window width is greater than 500', () => {
     window.resizeTo(600, 600);
@@ -54,14 +44,14 @@ describe('Carousel', () => {
     const carousel = setup();
 
     const autoPlayValue = carousel.instance().getProp('slidesPerPage');
-    expect(autoPlayValue).to.equal(2);
+    expect(autoPlayValue).toEqual(2);
   });
   it('slidesPerPage should be equal 1 if window width is less than 500', () => {
     window.resizeTo(300, 300);
     const carousel = setup();
 
     const autoPlayValue = carousel.instance().getProp('slidesPerPage');
-    expect(autoPlayValue).to.equal(1);
+    expect(autoPlayValue).toEqual(1);
   });
   it('get nearest slide index', () => {
     const carousel = shallow(
@@ -76,7 +66,7 @@ describe('Carousel', () => {
       carouselWidth: 1000,
       dragOffset: -1001,
     });
-    expect(carousel.instance().getNearestSlideIndex()).to.equal(2);
+    expect(carousel.instance().getNearestSlideIndex()).toEqual(2);
   });
   it('get nearest slide index in centered carousel', () => {
     const carousel = shallow(
@@ -92,7 +82,7 @@ describe('Carousel', () => {
       carouselWidth: 1000,
       dragOffset: -2500,
     });
-    expect(carousel.instance().getNearestSlideIndex()).to.equal(3);
+    expect(carousel.instance().getNearestSlideIndex()).toEqual(3);
   });
   it('get current slide index', () => {
     const carousel = shallow(
@@ -103,6 +93,6 @@ describe('Carousel', () => {
         <div/>
       </Carousel>
     );
-    expect(carousel.instance().getCurrentValue()).to.equal(2);
+    expect(carousel.instance().getCurrentValue()).toEqual(2);
   });
 });

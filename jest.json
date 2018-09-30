@@ -1,0 +1,15 @@
+{
+  "collectCoverageFrom": ["src/**/*.js"],
+  "testMatch": [
+    "<rootDir>/test/unit/?(*.)(spec|test).js"
+  ],
+  "testEnvironment": "node",
+  "transform": {
+    "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
+  },
+  "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.js$"],
+  "moduleNameMapper": {
+    "\\.(css|scss)$": "<rootDir>/test/__mocks__/styleMock.js"
+  },
+  "moduleFileExtensions": ["js", "json"]
+}
