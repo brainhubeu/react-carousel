@@ -13,7 +13,7 @@ yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-npm run build
+PATH_PREFIX=react-carousel npm run build
 cd ..
 
 mkdir -p gh-pages-branch
