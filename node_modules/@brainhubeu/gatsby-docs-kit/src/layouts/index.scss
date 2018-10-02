@@ -1,0 +1,169 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+@font-face {
+  font-family: HKGrotesk;
+  src: url('../static/fonts/hkgrotesk-light.woff2') format('woff2'),
+       url('../static/fonts/hkgrotesk-light.woff') format('woff'),
+       url('../static/fonts/hkgrotesk-light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: HKGrotesk;
+  src: url('../static/fonts/hkgrotesk-regular.woff2') format('woff2'),
+       url('../static/fonts/hkgrotesk-regular.woff') format('woff'),
+       url('../static/fonts/hkgrotesk-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  color: rgba($colorBHBg, .7);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: HKGrotesk;
+}
+
+a {
+  color: $colorBHMainHover;
+
+  &:hover {
+    color: $colorBHMain;
+  }
+}
+
+button {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.container {
+  min-height: 100vh;
+  padding-top: $mainNavHeight*1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.livePreviewWithError {
+  position: relative;
+
+  .react-live-error {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: .5rem 2rem;
+    z-index: 1;
+    font-size: 0.875rem;
+    font-family: monospace, HKGrotesk, serif;
+    white-space: pre-wrap;
+    color: $colorAlert;
+    opacity: 0;
+    animation: showError 1s forwards;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      background: rgba(darken($alertBackground, 0%), .9);
+    }
+  }
+}
+
+.react-live {
+  .prism-code {
+    padding-top: 0;
+    margin-top: 2rem;
+    overflow: auto;
+    
+    &:before {
+      content: 'LIVE JSX EDITOR';
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: .5rem;
+      margin-bottom: 1rem;
+      background: transparent;
+      border-bottom: 1px solid $bgAlt1;
+    }
+  }
+}
+
+//tables
+
+  table {
+    margin: 1rem 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 0.25rem 1rem;
+    border: 1px solid rgba($colorBHBg, 0.5);
+  }
+
+  th {
+    background-color: $colorBHMain;
+    color: $white;
+  }
+
+//blockqoutes
+
+  blockquote {
+    position: relative;
+    margin: 1rem 0;
+    padding: 1px 2rem 1px 2rem;
+    background-color: $bgAlt2;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 0.25rem;
+      background-color: rgba($colorBHBg, 0.5);
+    }
+  }
+
+//hr
+  hr {
+    border-color: rgba($colorBHBg, 0.5);
+  }
+
+.gatsby-highlight-code-line {
+  /* to jest to podświetlenia zaznaczonych lini  */
+  background-color: darken($colorBHAlt2, 50%);
+  margin: 0 -2rem;
+  padding: 0 2rem;
+  display: block;
+}
+
+@keyframes showError {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1;
+  }
+}

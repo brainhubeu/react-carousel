@@ -1,0 +1,23 @@
+{
+  "name": "netrc",
+  "version": "0.1.4",
+  "description": "Parse netrc files",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CamShaft/netrc.git"
+  },
+  "keywords": [
+    "netrc"
+  ],
+  "author": "Cameron Bytheway <cameron@nujii.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "should": "~1.2.2",
+    "mocha": "~1.9.0"
+  }
+}

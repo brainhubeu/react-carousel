@@ -1,0 +1,80 @@
+var expect = require('unexpected')
+    .clone()
+    .use(require('unexpected-mitm'));
+var Npmrc = require('../lib/npmrc');
+var fs = require('fs');
+var path = require('path');
+
+
+function extend(a, b) {
+    for (var p in b)
+        a[p] = b[p];
+    return a;
+}
+
+function FileMock(path) {
+  this.path = path;
+};
+
+FileMock.prototype.write = function(content) {
+  fs.writeFileSync(this.path, content);
+  return this;
+};
+
+FileMock.prototype.unlink = function() {
+  fs.unlinkSync(this.path);
+};
+
+describe('lib/npmrc', function () {
+
+    describe('getCa()', function () {
+        var _jspmConfigPath;
+        var npmrc;
+
+        beforeEach(function() {
+            _jspmConfigPath = process.env.jspmConfigPath;
+            npmrc = new Npmrc();
+        });
+
+        afterEach(function() {
+            if (_jspmConfigPath)
+                process.env.jspmConfigPath = _jspmConfigPath;
+        });
+
+        it('should honor cafile property', function () {
+            var npmrcFile;
+            var caFile;
+            var ca;
+
+            delete process.env.jspmConfigPath;
+            caFile = new FileMock(path.resolve(process.cwd(), 'ca.crt'))
+                      .write('ca certificate');
+            npmrcFile = new FileMock(path.resolve(process.cwd(), '.npmrc'))
+                      .write('cafile=' + caFile.path);
+
+
+            var ca = npmrc.getCa();
+
+
+            caFile.unlink();
+            npmrcFile.unlink();
+            return expect(ca, 'when decoded as', 'utf-8', 'to equal', 'ca certificate');
+        });
+
+        it('should have empty ca', function () {
+            var npmrcFile;
+            var ca;
+
+            delete process.env.jspmConfigPath;
+            npmrcFile = new FileMock(path.resolve(process.cwd(), '.npmrc'))
+                          .write('# empty config');
+
+
+            var ca = npmrc.getCa();
+
+
+            npmrcFile.unlink();
+            return expect(ca, 'to be undefined');
+        });
+    });
+});

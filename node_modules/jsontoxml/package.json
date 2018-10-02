@@ -1,0 +1,49 @@
+{
+  "name": "jsontoxml",
+  "version": "0.0.11",
+  "description": "This is a library designed to render js objects as xml. Its not made to parse or otherwise edit existing xml/html structures.",
+  "homepage": "http://github.com/ken-franken/node-jsontoxml",
+  "main": "./jsontoxml.js",
+  "devDependencies": {
+    "tape": "~0.2.2"
+  },
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "testling": {
+    "files": "./test.js",
+    "browsers": {
+      "ie": [
+        8,
+        9
+      ],
+      "firefox": [
+        13
+      ],
+      "chrome": [
+        20
+      ],
+      "safari": [
+        5.1
+      ],
+      "opera": [
+        12
+      ]
+    }
+  },
+  "people": {
+    "author": {
+      "name": "Ryan Day",
+      "email": "soldair@gmail.com",
+      "url": "http://ryanday.org"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/soldair/node-jsontoxml.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.2.0"
+  }
+}

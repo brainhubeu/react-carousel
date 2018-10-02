@@ -1,0 +1,30 @@
+var assert = require('assert');
+var child_process = require('child_process');
+var cluster = require('cluster');
+var dgram = require('dgram');
+var dns = require('dns');
+var module = require('module');
+var net = require('net');
+var readline = require('readline');
+var repl = require('repl');
+var tls = require('tls');
+
+var fs = require('fs');
+var process = require('process');
+var http = require('http');
+
+assert(child_process.exec);
+assert(cluster.fork);
+assert(dgram.Socket);
+assert(dns.lookup);
+assert(module.Module);
+assert(net.isIP('1.1.1.1'), true);
+assert(readline.cursorTo);
+assert(repl.start);
+assert(tls.connect);
+
+assert(fs.readdirSync);
+assert(process.env.HOME);
+assert(http.createServer(function() {}));
+
+console.log('Node-only tests completed successfully.');

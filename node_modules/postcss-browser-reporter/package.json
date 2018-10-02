@@ -1,0 +1,31 @@
+{
+  "name": "postcss-browser-reporter",
+  "version": "0.5.0",
+  "description": "PostCSS plugin to report warning messages right in your browser",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "warnings"
+  ],
+  "author": "Alexey Gaziev <alex.gaziev@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/postcss/postcss-browser-reporter.git"
+  },
+  "dependencies": {
+    "postcss": "^5.0.4"
+  },
+  "devDependencies": {
+    "jshint-stylish": "1.0.0",
+    "gulp-jshint": "1.9.2",
+    "gulp-mocha": "2.0.0",
+    "mocha": "2.1.0",
+    "chai": "1.10.0",
+    "gulp": "3.8.11"
+  },
+  "scripts": {
+    "test": "gulp"
+  }
+}

@@ -1,0 +1,1 @@
+module.exports = { systemGlobal: "SystemJS" };

@@ -1,0 +1,39 @@
+{
+  "name": "mri",
+  "version": "1.1.0",
+  "description": "Quickly scan for CLI flags and arguments",
+  "license": "MIT",
+  "repository": "lukeed/mri",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "author": {
+    "name": "Luke Edwards",
+    "email": "luke.edwards05@gmail.com",
+    "url": "lukeed.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "bench": "node bench",
+    "precommit": "prettier --single-quote --use-tabs --print-width=100 --write '{lib,test}/*.js'",
+    "test": "tape test/*.js | tap-spec"
+  },
+  "keywords": [
+    "argv",
+    "arguments",
+    "cli",
+    "minimist",
+    "options",
+    "optimist",
+    "parser"
+  ],
+  "devDependencies": {
+    "husky": "^0.13.4",
+    "prettier": "^1.1.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "name": "mdast-util-toc",
+  "version": "2.0.1",
+  "description": "Generate a Table of Contents (TOC) from a given Markdown file",
+  "main": "index.js",
+  "files": [
+    "lib",
+    "index.js"
+  ],
+  "scripts": {
+    "build-md": "remark . --quiet --frail",
+    "build-bundle": "browserify index.js --no-builtins -s mdastUtilTOC > mdast-util-toc.js",
+    "build-mangle": "esmangle mdast-util-toc.js > mdast-util-toc.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo index.js test",
+    "test-api": "node test/index.js",
+    "test-coverage": "istanbul cover test/index.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "keywords": [
+    "mdast",
+    "util",
+    "toc"
+  ],
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+    "Jonathan Haines <jonno.haines@gmail.com> (http://barrythepenguin.github.io)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barrythepenguin/mdast-util-toc.git"
+  },
+  "bugs": "https://github.com/barrythepenguin/mdast-util-toc/issues",
+  "license": "MIT",
+  "dependencies": {
+    "github-slugger": "^1.1.1",
+    "mdast-util-to-string": "^1.0.2",
+    "unist-util-visit": "^1.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "esmangle": "^1.0.1",
+    "istanbul": "^0.4.4",
+    "remark": "^6.2.0",
+    "remark-cli": "^2.1.0",
+    "remark-comment-config": "^4.0.1",
+    "remark-github": "^6.0.0",
+    "remark-lint": "^5.4.0",
+    "remark-parse": "^2.2.0",
+    "remark-stringify": "^2.3.0",
+    "remark-usage": "^4.0.0",
+    "remark-validate-links": "^5.0.0",
+    "tape": "^4.6.0",
+    "xo": "^0.16.0"
+  },
+  "xo": {
+    "space": 4,
+    "rules": {
+      "valid-jsdoc": [
+        "error"
+      ],
+      "require-jsdoc": [
+        "error",
+        {
+          "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true
+          }
+        }
+      ]
+    }
+  }
+}

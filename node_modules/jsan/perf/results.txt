@@ -1,0 +1,77 @@
+global
+jsan x 780 ops/sec ±1.44% (80 runs sampled)
+CircularJSON x 1,697 ops/sec ±1.45% (83 runs sampled)
+json-stringify-safe x 1,598 ops/sec ±1.02% (82 runs sampled)
+CircularJSON is 45.96% faster then the 2nd best
+CircularJSON is 48.82% faster then the 3rd best
+
+decycledGlobal
+jsan x 7,749 ops/sec ±1.05% (86 runs sampled)
+CircularJSON x 2,366 ops/sec ±1.18% (83 runs sampled)
+json-stringify-safe x 2,452 ops/sec ±1.47% (83 runs sampled)
+jsan is 315.99% faster then the 2nd best
+jsan is 327.48% faster then the 3rd best
+
+empty object
+jsan x 2,668,800 ops/sec ±1.18% (85 runs sampled)
+CircularJSON x 1,330,493 ops/sec ±1.36% (84 runs sampled)
+json-stringify-safe x 1,111,661 ops/sec ±1.19% (87 runs sampled)
+jsan is 200.59% faster then the 2nd best
+jsan is 240.07% faster then the 3rd best
+
+empty array
+jsan x 2,621,901 ops/sec ±1.13% (87 runs sampled)
+CircularJSON x 1,314,142 ops/sec ±1.44% (88 runs sampled)
+json-stringify-safe x 1,111,390 ops/sec ±1.22% (84 runs sampled)
+jsan is 199.51% faster then the 2nd best
+jsan is 235.91% faster then the 3rd best
+
+small object
+jsan x 1,797,778 ops/sec ±1.22% (81 runs sampled)
+CircularJSON x 822,628 ops/sec ±1.06% (83 runs sampled)
+json-stringify-safe x 502,463 ops/sec ±1.57% (85 runs sampled)
+jsan is 163.72% faster then the 2nd best
+jsan is 45.76% faster then the 3rd best
+
+self referencing small object
+jsan x 100,878 ops/sec ±1.42% (85 runs sampled)
+CircularJSON x 649,786 ops/sec ±1.52% (82 runs sampled)
+json-stringify-safe x 399,026 ops/sec ±1.00% (88 runs sampled)
+CircularJSON is 162.84% faster then the 2nd best
+CircularJSON is 644.13% faster then the 3rd best
+
+small array
+jsan x 2,009,982 ops/sec ±1.07% (86 runs sampled)
+CircularJSON x 469,268 ops/sec ±1.25% (87 runs sampled)
+json-stringify-safe x 416,464 ops/sec ±1.43% (86 runs sampled)
+jsan is 112.68% faster then the 2nd best
+jsan is 23.35% faster then the 3rd best
+
+self referencing small array
+jsan x 111,812 ops/sec ±1.33% (84 runs sampled)
+CircularJSON x 423,330 ops/sec ±1.18% (85 runs sampled)
+json-stringify-safe x 345,112 ops/sec ±1.16% (87 runs sampled)
+CircularJSON is 122.66% faster then the 2nd best
+CircularJSON is 378.61% faster then the 3rd best
+
+string
+jsan x 3,170,617 ops/sec ±1.22% (85 runs sampled)
+CircularJSON x 1,521,238 ops/sec ±1.36% (85 runs sampled)
+json-stringify-safe x 1,192,485 ops/sec ±1.09% (84 runs sampled)
+jsan is 208.42% faster then the 2nd best
+jsan is 265.88% faster then the 3rd best
+
+number
+jsan x 3,783,106 ops/sec ±1.03% (85 runs sampled)
+CircularJSON x 1,618,607 ops/sec ±1.26% (84 runs sampled)
+json-stringify-safe x 1,285,919 ops/sec ±1.32% (86 runs sampled)
+jsan is 233.73% faster then the 2nd best
+jsan is 294.19% faster then the 3rd best
+
+null
+jsan x 3,861,908 ops/sec ±1.43% (81 runs sampled)
+CircularJSON x 1,710,725 ops/sec ±1.21% (85 runs sampled)
+json-stringify-safe x 1,390,944 ops/sec ±1.04% (85 runs sampled)
+jsan is 225.75% faster then the 2nd best
+jsan is 277.65% faster then the 3rd best
+

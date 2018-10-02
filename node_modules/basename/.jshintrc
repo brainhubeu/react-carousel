@@ -1,0 +1,7 @@
+{ "strict": true
+, "node": true
+, "laxbreak": true
+, "laxcomma": true
+, "undef": true
+, "unused": true
+}

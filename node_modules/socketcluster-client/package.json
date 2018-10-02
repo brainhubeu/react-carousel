@@ -1,0 +1,39 @@
+{
+  "name": "socketcluster-client",
+  "description": "SocketCluster JavaScript client",
+  "version": "5.5.2",
+  "homepage": "http://socketcluster.io",
+  "contributors": [
+    {
+      "name": "Jonathan Gros-Dubois",
+      "email": "grosjona@yahoo.com.au"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SocketCluster/socketcluster-client.git"
+  },
+  "scripts": {
+    "build": "browserify -s socketCluster index.js > socketcluster.js; uglifyjs socketcluster.js -o socketcluster.min.js"
+  },
+  "dependencies": {
+    "base-64": "0.1.0",
+    "linked-list": "0.1.0",
+    "clone": "2.1.1",
+    "querystring": "0.2.0",
+    "sc-channel": "~1.0.6",
+    "sc-emitter": "~1.1.0",
+    "sc-errors": "~1.3.0",
+    "sc-formatter": "~3.0.0",
+    "ws": "3.0.0"
+  },
+  "browser": {
+    "ws": "./lib/ws-browser.js"
+  },
+  "readmeFilename": "README.md",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^13.3.0",
+    "uglify-js": "^2.7.5"
+  }
+}

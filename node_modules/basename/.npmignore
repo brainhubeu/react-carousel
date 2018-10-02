@@ -1,0 +1,12 @@
+# Files ignored by Git
+# ====================
+
+# - All files and directories starting with "#",
+\#*
+
+# - Automatically installed dependencies,
+node_modules/
+
+# - Editor files.
+*.sublime-project
+*.sublime-workspace

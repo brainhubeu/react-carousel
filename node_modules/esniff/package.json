@@ -1,0 +1,40 @@
+{
+  "name": "esniff",
+  "version": "1.1.0",
+  "description": "Low footprint ECMAScript source code parser",
+  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
+  "keywords": [
+    "sniff",
+    "analyze",
+    "ast",
+    "parse",
+    "syntax",
+    "sniffer",
+    "detective",
+    "detect",
+    "find",
+    "search",
+    "source",
+    "code"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/medikoo/esniff.git"
+  },
+  "dependencies": {
+    "d": "1",
+    "es5-ext": "^0.10.12"
+  },
+  "devDependencies": {
+    "esprima": "^2.7.2",
+    "tad": "^0.2.4",
+    "xlint": "^0.2.2",
+    "xlint-jslint-medikoo": "^0.1.4"
+  },
+  "scripts": {
+    "lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
+    "lint-console": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --watch",
+    "test": "node ./node_modules/tad/bin/tad"
+  },
+  "license": "MIT"
+}

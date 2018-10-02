@@ -1,0 +1,91 @@
+@import '../../layouts/variables.scss';
+@import '../../layouts/mixins.scss';
+
+.sideNav {
+  padding: 3rem;
+}
+
+.sideNav__scrollableWrapper + :global(.container) {
+  padding-left: $subNavWidth;
+}
+
+.sideNav__scrollableWrapper {
+  position: fixed;
+  top: $mainNavHeight;
+  bottom: 0;
+  left: 0;
+  background-color: $bgAlt2;
+  width: $subNavWidth;
+  overflow: auto;
+
+  @include scrollbar;
+
+  @include tablet {
+    top: $mainNavHeight;
+    position: relative;
+    width: 100%;
+
+    & + :global(.container) {
+      padding-left: 0;
+    }
+  }
+}
+
+.sideNav__sideList {
+  list-style: none;
+  margin: 0 0 .5rem;
+  padding-left: 0;
+
+  ul {
+    padding-left: 1rem;
+  }
+}
+
+.subNav__header {
+  display: inline-block;
+  text-transform: uppercase;
+  color: $colorBHMain;
+  margin-bottom: .25rem;
+}
+
+.subNav__link {
+  display: inline-block;
+  color: rgba($colorBHBg, 0.7);
+  text-decoration: none;
+  position: relative;
+  padding: 0.25rem 0;
+  border-radius: 0 0 1rem 1rem;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0.25rem;
+    height: 0;
+    left: -1rem;
+    width: .25rem;
+    background-color: rgba($colorBHBg, .5);
+    border-radius: .125rem;
+    transition: all .3s;
+  }
+
+  &:hover {
+    color: rgba($colorBHBg, 0.9);
+  }
+}
+
+.subNav__link--active {
+  font-weight: bold;
+
+  &:after {
+    height: calc(100% - .5rem);
+  }
+}
+
+.subNav__header + .sideNav__slideList {
+  margin-bottom: 1rem;
+}
+
+.subNav__link + .sideNav__slideList {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}

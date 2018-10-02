@@ -1,0 +1,32 @@
+{
+  "name": "chunk-manifest-webpack-plugin",
+  "version": "0.1.0",
+  "description": "Allows exporting a manifest that maps chunk ids to their output files, instead of keeping the mapping inside the webpack bootstrap.",
+  "main": "lib/ChunkManifestPlugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Anderson <diurnalist@gmail.com> (http://diurnal.st)",
+  "license": "MIT",
+  "dependencies": {
+    "webpack-core": "^0.4.8"
+  },
+  "peerDependencies": {
+    "webpack": "^1.4.0-beta6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diurnalist/chunk-manifest-webpack-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/diurnalist/chunk-manifest-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/diurnalist/chunk-manifest-webpack-plugin#readme",
+  "devDependencies": {},
+  "keywords": [
+    "webpack",
+    "chunk",
+    "manifest",
+    "plugin"
+  ]
+}

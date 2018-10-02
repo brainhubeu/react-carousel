@@ -1,0 +1,38 @@
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @providesModule getModuleName
+ * 
+ * @format
+ */
+
+'use strict';
+
+function getModuleName(filePath) {
+  // index.js -> index
+  // index.js.flow -> index.js
+  var filename = require('path').basename(filePath, require('path').extname(filePath));
+
+  // index.js -> index (when extension has multiple segments)
+  filename = filename.replace(/(?:\.\w+)+/, '');
+
+  // /path/to/button/index.js -> button
+  var moduleName = filename === 'index' ? require('path').basename(require('path').dirname(filePath)) : filename;
+
+  // Example.ios -> Example
+  // Example.product.android -> Example
+  moduleName = moduleName.replace(/(?:\.\w+)+/, '');
+
+  // foo-bar -> fooBar
+  // Relay compatibility mode splits on _, so we can't use that here.
+  moduleName = moduleName.replace(/[^a-zA-Z0-9]+(\w?)/g, function (match, next) {
+    return next.toUpperCase();
+  });
+
+  return moduleName;
+}
+
+module.exports = getModuleName;

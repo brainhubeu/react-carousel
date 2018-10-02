@@ -1,0 +1,42 @@
+{
+  "name": "steno",
+  "version": "0.4.4",
+  "description": "Simple file writer with race condition prevention and atomic writing",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test | tap-dot && standard",
+    "prepush": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typicode/steno.git"
+  },
+  "keywords": [
+    "fs",
+    "file",
+    "write",
+    "writer",
+    "asynchronous",
+    "race",
+    "condition",
+    "atomic",
+    "writing",
+    "safe"
+  ],
+  "author": "typicode",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/typicode/steno/issues"
+  },
+  "homepage": "https://github.com/typicode/steno",
+  "devDependencies": {
+    "after": "^0.8.1",
+    "husky": "^0.11.1",
+    "standard": "^6.0.7",
+    "tap-dot": "^0.2.3",
+    "tape": "^3.0.1"
+  },
+  "dependencies": {
+    "graceful-fs": "^4.1.3"
+  }
+}

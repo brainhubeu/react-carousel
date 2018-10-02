@@ -1,0 +1,31 @@
+{
+  "name": "webpack-configurator",
+  "version": "0.3.1",
+  "description": "Helper for creating and extending Webpack configuration structures.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "keywords": [
+    "webpack",
+    "config",
+    "extend",
+    "merge",
+    "loaders",
+    "plugins"
+  ],
+  "author": "Lewis Barnes",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/lewie9021/webpack-configurator"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "3.10.1"
+  },
+  "devDependencies": {
+    "chai": "3.4.0",
+    "extract-text-webpack-plugin": "0.8.2",
+    "mocha": "2.3.3"
+  }
+}

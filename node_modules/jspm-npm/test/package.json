@@ -1,0 +1,83 @@
+{
+  "registry": "github",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "assert": "jspm/nodelibs-assert@^0.2.0-alpha",
+    "buffer": "jspm/nodelibs-buffer@^0.2.0-alpha",
+    "child_process": "jspm/nodelibs-child_process@^0.2.0-alpha",
+    "cluster": "jspm/nodelibs-cluster@^0.2.0-alpha",
+    "console": "jspm/nodelibs-console@^0.2.0-alpha",
+    "constants": "jspm/nodelibs-constants@^0.2.0-alpha",
+    "crypto": "jspm/nodelibs-crypto@^0.2.0-alpha",
+    "dgram": "jspm/nodelibs-dgram@^0.2.0-alpha",
+    "dns": "jspm/nodelibs-dns@^0.2.0-alpha",
+    "domain": "jspm/nodelibs-domain@^0.2.0-alpha",
+    "events": "jspm/nodelibs-events@^0.2.0-alpha",
+    "fs": "jspm/nodelibs-fs@^0.2.0-alpha",
+    "http": "jspm/nodelibs-http@^0.2.0-alpha",
+    "https": "jspm/nodelibs-https@^0.2.0-alpha",
+    "module": "jspm/nodelibs-module@^0.2.0-alpha",
+    "net": "jspm/nodelibs-net@^0.2.0-alpha",
+    "nodelibs": "jspm/nodelibs@^0.1.0",
+    "os": "jspm/nodelibs-os@^0.2.0-alpha",
+    "path": "jspm/nodelibs-path@^0.2.0-alpha",
+    "process": "jspm/nodelibs-process@^0.2.0-alpha",
+    "punycode": "jspm/nodelibs-punycode@^0.2.0-alpha",
+    "querystring": "jspm/nodelibs-querystring@^0.2.0-alpha",
+    "readline": "jspm/nodelibs-readline@^0.2.0-alpha",
+    "repl": "jspm/nodelibs-repl@^0.2.0-alpha",
+    "stream": "jspm/nodelibs-stream@^0.2.0-alpha",
+    "string_decoder": "jspm/nodelibs-string_decoder@^0.2.0-alpha",
+    "timers": "jspm/nodelibs-timers@^0.2.0-alpha",
+    "tls": "jspm/nodelibs-tls@^0.2.0-alpha",
+    "traceur": "jmcriffey/bower-traceur@0.0.89",
+    "traceur-runtime": "jmcriffey/bower-traceur-runtime@0.0.89",
+    "tty": "jspm/nodelibs-tty@^0.2.0-alpha",
+    "url": "jspm/nodelibs-url@^0.2.0-alpha",
+    "util": "jspm/nodelibs-util@^0.2.0-alpha",
+    "vm": "jspm/nodelibs-vm@^0.2.0-alpha",
+    "zlib": "jspm/nodelibs-zlib@^0.2.0-alpha"
+  },
+  "overrides": {
+    "github:jmcriffey/bower-traceur-runtime@0.0.89": {
+      "format": "global",
+      "meta": {
+        "traceur-runtime.js": {
+          "exports": "$traceurRuntime"
+        }
+      }
+    },
+    "github:jmcriffey/bower-traceur@0.0.89": {
+      "format": "global",
+      "meta": {
+        "traceur.js": {
+          "exports": "traceur"
+        }
+      }
+    },
+    "npm:base64-js@0.0.8": {
+      "ignore": [
+        "bench"
+      ]
+    },
+    "npm:browserify-zlib@0.1.4": {
+      "dependencies": {
+        "readable-stream": "^2.0.2",
+        "pako": "~0.2.0"
+      },
+      "map": {
+        "_stream_transform": "readable-stream/transform"
+      }
+    },
+    "npm:inherits@2.0.1": {
+      "ignore": [
+        "test.js"
+      ]
+    }
+  },
+  "jspm": true
+}

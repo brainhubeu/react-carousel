@@ -1,0 +1,24 @@
+{
+  "name": "sc-errors",
+  "version": "1.3.3",
+  "description": "Error types for use throughout SocketCluster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SocketCluster/sc-errors.git"
+  },
+  "keywords": [
+    "errors",
+    "socketcluster"
+  ],
+  "author": "Jonathan Gros-Dubois <grosjona@yahoo.com.au>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SocketCluster/sc-errors/issues"
+  },
+  "homepage": "https://github.com/SocketCluster/sc-errors",
+  "dependencies": {}
+}

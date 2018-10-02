@@ -1,0 +1,6 @@
+/node_modules
+/src
+/.idea
+*.log
+.editorconfig
+*.tar.gz

@@ -1,0 +1,2 @@
+# scchannel
+Channels for SocketCluster

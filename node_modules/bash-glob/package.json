@@ -1,0 +1,93 @@
+{
+  "name": "bash-glob",
+  "description": "Bash-powered globbing for node.js",
+  "version": "1.0.2",
+  "homepage": "https://github.com/micromatch/bash-glob",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "micromatch/bash-glob",
+  "bugs": {
+    "url": "https://github.com/micromatch/bash-glob/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "async-each": "^1.0.1",
+    "bash-path": "^1.0.1",
+    "component-emitter": "^1.2.1",
+    "cross-spawn": "^5.1.0",
+    "extend-shallow": "^2.0.1",
+    "is-extglob": "^2.1.1",
+    "is-glob": "^4.0.0"
+  },
+  "devDependencies": {
+    "arr-union": "^3.1.0",
+    "array-unique": "^0.3.2",
+    "async-array-reduce": "^1.0.0",
+    "delete": "^1.1.0",
+    "glob": "^7.1.2",
+    "gulp-format-md": "^1.0.0",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.2.0"
+  },
+  "keywords": [
+    "bash",
+    "expand",
+    "expansion",
+    "expression",
+    "file",
+    "files",
+    "filter",
+    "find",
+    "glob",
+    "globbing",
+    "globs",
+    "globstar",
+    "match",
+    "matcher",
+    "matches",
+    "matching",
+    "micromatch",
+    "minimatch",
+    "multimatch",
+    "nanomatch",
+    "path",
+    "pattern",
+    "patterns",
+    "regex",
+    "regexp",
+    "regular",
+    "shell",
+    "wildcard"
+  ],
+  "verb": {
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "bash-match",
+        "braces",
+        "micromatch",
+        "nanomatch"
+      ]
+    },
+    "lint": {
+      "reflinks": true
+    }
+  }
+}

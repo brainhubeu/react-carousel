@@ -1,0 +1,549 @@
+var Promise = require('bluebird');
+var asp = require('bluebird').promisify;
+var fs = require('graceful-fs');
+var path = require('path');
+var url = require('url');
+var readdirp = require('readdirp');
+var detectFormat = require('./node-transformer').detectFormat;
+var parseCJS = require('./node-transformer').parseCJS;
+
+var nodelibsPathPrefix = 'npm:jspm-nodelibs-';
+var nodelibsVersion = '@^0.2.0';
+
+var nodeCoreModules = [
+  'assert',
+  'buffer',
+  'child_process',
+  'cluster',
+  'console',
+  'constants',
+  'crypto',
+  'dgram',
+  'dns',
+  'domain',
+  'events',
+  'fs',
+  'http',
+  'https',
+  'module',
+  'net',
+  'os',
+  'path',
+  'process',
+  'punycode',
+  'querystring',
+  'readline',
+  'repl',
+  'stream',
+  'string_decoder',
+  'sys',
+  'timers',
+  'tls',
+  'tty',
+  'url',
+  'util',
+  'vm',
+  'zlib'
+];
+
+exports.convertPackage = function(packageConfig, packageName, packageDir, ui) {
+  packageName = packageName.split(':')[1];
+  packageName = packageName.substr(0, packageName.lastIndexOf('@'));
+
+  var systemConfig = packageConfig.systemjs || packageConfig;
+
+  // glob the file tree of the package
+  return new Promise(function(resolve, reject) {
+    var fileTree = {};
+    readdirp({
+      root: packageDir,
+      entryType: 'both',
+
+      // not a comprehensive filtering - doesnt handle full minimatching
+      // but will do simple directory filtering at least
+      directoryFilter: function(dir) {
+        var path = dir.path.replace(/\\/g, '/');
+
+        // ignore .git, node_modules, jspm_packages
+        if (path.match(/^(\.git|node_modules|jspm_packages)($|\/)/)) {
+          return false;
+        }
+        // files
+        if (packageConfig.files instanceof Array) {
+          if (!packageConfig.files.some(function(file) {
+            file = file.replace(/(\/\*\*\/\*|\/|\/\*|\/\*\*)$/, '');
+            return path.substr(0, file.length) == file && (path.length == file.length || path[file.length] == '/') ||
+                file.substr(0, path.length) == path && file[path.length] == '/';
+          }))
+            return false;
+        }
+        // ignores
+        if (packageConfig.ignore instanceof Array) {
+          if (packageConfig.ignore.some(function(ignore) {
+            return path.substr(0, ignore.length) == ignore && (path.length == ignore.length || path[ignore.length] == '/');
+          }))
+            return false;
+        }
+        return true;
+      }
+    }, function(entry) {
+      var listingName = entry.path.replace(/\\/g, '/');
+      if (entry.stat.isDirectory())
+        listingName += '/';
+      fileTree[listingName] = true;
+    }, function(err) {
+      if (err)
+        reject(err);
+      else
+        resolve(fileTree);
+    });
+  })
+  .then(function(fileTree) {
+    if (systemConfig.main) {
+      systemConfig.main = stripPathExtremes(systemConfig.main);
+    }
+    systemConfig.main = nodeResolve('./' + systemConfig.main, '', fileTree) || nodeResolve('./index', '', fileTree);
+
+    var coreDeps = [];
+
+    // meta and map are independently populated from the tree only if not already existing
+    var meta;
+    if (!systemConfig.meta) {
+      meta = {
+        '*.json': {
+          format: 'json'
+        }
+      };
+    }
+
+    var map;
+    if (!systemConfig.map)
+      map = {};
+
+    // convert package.json browser maps if map doesn't yet exist
+    if (map) {
+      // browser / browserify main
+      if (!map['./' + systemConfig.main]) {
+        var browserMain;
+        if (typeof packageConfig.browser == 'string')
+          browserMain = packageConfig.browser;
+        else if (typeof packageConfig.browserify == 'string')
+          browserMain = packageConfig.browserify;
+
+        if (browserMain) {
+          browserMain = stripPathExtremes(browserMain);
+          browserMain = nodeResolve('./' + browserMain, '', fileTree);
+          if (browserMain && browserMain != systemConfig.main)
+            map['./' + systemConfig.main] = {
+              browser: './' + browserMain
+            };
+        }
+      }
+
+      if (typeof packageConfig.browser == 'object')
+        for (var b in packageConfig.browser) {
+          // dont replace any existing map config
+          if (map[b])
+            continue;
+
+          var mapping = packageConfig.browser[b];
+          var mapResolve;
+
+          if (mapping === false)
+            mapResolve = '@empty';
+          else if (typeof mapping == 'string')
+            mapResolve = nodeResolve(mapping, '', fileTree, true);
+
+          if (mapResolve) {
+            var browserMap = map[b] = {
+              browser: mapResolve
+            };
+
+            // if the map is a dependency, then make sure we have a fallback path to that dependency
+            // for the non-browser case
+            var fallbackName = 'node-' + b;
+            var createdFallback = Object.keys(packageConfig.dependencies).some(function(dep) {
+              if (b.substr(0, dep.length) == dep && (b.length == dep.length || b[dep.length] == '/')) {
+                var depObj = systemConfig.dependencies = systemConfig.dependencies || {};
+                depObj[fallbackName] = packageConfig.dependencies[dep];
+                return true;
+              }
+            });
+            if (!createdFallback)
+              Object.keys(packageConfig.peerDependencies).some(function(dep) {
+                if (b.substr(0, dep.length) == dep && (b.length == dep.length || b[dep.length] == '/')) {
+                  var depObj = systemConfig.peerDependencies = systemConfig.peerDependencies || {};
+                  depObj[fallbackName] = packageConfig.peerDependencies[dep];
+                  return true;
+                }
+              });
+
+            if (createdFallback)
+              browserMap.default = fallbackName;
+          }
+        }
+    }
+
+    // modules that need to be added as meta to skip extension handling
+    var skipExtensions = [];
+
+    // track paths that have all common meta
+    // to simplify with wildcards
+    var parsedCommonMeta = {};
+
+    // run through each file in the tree
+    return Promise.all(Object.keys(fileTree).filter(function(file) {
+      return file[file.length - 1] != '/'
+        && file.substr(file.length - 3, 3) != '.md'
+        && file != '.npmignore'
+        && file != '.gitignore';
+    }).map(function(fileName) {
+      var filePath = path.resolve(packageDir, fileName).replace(/\\/g, '/');
+
+      // when generating meta, set up the empty object now
+      var fileFormat = systemConfig.format;
+      if (meta) {
+        var curMeta = {};
+        if (filePath.substr(filePath.length - 5) == '.json')
+          fileFormat = 'json';
+      }
+
+      // otherwise read format comprehensively from existing metadata
+      else {
+        fileFormat = readMeta(fileName, systemConfig.meta).format || systemConfig.format;
+      }
+
+      var fileSource;
+
+      // if not known, apply detection from source file
+      return Promise.resolve()
+      .then(function() {
+        if (fileFormat)
+          return;
+
+        return asp(fs.readFile)(filePath)
+        .then(function(source) {
+          fileSource = source.toString();
+
+          return detectFormat(fileSource);
+        });
+      })
+      .then(function(detectedFormat) {
+        if (detectedFormat == 'es6')
+          detectedFormat = 'esm'
+
+        if (detectedFormat)
+          fileFormat = detectedFormat;
+
+        // provide all module format detections as configuration if not the package format
+        if (meta && detectedFormat && detectedFormat != (systemConfig.format || 'cjs'))
+          curMeta.format = detectedFormat;
+
+        // non-cjs -> disable process and we're done
+        if (fileFormat != 'cjs') {
+          // global is only format to also support globals
+          if (meta && fileFormat == 'global') {
+            curMeta.globals = curMeta.globals || {};
+            curMeta.globals['process'] = null;
+          }
+          return;
+        }
+
+        // cjs -> parse the source for requires and see if it uses Buffer
+        return Promise.resolve(fileSource || asp(fs.readFile)(filePath))
+        .then(function(source) {
+          var parsed = parseCJS(source.toString(), !meta || !meta['*'] || !meta['*'].globals || !meta['*'].globals.process);
+
+          if (meta && parsed.requireDetect === false) {
+            if (parsed.requires.length)
+              curMeta.deps = parsed.requires;
+            curMeta.cjsRequireDetection = false;
+          }
+
+          // add buffer global for CJS files that need it
+          if (meta && parsed.usesBuffer && (!systemConfig.map || systemConfig.map.buffer != '@empty')) {
+            curMeta.globals = curMeta.globals || {};
+            curMeta.globals.Buffer = 'buffer/global';
+            if (coreDeps.indexOf('buffer') == -1)
+              coreDeps.push('buffer');
+          }
+
+          if (meta && parsed.usesProcess && (!systemConfig.map || systemConfig.map.process != '@empty')) {
+            coreDeps.push('process');
+            meta['*'] = meta['*'] || {};
+            meta['*'].globals = meta['*'].globals || {};
+            meta['*'].globals.process = 'process';
+          }
+
+          /*
+           * Comprehensive internal resolution differences between SystemJS and Node
+           * for internal package requires (that is ignoring package.json, node_modules)
+           *
+           * 1. Directory requires won't resolve to index.js in the directory
+           * 2. Files that resolve to .json, not already ending in .json, are mapped
+           * 3. Files that don't end in .js, that are actual files, will not add extensions
+           * 4. A file by the name file.js.js loaded as file.js will not add extensions
+           * 5. A file by the name file.json.js loaded as file.json will not add extensions
+           *
+           * Currently we cater to (1) by creating a directory map for any index.js file present
+           * in a directory where the directory.js file does not exist.
+           * We then cater to (2 - 5) above by parsing all CommonJS requires of all JS files in
+           * the package and where a resolution matches one of these cases, we include map or meta
+           * config for these files.
+           *
+           * We cater to these assumptions for CommonJS modules only
+           *
+           * It may turn out to be useful to do (2 - 5) for external requires as well, in which
+           * case we can switch this algorithm to a comprehensive correction configuration
+           * being constructed against the entire fileTree to handle all resolution differences.
+           * Even better may turn out to have a post-install hook phase, which can actually investigate
+           * the contents of dependencies to do a similar analysis above to avoid config bloat
+           */
+          // 1. directory resolution
+          if (map && fileName.substr(fileName.length - 9, 9) == '/index.js' && !fileTree[fileName.substr(0, fileName.length - 9)])
+            map['./' + fileName.substr(0, fileName.length - 9)] = './' + fileName;
+
+          parsed.requires.forEach(function(req) {
+            // package require by own name
+            if (req.substr(0, packageName.length) == packageName && (req[packageName.length] == '/' || req.length == packageName.length)) {
+              if (map)
+                map[packageName] = '.';
+              return;
+            }
+
+            // if it is a package require, note if we have a new core dep
+            if (req[0] != '.') {
+              // sys is an alias for util in Node
+              if (req == 'sys')
+                req = 'util';
+              if (nodeCoreModules.indexOf(req) != -1 && coreDeps.indexOf(req) == -1)
+                coreDeps.push(req);
+              return;
+            }
+
+            // resolve ./ relative requires only
+            var nodeResolved = nodeResolve(req, fileName, fileTree);
+
+            // if it didn't resolve, ignore it
+            if (!nodeResolved || nodeResolved == '.')
+              return;
+
+            // 2. auto json extension adding
+            if (map && nodeResolved.substr(nodeResolved.length - 5, 5) == '.json' && req.substr(req.length - 5, 5) != '.json')
+              map['./' + nodeResolved.substr(0, nodeResolved.length - 5)] = './' + nodeResolved;
+
+            // 3. non js file extension
+            else if (meta && nodeResolved.substr(nodeResolved.length - 3, 3) != '.js' && nodeResolved != '.' && nodeResolved != '..')
+              skipExtensions.push(nodeResolved);
+
+            // 4. file.js.js
+            // 5. file.json.js
+            else if (map && (nodeResolved.substr(nodeResolved.length - 6, 6) == '.js.js' || nodeResolved.substr(nodeResolved.length - 8, 8) == '.json.js'))
+              map['./' + nodeResolved.substr(0, nodeResolved.length - 3)] = './' + nodeResolved;
+          });
+        });
+      })
+      .then(function() {
+        // set curMeta on the main meta object
+        if (meta) {
+          meta[fileName] = curMeta;
+
+          // note common meta for wildcard simplification
+          var pathParts = fileName.split('/');
+          for (var i = 1; i < pathParts.length; i++) {
+            var curCommonPath = pathParts.slice(0, i).join('/');
+            var curCommonParsed = parsedCommonMeta[curCommonPath] = parsedCommonMeta[curCommonPath] || extend({}, curMeta) || {};
+            if (curCommonParsed.format && curCommonParsed.format != fileFormat)
+              curCommonParsed.format = undefined;
+            if (curCommonParsed.globals && JSON.stringify(curCommonParsed.globals) != JSON.stringify(curMeta.globals))
+              curCommonParsed.globals = undefined;
+          }
+        }
+      });
+    }))
+    .then(function() {
+
+      systemConfig.format = systemConfig.format || 'cjs';
+
+      // add meta alphabetically
+      if (hasProperties(meta)) {
+        systemConfig.meta = {};
+
+        // consolidate common meta
+        Object.keys(parsedCommonMeta).reverse().forEach(function(commonPath) {
+          var curMeta = parsedCommonMeta[commonPath];
+          if (!curMeta.format && !curMeta.globals)
+            return;
+
+          Object.keys(meta).forEach(function(path) {
+            if (path.substr(0, commonPath.length) == commonPath && path[commonPath.length] == '/') {
+              if (curMeta.format && meta[path].format == curMeta.format)
+                delete meta[path].format;
+              if (curMeta.globals && JSON.stringify(meta[path].globals) == JSON.stringify(curMeta.globals))
+                delete meta[path].globals;
+            }
+          });
+          meta[commonPath + '/*'] = curMeta;
+        });
+
+        // ensure all skip extensions either have exact meta or extension meta or true
+        skipExtensions.forEach(function(m) {
+          if (!(hasProperties(meta[m]) || hasProperties(meta['*.' + m.split('/').pop().split('.').pop()])))
+            meta[m] = true;
+        });
+
+        Object.keys(meta).sort().forEach(function(m) {
+          // clear out unnecessary empty metas
+          // only set metas that aren't true or empty
+          if (meta[m] === true || hasProperties(meta[m]))
+            systemConfig.meta[m] = meta[m];
+        });
+      }
+
+      // add map alphabetically
+      if (map && hasProperties(map)) {
+        systemConfig.map = {};
+        Object.keys(map).sort().forEach(function(m) {
+          systemConfig.map[m] = map[m];
+        });
+      }
+
+      // add core dependencies
+      function inMapTargets(dep) {
+        return Object.keys(systemConfig.map).some(function(map) {
+          var target = systemConfig.map[map];
+          if (typeof target == 'string')
+            target = { '1': target };
+          return Object.keys(target).some(function(submap) {
+            var curTarget = target[submap];
+            return curTarget.substr(0, dep.length) == dep && (curTarget[dep.length] == '/' || curTarget.length == dep.length);
+          });
+        });
+      }
+
+      systemConfig.peerDependencies = packageConfig.peerDependencies || {};
+      coreDeps.sort().forEach(function(dep) {
+        if (systemConfig.map && systemConfig.map[dep] && typeof systemConfig.map[dep] == 'string' && !inMapTargets(dep) ||
+            packageConfig.peerDependencies && packageConfig.peerDependencies[dep] || packageConfig.dependencies && packageConfig.dependencies[dep])
+          return;
+        if (packageConfig.browserifyCore !== false)
+          systemConfig.peerDependencies[dep] = nodelibsPathPrefix + dep + nodelibsVersion;
+        else
+          systemConfig.map[dep] = '@node/' + dep;
+      });
+
+      return systemConfig;
+    });
+  });
+};
+
+// pulled out of SystemJS internals...
+function readMeta(pkgPath, pkgMeta) {
+  var meta = {};
+
+  // apply wildcard metas
+  var bestDepth = 0;
+  var wildcardIndex;
+  for (var module in pkgMeta) {
+    wildcardIndex = module.indexOf('*');
+    if (wildcardIndex === -1)
+      continue;
+    if (module.substr(0, wildcardIndex) === pkgPath.substr(0, wildcardIndex)
+        && module.substr(wildcardIndex + 1) === pkgPath.substr(pkgPath.length - module.length + wildcardIndex + 1)) {
+      var depth = module.split('/').length;
+      if (depth > bestDepth)
+        bestDepth = depth;
+      extendMeta(meta, pkgMeta[module], bestDepth != depth);
+    }
+  }
+
+  // apply exact meta
+  if (meta[pkgPath])
+    extendMeta(load.metadata, meta[pkgPath]);
+
+  return meta;
+}
+function extendMeta(a, b, prepend) {
+  for (var p in b) {
+    var val = b[p];
+    if (!(p in a))
+      a[p] = val;
+    else if (val instanceof Array && a[p] instanceof Array)
+      a[p] = [].concat(prepend ? val : a[p]).concat(prepend ? a[p] : val);
+    else if (typeof val == 'object' && typeof a[p] == 'object')
+      a[p] = extend(extend({}, a[p]), val, prepend);
+    else if (!prepend)
+      a[p] = val;
+  }
+}
+function extend(a, b, prepend) {
+  for (var p in b) {
+    if (!prepend || !(p in a))
+      a[p] = b[p];
+  }
+  return a;
+}
+
+function hasProperties(obj) {
+  for (var p in obj)
+    return true;
+  return false;
+}
+
+/*
+ * Given a file tree stat, work out the resolution for a package
+ * name is a path within the package, parent is also a path within the package
+ * fileTree is keyed by path, with true as the value. Folders are indicated by trailling /
+ * All paths are assumed '/' separated for this implementation
+ */
+function nodeResolve(name, parent, fileTree, dotRel) {
+  var dotPrefix = dotRel ? './' : '';
+
+  // leave absolute paths undisturbed
+  if (name[0] == '/')
+    return;
+
+  // relative paths are resolved relatively and statted
+  if (name.substr(0, 2) == './' || name.substr(0, 3) == '../' && parent.indexOf('/') != -1) {
+    name = url.resolve('/' + parent, name).substr(1);
+
+    if (!name)
+      name = '.';
+
+    if (name[name.length - 1] != '/') {
+      if (fileTree.hasOwnProperty(name))
+        return dotPrefix + name;
+
+      if (fileTree.hasOwnProperty(name + '.js'))
+        return dotPrefix + name + '.js';
+
+      if (fileTree.hasOwnProperty(name + '.json'))
+        return dotPrefix + name + '.json';
+    }
+
+    // no file match -> try loading as a folder
+    var folderName = name + (name[name.length - 1] == '/' ? '' : '/');
+
+    if (fileTree.hasOwnProperty(folderName))
+      return dotPrefix + folderName + 'index.js';
+
+    // unable to resolve -> ignore
+    return;
+  }
+
+  // plain name -> package resolution
+  return name;
+}
+
+// Removes './' from the beginning of paths or '/' from the end of paths, etc
+function stripPathExtremes(path) {
+  if (path == '.')
+    path = '';
+  else if (path.substr(0, 2) == './')
+    path = path.substr(2);
+
+  if (path[path.length - 1] == '/')
+    path = path.substr(0, path.length - 1);
+
+  return path;
+}

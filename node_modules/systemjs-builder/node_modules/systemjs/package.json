@@ -1,0 +1,34 @@
+{
+  "name": "systemjs",
+  "version": "0.19.47",
+  "description": "Universal dynamic module loader",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/systemjs/systemjs"
+  },
+  "author": "Guy Bedford",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "dependencies": {
+    "when": "^3.7.5"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.22",
+    "qunit": "^0.6.2",
+    "traceur": "0.0.105",
+    "typescript": "^1.6.2",
+    "uglify-js": "~2.4.23"
+  },
+  "scripts": {
+    "test:browser": "make test",
+    "perf": "node bench/normalize-perf.js",
+    "build": "make",
+    "test": "npm run test:babel && npm run test:traceur && npm run test:typescript",
+    "test:babel": "qunit -c s:./index.js -t ./test/test-babel.js",
+    "test:traceur": "qunit -c s:./index.js -t ./test/test-traceur.js",
+    "test:typescript": "qunit -c s:./index.js -t ./test/test-typescript.js"
+  }
+}

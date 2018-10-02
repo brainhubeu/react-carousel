@@ -1,0 +1,33 @@
+{
+  "name": "remark",
+  "version": "7.0.1",
+  "description": "Markdown processor powered by plugins",
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "abstract",
+    "syntax",
+    "tree",
+    "ast",
+    "parse",
+    "stringify",
+    "process"
+  ],
+  "dependencies": {
+    "remark-parse": "^3.0.0",
+    "remark-stringify": "^3.0.0",
+    "unified": "^6.0.0"
+  },
+  "homepage": "http://remark.js.org",
+  "repository": "https://github.com/wooorm/remark/tree/master/packages/remark",
+  "bugs": "https://github.com/wooorm/remark/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "scripts": {},
+  "xo": false
+}

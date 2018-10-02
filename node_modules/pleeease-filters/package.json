@@ -1,0 +1,30 @@
+{
+  "name": "pleeease-filters",
+  "version": "3.0.1",
+  "description": "Convert CSS shorthand filters to SVG ones",
+  "author": {
+    "name": "Vincent De Oliveira"
+  },
+  "main": "./index",
+  "keywords": [
+    "postprocessor",
+    "css",
+    "postcss",
+    "pleeease",
+    "filters"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamvdo/pleeease-filters.git"
+  },
+  "scripts": {
+    "test": "jasmine-node spec"
+  },
+  "dependencies": {
+    "onecolor": "~2.4.0",
+    "postcss": "^5.0.4"
+  },
+  "devDependencies": {
+    "jasmine-node": "~1.14.3"
+  }
+}

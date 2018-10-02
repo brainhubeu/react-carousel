@@ -1,0 +1,26 @@
+{
+  "name": "items",
+  "description": "Bare minimum async methods",
+  "version": "2.1.1",
+  "repository": "git://github.com/hapijs/items",
+  "main": "lib/index.js",
+  "keywords": [
+    "async",
+    "serial",
+    "parallel"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "code": "3.x.x",
+    "lab": "10.x.x"
+  },
+  "scripts": {
+    "test": "lab -a code -t 100 -L",
+    "test-cov-html": "lab -a code -r html -o coverage.html"
+  },
+  "license": "BSD-3-Clause"
+}

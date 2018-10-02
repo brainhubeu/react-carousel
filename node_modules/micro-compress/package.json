@@ -1,0 +1,43 @@
+{
+  "name": "micro-compress",
+  "version": "1.0.0",
+  "description": "Compression for HTTP microservices built with Micro",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "xo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joakimbeng/micro-compress.git"
+  },
+  "keywords": [
+    "micro",
+    "compression",
+    "gzip",
+    "microservice",
+    "http",
+    "compress"
+  ],
+  "author": {
+    "name": "Joakim Carlstein",
+    "email": "joakim@beng.se",
+    "url": "http://joakim.beng.se"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joakimbeng/micro-compress/issues"
+  },
+  "homepage": "https://github.com/joakimbeng/micro-compress#readme",
+  "xo": {
+    "envs": [
+      "node"
+    ]
+  },
+  "devDependencies": {
+    "xo": "^0.16.0",
+    "standard-version": "^2.4.0"
+  },
+  "dependencies": {
+    "compression": "^1.6.2"
+  }
+}

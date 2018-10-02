@@ -1,0 +1,1 @@
+System.register('foo', [], function () {});

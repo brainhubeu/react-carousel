@@ -1,0 +1,3 @@
+--reporter spec
+test/auth.spec.js
+test/npmrc.spec.js

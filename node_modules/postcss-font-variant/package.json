@@ -1,0 +1,38 @@
+{
+  "name": "postcss-font-variant",
+  "version": "2.0.1",
+  "description": "PostCSS plugin to transform W3C font-variant properties to more compatible CSS  (font-feature-settings)",
+  "keywords": [
+    "css",
+    "postcss",
+    "postcss-plugin",
+    "font",
+    "variant",
+    "font-variant"
+  ],
+  "author": "Maxime Thirouin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/postcss/postcss-font-variant.git"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "postcss": "^5.0.4"
+  },
+  "devDependencies": {
+    "jscs": "^2.1.0",
+    "jshint": "^2.8.0",
+    "npmpub": "^3.1.0",
+    "tape": "^4.0.3"
+  },
+  "scripts": {
+    "lint": "npm run jscs && npm run jshint",
+    "jscs": "jscs index.js test/index.js",
+    "jshint": "jshint . --exclude-path .gitignore",
+    "test": "npm run lint && tape test",
+    "release": "npmpub"
+  }
+}

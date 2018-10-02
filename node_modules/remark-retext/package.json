@@ -1,0 +1,66 @@
+{
+  "name": "remark-retext",
+  "version": "3.1.0",
+  "description": "retext support for remark",
+  "license": "MIT",
+  "keywords": [
+    "remark",
+    "retext",
+    "mdast",
+    "nlcst"
+  ],
+  "repository": "wooorm/remark-retext",
+  "bugs": "https://github.com/wooorm/remark-retext/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "mdast-util-to-nlcst": "^3.2.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.0.0",
+    "esmangle": "^1.0.1",
+    "nyc": "^11.0.0",
+    "remark-cli": "^4.0.0",
+    "remark-parse": "^4.0.0",
+    "remark-preset-wooorm": "^3.0.0",
+    "remark-stringify": "^4.0.0",
+    "retext-english": "^3.0.0",
+    "retext-stringify": "^2.0.0",
+    "tape": "^4.0.0",
+    "unified": "^6.0.0",
+    "xo": "^0.18.0"
+  },
+  "scripts": {
+    "build-md": "remark . -qfo",
+    "build-bundle": "browserify index.js --bare -s remarkRetext > remark-retext.js",
+    "build-mangle": "esmangle remark-retext.js > remark-retext.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo",
+    "test-api": "node test.js",
+    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "esnext": false,
+    "ignores": [
+      "remark-retext.js"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  }
+}

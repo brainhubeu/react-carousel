@@ -1,0 +1,34 @@
+{
+  "name": "color",
+  "version": "0.10.1",
+  "description": "Color conversion and manipulation with CSS string support",
+  "keywords": [
+    "color",
+    "colour",
+    "css"
+  ],
+  "authors": [
+    "Heather Arthur <fayearthur@gmail.com>",
+    "Maxime Thirouin"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/harthur/color.git"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "color-convert": "^0.5.3",
+    "color-string": "^0.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
+}

@@ -1,0 +1,1 @@
+SystemJS.register([], function () {});

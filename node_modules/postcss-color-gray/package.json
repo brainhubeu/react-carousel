@@ -1,0 +1,54 @@
+{
+  "name": "postcss-color-gray",
+  "version": "3.0.1",
+  "description": "PostCSS plugin to transform gray() function to today's CSS",
+  "repository": "https://github.com/postcss/postcss-color-gray.git",
+  "author": {
+    "name": "Shinnosuke Watanabe",
+    "url": "https://github.com/shinnn"
+  },
+  "scripts": {
+    "pretest": "npm run eslint && npm run jscs",
+    "eslint": "eslint index.js test.js",
+    "jscs": "jscs index.js test.js",
+    "test": "node test.js | tap-spec",
+    "coverage": "istanbul cover test.js",
+    "coveralls": "${npm_package_scripts_coverage} && istanbul-coveralls",
+    "release": "npmpub"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/postcss/postcss-color-gray/blob/master/LICENSE"
+    }
+  ],
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "css",
+    "css4",
+    "style",
+    "stylesheet",
+    "postcss",
+    "postcss-plugin",
+    "color",
+    "gray",
+    "function"
+  ],
+  "dependencies": {
+    "color": "^0.11.3",
+    "postcss": "^5.0.4",
+    "postcss-message-helpers": "^2.0.0",
+    "reduce-function-call": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^0.10.2",
+    "istanbul": "^0.3.5",
+    "istanbul-coveralls": "^1.0.1",
+    "jscs": "^1.8.1",
+    "npmpub": "^3.1.0",
+    "tap-spec": "^2.1.0",
+    "tape": "^3.0.3"
+  }
+}

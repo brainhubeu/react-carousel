@@ -1,0 +1,48 @@
+{
+  "name": "systemjs",
+  "version": "0.21.3",
+  "description": "Dynamic ES module loader",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/systemjs/systemjs"
+  },
+  "author": "Guy Bedford",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/system.src.js",
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-es2015-modules-systemjs": "^6.19.0",
+    "bluebird": "^3.4.6",
+    "es-module-loader": "^2.2.8",
+    "mocha": "^3.1.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.58.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "systemjs-plugin-babel": "0.0.17",
+    "systemjs-plugin-traceur": "0.0.3",
+    "traceur": "0.0.111",
+    "uglify-js": "^3.0.11"
+  },
+  "scripts": {
+    "build": "npm run build:dev && npm run build:production",
+    "build:dev": "rollup -c",
+    "build:production": "rollup -c --environment production",
+    "min": "npm run min:dev && npm run min:production",
+    "min:dev": "cd dist && uglifyjs system.src.js -cm --source-map content=system.src.js.map --comments \"/SystemJS v/\" -o system.js",
+    "min:production": "cd dist && uglifyjs system-production.src.js -cm --source-map content=system-production.src.js.map --comments \"/SystemJS v/\" -o system-production.js",
+    "footprint": "npm run footprint:dev && npm run footprint:production",
+    "footprint:dev": "uglifyjs dist/system.src.js -cm | gzip -9f | wc -c",
+    "footprint:production": "uglifyjs dist/system-production.src.js -cm | gzip -9f | wc -c",
+    "test": "npm run test:production && npm run test:babel && npm run test:traceur",
+    "test:traceur": "mocha test/test-traceur.js -u tdd --reporter dot",
+    "test:babel": "mocha test/test-babel.js -u tdd --reporter dot",
+    "test:production": "mocha test/test-production.js -u tdd --reporter dot",
+    "irhydra": "node --trace-hydrogen --trace-phase=Z --trace-deopt --code-comments --hydrogen-track-positions --redirect-code-traces --redirect-code-traces-to=code.asm --print-opt-code --trace_hydrogen_file=hydrogen.cfg irhydra/load.js",
+    "prepublish": "rimraf dist && npm run build && npm run min"
+  }
+}

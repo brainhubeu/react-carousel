@@ -1,0 +1,24 @@
+{
+  "name": "openssl-self-signed-certificate",
+  "version": "1.1.6",
+  "description": "Self-signed certificate for development use, generated using openssl. Expires in the year 4754 (4754-06-06).",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "keywords": [
+    "ssl",
+    "self-signed",
+    "certificate"
+  ],
+  "author": "neverendingqs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neverendingqs/openssl-self-signed-certificate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/neverendingqs/openssl-self-signed-certificate/issues"
+  },
+  "homepage": "https://github.com/neverendingqs/openssl-self-signed-certificate#readme"
+}

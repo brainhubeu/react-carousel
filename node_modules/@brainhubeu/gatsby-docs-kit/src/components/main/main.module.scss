@@ -1,0 +1,27 @@
+@import '../../layouts/variables.scss';
+@import '../../layouts/mixins.scss';
+
+.main {
+  max-width: 960px;
+  width: 100%;
+  padding: 0px 1.0875rem 1.45rem;
+  padding-top: 0;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $colorBHBg;
+    &[id] {
+      &:before {
+        display: block;
+        content: '';
+        margin-top: -1.5*$mainNavHeight;
+        height: 1.5*$mainNavHeight;
+        visibility: hidden;
+      }
+    }
+  }
+}

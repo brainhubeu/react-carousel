@@ -1,0 +1,10 @@
+.eslintrc
+.gitignore
+
+node_modules/
+npm-debug.log
+
+test/
+.travis.yml
+
+gulpfile.js
