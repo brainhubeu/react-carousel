@@ -57,7 +57,6 @@ workflows:
             #branches:
               #only:
                 #- master
-                #- check-publish
       - publish_package:
           requires:
             - test
