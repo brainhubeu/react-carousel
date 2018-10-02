@@ -7,10 +7,7 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-pwd
 remote=https://$GIT_TOKEN@github.com/brainhubeu/react-carousel.git
-
-echo remote=$remote
 
 yarn install --non-interactive
 
@@ -26,8 +23,6 @@ git config --global user.email "devops@brainhub.eu" > /dev/null 2>&1
 git config --global user.name "DevOps Brainhub" > /dev/null 2>&1
 git init
 git remote add --fetch origin $remote
-
-git remote -v
 
 if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
 then
