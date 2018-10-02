@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../src/redux/reducers/last-action.js"],"names":["module","exports","state","action"],"mappings":";;AAAAA,OAAOC,OAAP,GAAiB;AAAA,MAACC,KAAD,uEAAS,IAAT;AAAA,MAAeC,MAAf;AAAA,SAA0BA,MAA1B;AAAA,CAAjB","file":"last-action.js","sourcesContent":["module.exports = (state = null, action) => action\n"]}

@@ -1,7 +1,0 @@
-/node_modules
-/npm-debug.*
-/test/tmp*
-/test/nonexistentfile*
-/test/*.log
-/test/coverage
-

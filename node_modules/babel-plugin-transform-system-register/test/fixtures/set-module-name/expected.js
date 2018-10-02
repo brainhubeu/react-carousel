@@ -1,1 +1,0 @@
-System.register("foo", [], function () {});

@@ -1,5 +1,0 @@
-We need to do these same tests for a small collection of tough npm modules.
-
-Some examples:
-npm:immstruct
-npm:express

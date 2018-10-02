@@ -1,6 +1,0 @@
-node_modules/
-.babelrc
-.editorconfig
-.eslintrc
-.gitignore
-.travis.yml

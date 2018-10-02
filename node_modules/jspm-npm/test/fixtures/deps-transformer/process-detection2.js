@@ -1,3 +1,0 @@
-(function(p) {
-  console.log(p);
-})(process);

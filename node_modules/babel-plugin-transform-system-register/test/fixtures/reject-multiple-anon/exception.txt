@@ -1,1 +1,0 @@
-Source undefined has multiple anonymous System.register calls.
