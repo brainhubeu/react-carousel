@@ -1,0 +1,23 @@
+# Logs
+logs
+*.log*
+
+# node-waf configuration
+.lock-wscript
+
+# Dependency directory
+node_modules
+
+# IDEA/Webstorm project files
+.idea
+*.iml
+
+#VSCode metadata
+.vscode
+
+# Mac files
+.DS_Store
+
+# Gatsby
+.cache
+public

@@ -1,0 +1,30 @@
+{
+  "name": "@brainhubeu/gatsby-docs-kit-start",
+  "description": "Gatsby-Docs-Kit starter repository",
+  "version": "0.0.1",
+  "author": "Brainhub",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf .cache && rm -rf public && gatsby build --prefix-paths",
+    "deploy:gh": "bash tools/deploy-github.sh",
+    "develop": "rm -rf .cache && gatsby develop",
+    "seed": "bash tools/seed.sh",
+    "serve": "gatsby serve",
+    "lint": "eslint --ext .jsx,.js .",
+    "lint:autofix": "eslint --ext .jsx,.js . --fix"
+  },
+  "dependencies": {
+    "@brainhubeu/gatsby-docs-kit": "^1.0.1",
+    "@brainhubeu/react-carousel": "^1.2.3",
+    "gatsby": "^1.9.270",
+    "react-fa": "^5.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "eslint": "^4.19.1",
+    "eslint-config-brainhub": "^1.8.0",
+    "gh-pages": "^1.1.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  }
+}
