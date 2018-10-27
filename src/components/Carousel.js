@@ -469,14 +469,15 @@ export default class Carousel extends Component {
    * @return {number} offset in px
    */
   getTransformOffset = () => {
+    const elementWidthWithOffset = this.getCarouselElementWidth() + this.getProp('offset');
     const additionalOffset = this.getProp('centered')
-      ? (this.state.carouselWidth / 2) - (this.getCarouselElementWidth() / 2)
+      ? (this.state.carouselWidth / 2) - (elementWidthWithOffset / 2)
       : 0;
     const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
     const currentValue = this.getActiveSlideIndex();
     const additionalClonesOffset = this.getAdditionalClonesOffset();
 
-    return dragOffset - currentValue * this.getCarouselElementWidth() + additionalOffset - additionalClonesOffset;
+    return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
   };
 
 
