@@ -330,13 +330,6 @@ render() {
 }
 ```
 
-## Example app
-You can see how the carousel is used in the simple example app:
-```
-npm run example
-```
-and go to [localhost:3000](http://localhost:3000/).
-
 ## Unit tests
 ```
 npm run test-unit
