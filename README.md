@@ -72,8 +72,8 @@ Where:
 * `value` is the current slide's index (zero based, in the example above imageOne has index 0, imageTwo has index 1 and so on)
 * `onChange` handler triggered when carousel wants to change current slide (e.g. on arrow click or on swipe)
 
-### Adding arrows
-You can enable default arrows or provide carousel with your own arrowLeft and arrowRight components
+### Default arrows
+You can turn default arrows on with `arrows` prop
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
@@ -92,7 +92,11 @@ render() {
   );
 }
 ```
+Where:
+* `arrows` is **boolean** flag that determines usage of default arrows
 
+### Custom arrows
+You can define custom components for arrows using `arrowLeft` and `arrowRight` props. If you don't need to change default click listeners, add `addArrowClickHandler` prop. Otherwise, add click event handlers to your custom components.
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
 import Icon from 'react-fa';
@@ -105,6 +109,7 @@ render() {
     <Carousel
       arrowLeft={<Icon className="icon-example" name="arrow-left" />}
       arrowRight={<Icon className="icon-example" name="arrow-right" />}
+      addArrowClickHandler
     >
       <img src={imageOne} />
       <img src={imageTwo} />
@@ -115,8 +120,8 @@ render() {
 ```
 
 Where:
-* `arrows` is **boolean** indicating if default arrows should be rendered
-* `arrowLeft` and `arrowRight` are React elements to be used instead of default arrows (when you provided custom arrows you don't have to use `arrows` prop)
+* `arrowLeft` and `arrowRight` are React components for arrows
+* `addArrowClickHandler` is **boolean** flag - default click event handlers are used when it's set to true
 
 ### Passing slides as a prop
 
