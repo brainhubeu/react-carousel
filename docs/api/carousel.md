@@ -36,6 +36,8 @@
 
 * ```animationSpeed: Number``` Determines transition duration in milliseconds.
 
+* ```dots: Boolean``` Renders default dots under the carousel.
+
 ## Default Properties:
 
 - ```offset: 0```
