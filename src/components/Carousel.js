@@ -60,6 +60,7 @@ export default class Carousel extends Component {
     })),
   };
   static defaultProps = {
+    offset: 0,
     slidesPerPage: 1,
     slidesPerScroll: 1,
     animationSpeed: 500,
