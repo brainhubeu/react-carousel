@@ -93,7 +93,19 @@
     "react": ">0.14.0 || >15.0.0",
     "react-dom": ">0.14.0 || >15.0.0"
   },
-  "keywords": [],
+  "keywords": [
+    "react"
+    "carousel",
+    "react-carousel",
+    "react-component",
+    "component",
+    "image",
+    "image-gallery",
+    "image-slider",
+    "responsive",
+    "gallery",
+    "rwd"
+   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/brainhubeu/react-carousel"
