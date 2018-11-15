@@ -40,6 +40,7 @@
 
 ## Default Properties:
 
+- ```offset: 0```
 - ```slidesPerPage: 1```
 - ```slidesPerScroll: 1```
 - ```animationSpeed: 500```
