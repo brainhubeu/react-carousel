@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.11",
+  "version": "1.10.12",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=4"
@@ -105,7 +105,7 @@
     "responsive",
     "gallery",
     "rwd"
-   ],
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/brainhubeu/react-carousel"
