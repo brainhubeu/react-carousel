@@ -377,7 +377,7 @@ export default class Carousel extends Component {
   onTransitionEnd = () => {
     this.setState({
       transitionEnabled: false,
-      infiniteTransitionFrom: null,
+      infiniteTransitionFrom: this.getProp('infinite') ? this.getCurrentValue() : null,
     });
   };
 
