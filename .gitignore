@@ -43,3 +43,5 @@ node_modules
 selenium-debug.log
 .npm.debug
 package-lock.json
+
+html-report/
