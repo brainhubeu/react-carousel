@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.14",
+  "version": "1.10.15",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=4"
@@ -73,7 +73,7 @@
     "postcss-loader": "^2.1.6",
     "prop-types": "^15.7.2",
     "react": "^15.6.2",
-    "react-bootstrap": "^0.31.5",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^15.6.2",
     "react-fa": "^4.2.0",
     "react-redux": "^5.1.1",
