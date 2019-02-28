@@ -1,5 +1,7 @@
 # react-carousel
 
+...
+
 > Feature-rich, react-way carousel component that does not suck 
 
 [![CircleCI](https://circleci.com/gh/brainhubeu/react-carousel.svg?style=svg)](https://circleci.com/gh/brainhubeu/react-carousel)
