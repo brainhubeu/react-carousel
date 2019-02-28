@@ -29,10 +29,10 @@
     react-helmet "^5.2.0"
     react-live "^1.10.1"
 
-"@brainhubeu/react-carousel@^1.10.14":
-  version "1.10.14"
-  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.10.14.tgz#79c796e280f906d65cd53990a69b9dc77b059fd4"
-  integrity sha512-lAl3uk16zd4nbxc221NLgfdUXxgGgAEu/CyXmY+8XA/PctPL8uOEqJ+DzOa+TgqKXLYs3voc9CTYwlLwnphG2w==
+"@brainhubeu/react-carousel@^1.10.15":
+  version "1.10.15"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.10.15.tgz#d4248f29fc8d659ccc2c8b422097ccde1aed6241"
+  integrity sha512-iQQhrZpgH02etF9rkDTfhXY12WKkVorgJb0A8cmarnHy/FgffMY534rZPG0Z3Ia94SVNzdnx9uiSpBuo4H4UDg==
 
 "@types/configstore@^2.1.1":
   version "2.1.1"
