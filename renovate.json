@@ -1,0 +1,7 @@
+{
+  "bumpVersion": "patch",
+  "commitMessagePrefix": "[renovate] ",
+  "groupName": "all dependencies",
+  "labels": ["renovate"],
+  "rangeStrategy": "bump"
+}
