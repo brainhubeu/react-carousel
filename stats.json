@@ -17,12 +17,12 @@
       "path---docs-examples-simple-usage-871448bd89f31f0d2038.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js": [
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-d344399c2b42823af813.js",
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-d344399c2b42823af813.js.map"
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-b228955fe8a5ba57edd7.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-b228955fe8a5ba57edd7.js.map"
     ],
     "path---": [
-      "path----594ffe2bdf2a443bd47f.js",
-      "path----594ffe2bdf2a443bd47f.js.map"
+      "path----1367b706259660d4ad6e.js",
+      "path----1367b706259660d4ad6e.js.map"
     ],
     "path---docs-examples-animation": [
       "path---docs-examples-animation-06d223321ca4ad0d3e81.js",
@@ -73,9 +73,9 @@
       "component---src-pages-404-js-23f9dfcad6da6c583751.js.map"
     ],
     "commons": [
-      "commons-54dfcbc96f9f630b06be.js",
+      "commons-c5e4a82911104bd0a475.js",
       "build-js-styles.css",
-      "commons-54dfcbc96f9f630b06be.js.map",
+      "commons-c5e4a82911104bd0a475.js.map",
       "build-js-styles.css.map"
     ],
     "path---404-html": [
@@ -95,8 +95,8 @@
       "path---docs-examples-slides-per-scroll-ef0c2ea2f618ea09395a.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js": [
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-c4fe8d7c4f00071f4415.js",
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-c4fe8d7c4f00071f4415.js.map"
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-414b983fa97a7567a7f9.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-414b983fa97a7567a7f9.js.map"
     ],
     "path---docs-examples-infinite": [
       "path---docs-examples-infinite-5a28d5649259041af47a.js",
@@ -107,9 +107,9 @@
       "path---docs-examples-thumbnails-976f0a8d09d087614b86.js.map"
     ],
     "app": [
-      "app-434b347aed9a4afe7482.js",
+      "app-fdbbcc437951ca9ef3ad.js",
       "build-js-styles.css",
-      "app-434b347aed9a4afe7482.js.map",
+      "app-fdbbcc437951ca9ef3ad.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-examples-draggable": [
