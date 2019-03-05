@@ -3042,10 +3042,10 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-brainhub@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-brainhub/-/eslint-config-brainhub-1.10.0.tgz#cb236f591b25ca0bd9ab25a958aaf507cd319394"
-  integrity sha512-6JxbYG3tQvda5Seh7YJ4DShc0Dspmmr9LhftrFuOvvQ5jwY1azNA1UeyFPPVjph25CoidZOLyU9M7/fwzSOumQ==
+eslint-config-brainhub@^1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-brainhub/-/eslint-config-brainhub-1.10.2.tgz#71c9dde33b42ba30d22e54ec0c98e4e4585a562c"
+  integrity sha512-U4GB4YsT+SmW0Mrs/z0F2lNCvOmiAAL8LX/RJQ3m/TFEucR6thanrW7v57b5gy6i51x+oChW8zWSI6icF8kF3Q==
   dependencies:
     eslint-plugin-babel "^5.3.0"
     eslint-plugin-import "^2.16.0"
