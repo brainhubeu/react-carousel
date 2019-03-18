@@ -6845,7 +6845,7 @@ react-router@^4.2.0:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-router@^4.4.0:
+react-router@^4.4.0, react-router@^4.4.0-beta:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.4.0.tgz#e8b8b88329f564d4c48b7ee631b10310188c6888"
   integrity sha512-qTGsOSF2b02zOsUfcnHjw7muI0Ejx+yA2e4P9qqzB2O+N3Icpca4epViXRgkBIvBjagXBtroxXqH0RJhYDMUbg==
