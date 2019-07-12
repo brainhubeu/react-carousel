@@ -78,6 +78,8 @@ export default class Carousel extends Component {
       transitionEnabled: false,
       infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
       isAutoPlayStopped: false,
+      numDots: 1,
+      value: 0,
     };
     this.interval = null;
   }
@@ -148,7 +150,7 @@ export default class Carousel extends Component {
   }
 
   /* ========== tools ========== */
-  getCurrentValue = () => this.props.value;
+  getCurrentValue = () => this.props.value || this.state.value;
 
   getNeededAdditionalClones = () =>
     Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
@@ -280,16 +282,39 @@ export default class Carousel extends Component {
    * throttled to improve performance
    * @type {Function}
    */
-   onResize = throttle(() => {
-     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
-     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
-     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+  onResize = throttle(() => {
+    const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
+    const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
+    const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
 
-     this.setState({
-       carouselWidth: width,
-       windowWidth: window.innerWidth,
-     });
-   }, config.resizeEventListenerThrottle);
+    this.setState({
+      carouselWidth: width,
+      windowWidth: window.innerWidth,
+    });
+
+    this.getProp('dots') && this.setNumDots();
+  }, config.resizeEventListenerThrottle);
+
+  setNumDots = () => {
+    const numSlides = this.getChildren().length;
+    const slidesPerPage = this.getProp('slidesPerPage');
+    const slidesPerScroll = this.getProp('slidesPerScroll');
+    let numDots = Math.ceil((numSlides - slidesPerPage) / slidesPerScroll);
+
+    if (!numDots) {
+      numDots = 1;
+    }
+
+    if (numSlides % slidesPerPage || slidesPerPage === 1) {
+      numDots++;
+    }
+
+    if (numDots !== this.state.numDots) {
+      this.setState({ value: 0 });
+    }
+
+    this.setState({ numDots });
+  };
 
   /**
    * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
@@ -647,20 +672,22 @@ export default class Carousel extends Component {
 
   renderDots() {
     if (this.getProp('dots')) {
-      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} />;
+      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.state.numDots} />;
     }
     return null;
   }
 
   render() {
     return (
-      <div
-        className={classnames('BrainhubCarousel', this.getProp('className'))}
-        ref={el => this.node = el}
-      >
-        {this.renderArrowLeft()}
-        {this.renderCarouselItems()}
-        {this.renderArrowRight()}
+      <div>
+        <div
+          className={classnames('BrainhubCarousel', this.getProp('className'))}
+          ref={el => this.node = el}
+        >
+          {this.renderArrowLeft()}
+          {this.renderCarouselItems()}
+          {this.renderArrowRight()}
+        </div>
         {this.renderDots()}
       </div>
     );

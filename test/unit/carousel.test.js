@@ -41,6 +41,29 @@ const setup = () =>
     </Carousel>
   );
 
+const setupWithDots = () =>
+  mount(
+    <Carousel
+      autoPlay={3000}
+      dots
+      breakpoints={{
+        1000: {
+          slidesPerPage: 2,
+          slidesPerScroll: 2,
+        },
+        500: {
+          slidesPerPage: 1,
+        },
+      }}
+    >
+      <div/>
+      <div/>
+      <div/>
+      <div/>
+      <div/>
+    </Carousel>
+  );
+
 describe('Carousel', () => {
   it('should return value of a prop', () => {
     const carousel = setup();
@@ -56,12 +79,30 @@ describe('Carousel', () => {
     const autoPlayValue = carousel.instance().getProp('slidesPerPage');
     expect(autoPlayValue).to.equal(2);
   });
+  it('numDots should be equal 3 if window width is greater than 500', () => {
+    window.resizeTo(600, 600);
+
+    const carousel = setupWithDots();
+    const instance = carousel.instance();
+    instance.setNumDots();
+
+    const numDots = instance.state.numDots;
+    expect(numDots).to.equal(3);
+  });
   it('slidesPerPage should be equal 1 if window width is less than 500', () => {
     window.resizeTo(300, 300);
     const carousel = setup();
 
     const autoPlayValue = carousel.instance().getProp('slidesPerPage');
     expect(autoPlayValue).to.equal(1);
+  });
+  it('numDots should be equal 5 if window width is less than 500', () => {
+    window.resizeTo(300, 300);
+
+    const carousel = setupWithDots();
+
+    const numDots = carousel.instance().state.numDots;
+    expect(numDots).to.equal(5);
   });
   it('get nearest slide index', () => {
     const carousel = shallow(
