@@ -79,7 +79,6 @@ export default class Carousel extends Component {
       infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
       isAutoPlayStopped: false,
       numDots: 1,
-      value: 0,
     };
     this.interval = null;
   }
@@ -150,7 +149,7 @@ export default class Carousel extends Component {
   }
 
   /* ========== tools ========== */
-  getCurrentValue = () => this.props.value || this.state.value;
+  getCurrentValue = () => this.props.value;
 
   getNeededAdditionalClones = () =>
     Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
@@ -286,11 +285,22 @@ export default class Carousel extends Component {
     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+    const slidesPerPage = this.getProp('slidesPerPage');
+    const slidesPerScroll = this.getProp('slidesPerScroll');
 
     this.setState({
       carouselWidth: width,
       windowWidth: window.innerWidth,
     });
+
+    // reset carousel to first slide if slidesPerPage
+    // or slidesPerScroll changes in breakpoint settings
+    if (
+      slidesPerPage !== this.getProp('slidesPerPage')
+      || slidesPerScroll !== this.getProp('slidesPerScroll')
+    ) {
+      this.changeSlide(0);
+    }
 
     this.getProp('dots') && this.setNumDots();
   }, config.resizeEventListenerThrottle);
@@ -307,10 +317,6 @@ export default class Carousel extends Component {
 
     if (numSlides % slidesPerPage || slidesPerPage === 1) {
       numDots++;
-    }
-
-    if (numDots !== this.state.numDots) {
-      this.setState({ value: 0 });
     }
 
     this.setState({ numDots });
