@@ -6,6 +6,7 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
+      - run: npm install
       - run: npm run lint
       - run: npm run test-unit
 
