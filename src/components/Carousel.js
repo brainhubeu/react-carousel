@@ -60,6 +60,7 @@ export default class Carousel extends Component {
     })),
   };
   static defaultProps = {
+    offset: 0,
     slidesPerPage: 1,
     slidesPerScroll: 1,
     animationSpeed: 500,
@@ -91,9 +92,9 @@ export default class Carousel extends Component {
     if (this.node) {
       this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
       this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.ownerDocument.addEventListener('touchstart', this.onTouchStart, true);
-      this.node.ownerDocument.addEventListener('touchmove', this.onTouchMove, { passive: false });
-      this.node.ownerDocument.addEventListener('touchend', this.onMouseUpTouchEnd, true);
+      this.node.ownerDocument.addEventListener('touchstart', this.simulateEvent, true);
+      this.node.ownerDocument.addEventListener('touchmove', this.simulateEvent, { passive: false });
+      this.node.ownerDocument.addEventListener('touchend', this.simulateEvent, true);
     }
 
     // setting size of a carousel in state
@@ -111,14 +112,14 @@ export default class Carousel extends Component {
     const valueChanged = this.checkIfValueChanged(nextProps);
 
     if (this.state.transitionEnabled) {
-      return this.setState({
-        transitionEnabled: valueChanged ? true : this.state.transitionEnabled,
-      });
+      return this.setState(previousState => ({
+        transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
+      }));
     }
-    this.setState({
+    this.setState(previousState => ({
       infiniteTransitionFrom: this.getCurrentValue(),
-      transitionEnabled: valueChanged ? true : this.state.transitionEnabled,
-    });
+      transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
+    }));
   }
 
   componentDidUpdate(prevProps) {
@@ -134,8 +135,9 @@ export default class Carousel extends Component {
     if (this.node) {
       this.node.ownerDocument.removeEventListener('mousemove', this.onMouseMove);
       this.node.ownerDocument.removeEventListener('mouseup', this.onMouseUp);
-      this.node.ownerDocument.removeEventListener('touchmove', this.onTouchMove);
-      this.node.ownerDocument.removeEventListener('touchend', this.onTouchEnd);
+      this.node.ownerDocument.removeEventListener('touchstart', this.simulateEvent);
+      this.node.ownerDocument.removeEventListener('touchmove', this.simulateEvent);
+      this.node.ownerDocument.removeEventListener('touchend', this.simulateEvent);
     }
 
     window.removeEventListener('resize', this.onResize);
@@ -283,10 +285,10 @@ export default class Carousel extends Component {
      const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
      const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
 
-     this.setState({
+     this.setState(() => ({
        carouselWidth: width,
        windowWidth: window.innerWidth,
-     });
+     }));
    }, config.resizeEventListenerThrottle);
 
   /**
@@ -297,10 +299,10 @@ export default class Carousel extends Component {
   onMouseDown = (e, index) => {
     e.preventDefault();
     e.stopPropagation();
-    this.setState({
+    this.setState(() => ({
       clicked: index,
       dragStart: e.pageX,
-    });
+    }));
   };
 
   /**
@@ -309,9 +311,9 @@ export default class Carousel extends Component {
    */
   onMouseMove = e => {
     if (this.state.dragStart !== null) {
-      this.setState({
-        dragOffset: e.pageX - this.state.dragStart,
-      });
+      this.setState(previousState => ({
+        dragOffset: e.pageX - previousState.dragStart,
+      }));
     }
   };
 
@@ -321,10 +323,10 @@ export default class Carousel extends Component {
    * @param {number} index of the element drag started on
    */
   onTouchStart = (e, index) => {
-    this.setState({
+    this.setState(() => ({
       clicked: index,
       dragStart: e.changedTouches[0].pageX,
-    });
+    }));
   };
 
   /**
@@ -337,9 +339,9 @@ export default class Carousel extends Component {
       e.stopPropagation();
     }
     if (this.state.dragStart !== null) {
-      this.setState({
-        dragOffset: e.changedTouches[0].pageX - this.state.dragStart,
-      });
+      this.setState(previousState => ({
+        dragOffset: e.changedTouches[0].pageX - previousState.dragStart,
+      }));
     }
   };
 
@@ -361,11 +363,11 @@ export default class Carousel extends Component {
             : this.state.clicked);
         }
       }
-      this.setState({
+      this.setState(() => ({
         clicked: null,
         dragOffset: 0,
         dragStart: null,
-      });
+      }));
     }
   };
 
@@ -373,10 +375,10 @@ export default class Carousel extends Component {
    * Handler setting transitionEnabled value in state to false after transition animation ends
    */
   onTransitionEnd = () => {
-    this.setState({
+    this.setState(() => ({
       transitionEnabled: false,
-      infiniteTransitionFrom: null,
-    });
+      infiniteTransitionFrom: this.getProp('infinite') ? this.getCurrentValue() : null,
+    }));
   };
 
   /**
@@ -384,9 +386,9 @@ export default class Carousel extends Component {
    * Stops auto play
    */
   onMouseEnter = () => {
-    this.setState({
+    this.setState(() => ({
       isAutoPlayStopped: true,
-    });
+    }));
   };
 
   /**
@@ -394,10 +396,43 @@ export default class Carousel extends Component {
    * Resumes auto play
    */
   onMouseLeave = () => {
-    this.setState({
+    this.setState(() => ({
       isAutoPlayStopped: false,
-    });
+    }));
     this.resetInterval();
+  };
+
+  /**
+   * Simulates mouse events when touch events occur
+   * @param {event} e A touch event
+   */
+  simulateEvent = e => {
+    const touch = e.changedTouches[0];
+    const {
+      screenX,
+      screenY,
+      clientX,
+      clientY,
+    } = touch;
+    const touchEventMap = {
+      touchstart: 'mousedown',
+      touchmove: 'mousemove',
+      touchend: 'mouseup',
+    };
+    const simulatedEvent = new MouseEvent(
+      touchEventMap[e.type],
+      {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        detail: 1,
+        screenX,
+        screenY,
+        clientX,
+        clientY,
+      }
+    );
+    touch.target.dispatchEvent(simulatedEvent);
   };
 
 

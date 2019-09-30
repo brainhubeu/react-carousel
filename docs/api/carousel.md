@@ -35,9 +35,12 @@
 * ```keepDirectionWhenDragging: Boolean``` While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged.
 
 * ```animationSpeed: Number``` Determines transition duration in milliseconds.
- 
+
+* ```dots: Boolean``` Renders default dots under the carousel.
+
 ## Default Properties:
 
+- ```offset: 0```
 - ```slidesPerPage: 1```
 - ```slidesPerScroll: 1```
 - ```animationSpeed: 500```

@@ -1,4 +1,4 @@
-FROM node:8.5.0
+FROM node:8.15.1
 
 RUN rm -rf /app
 RUN mkdir -p /app
