@@ -655,7 +655,7 @@ export default class Carousel extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <div
           className={classnames('BrainhubCarousel', this.getProp('className'))}
           ref={el => this.node = el}
@@ -667,7 +667,7 @@ export default class Carousel extends Component {
         <div className={classnames('BrainhubCarousel__dots', this.getProp('className'))}>
           {this.renderDots()}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
