@@ -27,20 +27,26 @@ export default class CarouselDots extends Component {
 
   renderCarouselDots() {
     if (this.props.thumbnails) {
-      return this.props.thumbnails.map((thumbnail, index) => (
-        <li key={index}>
-          <div
-            className={classnames(
-              'BrainhubCarousel__thumbnail',
-              { 'BrainhubCarousel__thumbnail--selected': this.calculateButtonValue() === this.props.value }
-            )}
-            type="button"
-            onClick={this.onChange(index)}
-          >
-            {thumbnail}
-          </div>
-        </li>
-      ));
+      const thumbnails = [];
+      const dotsLength = isNaN(this.props.number) ? this.props.thumbnails.length : this.props.number;
+
+      for (let index = 0; index < dotsLength; index ++) {
+        thumbnails.push(
+          <li key={index}>
+            <div
+              className={classnames(
+                'BrainhubCarousel__thumbnail',
+                { 'BrainhubCarousel__thumbnail--selected': this.calculateButtonValue() === this.props.value }
+              )}
+              type="button"
+              onClick={this.onChange(index)}
+            >
+              {this.props.thumbnails[index]}
+            </div>
+          </li>
+        );
+      }
+      return thumbnails;
     }
 
     const dots = [];
