@@ -2,30 +2,21 @@ version: 2
 jobs:
   test:
     docker:
-      - image: registry.dev.brainhub.pl/tools/rancher-circleci
-        auth:
-          username: $HARBOR_USER
-          password: $HARBOR_PASSWORD
+      - image: circleci/node:10.16.0
     working_directory: ~/app
     steps:
       - checkout
-      - setup_remote_docker
-      - run: docker login -u $HARBOR_USER -p $HARBOR_PASSWORD registry.dev.brainhub.pl
-      - run: docker build --build-arg NODE_ENV=development -t react-carousel .
-      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' react-carousel -c 'npm run lint'
-      - run: docker run --rm --name react-carousel --entrypoint '/bin/sh' react-carousel -c 'npm run test-unit'
+      - run: yarn install --non-interactive
+      - run: yarn lint
+      - run: yarn test-unit
 
   publish_package:
     docker:
-      - image: circleci/node:8.15
+      - image: circleci/node:10.16.0
     steps:
       - checkout
-      - run:
-          name: npm install
-          command: npm install
-      - run:
-          name: npm build
-          command: npm run build
+      - run: yarn install --non-interactive
+      - run: yarn build
       - run:
           name: npm publish
           command: |
