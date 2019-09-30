@@ -14,6 +14,7 @@ import config from '../constants/config';
 import CarouselItem from './CarouselItem';
 import Dots from './CarouselDots';
 import '../styles/Carousel.scss';
+import '../styles/CarouselDots.scss';
 import '../styles/Arrows.scss';
 
 export default class Carousel extends Component {
@@ -654,15 +655,19 @@ export default class Carousel extends Component {
 
   render() {
     return (
-      <div
-        className={classnames('BrainhubCarousel', this.getProp('className'))}
-        ref={el => this.node = el}
-      >
-        {this.renderArrowLeft()}
-        {this.renderCarouselItems()}
-        {this.renderArrowRight()}
-        {this.renderDots()}
-      </div>
+      <React.Fragment>
+        <div
+          className={classnames('BrainhubCarousel', this.getProp('className'))}
+          ref={el => this.node = el}
+        >
+          {this.renderArrowLeft()}
+          {this.renderCarouselItems()}
+          {this.renderArrowRight()}
+        </div>
+        <div className={classnames('BrainhubCarousel__dots', this.getProp('className'))}>
+          {this.renderDots()}
+        </div>
+      </React.Fragment>
     );
   }
 }
