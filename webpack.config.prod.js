@@ -43,6 +43,10 @@ module.exports = {
       sourceMap: false,
     }),
     new ExtractTextPlugin('style.css'),
+    new webpack.DefinePlugin({
+      // This fixes https://github.com/brainhubeu/react-carousel/issues/115
+      'process.env.NODE_ENV': process.env.NODE_ENV,
+    }),
   ],
   module: {
     rules: [

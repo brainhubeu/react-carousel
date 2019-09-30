@@ -18,25 +18,26 @@ There are some great carousels (like slick) that do not have real React implemen
 You can access a clickable demo with many examples and a live code editor [here](https://brainhubeu.github.io/react-carousel/).
 
 ### Typescript
-After module is installed, add line `declare module '@brainhubeu/react-carousel';` to file with `.d.ts` extension.
+`npm i @types/brainhubeu__react-carousel -D`
 
 ## Usage
 By default the component does not need anything except children to render simple carousel.
 Remember that styles does not have to be imported everytime you use carousel, you can do it once in an entry point of your bundle.
 ```javascript
+import React, { Component } from 'react';
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
-
-render() {
-  return (
-    <Carousel>
-      <img src={imageOne} />
-      <img src={imageTwo} />
-      <img src={imageThree} />
-    </Carousel>
-  );
+export default class MyCarousel extends Component {
+  render() {
+    return (
+      <Carousel>
+        <img src={imageOne} />
+        <img src={imageTwo} />
+        <img src={imageThree} />
+      </Carousel>
+    );
+  }
 }
 ```
 
@@ -46,7 +47,7 @@ You can control which slides are being shown by providing Carousel with value an
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
 
 constructor(props) {
   super(props);
@@ -84,7 +85,7 @@ You can turn default arrows on with `arrows` prop
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
 
 render() {
   return (
@@ -108,7 +109,7 @@ import Carousel from '@brainhubeu/react-carousel';
 import Icon from 'react-fa';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
 
 render() {
   return (
@@ -135,7 +136,7 @@ Where:
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
 
 render() {
   const slides = [
@@ -167,7 +168,8 @@ Where:
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
+
 render() {
   return (
     <Carousel
@@ -205,7 +207,7 @@ Where:
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
 
 render() {
   return (
@@ -227,7 +229,9 @@ All props (except value, onChange, responsive, children) can be set to different
 ```javascript
 import Carousel from '@brainhubeu/react-carousel';
 import Icon from 'react-fa';
-...
+
+// ...
+
 render() {
   return (
     <Carousel
@@ -272,7 +276,7 @@ There is a separate Dots component that can be used to show navigation dots.
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
 
 constructor(props) {
   super(props);
@@ -305,7 +309,7 @@ It can also show thumbnails instead of dots
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-...
+// ...
 
 constructor(props) {
   super(props);
