@@ -653,14 +653,17 @@ export default class Carousel extends Component {
   }
 
   render() {
+    const { value, children, slides } = this.props;
+    const lastSlideIndex = slides ? slides.length - 1 : React.Children.count(children) - 1;
+
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
         ref={el => this.node = el}
       >
-        {this.renderArrowLeft()}
+        {value > 0 && this.renderArrowLeft()}
         {this.renderCarouselItems()}
-        {this.renderArrowRight()}
+        {value !== lastSlideIndex && this.renderArrowRight()}
         {this.renderDots()}
       </div>
     );
