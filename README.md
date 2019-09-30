@@ -14,6 +14,9 @@ There are some great carousels (like slick) that do not have real React implemen
 ## Installation
 `npm i @brainhubeu/react-carousel`
 
+## Demo
+You can access a clickable demo with many examples and a live code editor [here](https://brainhubeu.github.io/react-carousel/).
+
 ### Typescript
 `npm i @types/brainhubeu__react-carousel -D`
 
