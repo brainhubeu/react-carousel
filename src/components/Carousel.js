@@ -299,9 +299,10 @@ export default class Carousel extends Component {
   onMouseDown = (e, index) => {
     e.preventDefault();
     e.stopPropagation();
+    const { pageX } = e;
     this.setState(() => ({
       clicked: index,
-      dragStart: e.pageX,
+      dragStart: pageX,
     }));
   };
 
@@ -310,9 +311,10 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onMouseMove = e => {
+    const { pageX } = e;
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: e.pageX - previousState.dragStart,
+        dragOffset: pageX - previousState.dragStart,
       }));
     }
   };
@@ -323,9 +325,10 @@ export default class Carousel extends Component {
    * @param {number} index of the element drag started on
    */
   onTouchStart = (e, index) => {
+    const { changedTouches } = e;
     this.setState(() => ({
       clicked: index,
-      dragStart: e.changedTouches[0].pageX,
+      dragStart: changedTouches[0].pageX,
     }));
   };
 
@@ -338,9 +341,10 @@ export default class Carousel extends Component {
       e.preventDefault();
       e.stopPropagation();
     }
+    const { changedTouches } = e;
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: e.changedTouches[0].pageX - previousState.dragStart,
+        dragOffset: changedTouches[0].pageX - previousState.dragStart,
       }));
     }
   };
