@@ -283,12 +283,14 @@ export default class Carousel extends Component {
    onResize = throttle(() => {
      const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
      const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
-     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+     const width = this.node && this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
 
-     this.setState(() => ({
-       carouselWidth: width,
-       windowWidth: window.innerWidth,
-     }));
+     if (this.node) {
+       this.setState(() => ({
+         carouselWidth: width,
+         windowWidth: window.innerWidth,
+       }));
+     }
    }, config.resizeEventListenerThrottle);
 
   /**
