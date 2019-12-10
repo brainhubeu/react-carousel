@@ -631,7 +631,7 @@ export default class Carousel extends Component {
    */
   renderArrowRight = () => {
     const { value, children, slides } = this.props;
-    const lastSlideIndex = slides ? slides.length - 1 : React.Children.count(children) - 1;
+    const lastSlideIndex = (slides ? slides.length : React.Children.count(children)) - 1;
 
     if (this.getProp('arrowRight')) {
       return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
