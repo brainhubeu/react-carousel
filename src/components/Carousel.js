@@ -606,6 +606,7 @@ export default class Carousel extends Component {
    * @return {ReactElement} element
    */
   renderArrowLeft = () => {
+    const { value } = this.props;
     if (this.getProp('arrowLeft')) {
       return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
     }
@@ -615,6 +616,7 @@ export default class Carousel extends Component {
           className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
           onClick={this.prevSlide}
           ref={el => this.arrowLeftNode = el}
+          disabled={value <= 0}
         >
           <span>prev</span>
         </button>
@@ -628,6 +630,9 @@ export default class Carousel extends Component {
    * @return {ReactElement} element
    */
   renderArrowRight = () => {
+    const { value, children, slides } = this.props;
+    const lastSlideIndex = slides ? slides.length - 1 : React.Children.count(children) - 1;
+
     if (this.getProp('arrowRight')) {
       return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
     }
@@ -637,6 +642,7 @@ export default class Carousel extends Component {
           className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
           onClick={this.nextSlide}
           ref={el => this.arrowRightNode = el}
+          disabled={value === lastSlideIndex}
         >
           <span>next</span>
         </button>
@@ -653,17 +659,14 @@ export default class Carousel extends Component {
   }
 
   render() {
-    const { value, children, slides } = this.props;
-    const lastSlideIndex = slides ? slides.length - 1 : React.Children.count(children) - 1;
-
     return (
       <div
         className={classnames('BrainhubCarousel', this.getProp('className'))}
         ref={el => this.node = el}
       >
-        {value > 0 && this.renderArrowLeft()}
+        {this.renderArrowLeft()}
         {this.renderCarouselItems()}
-        {value !== lastSlideIndex && this.renderArrowRight()}
+        {this.renderArrowRight()}
         {this.renderDots()}
       </div>
     );
