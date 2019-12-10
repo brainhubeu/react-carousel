@@ -647,10 +647,7 @@ export default class Carousel extends Component {
   };
 
   renderDots() {
-    if (this.getProp('dots')) {
-      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} />;
-    }
-    return null;
+    return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} />;
   }
 
   render() {
@@ -664,9 +661,13 @@ export default class Carousel extends Component {
           {this.renderCarouselItems()}
           {this.renderArrowRight()}
         </div>
-        <div className={classnames('BrainhubCarousel__dots', this.getProp('className'))}>
-          {this.renderDots()}
-        </div>
+        {
+          this.getProp('dots') ? (
+            <div className={classnames('BrainhubCarousel__dots', this.getProp('className'))}>
+              {this.renderDots()}
+            </div>
+          ) : null
+        }
       </div>
     );
   }
