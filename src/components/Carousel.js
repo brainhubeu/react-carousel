@@ -90,11 +90,11 @@ export default class Carousel extends Component {
 
     // adding event listeners for swipe
     if (this.node) {
-      this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
-      this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.ownerDocument.addEventListener('touchstart', this.simulateEvent, true);
-      this.node.ownerDocument.addEventListener('touchmove', this.simulateEvent, { passive: false });
-      this.node.ownerDocument.addEventListener('touchend', this.simulateEvent, true);
+      this.node.parentElement.addEventListener('mousemove', this.onMouseMove, true);
+      this.node.parentElement.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
+      this.node.parentElement.addEventListener('touchstart', this.simulateEvent, true);
+      this.node.parentElement.addEventListener('touchmove', this.simulateEvent, { passive: false });
+      this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
     }
 
     // setting size of a carousel in state
@@ -133,11 +133,11 @@ export default class Carousel extends Component {
     this.trackRef && this.trackRef.removeEventListener('transitionend', this.onTransitionEnd);
 
     if (this.node) {
-      this.node.ownerDocument.removeEventListener('mousemove', this.onMouseMove);
-      this.node.ownerDocument.removeEventListener('mouseup', this.onMouseUp);
-      this.node.ownerDocument.removeEventListener('touchstart', this.simulateEvent);
-      this.node.ownerDocument.removeEventListener('touchmove', this.simulateEvent);
-      this.node.ownerDocument.removeEventListener('touchend', this.simulateEvent);
+      this.node.parentElement.removeEventListener('mousemove', this.onMouseMove);
+      this.node.parentElement.removeEventListener('mouseup', this.onMouseUp);
+      this.node.parentElement.removeEventListener('touchstart', this.simulateEvent);
+      this.node.parentElement.removeEventListener('touchmove', this.simulateEvent);
+      this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
     }
 
     window.removeEventListener('resize', this.onResize);
@@ -281,6 +281,10 @@ export default class Carousel extends Component {
    * @type {Function}
    */
    onResize = throttle(() => {
+     if (!this.node) {
+       return;
+     }
+
      const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
      const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
      const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
