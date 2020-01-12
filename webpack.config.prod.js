@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
@@ -39,7 +40,9 @@ module.exports = {
     umdNamedDefine: true,
   },
   plugins: [
-    new ExtractTextPlugin('style.css'),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+    }),
     new webpack.DefinePlugin({
       // This fixes https://github.com/brainhubeu/react-carousel/issues/115
       'process.env.NODE_ENV': process.env.NODE_ENV,
@@ -66,30 +69,28 @@ module.exports = {
       },
       {
         test: /(\.css|\.scss)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
-              },
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true,
-                plugins: () => [autoprefixer],
-              },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              plugins: () => [autoprefixer],
             },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-              },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
             },
-          ],
-        }),
+          },
+        ],
       },
     ],
   },

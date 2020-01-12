@@ -25,7 +25,6 @@
   },
   "author": "Brainhub",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.7.3",
     "babel-cli": "^6.26.0",
@@ -58,7 +57,6 @@
     "eslint-config-brainhub": "^1.11.1",
     "eslint-watch": "^6.0.1",
     "express": "^4.17.1",
-    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^5.0.2",
     "gemini": "^7.5.2",
     "html-reporter": "^5.8.0",
@@ -69,6 +67,7 @@
     "jsdom": "^15.2.1",
     "json-loader": "^0.5.7",
     "lodash": "^4.17.15",
+    "mini-css-extract-plugin": "^0.9.0",
     "mocha": "^7.0.0",
     "node-sass": "^4.13.0",
     "postcss-loader": "^3.0.0",
