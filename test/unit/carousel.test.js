@@ -38,7 +38,7 @@ const setup = () =>
     >
       <div/>
       <div/>
-    </Carousel>
+    </Carousel>,
   );
 
 describe('Carousel', () => {
@@ -72,7 +72,7 @@ describe('Carousel', () => {
         <div/>
         <div/>
         <div/>
-      </Carousel>
+      </Carousel>,
     );
 
     carousel.instance().setState({
@@ -89,7 +89,7 @@ describe('Carousel', () => {
         <div/>
         <div/>
         <div/>
-      </Carousel>
+      </Carousel>,
     );
 
     carousel.instance().setState({
@@ -106,7 +106,7 @@ describe('Carousel', () => {
         <div/>
         <div/>
         <div/>
-      </Carousel>
+      </Carousel>,
     );
     expect(carousel.instance().getCurrentValue()).to.equal(2);
   });
