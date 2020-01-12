@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   externals: [
@@ -39,9 +39,6 @@ module.exports = {
     umdNamedDefine: true,
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
-    }),
     new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
       // This fixes https://github.com/brainhubeu/react-carousel/issues/115
@@ -94,6 +91,14 @@ module.exports = {
           ],
         }),
       },
+    ],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        sourceMap: false,
+      }),
     ],
   },
 };
