@@ -9,7 +9,7 @@
     "lib/*"
   ],
   "scripts": {
-    "lint": "esw webpack.config.* src tools test features --color",
+    "lint": "esw webpack.config.* src tools test --color",
     "clean-dist": "rm -rf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
