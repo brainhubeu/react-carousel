@@ -16,7 +16,7 @@
     "selenium-start": "selenium-standalone start",
     "selenium-install": "selenium-standalone install",
     "test": "npm run test-unit && npm run test-regression",
-    "test-unit": "mocha tools/testSetup.js \"./test/unit/*.js\"",
+    "test-unit": "mocha tools/testSetup.js \"./test/unit/*.js\" --exit",
     "test-regression": "gemini test ./test/regression/*js",
     "test-regression-update": "gemini update ./test/regression/*js",
     "test:coverage": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha -- --require ./tools/testSetup.js \"./test/unit/*.js\" && open coverage/lcov-report/index.html",
