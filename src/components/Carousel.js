@@ -1,20 +1,21 @@
 /* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
 /* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
-import React, { Component } from 'react';
-import throttle from 'lodash/throttle';
-import isNil from 'lodash/isNil';
-import has from 'lodash/has';
-import concat from 'lodash/concat';
-import times from 'lodash/times';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
-import config from '../constants/config';
+import '../styles/Carousel.scss';
+import '../styles/Arrows.scss';
+
+import React, { Component } from 'react';
 
 import CarouselItem from './CarouselItem';
 import Dots from './CarouselDots';
-import '../styles/Carousel.scss';
-import '../styles/Arrows.scss';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import concat from 'lodash/concat';
+import config from '../constants/config';
+import has from 'lodash/has';
+import isNil from 'lodash/isNil';
+import throttle from 'lodash/throttle';
+import times from 'lodash/times';
 
 export default class Carousel extends Component {
   static propTypes = {
@@ -91,7 +92,7 @@ export default class Carousel extends Component {
     // adding event listeners for swipe
     if (this.node) {
       this.node.parentElement.addEventListener('mousemove', this.onMouseMove, true);
-      this.node.parentElement.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
+      document.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
       this.node.parentElement.addEventListener('touchstart', this.simulateEvent, true);
       this.node.parentElement.addEventListener('touchmove', this.simulateEvent, { passive: false });
       this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
@@ -134,7 +135,7 @@ export default class Carousel extends Component {
 
     if (this.node) {
       this.node.parentElement.removeEventListener('mousemove', this.onMouseMove);
-      this.node.parentElement.removeEventListener('mouseup', this.onMouseUpTouchEnd);
+      document.removeEventListener('mouseup', this.onMouseUpTouchEnd);
       this.node.parentElement.removeEventListener('touchstart', this.simulateEvent);
       this.node.parentElement.removeEventListener('touchmove', this.simulateEvent);
       this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
