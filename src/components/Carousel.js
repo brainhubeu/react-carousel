@@ -1,21 +1,20 @@
 /* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
 /* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
-
-import '../styles/Carousel.scss';
-import '../styles/Arrows.scss';
-
 import React, { Component } from 'react';
+import throttle from 'lodash/throttle';
+import isNil from 'lodash/isNil';
+import has from 'lodash/has';
+import concat from 'lodash/concat';
+import times from 'lodash/times';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+
+import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
 import Dots from './CarouselDots';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import concat from 'lodash/concat';
-import config from '../constants/config';
-import has from 'lodash/has';
-import isNil from 'lodash/isNil';
-import throttle from 'lodash/throttle';
-import times from 'lodash/times';
+import '../styles/Carousel.scss';
+import '../styles/Arrows.scss';
 
 export default class Carousel extends Component {
   static propTypes = {
