@@ -35,6 +35,7 @@ export default class Carousel extends Component {
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
     infinite: PropTypes.bool,
+    rtl: PropTypes.bool,
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
@@ -65,6 +66,7 @@ export default class Carousel extends Component {
     slidesPerScroll: 1,
     animationSpeed: 500,
     draggable: true,
+    rtl: false,
   };
 
   constructor(props) {
@@ -318,7 +320,7 @@ export default class Carousel extends Component {
     const { pageX } = e;
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: pageX - previousState.dragStart,
+        dragOffset: this.getProp('rtl') ? (pageX - previousState.dragStart) * -1 : pageX - previousState.dragStart,
       }));
     }
   };
@@ -348,7 +350,7 @@ export default class Carousel extends Component {
     const { changedTouches } = e;
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: changedTouches[0].pageX - previousState.dragStart,
+        dragOffset: this.getProp('rtl') ? (changedTouches[0].pageX - previousState.dragStart) * -1 : (changedTouches[0].pageX - previousState.dragStart),
       }));
     }
   };
@@ -528,9 +530,9 @@ export default class Carousel extends Component {
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
+    const isRTL = this.getProp('rtl');
     const transformOffset = this.getTransformOffset();
     const children = this.getChildren();
-
     const numberOfClonesLeft = this.getClonesLeft();
     const numberOfClonesRight = this.getClonesRight();
 
@@ -541,17 +543,25 @@ export default class Carousel extends Component {
     const draggable = this.getProp('draggable') && children && children.length > 1;
 
     const trackStyles = {
-      marginLeft: `${this.getAdditionalClonesOffset()}px`,
       width: `${trackWidth}px`,
-      transform: `translateX(${transformOffset}px)`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
+
+    if (isRTL) {
+      trackStyles.marginRight = `${this.getAdditionalClonesOffset()}px`;
+      trackStyles.transform = `translateX(${transformOffset * (-1)}px)`;
+    } else {
+      trackStyles.marginLeft = `${this.getAdditionalClonesOffset()}px`;
+      trackStyles.transform = `translateX(${transformOffset}px)`;
+    }
 
     let slides = children;
     if (this.getProp('infinite')) {
       const clonesLeft = times(numberOfClonesLeft, () => children);
       const clonesRight = times(numberOfClonesRight, () => children);
-      slides = concat(...clonesLeft, children, ...clonesRight);
+      slides = isRTL
+        ? concat(...clonesRight, children, ...clonesLeft)
+        : concat(...clonesLeft, children, ...clonesRight);
     }
 
     const isAutoPlay = this.getProp('autoPlay');
@@ -661,10 +671,11 @@ export default class Carousel extends Component {
   }
 
   render() {
+    const rtl = this.getProp('rtl');
     return (
       <div>
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'))}
+          className={classnames('BrainhubCarousel', this.getProp('className'), rtl ? 'BrainhubCarousel--isRTL' : '')}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}
