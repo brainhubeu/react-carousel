@@ -134,7 +134,7 @@ export default class Carousel extends Component {
 
     if (this.node) {
       this.node.parentElement.removeEventListener('mousemove', this.onMouseMove);
-      this.node.parentElement.removeEventListener('mouseup', this.onMouseUp);
+      this.node.parentElement.removeEventListener('mouseup', this.onMouseUpTouchEnd);
       this.node.parentElement.removeEventListener('touchstart', this.simulateEvent);
       this.node.parentElement.removeEventListener('touchmove', this.simulateEvent);
       this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
