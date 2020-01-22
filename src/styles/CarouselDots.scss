@@ -58,3 +58,9 @@ $dots-color: black;
 .BrainhubCarousel__thumbnail[type=button] {
   -webkit-appearance: none;
 }
+
+.BrainhubCarousel--isRTL {
+  + .BrainhubCarousel__dots {
+    direction: rtl;
+  }
+}
