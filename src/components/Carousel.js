@@ -91,7 +91,7 @@ export default class Carousel extends Component {
     // adding event listeners for swipe
     if (this.node) {
       this.node.parentElement.addEventListener('mousemove', this.onMouseMove, true);
-      this.node.parentElement.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
+      document.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
       this.node.parentElement.addEventListener('touchstart', this.simulateEvent, true);
       this.node.parentElement.addEventListener('touchmove', this.simulateEvent, { passive: false });
       this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
@@ -134,7 +134,7 @@ export default class Carousel extends Component {
 
     if (this.node) {
       this.node.parentElement.removeEventListener('mousemove', this.onMouseMove);
-      this.node.parentElement.removeEventListener('mouseup', this.onMouseUp);
+      document.removeEventListener('mouseup', this.onMouseUpTouchEnd);
       this.node.parentElement.removeEventListener('touchstart', this.simulateEvent);
       this.node.parentElement.removeEventListener('touchmove', this.simulateEvent);
       this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
@@ -670,13 +670,15 @@ export default class Carousel extends Component {
 
   render() {
     return (
-      <div
-        className={classnames('BrainhubCarousel', this.getProp('className'))}
-        ref={el => this.node = el}
-      >
-        {this.renderArrowLeft()}
-        {this.renderCarouselItems()}
-        {this.renderArrowRight()}
+      <div>
+        <div
+          className={classnames('BrainhubCarousel', this.getProp('className'))}
+          ref={el => this.node = el}
+        >
+          {this.renderArrowLeft()}
+          {this.renderCarouselItems()}
+          {this.renderArrowRight()}
+        </div>
         {this.renderDots()}
       </div>
     );
