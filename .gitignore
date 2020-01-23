@@ -45,3 +45,4 @@ selenium-debug.log
 package-lock.json
 
 html-report/
+lib/
