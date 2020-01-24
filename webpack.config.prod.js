@@ -1,5 +1,6 @@
-const webpack = require('webpack');
 const path = require('path');
+
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
