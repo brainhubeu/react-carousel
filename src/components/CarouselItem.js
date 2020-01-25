@@ -39,6 +39,7 @@ export default class CarouselItem extends PureComponent {
           width: `${this.props.width}px`,
           maxWidth: `${this.props.width}px`,
           minWidth: `${this.props.width}px`,
+          pointerEvents: this.props.isDragging ? 'none' : undefined,
         }}
         onMouseDown={this.onMouseDown}
         onTouchStart={this.onTouchStart}

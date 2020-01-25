@@ -584,6 +584,7 @@ export default class Carousel extends Component {
               onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
               clickable={this.getProp('clickToChange')}
+              isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
             >
               {carouselItem}
             </CarouselItem>
