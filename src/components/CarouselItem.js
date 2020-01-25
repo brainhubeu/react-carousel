@@ -13,6 +13,7 @@ export default class CarouselItem extends PureComponent {
     offset: PropTypes.number,
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
+    isDragging: PropTypes.bool,
   };
 
   onMouseDown = event => {

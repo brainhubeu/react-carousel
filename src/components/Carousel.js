@@ -40,6 +40,7 @@ export default class Carousel extends Component {
     animationSpeed: PropTypes.number,
     dots: PropTypes.bool,
     className: PropTypes.string,
+    minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
       slidesPerScroll: PropTypes.number,
