@@ -82,6 +82,13 @@ export default class Carousel extends Component {
     this.interval = null;
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if ( !state.transitionEnabled ) {
+      return {
+        infiniteTransitionFrom: props.value,
+      };
+    }
+  }
 
   /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
@@ -116,7 +123,6 @@ export default class Carousel extends Component {
 
     if ( valueChanged ) {
       this.setState({
-        infiniteTransitionFrom: this.getCurrentValue(),
         transitionEnabled: true,
       });
     }
