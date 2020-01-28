@@ -202,7 +202,7 @@ Where:
 * `itemWidth` (*number*) determines custom width for each slide in carousel
 * `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
 * `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
-* `rtl` *boolean* indicating if the carousel should be changed direction from Right to left
+* `rtl` *boolean* indicating if the carousel should have direction from Right to Left
 
 ### Infinite
 ```javascript
