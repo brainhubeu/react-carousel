@@ -26,7 +26,7 @@
   "author": "Brainhub",
   "license": "MIT",
   "devDependencies": {
-    "autoprefixer": "^7.2.6",
+    "autoprefixer": "^9.7.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
@@ -57,7 +57,7 @@
     "eslint-watch": "^6.0.1",
     "express": "^4.17.1",
     "extract-text-webpack-plugin": "^2.1.2",
-    "file-loader": "^0.11.2",
+    "file-loader": "^5.0.2",
     "gemini": "^7.5.2",
     "html-reporter": "4.13.6",
     "html-webpack-plugin": "^2.30.1",
