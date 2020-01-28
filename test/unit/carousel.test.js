@@ -1,9 +1,13 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import Enzyme, { mount, shallow } from 'enzyme';
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { JSDOM } from 'jsdom';
+
 import Carousel from '../../src/components/Carousel';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const { document } = (new JSDOM('')).window;
 global.document = document;
@@ -38,7 +42,7 @@ const setup = () =>
     >
       <div/>
       <div/>
-    </Carousel>
+    </Carousel>,
   );
 
 describe('Carousel', () => {
@@ -72,7 +76,7 @@ describe('Carousel', () => {
         <div/>
         <div/>
         <div/>
-      </Carousel>
+      </Carousel>,
     );
 
     carousel.instance().setState({
@@ -89,7 +93,7 @@ describe('Carousel', () => {
         <div/>
         <div/>
         <div/>
-      </Carousel>
+      </Carousel>,
     );
 
     carousel.instance().setState({
@@ -106,7 +110,7 @@ describe('Carousel', () => {
         <div/>
         <div/>
         <div/>
-      </Carousel>
+      </Carousel>,
     );
     expect(carousel.instance().getCurrentValue()).to.equal(2);
   });

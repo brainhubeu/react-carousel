@@ -440,7 +440,7 @@ export default class Carousel extends Component {
         screenY,
         clientX,
         clientY,
-      }
+      },
     );
     touch.target.dispatchEvent(simulatedEvent);
   };
@@ -576,7 +576,7 @@ export default class Carousel extends Component {
             {
               'BrainhubCarousel__track--transition': transitionEnabled,
               'BrainhubCarousel__track--draggable': draggable,
-            }
+            },
           )}
           style={trackStyles}
           ref={el => this.trackRef = el}

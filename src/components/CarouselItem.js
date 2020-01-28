@@ -31,7 +31,7 @@ export default class CarouselItem extends PureComponent {
           {
             'BrainhubCarouselItem--clickable': this.props.clickable,
             'BrainhubCarouselItem--active': this.props.index === this.props.currentSlideIndex,
-          }
+          },
         )}
         style={{
           paddingRight: `${this.props.offset / 2}px`,

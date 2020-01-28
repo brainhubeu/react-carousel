@@ -1,7 +1,9 @@
-const webpack = require('webpack');
 const path = require('path');
+
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   externals: [
@@ -39,10 +41,9 @@ module.exports = {
     umdNamedDefine: true,
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
     }),
-    new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
       // This fixes https://github.com/brainhubeu/react-carousel/issues/115
       'process.env.NODE_ENV': process.env.NODE_ENV,
@@ -69,31 +70,38 @@ module.exports = {
       },
       {
         test: /(\.css|\.scss)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
-              },
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true,
-                plugins: () => [autoprefixer],
-              },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              plugins: () => [autoprefixer],
             },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-              },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
             },
-          ],
-        }),
+          },
+        ],
       },
+    ],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+        sourceMap: false,
+      }),
     ],
   },
 };

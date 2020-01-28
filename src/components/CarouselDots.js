@@ -34,7 +34,7 @@ export default class CarouselDots extends Component {
           <div
             className={classnames(
               'BrainhubCarousel__thumbnail',
-              { 'BrainhubCarousel__thumbnail--selected': index === this.calculateButtonValue() % dotsLength }
+              { 'BrainhubCarousel__thumbnail--selected': index === this.calculateButtonValue() % dotsLength },
             )}
             type="button"
             onClick={this.onChange(index)}
@@ -52,14 +52,14 @@ export default class CarouselDots extends Component {
           <div
             className={classnames(
               'BrainhubCarousel__dot',
-              { 'BrainhubCarousel__dot--selected': i === this.calculateButtonValue() % this.props.number }
+              { 'BrainhubCarousel__dot--selected': i === this.calculateButtonValue() % this.props.number },
             )}
             type="button"
             onClick={this.onChange(i)}
           >
             {i + 1}
           </div>
-        </li>
+        </li>,
       );
     }
     return dots;
