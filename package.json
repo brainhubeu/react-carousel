@@ -1,22 +1,22 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.35",
+  "version": "1.10.38",
   "description": "Carousel component for React",
   "engines": {
-    "npm": ">=4"
+    "npm": ">=6.13.6"
   },
   "files": [
     "lib/*"
   ],
   "scripts": {
-    "lint": "esw webpack.config.* src tools test features --color",
+    "lint": "esw webpack.config.* src tools test --color",
     "clean-dist": "rm -rf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
     "selenium-start": "selenium-standalone start",
     "selenium-install": "selenium-standalone install",
     "test": "npm run test-unit && npm run test-regression",
-    "test-unit": "mocha tools/testSetup.js \"./test/unit/*.js\"",
+    "test-unit": "mocha tools/testSetup.js \"./test/unit/*.js\" --exit",
     "test-regression": "gemini test ./test/regression/*js",
     "test-regression-update": "gemini update ./test/regression/*js",
     "test:coverage": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha -- --require ./tools/testSetup.js \"./test/unit/*.js\" && open coverage/lcov-report/index.html",
@@ -25,7 +25,6 @@
   },
   "author": "Brainhub",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^7.2.6",
     "babel-cli": "^6.26.0",
