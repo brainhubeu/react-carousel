@@ -13,7 +13,7 @@ yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=react-carousel-3 npm run build
+PATH_PREFIX=react-carousel-3 yarn build
 cd ..
 
 mkdir -p gh-pages-branch
@@ -33,6 +33,7 @@ then
   cp -r ../docs-www/public/* .
 else
   echo 'rev-parse false'
+  cp -r ../docs-www/public/* .
   git checkout --orphan gh-pages
 fi
 
