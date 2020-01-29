@@ -7,13 +7,13 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-remote=https://$GIT_TOKEN@github.com/brainhubeu/react-carousel.git
+remote=https://$GIT_TOKEN@github.com/brainhubeu/react-carousel-3.git
 
 yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=react-carousel-2 npm run build
+PATH_PREFIX=react-carousel-3 npm run build
 cd ..
 
 mkdir -p gh-pages-branch
