@@ -7,7 +7,7 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-remote=https://$GIT_TOKEN@github.com/brainhubeu/gh-pages-rc-3.git
+remote=https://$GIT_TOKEN@github.com/BEGHP/gh-pages-rc-3.git
 
 yarn install --non-interactive
 
