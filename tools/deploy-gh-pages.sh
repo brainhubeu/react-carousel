@@ -25,17 +25,9 @@ git init
 git remote add origin $remote
 git remote -v
 
-if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
-then
-  echo 'rev-parse true'
-  git checkout gh-pages
-  git rm -rf .
-  cp -r ../docs-www/public/* .
-else
-  echo 'rev-parse false'
-  cp -r ../docs-www/public/* .
-  git checkout --orphan gh-pages
-fi
+git checkout gh-pages
+git rm -rf .
+cp -r ../docs-www/public/* .
 
 git status
 git add -A
