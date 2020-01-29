@@ -24,10 +24,18 @@ git config --global user.name "DevOps Brainhub" > /dev/null 2>&1
 git init
 git remote add origin $remote
 git remote -v
+git fetch origin
 
-git checkout gh-pages
-git rm -rf .
-cp -r ../docs-www/public/* .
+if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
+then
+  echo 'rev-parse true'
+  git checkout gh-pages
+  git rm -rf .
+  cp -r ../docs-www/public/* .
+else
+  echo 'rev-parse false'
+  git checkout --orphan gh-pages
+fi
 
 git status
 git add -A
