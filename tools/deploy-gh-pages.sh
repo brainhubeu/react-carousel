@@ -30,7 +30,7 @@ if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
 then
   echo 'rev-parse true'
   git checkout gh-pages
-  git rm -rf .
+  git rm -rf . || echo 'nothing to remove'
   cp -r ../docs-www/public/* .
 else
   echo 'rev-parse false'
