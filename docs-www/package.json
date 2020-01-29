@@ -9,7 +9,7 @@
     "deploy:gh": "bash tools/deploy-github.sh",
     "develop": "rm -rf .cache && gatsby develop",
     "seed": "bash tools/seed.sh",
-    "serve": "yarn develop",
+    "serve": "NODE_ENV=development yarn develop",
     "serve:prod": "gatsby serve",
     "lint": "eslint --ext .jsx,.js .",
     "lint:autofix": "eslint --ext .jsx,.js . --fix"
