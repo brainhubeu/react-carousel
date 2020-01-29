@@ -27,14 +27,18 @@ git remote -v
 
 if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
 then
-    git checkout gh-pages
-    git rm -rf .
-    cp -r ../docs-www/public/* .
+  echo 'rev-parse true'
+  git checkout gh-pages
+  git rm -rf .
+  cp -r ../docs-www/public/* .
 else
-    git checkout --orphan gh-pages
+  echo 'rev-parse false'
+  git checkout --orphan gh-pages
 fi
 
+git status
 git add -A
+git status
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
 git push --force --quiet origin gh-pages
 
