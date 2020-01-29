@@ -22,7 +22,8 @@ cd gh-pages-branch
 git config --global user.email "devops@brainhub.eu" > /dev/null 2>&1
 git config --global user.name "DevOps Brainhub" > /dev/null 2>&1
 git init
-git remote add --fetch origin $remote
+git remote add origin $remote
+git remote -v
 
 if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
 then
