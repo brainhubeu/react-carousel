@@ -17,20 +17,20 @@
       "path---docs-examples-simple-usage-871448bd89f31f0d2038.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js": [
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-6c4b9e1c451af6d51a92.js",
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-6c4b9e1c451af6d51a92.js.map"
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-c16be44a59a9bcbb48ce.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-c16be44a59a9bcbb48ce.js.map"
     ],
     "path---": [
-      "path----f1d61590fbeabea7d526.js",
-      "path----f1d61590fbeabea7d526.js.map"
+      "path----5f2b55e327fa96a84efd.js",
+      "path----5f2b55e327fa96a84efd.js.map"
     ],
     "path---docs-examples-animation": [
       "path---docs-examples-animation-06d223321ca4ad0d3e81.js",
       "path---docs-examples-animation-06d223321ca4ad0d3e81.js.map"
     ],
     "path---docs-getting-started": [
-      "path---docs-getting-started-1572399dc81a1130002a.js",
-      "path---docs-getting-started-1572399dc81a1130002a.js.map"
+      "path---docs-getting-started-ac64af802db4ca4e71a0.js",
+      "path---docs-getting-started-ac64af802db4ca4e71a0.js.map"
     ],
     "path---docs-examples-responsive": [
       "path---docs-examples-responsive-755c7dedd599ec567e78.js",
@@ -95,8 +95,8 @@
       "path---docs-examples-slides-per-scroll-ef0c2ea2f618ea09395a.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js": [
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-e5c5655b3c8b14afa312.js",
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-e5c5655b3c8b14afa312.js.map"
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-e7e7ef8013973f3862d3.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-e7e7ef8013973f3862d3.js.map"
     ],
     "path---docs-examples-infinite": [
       "path---docs-examples-infinite-5a28d5649259041af47a.js",
@@ -107,9 +107,9 @@
       "path---docs-examples-thumbnails-845cbcfe6b7298bc94b7.js.map"
     ],
     "app": [
-      "app-3a436c2f1eedcc33ef3e.js",
+      "app-c8094391dcacb39bfef5.js",
       "build-js-styles.css",
-      "app-3a436c2f1eedcc33ef3e.js.map",
+      "app-c8094391dcacb39bfef5.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-examples-draggable": [
