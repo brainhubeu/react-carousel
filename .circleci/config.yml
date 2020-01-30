@@ -9,6 +9,9 @@ jobs:
       - run: yarn install --non-interactive
       - run: yarn lint
       - run: yarn test-unit
+      - run:
+          name: publish gh pages for a given PR
+          command: ./tools/deploy-gh-pages.sh
 
   publish_package:
     docker:
@@ -17,6 +20,11 @@ jobs:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn build
+      - run:
+          name: npm publish
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            npm publish
       - run:
           name: publish gh pages
           command: ./tools/deploy-gh-pages.sh
@@ -29,3 +37,7 @@ workflows:
       - publish_package:
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - master
