@@ -10,12 +10,12 @@ trap 'failure ${LINENO}' ERR
 env
 for page_number in {1..12}
 do
-  echo page_number=$page_number
+  echo "page_number=$page_number"
   pr_number=`curl -s "https://beghp.github.io/gh-pages-rc-$page_number/" | grep -o '★☂☀[0-9]\+♞♜♖' | grep -o '[0-9]\+' | head -1 || echo nothing`
-  echo pr_number=$pr_number
+  echo "pr_number=$pr_number"
   if [[ "$pr_number" == '' ]]
   then
-    echo no PR exists for page no $page_number
+    echo "no PR exists for page no $page_number"
     break
   elif [[ "https://github.com/brainhubeu/react-carousel/pull/$pr_number" == "$CIRCLE_PULL_REQUEST" ]]
   then
