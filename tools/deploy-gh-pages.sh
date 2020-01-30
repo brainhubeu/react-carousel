@@ -7,6 +7,7 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
+env
 for page_number in {1..12}
 do
   echo page_number=$page_number
@@ -15,6 +16,10 @@ do
   if [[ "$pr_number" == '' ]]
   then
     echo no PR exists for page no $page_number
+    break
+  elif [[ "https://github.com/brainhubeu/react-carousel/pull/$pr_number" == "$CIRCLE_PULL_REQUEST" ]]
+  then
+    echo "this PR is already deployed to the page no $page_number"
     break
   else
     echo "a PR (no $pr_number) exists for page no $page_number"
