@@ -2,18 +2,20 @@
 
 const path = require('path');
 const pluginConfigFactory = require('@brainhubeu/gatsby-docs-kit/plugins');
+const _ = require('lodash');
 
 console.log({ configEnv: process.env });
+const url = process.env.CIRCLE_PULL_REQUEST;
 
 module.exports = {
   siteMetadata: {
-    title: 'React-carousel #202',
+    title: `React-carousel #${_.last(url.split('/'))}`,
     description: 'Feature-rich, react-way react component that does not suck',
     image: 'https://cdn-images-1.medium.com/max/1200/1*CLUFZFaXF6NG27NA3d_JkQ.jpeg',
-    url: 'https://github.com/brainhubeu/react-carousel/pull/202',
+    url,
     type: 'article',
     siteName: 'React-carousel',
-    githubUrl: 'https://github.com/brainhubeu/react-carousel/pull/202',
+    githubUrl: url,
   },
 
   // URL prefix on production environment. For more info see https://www.gatsbyjs.org/docs/path-prefix/
