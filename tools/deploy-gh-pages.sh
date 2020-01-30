@@ -7,13 +7,13 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-3.git
+remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-4.git
 
 yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=gh-pages-rc-3 yarn build
+PATH_PREFIX=gh-pages-rc-4 yarn build
 cd ..
 
 mkdir -p gh-pages-branch
