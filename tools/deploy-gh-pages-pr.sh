@@ -82,4 +82,5 @@ git push --force --quiet origin gh-pages
 cd ..
 rm -rf gh-pages-branch
 
+export NODE_ENV=development
 echo "Finished Deployment of gh pages to https://beghp.github.io/gh-pages-rc-$page_number!"
