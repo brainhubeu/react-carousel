@@ -11,7 +11,7 @@ jobs:
       - run: yarn test-unit
       - run:
           name: publish gh pages for a given PR
-          command: ./tools/deploy-gh-pages.sh
+          command: ./tools/deploy-gh-pages-pr.sh
 
   publish_package:
     docker:
