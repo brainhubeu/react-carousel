@@ -41,14 +41,13 @@ then
   exit
 fi
 
-export NODE_ENV=development
+export RC_ENV=development
 remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
 
 yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=gh-pages-rc-$page_number yarn build
 cd ..
 
 mkdir -p gh-pages-branch
