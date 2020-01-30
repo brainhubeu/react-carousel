@@ -42,7 +42,6 @@ then
 fi
 
 remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
-echo "remote=$remote"
 
 yarn install --non-interactive
 
@@ -83,4 +82,4 @@ git push --force --quiet origin gh-pages
 cd ..
 rm -rf gh-pages-branch
 
-echo "Finished Deployment of gh pages!"
+echo "Finished Deployment of gh pages to https://beghp.github.io/gh-pages-rc-$page_number!"
