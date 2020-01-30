@@ -1,7 +1,12 @@
-console.log({ env: process.env });
 const { default: Carousel, Dots } = (() => {
-  console.log('connecting with local react-carousel source code');
-  return require('../../src');
+  if (process.env.NODE_ENV === 'development') {
+    console.log('connecting with local react-carousel source code');
+    return require('../../src');
+  } else {
+    console.log('connecting with @brainhubeu/react-carousel installed in node_modules');
+    require('@brainhubeu/react-carousel/lib/style.css');
+    return require('@brainhubeu/react-carousel');
+  }
 })();
 
 import './styles/carousel.scss';

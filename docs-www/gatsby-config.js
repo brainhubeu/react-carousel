@@ -6,16 +6,18 @@ const _ = require('lodash');
 
 console.log({ configEnv: process.env });
 const url = process.env.CIRCLE_PULL_REQUEST;
+const githubUrl = 'https://github.com/brainhubeu/react-carousel';
+const postfix = url ? `★☂☀${_.last(url.split('/'))}♞♜♖` : 'local';
 
 module.exports = {
   siteMetadata: {
-    title: `React-carousel ★☂☀${_.last(url.split('/'))}♞♜♖`,
+    title: `React-carousel ${postfix}`,
     description: 'Feature-rich, react-way react component that does not suck',
     image: 'https://cdn-images-1.medium.com/max/1200/1*CLUFZFaXF6NG27NA3d_JkQ.jpeg',
-    url,
+    url: url || githubUrl,
     type: 'article',
     siteName: 'React-carousel',
-    githubUrl: url,
+    githubUrl: url || githubUrl,
   },
 
   // URL prefix on production environment. For more info see https://www.gatsbyjs.org/docs/path-prefix/
