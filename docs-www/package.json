@@ -6,11 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf .cache && rm -rf public && gatsby build --prefix-paths",
-    "deploy:gh": "bash tools/deploy-github.sh",
     "develop": "rm -rf .cache && gatsby develop",
     "seed": "bash tools/seed.sh",
-    "serve": "NODE_ENV=development yarn develop",
-    "serve:prod": "gatsby serve",
+    "serve": "gatsby serve",
     "lint": "eslint --ext .jsx,.js .",
     "lint:autofix": "eslint --ext .jsx,.js . --fix"
   },
