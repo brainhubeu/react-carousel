@@ -17,12 +17,12 @@
       "path---docs-examples-simple-usage-871448bd89f31f0d2038.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js": [
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-c16be44a59a9bcbb48ce.js",
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-c16be44a59a9bcbb48ce.js.map"
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-eb73d2a75b1db0b9d00f.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-templates-default-js-eb73d2a75b1db0b9d00f.js.map"
     ],
     "path---": [
-      "path----5f2b55e327fa96a84efd.js",
-      "path----5f2b55e327fa96a84efd.js.map"
+      "path----882c4d92858fe4476630.js",
+      "path----882c4d92858fe4476630.js.map"
     ],
     "path---docs-examples-animation": [
       "path---docs-examples-animation-06d223321ca4ad0d3e81.js",
@@ -95,8 +95,8 @@
       "path---docs-examples-slides-per-scroll-ef0c2ea2f618ea09395a.js.map"
     ],
     "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js": [
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-e7e7ef8013973f3862d3.js",
-      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-e7e7ef8013973f3862d3.js.map"
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-55ea851d17e57aa2c553.js",
+      "component---node-modules-brainhubeu-gatsby-docs-kit-src-layouts-default-js-55ea851d17e57aa2c553.js.map"
     ],
     "path---docs-examples-infinite": [
       "path---docs-examples-infinite-5a28d5649259041af47a.js",
@@ -107,9 +107,9 @@
       "path---docs-examples-thumbnails-845cbcfe6b7298bc94b7.js.map"
     ],
     "app": [
-      "app-c8094391dcacb39bfef5.js",
+      "app-7bb435a55f52f4ab82db.js",
       "build-js-styles.css",
-      "app-c8094391dcacb39bfef5.js.map",
+      "app-7bb435a55f52f4ab82db.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-examples-draggable": [
