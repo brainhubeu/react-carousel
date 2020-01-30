@@ -29,7 +29,7 @@ do
     fi
   fi
 done
-echo page_number=$page_number
+echo "final page_number=$page_number"
 if [[ "$page_number" == '' ]]
 then
   echo 'no free page'
@@ -64,6 +64,8 @@ then
 else
   echo 'rev-parse false'
   git checkout --orphan gh-pages
+  git rm -rf . || echo 'nothing to remove'
+  cp -r ../docs-www/public/* .
 fi
 
 git status
