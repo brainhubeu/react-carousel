@@ -3,6 +3,8 @@
 const path = require('path');
 const pluginConfigFactory = require('@brainhubeu/gatsby-docs-kit/plugins');
 
+console.log({ configEnv: process.env });
+
 module.exports = {
   siteMetadata: {
     title: 'React-carousel #202',
