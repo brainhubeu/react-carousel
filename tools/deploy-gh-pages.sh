@@ -7,13 +7,42 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-3.git
+for page_number in {1..12}
+do
+  echo page_number=$page_number
+  pr_number=`curl -s "https://beghp.github.io/gh-pages-rc-$page_number/" | grep -o '★☂☀[0-9]\+♞♜♖' | grep -o '[0-9]\+' | head -1 || echo nothing`
+  echo pr_number=$pr_number
+  if [[ "$pr_number" == '' ]]
+  then
+    echo no PR exists for page no $page_number
+    break
+  else
+    echo "a PR (no $pr_number) exists for page no $page_number"
+    pr_state=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | grep -o '"state": .*'`
+    echo "PR state: $pr_state"
+    if [[ "$pr_state" == '"state": "open",' ]]
+    then
+      echo 'the PR is open, continue searching an empty page'
+    else
+      echo 'the PR is not open'
+      break
+    fi
+  fi
+done
+echo page_number=$page_number
+if [[ "$page_number" == '' ]]
+then
+  echo 'no free page'
+  exit
+fi
+
+remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
 
 yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=gh-pages-rc-3 yarn build
+PATH_PREFIX=gh-pages-rc-$page_number yarn build
 cd ..
 
 mkdir -p gh-pages-branch
