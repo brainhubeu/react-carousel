@@ -42,6 +42,7 @@ then
 fi
 
 remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
+echo "remote=$remote"
 
 yarn install --non-interactive
 
