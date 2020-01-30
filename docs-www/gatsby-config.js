@@ -9,7 +9,7 @@ const url = process.env.CIRCLE_PULL_REQUEST;
 
 module.exports = {
   siteMetadata: {
-    title: `React-carousel #${_.last(url.split('/'))}`,
+    title: `React-carousel ★☂☀${_.last(url.split('/'))}♞♜♖`,
     description: 'Feature-rich, react-way react component that does not suck',
     image: 'https://cdn-images-1.medium.com/max/1200/1*CLUFZFaXF6NG27NA3d_JkQ.jpeg',
     url,
