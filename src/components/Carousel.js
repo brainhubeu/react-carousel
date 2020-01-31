@@ -303,6 +303,7 @@ export default class Carousel extends Component {
    * @param {number} index of the element drag started on
    */
   onMouseDown = (e, index) => {
+    console.log('onMouseDown check', { e, index });
     e.preventDefault();
     e.stopPropagation();
     const { pageX } = e;
