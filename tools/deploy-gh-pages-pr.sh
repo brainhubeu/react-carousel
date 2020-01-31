@@ -48,6 +48,7 @@ yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
+PATH_PREFIX=gh-pages-rc-$page_number yarn build
 cd ..
 
 mkdir -p gh-pages-branch
