@@ -44,9 +44,9 @@ fi
 page_url="https://beghp.github.io/gh-pages-rc-$page_number"
 echo "page_url=$page_url"
 
-pr_body=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]'`
+pr_body=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]' | perl -pe 's/\r?\n/<br\/>/'`
 echo "pr_body=$pr_body"
-curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url\n$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
+curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br\>$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
 
 export RC_ENV=development
 export NODE_ENV=development
