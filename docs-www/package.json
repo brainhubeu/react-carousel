@@ -16,7 +16,6 @@
     "@brainhubeu/gatsby-docs-kit": "^1.0.3",
     "@brainhubeu/react-carousel": "^1.10.37",
     "gatsby": "^1.9.279",
-    "gatsby-plugin-env-variables": "^1.0.1",
     "react-fa": "^5.0.0"
   },
   "devDependencies": {
