@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf .cache && rm -rf public && gatsby build --prefix-paths",
-    "develop": "rm -rf .cache && RC_ENV=development gatsby develop",
+    "develop": "rm -rf .cache && NODE_ENV=development gatsby develop",
     "seed": "bash tools/seed.sh",
     "serve": "export RC_ENV=__RC_ENV__; if [[ \"$RC_ENV\" == 'development' ]]; then yarn develop; else gatsby serve; fi",
     "lint": "eslint --ext .jsx,.js .",
