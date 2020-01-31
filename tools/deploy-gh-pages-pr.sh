@@ -22,9 +22,9 @@ do
     break
   else
     echo "a PR (no $pr_number) exists for page no $page_number"
-    pr_state=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | grep -o '"state": .*'`
+    pr_state=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["state"]'`
     echo "PR state: $pr_state"
-    if [[ "$pr_state" == '"state": "open",' ]]
+    if [[ "$pr_state" == 'open' ]]
     then
       echo 'the PR is open, continue searching an empty page'
     else
