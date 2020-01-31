@@ -13,7 +13,7 @@ yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=react-carousel npm run build
+PATH_PREFIX=react-carousel yarn build
 cd ..
 
 mkdir -p gh-pages-branch
@@ -22,15 +22,21 @@ cd gh-pages-branch
 git config --global user.email "devops@brainhub.eu" > /dev/null 2>&1
 git config --global user.name "DevOps Brainhub" > /dev/null 2>&1
 git init
-git remote add --fetch origin $remote
+git remote add origin $remote
+git remote -v
+git fetch origin
 
 if git rev-parse --verify origin/gh-pages > /dev/null 2>&1
 then
-    git checkout gh-pages
-    git rm -rf .
-    cp -r ../docs-www/public/* .
+  echo 'rev-parse true'
+  git checkout gh-pages
+  git rm -rf . || echo 'nothing to remove'
+  cp -r ../docs-www/public/* .
 else
-    git checkout --orphan gh-pages
+  echo 'rev-parse false'
+  git checkout --orphan gh-pages
+  git rm -rf . || echo 'nothing to remove'
+  cp -r ../docs-www/public/* .
 fi
 
 git add -A

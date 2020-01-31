@@ -6,10 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf .cache && rm -rf public && gatsby build --prefix-paths",
-    "deploy:gh": "bash tools/deploy-github.sh",
-    "develop": "rm -rf .cache && gatsby develop",
+    "develop": "rm -rf .cache && NODE_ENV=development gatsby develop",
     "seed": "bash tools/seed.sh",
-    "serve": "gatsby serve",
+    "serve": "export RC_ENV=__RC_ENV__; if [[ \"$RC_ENV\" == 'development' ]]; then yarn develop; else gatsby serve; fi",
     "lint": "eslint --ext .jsx,.js .",
     "lint:autofix": "eslint --ext .jsx,.js . --fix"
   },
@@ -23,7 +22,7 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "eslint": "^6.8.0",
     "eslint-config-brainhub": "^1.12.0",
-    "gh-pages": "^2.2.0",
+    "gh-pages": "^1.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   }

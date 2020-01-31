@@ -1,8 +1,17 @@
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
+const { default: Carousel, Dots } = (() => {
+  if ('__RC_ENV__' === 'development') {
+    console.log('connecting with local react-carousel source code');
+    return require('../../src');
+  } else {
+    console.log('connecting with @brainhubeu/react-carousel installed in node_modules');
+    require('@brainhubeu/react-carousel/lib/style.css');
+    return require('@brainhubeu/react-carousel');
+  }
+})();
+
+import './styles/carousel.scss';
 import Icon from 'react-fa';
 
-import '@brainhubeu/react-carousel/lib/style.css';
-import './styles/carousel.scss';
 import imageOne from './static/mona.jpg';
 import imageTwo from './static/scream.jpg';
 import imageThree from './static/starry-night.jpg';
