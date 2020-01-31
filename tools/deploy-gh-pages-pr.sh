@@ -46,7 +46,13 @@ echo "page_url=$page_url"
 
 pr_body=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]' | perl -pe 's/\r?\n/<br>/' | sed 's@<br/>@<br>@g'`
 echo "pr_body=$pr_body"
-curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br>$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
+deployed_match=`echo $pr_body | grep 'Deployed to https://beghp.github.io'`
+if [[ "$deployed_match" != '' ]]
+then
+  echo 'page URL already added to the PR description'
+else
+  curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br>$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
+fi
 
 export RC_ENV=development
 export NODE_ENV=development
