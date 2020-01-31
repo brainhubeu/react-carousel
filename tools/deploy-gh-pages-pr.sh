@@ -10,7 +10,7 @@ trap 'failure ${LINENO}' ERR
 for page_number in {1..12}
 do
   echo "page_number=$page_number"
-  pr_number=`curl -s "https://beghp.github.io/gh-pages-rc-$page_number/" | grep -o '★☂☀[0-9]\+♞♜♖' | grep -o '[0-9]\+' | head -1 || echo nothing`
+  pr_number=`curl -s "https://beghp.github.io/gh-pages-rc-$page_number/" | grep -o '★☂☀[0-9]\+♞♜♖' | grep -o '[0-9]\+' | head -1 || echo ''`
   echo "pr_number=$pr_number"
   if [[ "$pr_number" == '' ]]
   then
