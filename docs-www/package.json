@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf .cache && rm -rf public && gatsby build --prefix-paths",
-    "develop": "rm -rf .cache && NODE_ENV=development gatsby develop",
+    "develop": "rm -rf .cache && gatsby develop",
     "seed": "bash tools/seed.sh",
-    "serve": "yarn develop",
+    "serve": "NODE_ENV=development yarn develop",
     "lint": "eslint --ext .jsx,.js .",
     "lint:autofix": "eslint --ext .jsx,.js . --fix"
   },
