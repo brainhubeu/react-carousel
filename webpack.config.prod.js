@@ -47,7 +47,6 @@ module.exports = {
     new webpack.DefinePlugin({
       // This fixes https://github.com/brainhubeu/react-carousel/issues/115
       'process.env.NODE_ENV': process.env.NODE_ENV,
-      'process.env.RC_ENV': process.env.RC_ENV,
     }),
   ],
   module: {

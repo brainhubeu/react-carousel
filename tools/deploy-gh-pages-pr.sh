@@ -54,10 +54,10 @@ else
   curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br>$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
 fi
 
-export RC_ENV=development
-export NODE_ENV=development
 sed -i 's/__RC_ENV__/development/g' docs-www/src/globalReferences.js
+sed -i 's/__RC_ENV__/development/g' docs-www/package.json
 cat docs-www/src/globalReferences.js
+cat docs-www/package.json
 remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
 
 yarn install --non-interactive
