@@ -1,7 +1,7 @@
 console.log({ env: process.env });
 
 const { default: Carousel, Dots } = (() => {
-  if ('__RC_ENV__' === 'development') {
+  if (true) {
     console.log('connecting with local react-carousel source code');
     return require('../../src');
   } else {
