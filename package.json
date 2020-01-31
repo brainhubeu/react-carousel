@@ -1,9 +1,9 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.38",
+  "version": "1.10.39",
   "description": "Carousel component for React",
   "engines": {
-    "npm": ">=6.13.6"
+    "npm": ">=6.13.7"
   },
   "files": [
     "lib/*"
@@ -58,7 +58,7 @@
     "isparta": "^4.1.1",
     "jsdom": "^16.0.1",
     "lodash": "^4.17.15",
-    "mocha": "^7.0.0",
+    "mocha": "^7.0.1",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.7.2",
     "react": "^15.6.2",

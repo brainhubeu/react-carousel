@@ -45,9 +45,9 @@
     react-helmet "^5.2.0"
     react-live "^1.10.1"
 
-"@brainhubeu/react-carousel@^1.10.37":
+"@brainhubeu/react-carousel@^1.10.39":
   version "1.10.39"
-  resolved "https://registry.npmjs.org/@brainhubeu/react-carousel/-/react-carousel-1.10.39.tgz#a7239852dff1551db612e60737386e512e6bfe1a"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.10.39.tgz#a7239852dff1551db612e60737386e512e6bfe1a"
   integrity sha512-gFnBXAYYAExnI/YWaqSpWcGudmWTJO8N3NI3tt+0TFek9aUnZvF2FwTyBh4/8JhRf3FB9vk/DiWUxwr7G53E3Q==
   dependencies:
     extract-text-webpack-plugin "^3.0.2"
