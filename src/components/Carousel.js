@@ -82,6 +82,13 @@ export default class Carousel extends Component {
     this.interval = null;
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if ( !state.transitionEnabled ) {
+      return {
+        infiniteTransitionFrom: props.value,
+      };
+    }
+  }
 
   /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
@@ -108,24 +115,16 @@ export default class Carousel extends Component {
     this.resetInterval();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const valueChanged = this.checkIfValueChanged(nextProps);
-
-    if (this.state.transitionEnabled) {
-      return this.setState(previousState => ({
-        transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
-      }));
-    }
-    this.setState(previousState => ({
-      infiniteTransitionFrom: this.getCurrentValue(),
-      transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
-    }));
-  }
-
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
     if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
       this.resetInterval();
+    }
+
+    if ( valueChanged ) {
+      this.setState({
+        transitionEnabled: true,
+      });
     }
   }
 
