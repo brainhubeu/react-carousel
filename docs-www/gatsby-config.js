@@ -6,8 +6,9 @@ const pluginConfigFactory = require('@brainhubeu/gatsby-docs-kit/plugins');
 const _ = require('lodash');
 
 const url = process.env.CIRCLE_PULL_REQUEST;
+const branch = process.env.CIRCLE_BRANCH;
 const githubUrl = 'https://github.com/brainhubeu/react-carousel';
-const postfix = url ? `★☂☀${_.last(url.split('/'))}♞♜♖` : 'local';
+const postfix = branch === 'master' ? 'master' : (url ? `★☂☀${_.last(url.split('/'))}♞♜♖` : 'local');
 
 module.exports = {
   siteMetadata: {
