@@ -39,9 +39,7 @@ else
   cp -r ../docs-www/public/* .
 fi
 
-git status
 git add -A
-git status
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
 git push --force --quiet origin gh-pages
 

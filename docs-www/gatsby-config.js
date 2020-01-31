@@ -1,6 +1,5 @@
 'use strict';
 
-console.log({ configEnv: process.env });
 const path = require('path');
 const pluginConfigFactory = require('@brainhubeu/gatsby-docs-kit/plugins');
 const _ = require('lodash');

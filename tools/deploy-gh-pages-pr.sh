@@ -7,7 +7,6 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-env
 for page_number in {1..12}
 do
   echo "page_number=$page_number"
@@ -90,9 +89,7 @@ else
   cp -r ../docs-www/public/* .
 fi
 
-git status
 git add -A
-git status
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
 git push --force --quiet origin gh-pages
 
