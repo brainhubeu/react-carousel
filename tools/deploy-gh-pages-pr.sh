@@ -41,6 +41,13 @@ then
   exit
 fi
 
+page_url="https://beghp.github.io/gh-pages-rc-$page_number"
+echo "page_url=$page_url"
+
+pr_body=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]'`
+echo "pr_body=$pr_body"
+curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"$page_url\n$body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
+
 export RC_ENV=development
 export NODE_ENV=development
 sed -i 's/__RC_ENV__/development/g' docs-www/src/globalReferences.js
@@ -86,4 +93,4 @@ git push --force --quiet origin gh-pages
 cd ..
 rm -rf gh-pages-branch
 
-echo "Finished Deployment of gh pages to https://beghp.github.io/gh-pages-rc-$page_number!"
+echo "Finished Deployment of gh pages to $page_url"
