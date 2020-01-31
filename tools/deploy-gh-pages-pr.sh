@@ -42,6 +42,7 @@ then
 fi
 
 export RC_ENV=development
+export NODE_ENV=development
 remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
 
 yarn install --non-interactive
