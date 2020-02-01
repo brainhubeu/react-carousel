@@ -64,6 +64,10 @@ yarn install --non-interactive
 cd docs-www
 yarn install --non-interactive
 PATH_PREFIX=gh-pages-rc-$page_number yarn build
+cat <<EOF >> public/robots.txt
+User-agent: *
+Disallow: /
+EOF
 cd ..
 
 mkdir -p gh-pages-branch
