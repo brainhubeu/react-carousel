@@ -1,5 +1,5 @@
 ## Custom arrows
-You can set custom arrows using arrowLeft and arrowRight props. You can handle arrow click event by yourself, or you can tell Carousel to do that for you (using addArrowClickHandler prop).
+You can set custom arrows, using arrowLeft and arrowRight props. You can handle arrow click event by yourself, or you can tell Carousel to do that for you (using addArrowClickHandler prop).
 ```jsx render
 // import Icon from 'react-fa';
 <Carousel
