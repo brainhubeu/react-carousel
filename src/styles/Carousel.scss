@@ -2,6 +2,17 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+
+  &.BrainhubCarousel--isRTL {
+    direction: rtl;
+
+    .BrainhubCarousel__trackContainer {
+      .BrainhubCarousel__track {
+        direction: rtl;
+      }
+    }
+  }
+
   .BrainhubCarousel__trackContainer {
     overflow: hidden;
     .BrainhubCarousel__track {
