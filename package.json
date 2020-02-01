@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.41",
+  "version": "1.10.48",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.13.7"
@@ -59,13 +59,14 @@
     "jsdom": "^16.0.1",
     "lodash": "^4.17.15",
     "mocha": "^7.0.1",
+    "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.7.2",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-test-renderer": "^15.6.2",
     "rimraf": "3.0.0",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^7.3.1",
     "selenium-standalone": "^6.17.0",
     "sinon": "^8.1.1",
     "sinon-chai": "^3.4.0",
