@@ -363,6 +363,12 @@ npm run selenium-install
 3. npm run test-regression
 ```
 
+## Local running
+In order to run the docs/ demo locally:
+- `cd docs-www`
+- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2); otherwise, it will use the carousel code installed in `docs-www/node_modules`
+- `yarn develop`
+
 ## Roadmap
 *Under construction...*
 
