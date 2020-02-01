@@ -9,6 +9,9 @@ jobs:
       - run: yarn install --non-interactive
       - run: yarn lint
       - run: yarn test-unit
+      - run:
+          name: publish gh pages for a given PR
+          command: ./tools/deploy-gh-pages-pr.sh
 
   publish_package:
     docker:
