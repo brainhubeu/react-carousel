@@ -1,5 +1,5 @@
 ## Centered
-By default current slide is aligned to the left. You can change that behaviour with centered prop.
+By default, the current slide is aligned to the left. You can change that behaviour with centered prop.
 ```jsx render
 <Carousel
   centered
