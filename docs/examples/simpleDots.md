@@ -1,5 +1,5 @@
 ## Simple dots
-To add very simple navigation dots you can just pass dots props.
+To add very simple navigation dots, you can just pass dots props.
 
 ```jsx render
 <Carousel

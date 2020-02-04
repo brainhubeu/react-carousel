@@ -1,5 +1,5 @@
 ## Multiple items
-You can show more than one item per page using slidesPerPage prop.
+You can show more than one item per page, using slidesPerPage prop.
 ```jsx render
 <Carousel
   slidesPerPage={2}
