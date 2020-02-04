@@ -618,6 +618,7 @@ export default class Carousel extends Component {
    * @return {ReactElement} element
    */
   renderArrowLeft = () => {
+    const value = this.getCurrentValue();
     if (this.getProp('arrowLeft')) {
       return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
     }
@@ -627,6 +628,7 @@ export default class Carousel extends Component {
           className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
           onClick={this.prevSlide}
           ref={el => this.arrowLeftNode = el}
+          disabled={value <= 0 && !this.getProp('infinite')}
         >
           <span>prev</span>
         </button>
@@ -640,6 +642,10 @@ export default class Carousel extends Component {
    * @return {ReactElement} element
    */
   renderArrowRight = () => {
+    const slides = this.getChildren();
+    const value = this.getCurrentValue();
+    const lastSlideIndex = slides.length;
+
     if (this.getProp('arrowRight')) {
       return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
     }
@@ -649,6 +655,7 @@ export default class Carousel extends Component {
           className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
           onClick={this.nextSlide}
           ref={el => this.arrowRightNode = el}
+          disabled={value === lastSlideIndex && !this.getProp('infinite')}
         >
           <span>next</span>
         </button>
