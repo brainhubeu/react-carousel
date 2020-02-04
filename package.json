@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.48",
+  "version": "1.10.49",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.13.7"
@@ -56,7 +56,7 @@
     "html-webpack-plugin": "^2.30.1",
     "husky": "^4.2.1",
     "isparta": "^4.1.1",
-    "jsdom": "^16.0.1",
+    "jsdom": "^16.1.0",
     "lodash": "^4.17.15",
     "mocha": "^7.0.1",
     "node-sass": "^4.13.1",

@@ -1,6 +1,6 @@
 ## Carousel component props
 
-* ```value: Number```: Current slide's index (zero based, depends on order of the elements).
+* ```value: Number```: Current slide's index (zero based, depends on the elements order).
 
 * ```onChange: Function```: Handler triggered when current slide is about to change (e.g. on arrow click or on swipe).
 
@@ -16,7 +16,7 @@
 
 * ```arrows: Boolean```: Renders default arrows.
 
-* ```arrowLeft: React element```, ```arrowRight: React element```: React elements to be used instead of default arrows (If you provide these custom arrows, you don't have to use ```arrows``` prop).
+* ```arrowLeft: React element```, ```arrowRight: React element```: React elements to be used instead of default arrows (if you provide these custom arrows, you don't have to use ```arrows``` prop).
 
 * ```addArrowClickHandler: Boolean``` Has to be added for arrowLeft and arrowRight to work.
 
@@ -28,9 +28,9 @@
 
 * ```centered: Boolean``` Alignes active slide to the center of the carousel.
 
-* ```infinite: Boolean``` Creates infinite carousel with.
+* ```infinite: Boolean``` Creates an infinite carousel width.
 
-* ```draggable: Boolean``` Makes it possible to drag to next slide with mouse cursor.
+* ```draggable: Boolean``` Makes it possible to drag to the next slide with mouse cursor.
 
 * ```keepDirectionWhenDragging: Boolean``` While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged.
 
@@ -48,7 +48,3 @@
 - ```animationSpeed: 500```
 - ```draggable: true```
 - ```minDraggableOffset: 10```
-
-
-
-
