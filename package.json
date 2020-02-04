@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "lint": "esw webpack.config.* src tools test --color",
-    "clean-dist": "rm -rf ./lib && mkdir lib",
+    "clean-dist": "rimraf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
     "selenium-start": "selenium-standalone start",
@@ -65,6 +65,7 @@
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-test-renderer": "^15.6.2",
+    "rimraf": "3.0.0",
     "sass-loader": "^7.3.1",
     "selenium-standalone": "^6.17.0",
     "sinon": "^8.1.1",

@@ -40,6 +40,7 @@ export default class Carousel extends Component {
     animationSpeed: PropTypes.number,
     dots: PropTypes.bool,
     className: PropTypes.string,
+    minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
       slidesPerScroll: PropTypes.number,
@@ -65,6 +66,7 @@ export default class Carousel extends Component {
     slidesPerScroll: 1,
     animationSpeed: 500,
     draggable: true,
+    minDraggableOffset: 10,
   };
 
   constructor(props) {
@@ -342,7 +344,7 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset) > 10) {
+    if (Math.abs(this.state.dragOffset) > this.props.minDraggableOffset) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -584,6 +586,7 @@ export default class Carousel extends Component {
               onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
               clickable={this.getProp('clickToChange')}
+              isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
             >
               {carouselItem}
             </CarouselItem>

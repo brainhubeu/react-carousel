@@ -38,6 +38,8 @@
 
 * ```dots: Boolean``` Renders default dots under the carousel.
 
+* ```minDraggableOffset: Number``` Defines the minimum offset to consider the drag gesture
+
 ## Default Properties:
 
 - ```offset: 0```
@@ -45,3 +47,4 @@
 - ```slidesPerScroll: 1```
 - ```animationSpeed: 500```
 - ```draggable: true```
+- ```minDraggableOffset: 10```
