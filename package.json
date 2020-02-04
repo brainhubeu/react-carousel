@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "lint": "esw webpack.config.* src tools test --color",
-    "clean-dist": "rimraf -rf ./lib && mkdir lib",
+    "clean-dist": "rimraf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
     "selenium-start": "selenium-standalone start",
