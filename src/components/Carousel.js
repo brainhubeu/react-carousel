@@ -88,6 +88,7 @@ export default class Carousel extends Component {
         infiniteTransitionFrom: props.value,
       };
     }
+    return null;
   }
 
   /* ========== initial handlers and positioning setup ========== */
