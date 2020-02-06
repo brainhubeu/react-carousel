@@ -1,5 +1,5 @@
 ## Single slide
-For simple usage just pass slides as children. You don't need any configuration!
+For simple usage, just pass slides as children. You don't need any configuration!
 ```jsx render
 <Carousel>
   <img src={imageOne} />
