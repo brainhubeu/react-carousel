@@ -76,18 +76,10 @@ export default class Carousel extends Component {
       dragOffset: 0,
       dragStart: null,
       transitionEnabled: false,
-      infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
+      infiniteTransitionFrom: props.infinite ? props.value : null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
       isAutoPlayStopped: false,
     };
     this.interval = null;
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if ( !state.transitionEnabled ) {
-      return {
-        infiniteTransitionFrom: props.value,
-      };
-    }
   }
 
   /* ========== initial handlers and positioning setup ========== */
