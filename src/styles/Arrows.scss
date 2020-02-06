@@ -61,10 +61,22 @@ $arrowWeight: 3px;
     }
   }
 
+  .BrainhubCarousel__custom-arrowLeft {
+    span {
+      transform: rotate(180deg);
+    }
+  }
+
   .BrainhubCarousel__arrowRight {
     span {
       transform: translate(-50%, -50%) rotate(-135deg);
       margin-left: 0.35 * ($arrowSize - $arrowWeight);
+    }
+  }
+
+  .BrainhubCarousel__custom-arrowRight {
+    span {
+      transform: rotate(-180deg);
     }
   }
 
