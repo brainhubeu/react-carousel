@@ -56,3 +56,8 @@ $arrowWeight: 3px;
         margin-left: -0.35 * ( $arrowSize - $arrowWeight);
     }
 }
+
+.BrainhubCarousel__arrow--disable {
+    pointer-events: none;
+}
+
