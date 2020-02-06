@@ -1,5 +1,5 @@
 ## Dots
-Dots are separate component which you can use with controlled carousel as well.
+Dots are a separate component which you can use with controlled carousel as well.
 ```jsx render
 class MyCarousel extends React.Component {
   constructor() {

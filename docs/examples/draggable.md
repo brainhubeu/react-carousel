@@ -1,5 +1,5 @@
 ## Multiple items
-Carousel is draggable by default. You can disable this option by setting draggable={false} and change it's behaviour with option keepDirectionWhenDragging.
+Carousel is draggable by default. You can disable this option by setting draggable={false} and change its behaviour with option keepDirectionWhenDragging.
 ```jsx render
 <Carousel
   slidesPerPage={2}
