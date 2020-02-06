@@ -600,6 +600,7 @@ export default class Carousel extends Component {
    * @param {ReactElement} element to render
    * @param {function} onClick handler to be added to element
    * @param {string} name of an element
+   * @param {boolean} disable info whether the arrow is disabled
    * @return {ReactElement} element with added handler
    */
   renderArrowWithAddedHandler = (element, onClick, name, disable = false) => (
@@ -610,7 +611,7 @@ export default class Carousel extends Component {
           {
             'BrainhubCarousel__arrow--disable': disable,
           },
-          `BrainhubCarousel__custom-${name}`
+          `BrainhubCarousel__custom-${name}`,
         )
       }
       ref={el => this[`${name}Node`] = el}
@@ -632,7 +633,7 @@ export default class Carousel extends Component {
       if (!disabled) {
         return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
       }
-      const arrow = this.getProp('arrowLeftDisabled') ?  this.getProp('arrowLeftDisabled') : this.getProp('arrowLeft');
+      const arrow = this.getProp('arrowLeftDisabled') ? this.getProp('arrowLeftDisabled') : this.getProp('arrowLeft');
       return this.renderArrowWithAddedHandler(arrow, this.prevSlide, 'arrowLeft', disabled);
     }
     if (this.getProp('arrows')) {
@@ -664,7 +665,7 @@ export default class Carousel extends Component {
       if (!disabled) {
         return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
       }
-      const arrow = this.getProp('arrowRightDisabled') ?  this.getProp('arrowRightDisabled') : this.getProp('arrowRight');
+      const arrow = this.getProp('arrowRightDisabled') ? this.getProp('arrowRightDisabled') : this.getProp('arrowRight');
       return this.renderArrowWithAddedHandler(arrow, this.nextSlide, 'arrowRight', disabled);
     }
     if (this.getProp('arrows')) {
