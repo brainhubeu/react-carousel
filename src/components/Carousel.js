@@ -274,15 +274,6 @@ export default class Carousel extends Component {
     return this.getTargetMod();
   };
 
-  getCoordinate = e => {
-    if (this.getProp('vertical')) {
-      return e.pageY;
-    }
-
-    return e.pageX;
-  };
-
-
   /* event handlers */
   /**
    * Handler setting the carouselWidth value in state (used to set proper width of track and slides)
@@ -308,9 +299,10 @@ export default class Carousel extends Component {
   onMouseDown = (e, index) => {
     e.preventDefault();
     e.stopPropagation();
+    const coordinate = this.getProp('vertical') ? e.pageY : e.pageX;
     this.setState(() => ({
       clicked: index,
-      dragStart: this.getCoordinate(e),
+      dragStart: coordinate,
     }));
   };
 
@@ -320,8 +312,9 @@ export default class Carousel extends Component {
    */
   onMouseMove = e => {
     if (this.state.dragStart !== null) {
+      const coordinate = this.getProp('vertical') ? e.pageY : e.pageX;
       this.setState(previousState => ({
-        dragOffset: this.getCoordinate(e) - previousState.dragStart,
+        dragOffset: coordinate - previousState.dragStart,
       }));
     }
   };
@@ -332,9 +325,10 @@ export default class Carousel extends Component {
    * @param {number} index of the element drag started on
    */
   onTouchStart = (e, index) => {
+    const coordinate = this.getProp('vertical') ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
     this.setState(() => ({
       clicked: index,
-      dragStart: this.getCoordinate(e.changedTouches[0]),
+      dragStart: coordinate,
     }));
   };
 
@@ -348,8 +342,9 @@ export default class Carousel extends Component {
       e.stopPropagation();
     }
     if (this.state.dragStart !== null) {
+      const coordinate = this.getProp('vertical') ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
       this.setState(previousState => ({
-        dragOffset: this.getCoordinate(e.changedTouches[0]) - previousState.dragStart,
+        dragOffset: coordinate - previousState.dragStart,
       }));
     }
   };
