@@ -274,7 +274,7 @@ export default class Carousel extends Component {
     return this.getTargetMod();
   };
 
-  getCoordinate = (e) => {
+  getCoordinate = e => {
     if (this.getProp('vertical')) {
       return e.pageY;
     }
