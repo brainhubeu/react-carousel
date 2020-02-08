@@ -13,6 +13,7 @@ export default class CarouselItem extends PureComponent {
     offset: PropTypes.number,
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
+    vertical: PropTypes.bool,
   };
 
   onMouseDown = event => {
@@ -31,6 +32,7 @@ export default class CarouselItem extends PureComponent {
           {
             'BrainhubCarouselItem--clickable': this.props.clickable,
             'BrainhubCarouselItem--active': this.props.index === this.props.currentSlideIndex,
+            'BrainhubCarouselItem--vertical': this.props.vertical,
           }
         )}
         style={{

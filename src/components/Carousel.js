@@ -274,6 +274,14 @@ export default class Carousel extends Component {
     return this.getTargetMod();
   };
 
+  getCoordinate = (e) => {
+    if (this.getProp('vertical')) {
+      return e.pageY;
+    }
+
+    return e.pageX;
+  };
+
 
   /* event handlers */
   /**
@@ -302,7 +310,7 @@ export default class Carousel extends Component {
     e.stopPropagation();
     this.setState(() => ({
       clicked: index,
-      dragStart: e.pageX,
+      dragStart: this.getCoordinate(e),
     }));
   };
 
@@ -313,7 +321,7 @@ export default class Carousel extends Component {
   onMouseMove = e => {
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: e.pageX - previousState.dragStart,
+        dragOffset: this.getCoordinate(e) - previousState.dragStart,
       }));
     }
   };
@@ -326,7 +334,7 @@ export default class Carousel extends Component {
   onTouchStart = (e, index) => {
     this.setState(() => ({
       clicked: index,
-      dragStart: e.changedTouches[0].pageX,
+      dragStart: this.getCoordinate(e.changedTouches[0]),
     }));
   };
 
@@ -341,7 +349,7 @@ export default class Carousel extends Component {
     }
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: e.changedTouches[0].pageX - previousState.dragStart,
+        dragOffset: this.getCoordinate(e.changedTouches[0]) - previousState.dragStart,
       }));
     }
   };
@@ -575,6 +583,7 @@ export default class Carousel extends Component {
               offset={index !== slides.length ? this.props.offset : 0}
               onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
+              vertical={this.getProp('vertical')}
               clickable={this.getProp('clickToChange')}
             >
               {carouselItem}
@@ -657,7 +666,13 @@ export default class Carousel extends Component {
     return (
       <React.Fragment>
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'))}
+          className={classnames(
+            'BrainhubCarousel',
+            {
+              'BrainhubCarousel--vertical': this.getProp('vertical'),
+            },
+            this.getProp('className'),
+          )}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}
