@@ -14,6 +14,7 @@ export default class CarouselItem extends PureComponent {
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
     vertical: PropTypes.bool,
+    isDragging: PropTypes.bool,
   };
 
   onMouseDown = event => {
@@ -33,7 +34,7 @@ export default class CarouselItem extends PureComponent {
             'BrainhubCarouselItem--clickable': this.props.clickable,
             'BrainhubCarouselItem--active': this.props.index === this.props.currentSlideIndex,
             'BrainhubCarouselItem--vertical': this.props.vertical,
-          }
+          },
         )}
         style={{
           paddingRight: `${this.props.offset / 2}px`,
@@ -41,6 +42,7 @@ export default class CarouselItem extends PureComponent {
           width: `${this.props.width}px`,
           maxWidth: `${this.props.width}px`,
           minWidth: `${this.props.width}px`,
+          pointerEvents: this.props.isDragging ? 'none' : null,
         }}
         onMouseDown={this.onMouseDown}
         onTouchStart={this.onTouchStart}

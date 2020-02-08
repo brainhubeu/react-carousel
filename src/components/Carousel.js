@@ -41,6 +41,7 @@ export default class Carousel extends Component {
     animationSpeed: PropTypes.number,
     dots: PropTypes.bool,
     className: PropTypes.string,
+    minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
       slidesPerScroll: PropTypes.number,
@@ -66,6 +67,7 @@ export default class Carousel extends Component {
     slidesPerScroll: 1,
     animationSpeed: 500,
     draggable: true,
+    minDraggableOffset: 10,
   };
 
   constructor(props) {
@@ -91,11 +93,11 @@ export default class Carousel extends Component {
 
     // adding event listeners for swipe
     if (this.node) {
-      this.node.ownerDocument.addEventListener('mousemove', this.onMouseMove, true);
-      this.node.ownerDocument.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.ownerDocument.addEventListener('touchstart', this.simulateEvent, true);
-      this.node.ownerDocument.addEventListener('touchmove', this.simulateEvent, { passive: false });
-      this.node.ownerDocument.addEventListener('touchend', this.simulateEvent, true);
+      this.node.parentElement.addEventListener('mousemove', this.onMouseMove, true);
+      document.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
+      this.node.parentElement.addEventListener('touchstart', this.simulateEvent, true);
+      this.node.parentElement.addEventListener('touchmove', this.simulateEvent, { passive: false });
+      this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
     }
 
     // setting size of a carousel in state
@@ -134,11 +136,11 @@ export default class Carousel extends Component {
     this.trackRef && this.trackRef.removeEventListener('transitionend', this.onTransitionEnd);
 
     if (this.node) {
-      this.node.ownerDocument.removeEventListener('mousemove', this.onMouseMove);
-      this.node.ownerDocument.removeEventListener('mouseup', this.onMouseUp);
-      this.node.ownerDocument.removeEventListener('touchstart', this.simulateEvent);
-      this.node.ownerDocument.removeEventListener('touchmove', this.simulateEvent);
-      this.node.ownerDocument.removeEventListener('touchend', this.simulateEvent);
+      this.node.parentElement.removeEventListener('mousemove', this.onMouseMove);
+      document.removeEventListener('mouseup', this.onMouseUpTouchEnd);
+      this.node.parentElement.removeEventListener('touchstart', this.simulateEvent);
+      this.node.parentElement.removeEventListener('touchmove', this.simulateEvent);
+      this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
     }
 
     window.removeEventListener('resize', this.onResize);
@@ -281,6 +283,10 @@ export default class Carousel extends Component {
    * @type {Function}
    */
    onResize = throttle(() => {
+     if (!this.node) {
+       return;
+     }
+
      const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
      const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
      const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
@@ -337,7 +343,7 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset) > 10) {
+    if (Math.abs(this.state.dragOffset) > this.props.minDraggableOffset) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -434,7 +440,7 @@ export default class Carousel extends Component {
         screenY,
         clientX,
         clientY,
-      }
+      },
     );
     touch.target.dispatchEvent(simulatedEvent);
   };
@@ -562,7 +568,7 @@ export default class Carousel extends Component {
             {
               'BrainhubCarousel__track--transition': transitionEnabled,
               'BrainhubCarousel__track--draggable': draggable,
-            }
+            },
           )}
           style={trackStyles}
           ref={el => this.trackRef = el}
@@ -580,6 +586,7 @@ export default class Carousel extends Component {
               onTouchStart={this.onTouchStart}
               vertical={this.getProp('vertical')}
               clickable={this.getProp('clickToChange')}
+              isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
             >
               {carouselItem}
             </CarouselItem>
@@ -659,7 +666,7 @@ export default class Carousel extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <div
           className={classnames(
             'BrainhubCarousel',
@@ -674,10 +681,8 @@ export default class Carousel extends Component {
           {this.renderCarouselItems()}
           {this.renderArrowRight()}
         </div>
-        <div className={classnames('BrainhubCarousel__dots', this.getProp('className'))}>
-          {this.renderDots()}
-        </div>
-      </React.Fragment>
+        {this.renderDots()}
+      </div>
     );
   }
 }

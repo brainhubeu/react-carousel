@@ -2,17 +2,20 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:10.18.1
     working_directory: ~/app
     steps:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
       - run: yarn test-unit
+      - run:
+          name: publish gh pages for a given PR
+          command: ./tools/deploy-gh-pages-pr.sh
 
   publish_package:
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:10.18.1
     steps:
       - checkout
       - run: yarn install --non-interactive
