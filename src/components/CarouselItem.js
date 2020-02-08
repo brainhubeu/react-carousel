@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classname from 'classnames';
 import '../styles/CarouselItem.scss';
 
-export default class CarouselItem extends PureComponent {
+class CarouselItem extends PureComponent {
   static propTypes = {
     onMouseDown: PropTypes.func,
     onTouchStart: PropTypes.func,
@@ -50,3 +50,6 @@ export default class CarouselItem extends PureComponent {
     );
   }
 }
+
+global.BrainhubeuReactCarouselItem = CarouselItem;
+export default CarouselItem;
