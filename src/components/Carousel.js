@@ -14,7 +14,6 @@ import config from '../constants/config';
 import CarouselItem from './CarouselItem';
 import Dots from './CarouselDots';
 import '../styles/Carousel.scss';
-import '../styles/CarouselDots.scss';
 import '../styles/Arrows.scss';
 
 export default class Carousel extends Component {
