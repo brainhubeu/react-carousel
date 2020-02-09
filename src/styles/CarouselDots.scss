@@ -10,6 +10,10 @@ $dots-color: black;
   font-size: 0;
   line-height: 0;
 
+  &.BrainhubCarousel__dots--isRTL {
+    direction: rtl;
+  }
+
   .BrainhubCarousel__dot {
     outline: 0;
     padding: 10px;
