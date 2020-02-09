@@ -7,3 +7,5 @@
 * ```value: Number```: Current Carousel value
     
 * ```onChange: PropTypes.func```: OnChange callback (works the same way as onChange in Carousel component)
+
+* ```rtl: PropTypes.bool```: Indicating if the dots should have direction from Right to Left
