@@ -9,7 +9,7 @@ export default class CarouselDots extends Component {
     thumbnails: PropTypes.arrayOf(PropTypes.node),
     value: PropTypes.number,
     onChange: PropTypes.func,
-    rtl: PropTypes.bool
+    rtl: PropTypes.bool,
   };
 
   onChange = index => () => {
