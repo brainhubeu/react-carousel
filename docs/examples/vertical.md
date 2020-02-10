@@ -1,5 +1,5 @@
 ## Vertical Carousel
-You can pass a `vertical` prop to rotate the carousel in a vertical direction. Default value of vertical is false.
+You can pass a `vertical` prop to rotate the carousel in a vertical direction. The default value of `vertical` is false.
 ```jsx render
 <Carousel
   vertical
