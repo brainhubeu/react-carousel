@@ -266,7 +266,6 @@ export default class Carousel extends Component {
     return this.getTargetMod();
   };
 
-
   /* event handlers */
   /**
    * Handler setting the carouselWidth value in state (used to set proper width of track and slides)
@@ -296,10 +295,10 @@ export default class Carousel extends Component {
   onMouseDown = (e, index) => {
     e.preventDefault();
     e.stopPropagation();
-    const { pageX } = e;
+    const coordinate = this.getProp('vertical') ? e.pageY : e.pageX;
     this.setState(() => ({
       clicked: index,
-      dragStart: pageX,
+      dragStart: coordinate,
     }));
   };
 
@@ -308,10 +307,10 @@ export default class Carousel extends Component {
    * @param {event} e event
    */
   onMouseMove = e => {
-    const { pageX } = e;
     if (this.state.dragStart !== null) {
+      const coordinate = this.getProp('vertical') ? e.pageY : e.pageX;
       this.setState(previousState => ({
-        dragOffset: pageX - previousState.dragStart,
+        dragOffset: coordinate - previousState.dragStart,
       }));
     }
   };
@@ -322,10 +321,10 @@ export default class Carousel extends Component {
    * @param {number} index of the element drag started on
    */
   onTouchStart = (e, index) => {
-    const { changedTouches } = e;
+    const coordinate = this.getProp('vertical') ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
     this.setState(() => ({
       clicked: index,
-      dragStart: changedTouches[0].pageX,
+      dragStart: coordinate,
     }));
   };
 
@@ -338,10 +337,10 @@ export default class Carousel extends Component {
       e.preventDefault();
       e.stopPropagation();
     }
-    const { changedTouches } = e;
     if (this.state.dragStart !== null) {
+      const coordinate = this.getProp('vertical') ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
       this.setState(previousState => ({
-        dragOffset: changedTouches[0].pageX - previousState.dragStart,
+        dragOffset: coordinate - previousState.dragStart,
       }));
     }
   };
@@ -575,6 +574,7 @@ export default class Carousel extends Component {
               offset={index !== slides.length ? this.props.offset : 0}
               onMouseDown={this.onMouseDown}
               onTouchStart={this.onTouchStart}
+              vertical={this.getProp('vertical')}
               clickable={this.getProp('clickToChange')}
               isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
             >
@@ -685,7 +685,13 @@ export default class Carousel extends Component {
     return (
       <div>
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'))}
+          className={classnames(
+            'BrainhubCarousel',
+            {
+              'BrainhubCarousel--vertical': this.getProp('vertical'),
+            },
+            this.getProp('className'),
+          )}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}

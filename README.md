@@ -345,6 +345,26 @@ render() {
 }
 ```
 
+### Carousel in vertical direction
+You can pass a vertical prop to rotate the carousel in a vertical direction. Default value of vertical is false.
+```javascript
+import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
+
+// ...
+
+render() {
+  return (
+    <div>
+      <Carousel
+        vertical
+      >
+        <img className="img-example" src={someImage} />
+      </Carousel>
+    </div>
+  );
+}
+```
 ## Unit tests
 ```
 npm run test-unit

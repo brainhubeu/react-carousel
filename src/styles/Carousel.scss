@@ -2,6 +2,9 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  &.BrainhubCarousel--vertical {
+    transform: rotate(90deg);
+  }
   .BrainhubCarousel__trackContainer {
     overflow: hidden;
     .BrainhubCarousel__track {
