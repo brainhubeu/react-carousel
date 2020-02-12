@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.62",
+  "version": "1.10.63",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.13.7"
