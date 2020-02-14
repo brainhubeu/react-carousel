@@ -1,11 +1,10 @@
 {
   "presets": [
-    "env",
-    "react",
-    "stage-1"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
-    "transform-decorators-legacy"
+    "@babel/plugin-proposal-class-properties"
   ],
   "env": {
     "production": {
