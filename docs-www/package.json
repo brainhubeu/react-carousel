@@ -13,7 +13,7 @@
     "lint:autofix": "eslint --ext .jsx,.js . --fix"
   },
   "dependencies": {
-    "@brainhubeu/gatsby-docs-kit": "^2.0.1",
+    "@brainhubeu/gatsby-docs-kit": "^2.0.2",
     "@brainhubeu/react-carousel": "^1.10.63",
     "gatsby": "^2.19.17",
     "gatsby-link": "^2.2.29",
