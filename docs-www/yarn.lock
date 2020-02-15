@@ -811,12 +811,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@brainhubeu/gatsby-docs-kit@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/@brainhubeu/gatsby-docs-kit/-/gatsby-docs-kit-2.0.6.tgz#4ace2fec389e901e9396c1acc22b9d760ee057fc"
-  integrity sha512-d3VpnYA8tPjYW2XEptAbXInjtyREzbGNYoi68sdyLJgLIa8oRDHUu9+M21HoWqMmNoIcscknPWBogxVNG2CX4A==
+"@brainhubeu/gatsby-docs-kit@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/@brainhubeu/gatsby-docs-kit/-/gatsby-docs-kit-2.0.7.tgz#b12330ebbd24bf2e628bee2e73336456491d692e"
+  integrity sha512-Xuhy+fCTUejxbhdOMy+q8yXkT63ept+wZJX6I7fRXQB60bF/YdnBp8dMcRj+EKyVaxFioOlxkecTByfvcOBFLw==
   dependencies:
     classnames "^2.2.6"
+    gatsby "^2.19.17"
     gatsby-link "^2.2.29"
     gatsby-plugin-catch-links "^2.1.25"
     gatsby-plugin-favicon "^3.1.6"
