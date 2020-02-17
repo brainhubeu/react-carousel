@@ -46,8 +46,10 @@ If you don't use any bundler like Webpack, you can add these scripts to your HTM
 ```html
 <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-<script crossorigin type="text/javascript" src="https://unpkg.com/@brainhubeu/react-carousel@1.10.57/lib/react-carousel.js"></script>
+<script crossorigin type="text/javascript" src="https://unpkg.com/@brainhubeu/react-carousel@1.10.62-cdn/lib/react-carousel.js"></script>
 ```
+Make sure to use a version ending with `-cdn`.
+
 Then, you can use the following global variables:
 - `BrainhubeuReactCarousel`
 - `BrainhubeuReactCarouselDots`
