@@ -32,5 +32,4 @@ class CarouselWrapper extends Component {
   }
 }
 
-global.BrainhubeuReactCarouselWrapper = CarouselWrapper;
 export default CarouselWrapper;

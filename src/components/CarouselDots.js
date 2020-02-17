@@ -74,5 +74,4 @@ class CarouselDots extends Component {
   }
 }
 
-global.BrainhubeuReactCarouselDots = CarouselDots;
 export default CarouselDots;

@@ -698,5 +698,4 @@ class Carousel extends Component {
   }
 }
 
-global.BrainhubeuReactCarousel = Carousel;
 export default Carousel;

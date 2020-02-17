@@ -51,5 +51,4 @@ class CarouselItem extends PureComponent {
   }
 }
 
-global.BrainhubeuReactCarouselItem = CarouselItem;
 export default CarouselItem;
