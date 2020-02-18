@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Carousel from './Carousel';
 
-export default class CarouselWrapper extends Component {
+class CarouselWrapper extends Component {
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func,
@@ -31,3 +31,5 @@ export default class CarouselWrapper extends Component {
     );
   }
 }
+
+export default CarouselWrapper;
