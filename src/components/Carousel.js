@@ -77,11 +77,12 @@ class Carousel extends Component {
       dragOffset: 0,
       dragStart: null,
       transitionEnabled: false,
-      infiniteTransitionFrom: props.infinite ? props.value : null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
+      infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
       isAutoPlayStopped: false,
     };
     this.interval = null;
   }
+
 
   /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
@@ -108,16 +109,24 @@ class Carousel extends Component {
     this.resetInterval();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const valueChanged = this.checkIfValueChanged(nextProps);
+
+    if (this.state.transitionEnabled) {
+      return this.setState(previousState => ({
+        transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
+      }));
+    }
+    this.setState(previousState => ({
+      infiniteTransitionFrom: this.getCurrentValue(),
+      transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
+    }));
+  }
+
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
     if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
       this.resetInterval();
-    }
-
-    if ( valueChanged ) {
-      this.setState({
-        transitionEnabled: true,
-      });
     }
   }
 
