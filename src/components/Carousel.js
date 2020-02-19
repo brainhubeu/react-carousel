@@ -77,6 +77,7 @@ export default class Carousel extends Component {
       dragOffset: 0,
       dragStart: null,
       transitionEnabled: false,
+      transitionEnabledChangedAt: new Date(),
       infiniteTransitionFrom: props.infinite ? props.value : null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
       isAutoPlayStopped: false,
     };
@@ -114,9 +115,15 @@ export default class Carousel extends Component {
       this.resetInterval();
     }
 
-    if ( valueChanged ) {
+    if (
+      valueChanged
+        || (new Date() - this.state.transitionEnabledChangedAt > 100 || !this.state.transitionEnabled)
+          && !this.state.clicked
+          && !this.props.infinite
+    ) {
       this.setState({
         transitionEnabled: true,
+        transitionEnabledChangedAt: new Date(),
       });
     }
   }
@@ -377,6 +384,7 @@ export default class Carousel extends Component {
   onTransitionEnd = () => {
     this.setState(() => ({
       transitionEnabled: false,
+      transitionEnabledChangedAt: new Date(),
       infiniteTransitionFrom: this.getProp('infinite') ? this.getCurrentValue() : null,
     }));
   };
