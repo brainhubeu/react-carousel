@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import '../styles/CarouselDots.scss';
 
-export default class CarouselDots extends Component {
+class CarouselDots extends Component {
   static propTypes = {
     number: PropTypes.number,
     thumbnails: PropTypes.arrayOf(PropTypes.node),
@@ -74,3 +74,5 @@ export default class CarouselDots extends Component {
     );
   }
 }
+
+export default CarouselDots;

@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
-/* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
@@ -16,7 +15,7 @@ import Dots from './CarouselDots';
 import '../styles/Carousel.scss';
 import '../styles/Arrows.scss';
 
-export default class Carousel extends Component {
+class Carousel extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
@@ -80,12 +79,11 @@ export default class Carousel extends Component {
       dragOffset: 0,
       dragStart: null,
       transitionEnabled: false,
-      infiniteTransitionFrom: null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
+      infiniteTransitionFrom: props.infinite ? props.value : null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
       isAutoPlayStopped: false,
     };
     this.interval = null;
   }
-
 
   /* ========== initial handlers and positioning setup ========== */
   componentDidMount() {
@@ -112,24 +110,16 @@ export default class Carousel extends Component {
     this.resetInterval();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const valueChanged = this.checkIfValueChanged(nextProps);
-
-    if (this.state.transitionEnabled) {
-      return this.setState(previousState => ({
-        transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
-      }));
-    }
-    this.setState(previousState => ({
-      infiniteTransitionFrom: this.getCurrentValue(),
-      transitionEnabled: valueChanged ? true : previousState.transitionEnabled,
-    }));
-  }
-
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
     if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
       this.resetInterval();
+    }
+
+    if ( valueChanged ) {
+      this.setState({
+        transitionEnabled: true,
+      });
     }
   }
 
@@ -610,11 +600,20 @@ export default class Carousel extends Component {
    * @param {ReactElement} element to render
    * @param {function} onClick handler to be added to element
    * @param {string} name of an element
+   * @param {boolean} disable info whether the arrow is disabled
    * @return {ReactElement} element with added handler
    */
-  renderArrowWithAddedHandler = (element, onClick, name) => (
+  renderArrowWithAddedHandler = (element, onClick, name, disable = false) => (
     <div
-      className={classnames('BrainhubCarousel__customArrows', `BrainhubCarousel__custom-${name}`)}
+      className={
+        classnames(
+          'BrainhubCarousel__customArrows',
+          {
+            'BrainhubCarousel__arrow--disable': disable,
+          },
+          `BrainhubCarousel__custom-${name}`,
+        )
+      }
       ref={el => this[`${name}Node`] = el}
       onClick={this.getProp('addArrowClickHandler') ? onClick : null}
     >
@@ -627,8 +626,15 @@ export default class Carousel extends Component {
    * @return {ReactElement} element
    */
   renderArrowLeft = () => {
+    const value = this.getCurrentValue();
+    const disabled = value <= 0 && !this.getProp('infinite');
+
     if (this.getProp('arrowLeft')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
+      if (!disabled) {
+        return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
+      }
+      const arrow = this.getProp('arrowLeftDisabled') ? this.getProp('arrowLeftDisabled') : this.getProp('arrowLeft');
+      return this.renderArrowWithAddedHandler(arrow, this.prevSlide, 'arrowLeft', disabled);
     }
     if (this.getProp('arrows')) {
       return (
@@ -636,6 +642,7 @@ export default class Carousel extends Component {
           className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
           onClick={this.prevSlide}
           ref={el => this.arrowLeftNode = el}
+          disabled={disabled}
         >
           <span>prev</span>
         </button>
@@ -649,8 +656,17 @@ export default class Carousel extends Component {
    * @return {ReactElement} element
    */
   renderArrowRight = () => {
+    const slides = this.getChildren();
+    const value = this.getCurrentValue();
+    const lastSlideIndex = slides.length - 1;
+    const disabled = value === lastSlideIndex && !this.getProp('infinite');
+
     if (this.getProp('arrowRight')) {
-      return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
+      if (!disabled) {
+        return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
+      }
+      const arrow = this.getProp('arrowRightDisabled') ? this.getProp('arrowRightDisabled') : this.getProp('arrowRight');
+      return this.renderArrowWithAddedHandler(arrow, this.nextSlide, 'arrowRight', disabled);
     }
     if (this.getProp('arrows')) {
       return (
@@ -658,6 +674,7 @@ export default class Carousel extends Component {
           className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
           onClick={this.nextSlide}
           ref={el => this.arrowRightNode = el}
+          disabled={disabled}
         >
           <span>next</span>
         </button>
@@ -690,3 +707,5 @@ export default class Carousel extends Component {
     );
   }
 }
+
+export default Carousel;
