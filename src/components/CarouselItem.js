@@ -25,7 +25,7 @@ class CarouselItem extends PureComponent {
   };
 
   render() {
-    return this.props.children ? (
+    return (
       <li
         className={classname(
           'BrainhubCarouselItem',
@@ -47,7 +47,7 @@ class CarouselItem extends PureComponent {
       >
         {this.props.children}
       </li>
-    ) : null;
+    );
   }
 }
 
