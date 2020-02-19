@@ -15,7 +15,7 @@ import Dots from './CarouselDots';
 import '../styles/Carousel.scss';
 import '../styles/Arrows.scss';
 
-export default class Carousel extends Component {
+class Carousel extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
@@ -704,3 +704,5 @@ export default class Carousel extends Component {
     );
   }
 }
+
+export default Carousel;
