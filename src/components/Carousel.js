@@ -683,13 +683,16 @@ export default class Carousel extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        className={classnames(
+          {
+            'BrainhubCarousel--vertical': this.getProp('vertical'),
+          },
+        )}
+      >
         <div
           className={classnames(
             'BrainhubCarousel',
-            {
-              'BrainhubCarousel--vertical': this.getProp('vertical'),
-            },
             this.getProp('className'),
           )}
           ref={el => this.node = el}
