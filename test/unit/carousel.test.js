@@ -3,8 +3,12 @@ import { mount, shallow } from 'enzyme';
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { JSDOM } from 'jsdom';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 
 import Carousel from '../../src/components/Carousel';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const { document } = (new JSDOM('')).window;
 global.document = document;
