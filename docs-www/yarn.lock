@@ -18,10 +18,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@brainhubeu/gatsby-docs-kit@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@brainhubeu/gatsby-docs-kit/-/gatsby-docs-kit-1.0.3.tgz#1162cca0a96a4ea7cba81fb056ae2aa5e377e037"
-  integrity sha512-WpOxan7uh53vS6KTeKB+y9nma9EC3ThYG7G6A92B7djZmVl6Kfz3PJgaeTaP2biZ5jNYPK6pSpjSUp2VZwdzJw==
+"@brainhubeu/gatsby-docs-kit@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/gatsby-docs-kit/-/gatsby-docs-kit-1.0.10.tgz#86198cc975693571d3886611a040f161ac60948f"
+  integrity sha512-yZrwOe0fedcC0TJD7bf293mdVCjzw0fpCgIlTQEEfg5oaRTs5S0QOzVP0p5nvvz2y0THbPQ0eGPldCeZ6Oey5Q==
   dependencies:
     classnames "^2.2.5"
     gatsby-link "^1.6.40"
@@ -45,10 +45,10 @@
     react-helmet "^5.2.0"
     react-live "^1.10.1"
 
-"@brainhubeu/react-carousel@^1.10.63":
-  version "1.10.63"
-  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.10.63.tgz#5696045eb431afc71bf7cd55a56c1bae01ea70cb"
-  integrity sha512-6dm+SGdXr0xZxCXGLECeXinkFfvpvE0JW65/1tmJR2UsyHNawyxMVvv2H9Cnle6N5WrMUNj5lgXrYeIdn6We3A==
+"@brainhubeu/react-carousel@^1.11.4":
+  version "1.11.4"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.11.4.tgz#770aef355e0fa0c62796430a897060820337e655"
+  integrity sha512-OCMJdaVNXmY1+WHoAxxMWVr5ee2DTxKZwlktNbK9Eq1v+25XwbsVNxv2GplKRMAARU4CS1ER+JiFklQ5e+PjvQ==
 
 "@types/configstore@^2.1.1":
   version "2.1.1"

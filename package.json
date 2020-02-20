@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.10.64",
+  "version": "1.11.5",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.13.7"
@@ -50,13 +50,13 @@
     "eslint-config-brainhub": "^1.12.0",
     "eslint-watch": "^6.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^5.0.2",
+    "file-loader": "^5.1.0",
     "gemini": "^7.5.2",
     "html-reporter": "^5.12.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
     "isparta": "^4.1.1",
-    "jsdom": "^16.1.0",
+    "jsdom": "^16.2.0",
     "lodash": "^4.17.15",
     "mocha": "^7.0.1",
     "node-sass": "^4.13.1",
