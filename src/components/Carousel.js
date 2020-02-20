@@ -576,19 +576,22 @@ class Carousel extends Component {
           onMouseLeave={handleAutoPlayEvent(this.onMouseLeave)}
         >
           {slides.map((carouselItem, index) => (
-            <CarouselItem
-              key={index}
-              currentSlideIndex={this.getActiveSlideIndex()}
-              index={index}
-              width={this.getCarouselElementWidth()}
-              offset={index !== slides.length ? this.props.offset : 0}
-              onMouseDown={this.onMouseDown}
-              onTouchStart={this.onTouchStart}
-              clickable={this.getProp('clickToChange')}
-              isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
-            >
-              {carouselItem}
-            </CarouselItem>
+            // eslint-disable-next-line no-undefined
+            [null, undefined].includes(carouselItem) ? null : (
+              <CarouselItem
+                key={index}
+                currentSlideIndex={this.getActiveSlideIndex()}
+                index={index}
+                width={this.getCarouselElementWidth()}
+                offset={index !== slides.length ? this.props.offset : 0}
+                onMouseDown={this.onMouseDown}
+                onTouchStart={this.onTouchStart}
+                clickable={this.getProp('clickToChange')}
+                isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
+              >
+                {carouselItem}
+              </CarouselItem>
+            )
           ))}
         </ul>
       </div>
@@ -685,17 +688,17 @@ class Carousel extends Component {
 
   renderDots() {
     if (this.getProp('dots')) {
-      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} />;
+      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} rtl={this.getProp('rtl')} />;
     }
     return null;
   }
 
   render() {
-    const rtl = this.getProp('rtl');
+    const isRTL = this.getProp('rtl');
     return (
       <div>
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'), rtl ? 'BrainhubCarousel--isRTL' : '')}
+          className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}
