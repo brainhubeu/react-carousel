@@ -46,16 +46,17 @@ $arrowWeight: 3px;
         font-size: 0;
     }
 
-    &:hover:enabled {
+    &:enabled {
         background-color: $clickableAreaColor__hover;
         span {
             border-color: $arrowColor__hover;
             margin: 0;
         }
     }
-    &:disabled {
-        background-color: $disabledButtonColor;
-    }
+  }
+  
+  &:disabled {
+    background-color: $disabledButtonColor;
   }
 }
 

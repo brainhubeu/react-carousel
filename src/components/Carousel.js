@@ -688,17 +688,17 @@ class Carousel extends Component {
 
   renderDots() {
     if (this.getProp('dots')) {
-      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} />;
+      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} rtl={this.getProp('rtl')} />;
     }
     return null;
   }
 
   render() {
-    const rtl = this.getProp('rtl');
+    const isRTL = this.getProp('rtl');
     return (
       <div>
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'), rtl ? 'BrainhubCarousel--isRTL' : '')}
+          className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}
