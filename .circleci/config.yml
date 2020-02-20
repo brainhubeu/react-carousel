@@ -30,10 +30,14 @@ jobs:
             sed -i 's/  "version": "\(.*\)",/  "version": "\1-cdn",/g' package.json
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish
-      - run: yarn build
+            git config --global user.email "devops@brainhub.pl"
+            git config --global user.name "DevOps Brainhub"
+            git add .
+            git stash
       - run:
           name: npm publish
           command: |
+            yarn build
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish
       - run:
