@@ -19,12 +19,6 @@ jobs:
     steps:
       - checkout
       - run: yarn install --non-interactive
-      - run: yarn build
-      - run:
-          name: npm publish
-          command: |
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-            npm publish
       - run:
           name: npm publish CDN version
           command: |
@@ -34,6 +28,16 @@ jobs:
             sed -i 's/export default CarouselWrapper;/global.BrainhubeuReactCarouselWrapper = CarouselWrapper; export default CarouselWrapper;/g' src/components/CarouselWrapper.js
             yarn build
             sed -i 's/  "version": "\(.*\)",/  "version": "\1-cdn",/g' package.json
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            npm publish
+            git config --global user.email "devops@brainhub.pl"
+            git config --global user.name "DevOps Brainhub"
+            git add .
+            git stash
+      - run:
+          name: npm publish
+          command: |
+            yarn build
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish
       - run:
