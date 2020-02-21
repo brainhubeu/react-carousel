@@ -1,4 +1,7 @@
 const { default: Carousel, Dots } = (() => {
+  if (!window) {
+    global.window = {};
+  }
   if ('__RC_ENV__' === 'development') {
     console.log('connecting with local react-carousel source code');
     return require('../../src');
