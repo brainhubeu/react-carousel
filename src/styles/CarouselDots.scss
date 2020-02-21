@@ -10,6 +10,10 @@ $dots-color: black;
   font-size: 0;
   line-height: 0;
 
+  &.BrainhubCarousel__dots--isRTL {
+    direction: rtl;
+  }
+
   .BrainhubCarousel__dot {
     outline: 0;
     padding: 10px;
@@ -57,4 +61,10 @@ $dots-color: black;
 
 .BrainhubCarousel__thumbnail[type=button] {
   -webkit-appearance: none;
+}
+
+.BrainhubCarousel--isRTL {
+  + .BrainhubCarousel__dots {
+    direction: rtl;
+  }
 }
