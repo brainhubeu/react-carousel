@@ -10,6 +10,7 @@ jobs:
       - run: yarn lint
       - run: yarn test-unit
       - run: yarn build
+      - run: node -e "console.log(require('./lib/react-carousel'))"
       - run:
           name: publish gh pages for a given PR
           command: ./tools/deploy-gh-pages-pr.sh
