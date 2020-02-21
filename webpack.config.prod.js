@@ -6,6 +6,7 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  target: 'node',
   externals: [
     {
       'react-dom': {
