@@ -61,6 +61,7 @@ remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
 
 yarn install --non-interactive
 
+rm .babelrc
 cd docs-www
 yarn install --non-interactive
 PATH_PREFIX=gh-pages-rc-$page_number yarn build
