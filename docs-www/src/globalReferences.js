@@ -1,5 +1,5 @@
 const { default: Carousel, Dots } = (() => {
-  if (!window) {
+  if (!global.window) {
     global.window = {};
   }
   if ('__RC_ENV__' === 'development') {
