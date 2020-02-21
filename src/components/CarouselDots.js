@@ -9,6 +9,7 @@ class CarouselDots extends Component {
     thumbnails: PropTypes.arrayOf(PropTypes.node),
     value: PropTypes.number,
     onChange: PropTypes.func,
+    rtl: PropTypes.bool,
   };
 
   onChange = index => () => {
@@ -67,7 +68,7 @@ class CarouselDots extends Component {
 
   render() {
     return (
-      <ul className="BrainhubCarousel__dots">
+      <ul className={classnames('BrainhubCarousel__dots', this.props.rtl ? 'BrainhubCarousel__dots--isRTL' : '')}>
         {this.renderCarouselDots()}
       </ul>
     );
