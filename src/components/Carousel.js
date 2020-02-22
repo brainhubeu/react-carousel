@@ -110,16 +110,22 @@ class Carousel extends Component {
     this.resetInterval();
   }
 
+  shouldComponentUpdate(newProps) {
+    const valueChanged = this.checkIfValueChanged(newProps);
+
+    if (valueChanged) {
+      this.setState({
+        transitionEnabled: true,
+      });
+      return false;
+    }
+    return true;
+  }
+
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
     if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
       this.resetInterval();
-    }
-
-    if ( valueChanged ) {
-      this.setState({
-        transitionEnabled: true,
-      });
     }
   }
 
@@ -274,20 +280,20 @@ class Carousel extends Component {
    * throttled to improve performance
    * @type {Function}
    */
-   onResize = throttle(() => {
-     if (!this.node) {
-       return;
-     }
+  onResize = throttle(() => {
+    if (!this.node) {
+      return;
+    }
 
-     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
-     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
-     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+    const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
+    const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
+    const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
 
-     this.setState(() => ({
-       carouselWidth: width,
-       windowWidth: window.innerWidth,
-     }));
-   }, config.resizeEventListenerThrottle);
+    this.setState(() => ({
+      carouselWidth: width,
+      windowWidth: window.innerWidth,
+    }));
+  }, config.resizeEventListenerThrottle);
 
   /**
    * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
