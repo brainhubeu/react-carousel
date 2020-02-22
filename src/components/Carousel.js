@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
-/* eslint react/no-deprecated: 0 */ // TODO: update componentWillReceiveProps compononent to use static getDerivedStateFromProps instead
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
@@ -16,7 +15,7 @@ import Dots from './CarouselDots';
 import '../styles/Carousel.scss';
 import '../styles/Arrows.scss';
 
-export default class Carousel extends Component {
+class Carousel extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
@@ -35,6 +34,7 @@ export default class Carousel extends Component {
     clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
     infinite: PropTypes.bool,
+    rtl: PropTypes.bool,
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
@@ -66,6 +66,7 @@ export default class Carousel extends Component {
     slidesPerScroll: 1,
     animationSpeed: 500,
     draggable: true,
+    rtl: false,
     minDraggableOffset: 10,
   };
 
@@ -109,16 +110,22 @@ export default class Carousel extends Component {
     this.resetInterval();
   }
 
+  shouldComponentUpdate(newProps) {
+    const valueChanged = this.checkIfValueChanged(newProps);
+
+    if (valueChanged) {
+      this.setState({
+        transitionEnabled: true,
+      });
+      return false;
+    }
+    return true;
+  }
+
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
     if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
       this.resetInterval();
-    }
-
-    if ( valueChanged ) {
-      this.setState({
-        transitionEnabled: true,
-      });
     }
   }
 
@@ -272,20 +279,20 @@ export default class Carousel extends Component {
    * throttled to improve performance
    * @type {Function}
    */
-   onResize = throttle(() => {
-     if (!this.node) {
-       return;
-     }
+  onResize = throttle(() => {
+    if (!this.node) {
+      return;
+    }
 
-     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
-     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
-     const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+    const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
+    const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
+    const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
 
-     this.setState(() => ({
-       carouselWidth: width,
-       windowWidth: window.innerWidth,
-     }));
-   }, config.resizeEventListenerThrottle);
+    this.setState(() => ({
+      carouselWidth: width,
+      windowWidth: window.innerWidth,
+    }));
+  }, config.resizeEventListenerThrottle);
 
   /**
    * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
@@ -310,7 +317,7 @@ export default class Carousel extends Component {
     if (this.state.dragStart !== null) {
       const coordinate = this.getProp('vertical') ? e.pageY : e.pageX;
       this.setState(previousState => ({
-        dragOffset: coordinate - previousState.dragStart,
+        dragOffset: this.getProp('rtl') ? previousState.dragStart - coordinate : coordinate - previousState.dragStart,
       }));
     }
   };
@@ -340,7 +347,7 @@ export default class Carousel extends Component {
     if (this.state.dragStart !== null) {
       const coordinate = this.getProp('vertical') ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
       this.setState(previousState => ({
-        dragOffset: coordinate - previousState.dragStart,
+        dragOffset: this.getProp('rtl') ? previousState.dragStart - coordinate: coordinate - previousState.dragStart,
       }));
     }
   };
@@ -520,9 +527,9 @@ export default class Carousel extends Component {
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
+    const isRTL = this.getProp('rtl');
     const transformOffset = this.getTransformOffset();
     const children = this.getChildren();
-
     const numberOfClonesLeft = this.getClonesLeft();
     const numberOfClonesRight = this.getClonesRight();
 
@@ -533,17 +540,25 @@ export default class Carousel extends Component {
     const draggable = this.getProp('draggable') && children && children.length > 1;
 
     const trackStyles = {
-      marginLeft: `${this.getAdditionalClonesOffset()}px`,
       width: `${trackWidth}px`,
-      transform: `translateX(${transformOffset}px)`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
+
+    if (isRTL) {
+      trackStyles.marginRight = `${this.getAdditionalClonesOffset()}px`;
+      trackStyles.transform = `translateX(${-transformOffset}px)`;
+    } else {
+      trackStyles.marginLeft = `${this.getAdditionalClonesOffset()}px`;
+      trackStyles.transform = `translateX(${transformOffset}px)`;
+    }
 
     let slides = children;
     if (this.getProp('infinite')) {
       const clonesLeft = times(numberOfClonesLeft, () => children);
       const clonesRight = times(numberOfClonesRight, () => children);
-      slides = concat(...clonesLeft, children, ...clonesRight);
+      slides = isRTL
+        ? concat(...clonesRight, children, ...clonesLeft)
+        : concat(...clonesLeft, children, ...clonesRight);
     }
 
     const isAutoPlay = this.getProp('autoPlay');
@@ -566,20 +581,23 @@ export default class Carousel extends Component {
           onMouseLeave={handleAutoPlayEvent(this.onMouseLeave)}
         >
           {slides.map((carouselItem, index) => (
-            <CarouselItem
-              key={index}
-              currentSlideIndex={this.getActiveSlideIndex()}
-              index={index}
-              width={this.getCarouselElementWidth()}
-              offset={index !== slides.length ? this.props.offset : 0}
-              onMouseDown={this.onMouseDown}
-              onTouchStart={this.onTouchStart}
-              vertical={this.getProp('vertical')}
-              clickable={this.getProp('clickToChange')}
-              isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
-            >
-              {carouselItem}
-            </CarouselItem>
+            // eslint-disable-next-line no-undefined
+            [null, undefined].includes(carouselItem) ? null : (
+              <CarouselItem
+                key={index}
+                currentSlideIndex={this.getActiveSlideIndex()}
+                index={index}
+                width={this.getCarouselElementWidth()}
+                offset={index !== slides.length ? this.props.offset : 0}
+                onMouseDown={this.onMouseDown}
+                onTouchStart={this.onTouchStart}
+                vertical={this.getProp('vertical')}
+                clickable={this.getProp('clickToChange')}
+                isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
+              >
+                {carouselItem}
+              </CarouselItem>
+            )
           ))}
         </ul>
       </div>
@@ -676,12 +694,13 @@ export default class Carousel extends Component {
 
   renderDots() {
     if (this.getProp('dots')) {
-      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} />;
+      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} rtl={this.getProp('rtl')} />;
     }
     return null;
   }
 
   render() {
+    const isRTL = this.getProp('rtl');
     return (
       <div
         className={classnames(
@@ -691,10 +710,7 @@ export default class Carousel extends Component {
         )}
       >
         <div
-          className={classnames(
-            'BrainhubCarousel',
-            this.getProp('className'),
-          )}
+          className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}
@@ -706,3 +722,5 @@ export default class Carousel extends Component {
     );
   }
 }
+
+export default Carousel;
