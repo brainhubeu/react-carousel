@@ -215,7 +215,9 @@ Where:
 * `autoPlay` (*number*) slide change interval in milliseconds
 * `stopAutoPlayOnHover` (*boolean*) determines if autoPlay should stop when mouse hover over carousel
 * `offset` (*number*) padding between items
+* `offsetUnit` (*string*, default `px`) - CSS unit of `offset`
 * `itemWidth` (*number*) determines custom width for each slide in carousel
+* `itemWidthUnit` (*string*, default `px`) - CSS unit of `itemWidth`
 * `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
 * `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
 * `rtl` *boolean* indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well)
