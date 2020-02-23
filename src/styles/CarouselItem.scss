@@ -3,6 +3,9 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  &.BrainhubCarouselItem--vertical {
+    transform: rotate(-90deg);
+  }
   &.BrainhubCarouselItem--clickable {
     cursor: pointer;
   }

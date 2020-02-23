@@ -29,6 +29,11 @@
   }
 }
 
+/* vertical carousel */
+.BrainhubCarousel--vertical {
+  transform: rotate(90deg);
+}
+
 /* arrows */
 .BrainhubCarousel__arrows {
   cursor: pointer;
