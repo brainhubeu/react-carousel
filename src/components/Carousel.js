@@ -291,7 +291,7 @@ class Carousel extends Component {
 
     this.setState(() => ({
       carouselWidth: width,
-      windowWidth: window.innerWidth,
+      windowWidth: window.outerWidth,
     }));
   }, config.resizeEventListenerThrottle);
 

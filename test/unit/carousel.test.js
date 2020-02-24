@@ -18,8 +18,8 @@ const resizeEvent = document.createEvent('Event');
 resizeEvent.initEvent('resize', true, true);
 
 window.resizeTo = (width, height) => {
-  window.innerWidth = width || global.window.innerWidth;
-  window.innerHeight = height || global.window.innerHeight;
+  window.outerWidth = width || global.window.outerWidth;
+  window.outerHeight = height || global.window.outerHeight;
   window.dispatchEvent(resizeEvent);
 };
 
