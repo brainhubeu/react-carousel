@@ -377,6 +377,7 @@ class Carousel extends Component {
         clicked: null,
         dragOffset: 0,
         dragStart: null,
+        transitionEnabled: true,
       }));
     }
   };
