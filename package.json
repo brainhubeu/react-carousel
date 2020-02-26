@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.12.8",
+  "version": "1.12.9",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.13.7"
@@ -12,7 +12,7 @@
     "lint": "esw webpack.config.* src tools test --color",
     "clean-dist": "rimraf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
-    "build": "node tools/build.js",
+    "build": "node tools/build.js && mv lib/react-carousel.js 1.js && echo 'if (!global.window) { global.window = {}; }' >> lib/react-carousel.js && cat 1.js >> lib/react-carousel.js && rm 1.js",
     "selenium-start": "selenium-standalone start",
     "selenium-install": "selenium-standalone install",
     "test": "npm run test-unit && npm run test-regression",
