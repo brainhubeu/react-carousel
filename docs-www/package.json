@@ -1,7 +1,7 @@
 {
   "name": "@brainhubeu/gatsby-docs-kit-start",
   "description": "Gatsby-Docs-Kit starter repository",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "author": "Brainhub",
   "license": "MIT",
   "scripts": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "@brainhubeu/gatsby-docs-kit": "^2.0.9",
     "@brainhubeu/react-carousel": "^1.12.7",
-    "gatsby": "^1.9.279",
+    "gatsby": "^2.19.22",
     "react-fa": "^5.0.0"
   },
   "devDependencies": {
