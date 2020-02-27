@@ -13,14 +13,22 @@
     "lint:autofix": "eslint --ext .jsx,.js . --fix"
   },
   "dependencies": {
-    "@brainhubeu/gatsby-docs-kit": "^2.0.8",
-    "@brainhubeu/react-carousel": "^1.12.7",
+    "@brainhubeu/gatsby-docs-kit": "https://github.com/RobertHebel/gatsby-docs-kit.git#92e075bfb43c347d11b5420238a402399d1a78a9",
+    "@brainhubeu/react-carousel": "^1.12.8",
     "gatsby": "^2.19.17",
     "gatsby-link": "^2.2.29",
     "lodash": "^4.17.15",
     "react-fa": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-constant-elements": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-polyfill": "^6.26.0",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-stage-1": "^7.8.3",
+    "@babel/register": "^7.8.3",
     "eslint": "^6.8.0",
     "eslint-config-brainhub": "^1.12.0",
     "gh-pages": "^2.2.0",
