@@ -17,6 +17,10 @@ class CarouselItem extends PureComponent {
     isDragging: PropTypes.bool,
   };
 
+  static defaultProps = {
+    unit: 'px',
+  };
+
   onMouseDown = event => {
     this.props.onMouseDown(event, this.props.index);
   };

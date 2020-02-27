@@ -590,7 +590,7 @@ class Carousel extends Component {
                 key={index}
                 currentSlideIndex={this.getActiveSlideIndex()}
                 index={index}
-                unit={this.props.unit || 'px'}
+                unit={this.props.unit}
                 width={this.getCarouselElementWidth()}
                 offset={index !== slides.length ? this.props.offset : 0}
                 onMouseDown={this.onMouseDown}
