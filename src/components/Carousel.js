@@ -23,10 +23,9 @@ class Carousel extends Component {
     slides: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
+    unit: PropTypes.string,
     itemWidth: PropTypes.number,
-    itemWidthUnit: PropTypes.string,
     offset: PropTypes.number,
-    offsetUnit: PropTypes.string,
     arrows: PropTypes.bool,
     arrowLeft: PropTypes.element,
     arrowRight: PropTypes.element,
@@ -590,10 +589,9 @@ class Carousel extends Component {
                 key={index}
                 currentSlideIndex={this.getActiveSlideIndex()}
                 index={index}
+                unit={this.props.unit || 'px'}
                 width={this.getCarouselElementWidth()}
-                widthUnit={this.props.itemWidthUnit || 'px'}
                 offset={index !== slides.length ? this.props.offset : 0}
-                offsetUnit={this.props.offsetUnit || 'px'}
                 onMouseDown={this.onMouseDown}
                 onTouchStart={this.onTouchStart}
                 clickable={this.getProp('clickToChange')}

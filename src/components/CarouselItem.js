@@ -9,10 +9,9 @@ class CarouselItem extends PureComponent {
     onTouchStart: PropTypes.func,
     clickable: PropTypes.bool,
     children: PropTypes.node,
+    unit: PropTypes.string,
     width: PropTypes.number,
-    widthUnit: PropTypes.string,
     offset: PropTypes.number,
-    offsetUnit: PropTypes.string,
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
     isDragging: PropTypes.bool,
@@ -37,11 +36,11 @@ class CarouselItem extends PureComponent {
           },
         )}
         style={{
-          paddingRight: `${this.props.offset / 2}${this.props.offsetUnit}`,
-          paddingLeft: `${this.props.offset / 2}${this.props.offsetUnit}`,
-          width: `${this.props.width}${this.props.widthUnit}`,
-          maxWidth: `${this.props.width}${this.props.widthUnit}`,
-          minWidth: `${this.props.width}${this.props.widthUnit}`,
+          paddingRight: `${this.props.offset / 2}${this.props.unit}`,
+          paddingLeft: `${this.props.offset / 2}${this.props.unit}`,
+          width: `${this.props.width}${this.props.unit}`,
+          maxWidth: `${this.props.width}${this.props.unit}`,
+          minWidth: `${this.props.width}${this.props.unit}`,
           pointerEvents: this.props.isDragging ? 'none' : null,
         }}
         onMouseDown={this.onMouseDown}
