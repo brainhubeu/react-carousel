@@ -9,7 +9,7 @@ class CarouselItem extends PureComponent {
     onTouchStart: PropTypes.func,
     clickable: PropTypes.bool,
     children: PropTypes.node,
-    unit: PropTypes.string,
+    unit: PropTypes.oneOf(['px', '%', 'em', 'rem']),
     width: PropTypes.number,
     offset: PropTypes.number,
     index: PropTypes.number,
