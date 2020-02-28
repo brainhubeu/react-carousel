@@ -1,9 +1,9 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.12.10",
+  "version": "1.12.11",
   "description": "Carousel component for React",
   "engines": {
-    "npm": ">=6.13.7"
+    "npm": ">=6.14.1"
   },
   "files": [
     "lib/*"
@@ -27,14 +27,14 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/polyfill": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
-    "@babel/register": "^7.8.3",
+    "@babel/register": "^7.8.6",
     "autoprefixer": "^9.7.4",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -58,13 +58,13 @@
     "isparta": "^4.1.1",
     "jsdom": "^16.2.0",
     "lodash": "^4.17.15",
-    "mocha": "^7.0.1",
+    "mocha": "^7.1.0",
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-test-renderer": "^16.12.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-test-renderer": "^16.13.0",
     "rimraf": "3.0.2",
     "sass-loader": "^8.0.2",
     "selenium-standalone": "^6.17.0",
