@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import '../styles/CarouselDots.scss';
 
-export default class CarouselDots extends Component {
+class CarouselDots extends Component {
   static propTypes = {
     number: PropTypes.number,
     thumbnails: PropTypes.arrayOf(PropTypes.node),
     value: PropTypes.number,
     onChange: PropTypes.func,
+    rtl: PropTypes.bool,
   };
 
   onChange = index => () => {
@@ -67,9 +68,11 @@ export default class CarouselDots extends Component {
 
   render() {
     return (
-      <ul className="BrainhubCarousel__dots">
+      <ul className={classnames('BrainhubCarousel__dots', this.props.rtl ? 'BrainhubCarousel__dots--isRTL' : '')}>
         {this.renderCarouselDots()}
       </ul>
     );
   }
 }
+
+export default CarouselDots;

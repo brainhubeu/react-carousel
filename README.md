@@ -41,6 +41,22 @@ export default class MyCarousel extends Component {
 }
 ```
 
+## CDN
+If you don't use any bundler like Webpack, you can add these scripts to your HTML file, `body` section:
+```html
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script crossorigin type="text/javascript" src="https://unpkg.com/@brainhubeu/react-carousel@1.10.62-cdn/lib/react-carousel.js"></script>
+```
+Make sure to use a version ending with `-cdn`.
+
+Then, you can use the following global variables:
+- `BrainhubeuReactCarousel`
+- `BrainhubeuReactCarouselDots`
+- `BrainhubeuReactCarouselItem`
+- `BrainhubeuReactCarouselWrapper`
+
+
 ### Carousel as controlled element
 You can control which slides are being shown by providing Carousel with value and onChange props
 ```javascript
@@ -182,6 +198,7 @@ render() {
       itemWidth={250}
       clickToChange
       centered
+      rtl
     >
       <img src={imageOne} />
       <img src={imageTwo} />
@@ -201,6 +218,7 @@ Where:
 * `itemWidth` (*number*) determines custom width for each slide in carousel
 * `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
 * `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
+* `rtl` *boolean* indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well)
 
 ### Infinite
 ```javascript
@@ -366,7 +384,7 @@ npm run selenium-install
 ## Local running
 In order to run the docs/ demo locally:
 - `cd docs-www`
-- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2); otherwise, it will use the carousel code installed in `docs-www/node_modules`
+- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
 - `yarn develop`
 
 ## Roadmap

@@ -26,6 +26,8 @@
           file: customArrows.md
         - title: Infinite
           file: infinite.md
+        - title: RTL
+          file: rtl.md
         - title: Centered
           file: centered.md
         - title: Slides per scroll
