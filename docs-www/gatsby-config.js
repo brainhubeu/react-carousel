@@ -21,7 +21,7 @@ module.exports = {
   },
 
   // URL prefix on production environment. For more info see https://www.gatsbyjs.org/docs/path-prefix/
-  pathPrefix: process.env.PATH_PREFIX || ' ',
+  pathPrefix: process.env.PATH_PREFIX || null,
 
   plugins: pluginConfigFactory({
     config: `${__dirname}/gatsby-docs-kit.yml`,

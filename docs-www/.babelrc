@@ -1,16 +1,15 @@
 {
   "presets": [
-    "env",
-    "react",
-    "stage-1"
+    "@babel/env",
+    "@babel/react"
   ],
   "plugins": [
-    "transform-decorators-legacy"
+    "@babel/plugin-proposal-class-properties"
   ],
   "env": {
     "production": {
       "plugins": [
-        "transform-react-constant-elements",
+        "@babel/plugin-transform-react-constant-elements",
         "transform-react-remove-prop-types"
       ]
     }
