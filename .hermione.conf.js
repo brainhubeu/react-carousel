@@ -14,7 +14,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         chromeOptions: {
-          // args: ['--headless'],
+          args: ['--headless'],
         },
       },
       windowSize: '1300x900',
@@ -24,9 +24,8 @@ module.exports = {
   plugins: {
     'html-reporter/hermione': {
       enabled: true,
-      path: 'my/hermione-reports',
+      path: 'hermione-reports',
       defaultView: 'all',
-      baseHost: 'http://localhost:3000'
     }
   }
 };

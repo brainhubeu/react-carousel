@@ -44,5 +44,6 @@ selenium-debug.log
 .npm.debug
 package-lock.json
 
+hermione-reports/
 html-report/
 lib/
