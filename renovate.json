@@ -1,12 +1,20 @@
 {
   "bumpVersion": "patch",
   "commitMessagePrefix": "[renovate] ",
-  "groupName": "all dependencies",
+  "groupName": "NPM dependencies",
   "labels": ["renovate"],
   "rangeStrategy": "bump",
   "docker": {
     "major": {
       "enabled": true
     }
-  }
+  },
+  "packageRules": [
+    {
+      "groupName": "Docker dependencies",
+      "managers": [
+        "circleci"
+      ]
+    }
+  ]
 }
