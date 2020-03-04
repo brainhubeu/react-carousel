@@ -1,5 +1,4 @@
 /* eslint-disable babel/no-invalid-this */
-'use strict';
 
 describe('React Carousel', () => {
   it('swipes slide', async function() {
@@ -81,7 +80,7 @@ describe('React Carousel', () => {
     await browser.assertView('autoPlay 2 slides later', ['.BrainhubCarousel']);
   });
 
-  it('Should change slide on dot click', async function() {
+  it('changes slide on dot click', async function() {
     const browser = this.browser;
     await browser.url('/docs/examples/dots');
     await browser.pause(1000);
@@ -115,8 +114,7 @@ describe('React Carousel', () => {
 
     await browser.assertView('plain', ['.BrainhubCarousel']);
 
-    /* eslint-disable-next-line no-unused-vars */
-    for (const _ of Array.from({ length: 15 })) {
+    for (let i = 0; i < 15; i++) {
       await browser.click('.BrainhubCarousel__arrowRight');
     }
 
