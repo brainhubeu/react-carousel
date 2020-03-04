@@ -1,7 +1,7 @@
 {
   "name": "@brainhubeu/gatsby-docs-kit-start",
   "description": "Gatsby-Docs-Kit starter repository",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "author": "Brainhub",
   "license": "MIT",
   "scripts": {
@@ -13,9 +13,9 @@
     "lint:autofix": "eslint --ext .jsx,.js . --fix"
   },
   "dependencies": {
-    "@brainhubeu/gatsby-docs-kit": "^3.0.1",
-    "@brainhubeu/react-carousel": "^1.12.13",
-    "gatsby": "^2.19.23",
+    "@brainhubeu/gatsby-docs-kit": "^3.0.2",
+    "@brainhubeu/react-carousel": "^1.12.16",
+    "gatsby": "^2.19.28",
     "gatsby-link": "^2.2.29",
     "lodash": "^4.17.15",
     "react-fa": "^5.0.0"
