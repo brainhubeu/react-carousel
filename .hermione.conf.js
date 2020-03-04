@@ -4,11 +4,9 @@ module.exports = {
       files: 'test/regression'
     }
   },
-
   baseUrl: 'http://localhost:8000',
   gridUrl: 'http://localhost:4444/wd/hub',
   compositeImage: true,
-
   browsers: {
     chromeXL: {
       desiredCapabilities: {
@@ -17,10 +15,9 @@ module.exports = {
           args: ['--headless'],
         },
       },
-      windowSize: '1300x900',
+      windowSize: '500x300',
     },
   },
-
   plugins: {
     'html-reporter/hermione': {
       enabled: true,

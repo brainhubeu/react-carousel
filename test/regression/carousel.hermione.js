@@ -2,7 +2,7 @@
 'use strict';
 
 describe('React Carousel', () => {
-  it('should swipe slide', async function() {
+  it('swipes slide', async function() {
     const browser = this.browser;
     await browser.url('/docs/examples/controlled');
     await browser.pause(1000);
@@ -19,7 +19,7 @@ describe('React Carousel', () => {
     await browser.assertView('Carousel swipe left', ['.BrainhubCarousel']);
   });
 
-  it('should change slide when clicking on the arrow', async function() {
+  it('changes slide when clicking on the arrow', async function() {
     const browser = this.browser;
     await browser.url('/docs/examples/controlled');
     await browser.pause(1000);
@@ -33,7 +33,9 @@ describe('React Carousel', () => {
     await browser.assertView('leftArrowPressed', ['.BrainhubCarousel']);
   });
 
-  it('Should go to slide typed in the input', async function() {
+  it('goes to slide typed in the input', async function() {
+    const ARROW_RIGHT_KEY = '\uE014';
+
     const browser = this.browser;
     await browser.url('/docs/examples/controlled');
     await browser.pause(1000);
@@ -43,8 +45,7 @@ describe('React Carousel', () => {
     await browser.execute(function() {
       document.querySelector('input').focus();
     });
-    // Press keys: ArrowRight
-    await browser.keys('\uE014');
+    await browser.keys(ARROW_RIGHT_KEY);
     // Focus
     await browser.execute(function() {
       document.querySelector('input').focus();
@@ -56,7 +57,7 @@ describe('React Carousel', () => {
     await browser.assertView('MoveToThirdSlide', ['.BrainhubCarousel']);
   });
 
-  it('Should change slide on next slide click', async function() {
+  it('changes slide on next slide click', async function() {
     const browser = this.browser;
     await browser.url('/docs/examples/clickToChange');
     await browser.pause(1000);
@@ -69,7 +70,7 @@ describe('React Carousel', () => {
     await browser.assertView('item clicked', ['.BrainhubCarousel']);
   });
 
-  it('Should automatically change slides ', async function() {
+  it('automatically changes slides ', async function() {
     const browser = this.browser;
     await browser.url('/docs/examples/animation');
     await browser.pause(1000);
@@ -93,7 +94,7 @@ describe('React Carousel', () => {
     await browser.assertView('select slide by clicking on dot', ['.BrainhubCarousel']);
   });
 
-  it('Should change slide on thumbnail click', async function() {
+  it('changes slide on thumbnail click', async function() {
     const browser = this.browser;
     await browser.url('/docs/examples/thumbnails');
     await browser.pause(1000);
@@ -106,7 +107,7 @@ describe('React Carousel', () => {
     await browser.assertView('select slide by clicking on thumbnail', ['.BrainhubCarousel']);
   });
 
-  it('Should repeat slides', async function() {
+  it('repeats slides', async function() {
     const browser = this.browser;
 
     await browser.url('/docs/examples/infinite');
