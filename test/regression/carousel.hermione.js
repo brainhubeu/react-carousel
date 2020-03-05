@@ -76,7 +76,7 @@ describe('React Carousel', () => {
 
     await browser.assertView('plain', ['.BrainhubCarousel']);
 
-    await browser.pause(2400);
+    await browser.pause(3000);
     await browser.assertView('autoPlay 2 slides later', ['.BrainhubCarousel']);
   });
 
