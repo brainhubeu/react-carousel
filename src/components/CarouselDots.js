@@ -36,7 +36,7 @@ class CarouselDots extends Component {
           <div
             className={classnames(
               'BrainhubCarousel__thumbnail',
-              { 
+              {
                 'BrainhubCarousel__thumbnail--selected': index === this.calculateButtonValue() % dotsLength,
                 'BrainhubCarousel__thumbnail--vertical': this.props.vertical,
               },
