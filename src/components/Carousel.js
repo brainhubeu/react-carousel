@@ -38,7 +38,7 @@ class Carousel extends Component {
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
-    dots: PropTypes.bool,
+    dots: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Dots)]),
     className: PropTypes.string,
     minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
@@ -56,7 +56,7 @@ class Carousel extends Component {
       draggable: PropTypes.bool,
       keepDirectionWhenDragging: PropTypes.bool,
       animationSpeed: PropTypes.number,
-      dots: PropTypes.bool,
+      dots: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Dots)]),
       className: PropTypes.string,
     })),
   };
@@ -694,8 +694,11 @@ class Carousel extends Component {
   };
 
   renderDots() {
-    if (this.getProp('dots')) {
-      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} rtl={this.getProp('rtl')} />;
+    const dotsElement = this.getProp('dots');
+    const children = this.getChildren();
+    const vertical = this.getProp('vertical');
+    if (dotsElement) {
+      return React.isValidElement(dotsElement) ? React.cloneElement(dotsElement, { vertical }) : <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={children.length} rtl={this.getProp('rtl')} />;
     }
     return null;
   }

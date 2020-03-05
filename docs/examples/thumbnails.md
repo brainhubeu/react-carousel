@@ -32,9 +32,11 @@ class MyCarousel extends React.Component {
         value={this.state.value}
         slides={this.state.slides}
         onChange={this.onchange}
-      />
-      <Dots number={this.state.thumbnails.length} thumbnails={this.state.thumbnails} value={this.state.value} onChange={this.onchange} number={this.state.slides.length} />
-    </div>
+        dots={
+          <Dots number={this.state.thumbnails.length} thumbnails={this.state.thumbnails} value={this.state.value} onChange={this.onchange} number={this.state.slides.length} />  
+       }
+      />      
+      </div>
     );
   }
 }
