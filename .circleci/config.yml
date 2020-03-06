@@ -2,14 +2,13 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.1-browsers
     working_directory: ~/app
     steps:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
       - run: yarn test-unit
-      - run: sudo apt-get install -y chromium-browser
       - run: sudo apt-get install -y openjdk-8-jdk
       - run: yarn selenium-install
       - run:
