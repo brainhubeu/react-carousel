@@ -69,7 +69,7 @@ describe('React Carousel', () => {
     await browser.assertView('item clicked', ['.BrainhubCarousel']);
   });
 
-  it('automatically changes slides ', async function() {
+  it.skip('automatically changes slides ', async function() {
     const browser = this.browser;
     await browser.url('/docs/examples/animation');
     await browser.pause(1000);

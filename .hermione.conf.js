@@ -4,6 +4,7 @@ module.exports = {
       files: 'test/regression'
     }
   },
+  tolerance: 40,
   baseUrl: 'http://localhost:8000',
   gridUrl: 'http://localhost:4444/wd/hub',
   compositeImage: true,
