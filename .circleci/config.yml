@@ -15,7 +15,7 @@ jobs:
       - run:
           name: regression tests
           command: |
-            cd docs-www && yarn develop &
+            cd docs-www && yarn install --non-interactive && yarn develop &
             sleep 20 && yarn test-regression
       - run: yarn build
       - run:
