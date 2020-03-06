@@ -17,6 +17,9 @@ jobs:
             cd docs-www && yarn install --non-interactive && yarn develop &
             sleep 60 && yarn selenium-start &
             (sleep 120 && yarn test-regression) || (cat hermione-reports/index.html; exit 1)
+      - store_artifacts:
+          path: hermione-reports
+          when: on_fail
       - run: yarn build
       - run:
           name: publish gh pages for a given PR
