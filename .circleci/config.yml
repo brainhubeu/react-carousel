@@ -9,6 +9,7 @@ jobs:
       - run: yarn install --non-interactive
       - run: yarn lint
       - run: yarn test-unit
+      - run: sudo apt-get install -y google-chrome-stable
       - run: sudo apt-get install -y openjdk-8-jdk
       - run: yarn selenium-install
       - run:
