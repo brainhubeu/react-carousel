@@ -10,6 +10,7 @@ class CarouselDots extends Component {
     value: PropTypes.number,
     onChange: PropTypes.func,
     rtl: PropTypes.bool,
+    vertical: PropTypes.bool,
   };
 
   onChange = index => () => {
@@ -35,7 +36,10 @@ class CarouselDots extends Component {
           <div
             className={classnames(
               'BrainhubCarousel__thumbnail',
-              { 'BrainhubCarousel__thumbnail--selected': index === this.calculateButtonValue() % dotsLength },
+              {
+                'BrainhubCarousel__thumbnail--selected': index === this.calculateButtonValue() % dotsLength,
+                'BrainhubCarousel__thumbnail--vertical': this.props.vertical,
+              },
             )}
             type="button"
             onClick={this.onChange(index)}
