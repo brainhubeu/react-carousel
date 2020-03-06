@@ -17,6 +17,7 @@ jobs:
             cd docs-www && yarn install --non-interactive && yarn develop &
             sleep 60 && yarn selenium-start &
             sleep 120 && yarn test-regression
+      - run: cat hermione-reports/index.html
       - run: yarn build
       - run:
           name: publish gh pages for a given PR
