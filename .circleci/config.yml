@@ -9,7 +9,7 @@ jobs:
       - run: yarn install --non-interactive
       - run: yarn lint
       - run: yarn test-unit
-      - run: apt-get install -y openjdk-8-jdk
+      - run: sudo apt-get install -y openjdk-8-jdk
       - run: yarn selenium-install
       - run: yarn selenium-start
       - run:
