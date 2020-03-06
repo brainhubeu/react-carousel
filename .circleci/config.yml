@@ -15,8 +15,8 @@ jobs:
           name: regression tests
           command: |
             cd docs-www && yarn install --non-interactive && yarn develop &
-            sleep 20 && yarn selenium-start &
-            sleep 40 && yarn test-regression
+            sleep 60 && yarn selenium-start &
+            sleep 120 && yarn test-regression
       - run: yarn build
       - run:
           name: publish gh pages for a given PR
