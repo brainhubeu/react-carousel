@@ -11,12 +11,12 @@ jobs:
       - run: yarn test-unit
       - run: sudo apt-get install -y openjdk-8-jdk
       - run: yarn selenium-install
-      - run: yarn selenium-start &
       - run:
           name: regression tests
           command: |
             cd docs-www && yarn install --non-interactive && yarn develop &
-            sleep 20 && yarn test-regression
+            sleep 20 && yarn selenium-start &
+            sleep 40 && yarn test-regression
       - run: yarn build
       - run:
           name: publish gh pages for a given PR
