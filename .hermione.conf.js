@@ -16,7 +16,7 @@ module.exports = {
           args: ['--headless'],
         },
       },
-      windowSize: '2600x1800',
+      windowSize: '5200x3600',
     },
   },
   plugins: {
