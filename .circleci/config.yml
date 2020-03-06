@@ -16,7 +16,7 @@ jobs:
           name: regression tests
           command: |
             cd docs-www && yarn develop &
-            wait 20 && yarn test-regression
+            sleep 20 && yarn test-regression
       - run: yarn build
       - run:
           name: publish gh pages for a given PR
