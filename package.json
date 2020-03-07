@@ -96,5 +96,8 @@
     "type": "git",
     "url": "https://github.com/brainhubeu/react-carousel"
   },
-  "main": "./lib/react-carousel.js"
+  "main": "./lib/react-carousel.js",
+  "dependencies": {
+    "react-app-polyfill": "^1.0.6"
+  }
 }

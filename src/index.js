@@ -1,3 +1,4 @@
+import 'react-app-polyfill/ie11';
 import Carousel from './components/CarouselWrapper';
 import CarouselDots from './components/CarouselDots';
 
