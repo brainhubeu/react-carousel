@@ -534,6 +534,8 @@ class Carousel extends Component {
     const children = this.getChildren();
     const numberOfClonesLeft = this.getClonesLeft();
     const numberOfClonesRight = this.getClonesRight();
+    const slidesPerPage = this.getProp('slidesPerPage');
+    const centered = this.getProp('centered');
 
     const trackLengthMultiplier = 1 + (this.getProp('infinite') ? numberOfClonesLeft + numberOfClonesRight : 0);
     const trackWidth = this.state.carouselWidth * children.length * trackLengthMultiplier;
@@ -595,6 +597,8 @@ class Carousel extends Component {
                 onTouchStart={this.onTouchStart}
                 clickable={this.getProp('clickToChange')}
                 isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
+                slidesPerPage={slidesPerPage}
+                carouselIsCentered={centered}
               >
                 {carouselItem}
               </CarouselItem>
