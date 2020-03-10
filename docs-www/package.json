@@ -15,7 +15,7 @@
   "dependencies": {
     "@brainhubeu/gatsby-docs-kit": "^3.0.4",
     "@brainhubeu/react-carousel": "^1.12.19",
-    "gatsby": "^2.19.35",
+    "gatsby": "^2.19.23",
     "gatsby-link": "^2.2.30",
     "lodash": "^4.17.15",
     "react-fa": "^5.0.0"
