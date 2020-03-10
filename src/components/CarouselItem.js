@@ -14,6 +14,8 @@ class CarouselItem extends PureComponent {
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
     isDragging: PropTypes.bool,
+    slidesPerPage: PropTypes.number,
+    carouselIsCentered: PropTypes.bool,
   };
 
   onMouseDown = event => {
@@ -24,6 +26,21 @@ class CarouselItem extends PureComponent {
     this.props.onTouchStart(event, this.props.index);
   };
 
+  getIsVisible() {
+    if (this.props.carouselIsCentered) {
+      const itemsConsidered = this.props.slidesPerPage % 2 === 0
+        ? this.props.slidesPerPage - 1 : this.props.slidesPerPage;
+
+      const itemsRange = itemsConsidered / 2;
+
+      return this.props.index >= this.props.currentSlideIndex - itemsRange
+        && this.props.index <= this.props.currentSlideIndex + itemsRange;
+    } else {
+      return this.props.index >= this.props.currentSlideIndex
+          && this.props.index < Math.floor(this.props.currentSlideIndex + this.props.slidesPerPage);
+    }
+  }
+
   render() {
     return (
       <li
@@ -32,6 +49,7 @@ class CarouselItem extends PureComponent {
           {
             'BrainhubCarouselItem--clickable': this.props.clickable,
             'BrainhubCarouselItem--active': this.props.index === this.props.currentSlideIndex,
+            'BrainhubCarouselItem--visible': this.getIsVisible(),
           },
         )}
         style={{
