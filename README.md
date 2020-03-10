@@ -56,6 +56,16 @@ Then, you can use the following global variables:
 - `BrainhubeuReactCarouselItem`
 - `BrainhubeuReactCarouselWrapper`
 
+## SSR
+When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
+```js
+import dynamic from 'next/dynamic';
+
+const { default: Carousel, Dots } = dynamic(
+ () => require('@brainhubeu/react-carousel'),
+ { ssr: false },
+);
+```
 
 ### Carousel as controlled element
 You can control which slides are being shown by providing Carousel with value and onChange props
