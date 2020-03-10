@@ -34,6 +34,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'babel-polyfill',
+    'react-app-polyfill/ie11',
     './src/index.js',
   ],
   output: {
