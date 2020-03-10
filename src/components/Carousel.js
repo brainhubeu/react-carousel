@@ -148,7 +148,7 @@ class Carousel extends Component {
   }
 
   /* ========== tools ========== */
-  getCurrentValue = () => this.props.value;
+  getCurrentValue = () => this.props.infinite ? this.props.value : this.clamp(this.props.value);
 
   getNeededAdditionalClones = () =>
     Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
