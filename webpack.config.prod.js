@@ -32,7 +32,10 @@ module.exports = {
     ],
   },
   devtool: 'source-map',
-  entry: './src/index.js',
+  entry: [
+    'babel-polyfill',
+    './src/index.js',
+  ],
   output: {
     filename: 'react-carousel.js',
     library: 'react-carousel',
