@@ -33,6 +33,7 @@ You're also more than welcome to:
 - submit a feature request
 - report a bug
 - ask a question
+- comment an issue, discussing the details
 - open a PR, fixing a given issue
 
 ## Usage
