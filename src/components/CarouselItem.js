@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
+import 'wicg-inert';
+
 import '../styles/CarouselItem.scss';
 
 class CarouselItem extends PureComponent {
@@ -14,6 +16,7 @@ class CarouselItem extends PureComponent {
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
     isDragging: PropTypes.bool,
+    isVisible: PropTypes.bool,
   };
 
   onMouseDown = event => {
@@ -31,7 +34,7 @@ class CarouselItem extends PureComponent {
           'BrainhubCarouselItem',
           {
             'BrainhubCarouselItem--clickable': this.props.clickable,
-            'BrainhubCarouselItem--active': this.props.index === this.props.currentSlideIndex,
+            'BrainhubCarouselItem--active': this.props.isVisible,
           },
         )}
         style={{
@@ -44,6 +47,7 @@ class CarouselItem extends PureComponent {
         }}
         onMouseDown={this.onMouseDown}
         onTouchStart={this.onTouchStart}
+        inert={this.props.isVisible ? null : 'true'}
       >
         {this.props.children}
       </li>

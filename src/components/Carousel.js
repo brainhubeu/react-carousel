@@ -526,6 +526,22 @@ class Carousel extends Component {
     return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
   };
 
+  /**
+   * Checks whether the slide is currently visible in the carousel
+   *
+   * @param {number} slideIndex
+   * @return {boolean} is slide visible
+   */
+  isSlideVisible = slideIndex => {
+    const activeSlideIndex = this.getActiveSlideIndex();
+
+    if (this.getProp('centered')) {
+      return activeSlideIndex === slideIndex;
+    }
+
+    return slideIndex >= activeSlideIndex && slideIndex < activeSlideIndex + this.getProp('slidesPerPage');
+  };
+
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
@@ -587,6 +603,8 @@ class Carousel extends Component {
             [null, undefined].includes(carouselItem) ? null : (
               <CarouselItem
                 key={index}
+                isVisible={this.isSlideVisible(index)}
+                slidesPerPage={this.getProp('slidesPerPage')}
                 currentSlideIndex={this.getActiveSlideIndex()}
                 index={index}
                 width={this.getCarouselElementWidth()}
