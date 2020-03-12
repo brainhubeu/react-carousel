@@ -556,7 +556,8 @@ class Carousel extends Component {
       if (this.getProp('slidesPerPage') % 2 === 0) {
         return slideIndex >= activeSlideIndex - slidesPerPage/2 && slideIndex <= activeSlideIndex + slidesPerPage/2;
       }
-      return slideIndex >= activeSlideIndex - (slidesPerPage - 1)/2 && slideIndex <= activeSlideIndex + (slidesPerPage - 1)/2;
+      return slideIndex >= activeSlideIndex - (slidesPerPage - 1)/2
+        && slideIndex <= activeSlideIndex + (slidesPerPage - 1)/2;
     }
 
     return slideIndex >= activeSlideIndex && slideIndex < activeSlideIndex + this.getProp('slidesPerPage');

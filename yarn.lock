@@ -9462,10 +9462,9 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-wicg-inert@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/wicg-inert/-/wicg-inert-3.0.2.tgz#46d8b01142c1bda8f6fa5d78e2754ba56f6f70be"
-  integrity sha512-L2eSi1fx1M+WLLUccwzAulgK5hZtllRDvYk3UB/fe1ZqdkZS6dz718o6xfe3JUtBEJJnqvI6NF8m1bAHlg3JUg==
+"wicg-inert@git+https://git@github.com/RobertHebel/inert.git#non-browser-env":
+  version "3.0.1"
+  resolved "git+https://git@github.com/RobertHebel/inert.git#83ac979dca838c18f3f8239e4a37824ee2a22f63"
 
 wide-align@1.1.3, wide-align@^1.1.0:
   version "1.1.3"
