@@ -14,11 +14,27 @@ There are some great carousels (like slick) that do not have real React implemen
 ## Installation
 `npm i @brainhubeu/react-carousel`
 
+### Typescript
+`npm i @types/brainhubeu__react-carousel -D`
+
 ## Demo
 You can access a clickable demo with many examples and a live code editor [here](https://brainhubeu.github.io/react-carousel/).
 
-### Typescript
-`npm i @types/brainhubeu__react-carousel -D`
+## Roadmap
+[The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.
+You're more than welcome to vote:
+- with 👍if you like a given feature request or you'd like a given bug to be fixed
+- with ❤️ if you love a given feature request or fixing a given bug is critical for you
+- with 👎if in your opinion, a given feature would create more damages than the value provided by it or you consider a given bug to be a feature
+
+We don't give any guarantee to fix even the most liked issues but 👍and ❤️ increase probability of fixing while 👎decreases the probability of fixing.
+
+You're also more than welcome to:
+- submit a feature request
+- report a bug
+- ask a question
+- comment an issue, discussing the details
+- open a PR, fixing a given issue
 
 ## Usage
 By default the component does not need anything except children to render simple carousel.
@@ -41,7 +57,7 @@ export default class MyCarousel extends Component {
 }
 ```
 
-## CDN
+### CDN
 If you don't use any bundler like Webpack, you can add these scripts to your HTML file, `body` section:
 ```html
 <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
@@ -56,7 +72,7 @@ Then, you can use the following global variables:
 - `BrainhubeuReactCarouselItem`
 - `BrainhubeuReactCarouselWrapper`
 
-## SSR
+### SSR
 When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
 ```js
 import dynamic from 'next/dynamic';
@@ -397,8 +413,6 @@ In order to run the docs/ demo locally:
 - if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
 - `yarn develop`
 
-## Roadmap
-*Under construction...*
 
 ## License
 
