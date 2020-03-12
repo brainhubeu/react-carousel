@@ -527,16 +527,36 @@ class Carousel extends Component {
   };
 
   /**
-   * Checks whether the slide is currently visible in the carousel
+   * Checks whether the whole slide is currently visible in the carousel
    *
    * @param {number} slideIndex
    * @return {boolean} is slide visible
    */
-  isSlideVisible = slideIndex => {
+  isSlideActive = slideIndex => {
     const activeSlideIndex = this.getActiveSlideIndex();
 
     if (this.getProp('centered')) {
       return activeSlideIndex === slideIndex;
+    }
+
+    return slideIndex >= activeSlideIndex && slideIndex < activeSlideIndex + this.getProp('slidesPerPage');
+  };
+
+  /**
+   * Determines whether slide should ignore user events
+   *
+   * @param {number} slideIndex
+   * @return {boolean} should slide be inert
+   */
+  isSlideInert = slideIndex => {
+    const activeSlideIndex = this.getActiveSlideIndex();
+    const slidesPerPage = this.getProp('slidesPerPage');
+
+    if (this.getProp('centered') && this.getProp('clickToChange')) {
+      if (this.getProp('slidesPerPage') % 2 === 0) {
+        return slideIndex >= activeSlideIndex - slidesPerPage/2 && slideIndex <= activeSlideIndex + slidesPerPage/2;
+      }
+      return slideIndex >= activeSlideIndex - (slidesPerPage - 1)/2 && slideIndex <= activeSlideIndex + (slidesPerPage - 1)/2;
     }
 
     return slideIndex >= activeSlideIndex && slideIndex < activeSlideIndex + this.getProp('slidesPerPage');
@@ -603,7 +623,8 @@ class Carousel extends Component {
             [null, undefined].includes(carouselItem) ? null : (
               <CarouselItem
                 key={index}
-                isVisible={this.isSlideVisible(index)}
+                isActive={this.isSlideActive(index)}
+                isInert={this.isSlideInert(index)}
                 slidesPerPage={this.getProp('slidesPerPage')}
                 currentSlideIndex={this.getActiveSlideIndex()}
                 index={index}
