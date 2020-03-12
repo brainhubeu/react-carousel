@@ -1,4 +1,13 @@
 /* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
+
+/* eslint-disable import/first */
+if (!String.prototype.endsWith) {
+  // eslint-disable-next-line no-extend-native
+  String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+  };
+}
+
 import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
