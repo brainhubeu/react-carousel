@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
-      - run: yarn test-unit
+      - run: yarn test:unit
       - run: yarn build
       - run:
           name: publish gh pages for a given PR

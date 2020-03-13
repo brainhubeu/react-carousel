@@ -17,7 +17,7 @@
     "cypress:run": "cypress run",
     "selenium-start": "selenium-standalone start",
     "selenium-install": "selenium-standalone install",
-    "test": "mocha tools/testSetup.js \"./test/unit/*.js\" --exit",
+    "test:unit": "mocha tools/testSetup.js \"./test/unit/*.js\" --exit",
     "test:e2e": "start-server-and-test start-test-app http://localhost:8000 cypress:run",
     "test-dockerized:e2e": "docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test",
     "test:coverage": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha -- --require ./tools/testSetup.js \"./test/unit/*.js\" && open coverage/lcov-report/index.html",
