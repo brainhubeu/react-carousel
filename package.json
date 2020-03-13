@@ -15,10 +15,7 @@
     "build": "node tools/build.js",
     "selenium-start": "selenium-standalone start",
     "selenium-install": "selenium-standalone install",
-    "test": "npm run test-unit && npm run test-regression",
-    "test-unit": "mocha tools/testSetup.js \"./test/unit/*.js\" --exit",
-    "test-regression": "gemini test ./test/regression/*js",
-    "test-regression-update": "gemini update ./test/regression/*js",
+    "test": "mocha tools/testSetup.js \"./test/unit/*.js\" --exit",
     "test:coverage": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha -- --require ./tools/testSetup.js \"./test/unit/*.js\" && open coverage/lcov-report/index.html",
     "test:coverage:ci": "NODE_PATH=example babel-node ./node_modules/.bin/isparta cover _mocha --report lcovonly -- --require ./tools/testSetup.js \"./test/unit/*.js\"",
     "precommit": "npm run lint"
