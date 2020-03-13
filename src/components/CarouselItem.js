@@ -16,7 +16,6 @@ class CarouselItem extends PureComponent {
     index: PropTypes.number,
     currentSlideIndex: PropTypes.number,
     isDragging: PropTypes.bool,
-    isActive: PropTypes.bool,
     isInert: PropTypes.bool,
   };
 
@@ -35,7 +34,7 @@ class CarouselItem extends PureComponent {
           'BrainhubCarouselItem',
           {
             'BrainhubCarouselItem--clickable': this.props.clickable,
-            'BrainhubCarouselItem--active': this.props.isActive,
+            'BrainhubCarouselItem--active': this.props.index === this.props.currentSlideIndex,
           },
         )}
         style={{
