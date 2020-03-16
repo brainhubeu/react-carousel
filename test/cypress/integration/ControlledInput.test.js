@@ -17,7 +17,7 @@ describe('Controlled input', () => {
       .and('contain', 'starry-night');
   });
 
-  it('stays at the last slide if the value in input is bigger than number of slides', () => {
+  it('stays at the last slide if the value in input is greater than number of slides', () => {
     cy.get('input').type('50');
 
     cy.get('.BrainhubCarouselItem--active')

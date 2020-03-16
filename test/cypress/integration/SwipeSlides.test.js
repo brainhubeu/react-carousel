@@ -8,7 +8,7 @@ describe('Swipe slides', () => {
       .and('contain', 'mona');
   });
 
-  it('swipe slide to the right if the next slide exist', () => {
+  it('swipes slide to the right if the next slide exists', () => {
     cy.get('.BrainhubCarouselItem--active')
       .trigger('mousedown')
       .trigger('mousemove', { pageX: 300 })
@@ -20,7 +20,7 @@ describe('Swipe slides', () => {
       .and('contain', 'scream');
   });
 
-  it(`stays at the same slide if the previous one doesn't exist`, () => {
+  it(`stays at the same slide if the previous one doesn't exists`, () => {
     cy.get('.BrainhubCarouselItem--active')
       .trigger('mousedown')
       .trigger('mousemove', { pageX: 990 })

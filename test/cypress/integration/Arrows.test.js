@@ -26,7 +26,7 @@ describe('Arrows', () => {
       .and('contain', 'mona');
   });
 
-  it(`does't allow to click on the arrow if there is no slides more`, () => {
+  it(`does't allow to click on the arrow if there is no more slides`, () => {
     for (let i = 0; i < 2; i++) {
       cy.get('.BrainhubCarousel__arrowRight')
         .trigger('click');
