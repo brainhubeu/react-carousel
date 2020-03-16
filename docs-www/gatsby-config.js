@@ -36,8 +36,6 @@ module.exports = {
         anonymize: true,
         respectDNT: true,
         pageTransitionDelay: 0,
-        sampleRate: 5,
-        siteSpeedSampleRate: 10,
         cookieDomain: 'brainhubeu.github.io',
       },
     },
