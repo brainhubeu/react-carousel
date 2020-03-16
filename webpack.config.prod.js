@@ -39,6 +39,7 @@ module.exports = {
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'lib'),
     umdNamedDefine: true,
+    globalObject: 'this',
   },
   plugins: [
     new UglifyJsPlugin({
