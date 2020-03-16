@@ -6,7 +6,7 @@ describe('Controlled input', () => {
       .children('img')
       .should('have.attr', 'src')
       .and('contain', 'mona');
-  })
+  });
   it('Goes to the slide index provided in input', () => {
     cy.get('input').type('2');
 

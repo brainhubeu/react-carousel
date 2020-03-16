@@ -1,12 +1,12 @@
 describe('Click to change', () => {
   beforeEach(() => {
-      cy.visit('/docs/examples/clickToChange/');
+    cy.visit('/docs/examples/clickToChange/');
 
-      cy.get('.BrainhubCarouselItem--active')
-        .children('img')
-        .should('have.attr', 'src')
-        .and('contain', 'mona');
-    });
+    cy.get('.BrainhubCarouselItem--active')
+      .children('img')
+      .should('have.attr', 'src')
+      .and('contain', 'mona');
+  });
   it('allow to change slide when clicks on the next slide', () => {
     cy.get('.BrainhubCarouselItem')
       .eq(1)
