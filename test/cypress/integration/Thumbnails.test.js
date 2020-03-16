@@ -7,6 +7,7 @@ describe('Thumbnails', () => {
       .should('have.attr', 'src')
       .and('contain', 'mona');
   });
+
   it('changes slide on thumbnail click', () => {
     cy.get('.BrainhubCarousel__thumbnail')
       .eq(2)

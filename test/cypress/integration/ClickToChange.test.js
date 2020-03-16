@@ -7,7 +7,8 @@ describe('Click to change', () => {
       .should('have.attr', 'src')
       .and('contain', 'mona');
   });
-  it('allow to change slide when clicks on the next slide', () => {
+
+  it('allows to change slide when clicks on the next slide', () => {
     cy.get('.BrainhubCarouselItem')
       .eq(1)
       .children('img')
@@ -19,7 +20,7 @@ describe('Click to change', () => {
       .and('contain', 'scream');
   });
 
-  it('allow to change slide when clicks on the previous slide', () => {
+  it('allows to change slide when clicks on the previous slide', () => {
     cy.get('.BrainhubCarouselItem')
       .eq(1)
       .children('img')

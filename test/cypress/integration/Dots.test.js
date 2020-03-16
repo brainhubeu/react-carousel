@@ -7,6 +7,7 @@ describe('Dots', () => {
       .should('have.attr', 'src')
       .and('contain', 'mona');
   });
+
   it('changes slide on dot click', () => {
     cy.get('.BrainhubCarousel__dot')
       .eq(2)
