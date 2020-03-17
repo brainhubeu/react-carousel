@@ -3,6 +3,14 @@
   "extends": [
     "brainhub"
   ],
+  "plugins": [
+    "cypress"
+  ],
+  "env": {
+    "jest": true,
+    "browser": true,
+    "cypress/globals": true
+  },
   "settings": {
     "import/resolve": {
       "moduleDirectory": ["node_modules", "src"]
