@@ -23,8 +23,21 @@ module.exports = {
   // URL prefix on production environment. For more info see https://www.gatsbyjs.org/docs/path-prefix/
   pathPrefix: process.env.PATH_PREFIX || null,
 
-  plugins: pluginConfigFactory({
-    config: `${__dirname}/gatsby-docs-kit.yml`,
-    resources: path.resolve(__dirname, '../docs'),
-  }),
+  plugins: [
+    ...pluginConfigFactory({
+      config: `${__dirname}/gatsby-docs-kit.yml`,
+      resources: path.resolve(__dirname, '../docs'),
+    }),
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-62818184-6',
+        head: false,
+        anonymize: true,
+        respectDNT: true,
+        pageTransitionDelay: 0,
+        cookieDomain: 'brainhubeu.github.io',
+      },
+    },
+  ],
 };
