@@ -15,6 +15,14 @@
       "managers": [
         "circleci"
       ]
+    },
+    {
+      "groupName": "gatsby",
+      "managerBranchPrefix": "gatsby",
+      "packagePatterns": [
+        "gatsby"
+      ],
+      "rangeStrategy": "pin"
     }
   ]
 }
