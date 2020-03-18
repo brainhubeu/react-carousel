@@ -10,7 +10,7 @@ You can set all props (except value, onChange, responsive, children) to differen
       slidesPerPage: 1,
       arrows: false
     },
-    768: {
+    900: {
       slidesPerPage: 2,
       arrows: false
     }
