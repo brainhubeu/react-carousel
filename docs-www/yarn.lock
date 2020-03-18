@@ -874,10 +874,10 @@
     react-helmet "^5.2.1"
     react-live "^1.12.0"
 
-"@brainhubeu/react-carousel@^1.12.19":
-  version "1.12.19"
-  resolved "https://registry.npmjs.org/@brainhubeu/react-carousel/-/react-carousel-1.12.19.tgz#5221fe3663666be3f611c429161d2562ecd52e9a"
-  integrity sha512-wQ7+fOMXzTDaFtp44Z0ZsuBmDwKgjOnK7HlgS1aROS0Q8s8EOqXiADe6JKDXUcn0cEl4LIGUgJNFBScRKe62zw==
+"@brainhubeu/react-carousel@^1.13.2":
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.13.2.tgz#a79005d6de19e1e25bfbc430f7911f16b1ea6f6f"
+  integrity sha512-ySAxtIe8ft4LvhR64inDc+zNwxhdcbpP0mM+3n9KJ7onrgK8vOrkPkABq6p4MjIJgd7epWfJqX6n0FL/hTBDPw==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -5911,7 +5911,7 @@ gatsby-graphiql-explorer@^0.2.35:
   dependencies:
     "@babel/runtime" "^7.7.6"
 
-gatsby-link@^2.2.29, gatsby-link@^2.2.30:
+gatsby-link@2.2.30, gatsby-link@^2.2.29, gatsby-link@^2.2.30:
   version "2.2.30"
   resolved "https://registry.npmjs.org/gatsby-link/-/gatsby-link-2.2.30.tgz#457d2c891b91c4e1a58e318871ca2f9d53e79852"
   integrity sha512-fGUzQBHcARIYBVMno2qkyOykcxVdANLQpQ1R0kg8b6AEVjxReB+aUlXhq25nJkW4Z2E9Dhn32Xv4mk6znteNig==
@@ -5950,6 +5950,13 @@ gatsby-plugin-favicon@^3.1.6:
     favicons-webpack-plugin "https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
     html-react-parser "^0.6.4"
     lodash "^4.17.11"
+
+gatsby-plugin-google-analytics@2.1.37:
+  version "2.1.37"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.1.37.tgz#7b70a67a5c0e73289f3e9bd7b7e8221ff2d5f2b3"
+  integrity sha512-x63KAcF7foLWX4HDIMsLhtQV12iJ1DsoSbEU6gqInXMBI34PVszd4PlcefJUqc5ePqTR1lZ5TFAHse5vOSb4fQ==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
 
 gatsby-plugin-layout@^1.1.22:
   version "1.1.23"
@@ -6168,7 +6175,7 @@ gatsby-transformer-yaml@^2.2.25:
     lodash "^4.17.15"
     unist-util-select "^1.5.0"
 
-gatsby@^2.19.23, gatsby@^2.19.35:
+gatsby@2.19.35, gatsby@^2.19.23:
   version "2.19.35"
   resolved "https://registry.npmjs.org/gatsby/-/gatsby-2.19.35.tgz#728a1fb2a1beae9fbc49490a5c60b503880da49a"
   integrity sha512-Lwc6Mx/IvYVKNxgi5DXHf1lWdoC1+AULYlW0lIxL1JKNh8sJkYQBWd6T4ophJAC5o6YYAbrq07ah1NlGuipvig==
