@@ -8,11 +8,22 @@ jobs:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
-      - run: yarn test-unit
+      - run: yarn test:unit
       - run: yarn build
       - run:
           name: publish gh pages for a given PR
           command: ./tools/deploy-gh-pages-pr.sh
+
+  test-e2e:
+    docker:
+      - image: circleci/node:12.16.1
+    working_directory: ~/app
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Running E2E tests
+          command: docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test
 
   publish_package:
     docker:
@@ -50,9 +61,11 @@ workflows:
   test_and_deploy:
     jobs:
       - test
+      - test-e2e
       - publish_package:
           requires:
             - test
+            - test-e2e
           filters:
             branches:
               only:

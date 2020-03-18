@@ -1,0 +1,9 @@
+version: '3'
+services:
+  e2e-test:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.e2e
+    volumes:
+      - ${SHARED_PATH:-.}/test-results:/e2e/test-results
+    entrypoint: yarn test:e2e
