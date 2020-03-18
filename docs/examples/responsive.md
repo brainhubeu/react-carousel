@@ -7,11 +7,11 @@ You can set all props (except value, onChange, responsive, children) to differen
   arrows
   breakpoints={{
     640: {
-      slidesPerPage={1},
+      slidesPerPage: 1,
       arrows: false
     },
     768: {
-      slidesPerPage={2},
+      slidesPerPage: 2,
       arrows: false
     }
   }}
