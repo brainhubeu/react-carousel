@@ -2,7 +2,7 @@
 .gitignore
 .editorconfig
 node_modules
-docs
+docs-www/node_modules
 *.DS_Store
 *.md
 *.log

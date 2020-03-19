@@ -391,20 +391,13 @@ render() {
 
 ## Unit tests
 ```
-npm run test-unit
+yarn test:unit
 ```
 
-## Regression tests
-
-Install selenium if it is not installed
-```
-npm run selenium-install
-```
+## E2E tests
 
 ```
-1. npm run selenium-start
-2. npm run example
-3. npm run test-regression
+yarn test:e2e
 ```
 
 ## Local running
