@@ -378,7 +378,7 @@ class Carousel extends Component {
    * Handler setting transitionEnabled value in state to false after transition animation ends
    */
   onTransitionEnd = () => {
-    const infinite = this.getProps('infinite');
+    const infinite = this.getProp('infinite');
     this.setState(() => ({
       transitionEnabled: !infinite,
       infiniteTransitionFrom: infinite ? this.getCurrentValue() : null,
