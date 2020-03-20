@@ -22,13 +22,10 @@ class Carousel extends Component {
     itemWidth: PropTypes.number,
     offset: PropTypes.number,
     draggable: PropTypes.bool,
-    keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
     className: PropTypes.string,
-    minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       draggable: PropTypes.bool,
-      keepDirectionWhenDragging: PropTypes.bool,
       animationSpeed: PropTypes.number,
       dots: PropTypes.bool,
       className: PropTypes.string,
@@ -38,7 +35,6 @@ class Carousel extends Component {
     offset: 0,
     animationSpeed: 500,
     draggable: true,
-    minDraggableOffset: 10,
   };
 
   constructor(props) {
@@ -241,7 +237,7 @@ class Carousel extends Component {
    * @param {event} e event
    */
   onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset) > this.props.minDraggableOffset) {
+    if (Math.abs(this.state.dragOffset)) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -354,16 +350,8 @@ class Carousel extends Component {
    * @return {number} index
    */
   getNearestSlideIndex = () => {
-    let slideIndexOffset = 0;
-    if (this.getProp('keepDirectionWhenDragging')) {
-      if (this.state.dragOffset > 0) {
-        slideIndexOffset = -Math.ceil(this.state.dragOffset / this.getCarouselElementWidth());
-      } else {
-        slideIndexOffset = -Math.floor(this.state.dragOffset / this.getCarouselElementWidth());
-      }
-    } else {
-      slideIndexOffset = -Math.round(this.state.dragOffset / this.getCarouselElementWidth());
-    }
+    const slideIndexOffset = -Math.round(this.state.dragOffset / this.getCarouselElementWidth());
+
     return this.getCurrentValue() + slideIndexOffset;
   };
 
@@ -436,7 +424,7 @@ class Carousel extends Component {
                 offset={index !== slides.length ? this.props.offset : 0}
                 onMouseDown={this.onMouseDown}
                 onTouchStart={this.onTouchStart}
-                isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
+                isDragging={Math.abs(this.state.dragOffset)}
               >
                 {carouselItem}
               </CarouselItem>
