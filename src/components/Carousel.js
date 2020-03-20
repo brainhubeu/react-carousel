@@ -20,7 +20,6 @@ class Carousel extends Component {
     onChange: PropTypes.func,
     children: PropTypes.node,
     slides: PropTypes.arrayOf(PropTypes.node),
-    slidesPerScroll: PropTypes.number,
     itemWidth: PropTypes.number,
     offset: PropTypes.number,
     arrows: PropTypes.bool,
@@ -34,7 +33,6 @@ class Carousel extends Component {
     className: PropTypes.string,
     minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
-      slidesPerScroll: PropTypes.number,
       arrows: PropTypes.bool,
       arrowLeft: PropTypes.element,
       arrowRight: PropTypes.element,
@@ -49,7 +47,6 @@ class Carousel extends Component {
   };
   static defaultProps = {
     offset: 0,
-    slidesPerScroll: 1,
     animationSpeed: 500,
     draggable: true,
     minDraggableOffset: 10,
@@ -359,9 +356,9 @@ class Carousel extends Component {
    */
   changeSlide = value => this.props.onChange(this.clamp(value));
 
-  nextSlide = () => this.changeSlide(this.getCurrentValue() + this.getProp('slidesPerScroll'));
+  nextSlide = () => this.changeSlide(this.getCurrentValue());
 
-  prevSlide = () => this.changeSlide(this.getCurrentValue() - this.getProp('slidesPerScroll'));
+  prevSlide = () => this.changeSlide(this.getCurrentValue());
 
 
   /* ========== positioning ========== */
