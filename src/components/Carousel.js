@@ -30,7 +30,6 @@ class Carousel extends Component {
     addArrowClickHandler: PropTypes.bool,
     autoPlay: PropTypes.number,
     stopAutoPlayOnHover: PropTypes.bool,
-    clickToChange: PropTypes.bool,
     centered: PropTypes.bool,
     rtl: PropTypes.bool,
     draggable: PropTypes.bool,
@@ -47,7 +46,6 @@ class Carousel extends Component {
       addArrowClickHandler: PropTypes.bool,
       autoPlay: PropTypes.number,
       stopAutoPlayOnHover: PropTypes.bool,
-      clickToChange: PropTypes.bool,
       centered: PropTypes.bool,
       draggable: PropTypes.bool,
       keepDirectionWhenDragging: PropTypes.bool,
@@ -313,8 +311,6 @@ class Carousel extends Component {
       if (this.getProp('draggable')) {
         if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
           this.changeSlide(this.getNearestSlideIndex());
-        } else if (this.getProp('clickToChange')) {
-          this.changeSlide(this.state.clicked);
         }
       }
       this.setState(() => ({
@@ -521,7 +517,6 @@ class Carousel extends Component {
                 offset={index !== slides.length ? this.props.offset : 0}
                 onMouseDown={this.onMouseDown}
                 onTouchStart={this.onTouchStart}
-                clickable={this.getProp('clickToChange')}
                 isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
               >
                 {carouselItem}
