@@ -29,7 +29,6 @@ class Carousel extends Component {
     arrowRight: PropTypes.element,
     addArrowClickHandler: PropTypes.bool,
     centered: PropTypes.bool,
-    rtl: PropTypes.bool,
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
@@ -56,7 +55,6 @@ class Carousel extends Component {
     slidesPerScroll: 1,
     animationSpeed: 500,
     draggable: true,
-    rtl: false,
     minDraggableOffset: 10,
   };
 
@@ -239,7 +237,7 @@ class Carousel extends Component {
     const { pageX } = e;
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: this.getProp('rtl') ? previousState.dragStart - pageX : pageX - previousState.dragStart,
+        dragOffset: pageX - previousState.dragStart,
       }));
     }
   };
@@ -269,7 +267,7 @@ class Carousel extends Component {
     const { changedTouches } = e;
     if (this.state.dragStart !== null) {
       this.setState(previousState => ({
-        dragOffset: this.getProp('rtl') ? previousState.dragStart - changedTouches[0].pageX : changedTouches[0].pageX - previousState.dragStart,
+        dragOffset: changedTouches[0].pageX - previousState.dragStart,
       }));
     }
   };
@@ -418,7 +416,6 @@ class Carousel extends Component {
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
-    const isRTL = this.getProp('rtl');
     const transformOffset = this.getTransformOffset();
     const children = this.getChildren();
 
@@ -433,13 +430,9 @@ class Carousel extends Component {
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
 
-    if (isRTL) {
-      trackStyles.transform = `translateX(${-transformOffset}px)`;
-    } else {
-      trackStyles.transform = `translateX(${transformOffset}px)`;
-    }
+    trackStyles.transform = `translateX(${transformOffset}px)`;
 
-    let slides = children;
+    const slides = children;
 
     return (
       <div className="BrainhubCarousel__trackContainer">
@@ -565,11 +558,10 @@ class Carousel extends Component {
   };
 
   render() {
-    const isRTL = this.getProp('rtl');
     return (
       <div>
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
+          className={classnames('BrainhubCarousel', this.getProp('className'))}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}
