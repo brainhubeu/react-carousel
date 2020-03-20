@@ -21,14 +21,12 @@ class Carousel extends Component {
     slides: PropTypes.arrayOf(PropTypes.node),
     itemWidth: PropTypes.number,
     offset: PropTypes.number,
-    centered: PropTypes.bool,
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
     className: PropTypes.string,
     minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
-      centered: PropTypes.bool,
       draggable: PropTypes.bool,
       keepDirectionWhenDragging: PropTypes.bool,
       animationSpeed: PropTypes.number,
@@ -382,18 +380,15 @@ class Carousel extends Component {
   getCarouselElementWidth = () => this.props.itemWidth || this.state.carouselWidth;
 
   /**
-   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)
+   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
    * @return {number} offset in px
    */
   getTransformOffset = () => {
     const elementWidthWithOffset = this.getCarouselElementWidth() + this.getProp('offset');
-    const additionalOffset = this.getProp('centered')
-      ? (this.state.carouselWidth / 2) - (elementWidthWithOffset / 2)
-      : 0;
     const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
     const currentValue = this.getActiveSlideIndex();
 
-    return dragOffset - currentValue * elementWidthWithOffset + additionalOffset;
+    return dragOffset - currentValue * elementWidthWithOffset;
   };
 
 
