@@ -110,22 +110,16 @@ class Carousel extends Component {
     this.resetInterval();
   }
 
-  shouldComponentUpdate(newProps) {
-    const valueChanged = this.checkIfValueChanged(newProps);
+  componentDidUpdate(prevProps) {
+    const valueChanged = this.checkIfValueChanged(prevProps);
+    if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
+      this.resetInterval();
+    }
 
     if (valueChanged) {
       this.setState({
         transitionEnabled: true,
       });
-      return false;
-    }
-    return true;
-  }
-
-  componentDidUpdate(prevProps) {
-    const valueChanged = this.checkIfValueChanged(prevProps);
-    if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
-      this.resetInterval();
     }
   }
 
@@ -148,7 +142,7 @@ class Carousel extends Component {
   }
 
   /* ========== tools ========== */
-  getCurrentValue = () => this.props.value;
+  getCurrentValue = () => this.props.infinite ? this.props.value : this.clamp(this.props.value);
 
   getNeededAdditionalClones = () =>
     Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
@@ -383,9 +377,10 @@ class Carousel extends Component {
    * Handler setting transitionEnabled value in state to false after transition animation ends
    */
   onTransitionEnd = () => {
+    const infinite = this.getProp('infinite');
     this.setState(() => ({
-      transitionEnabled: false,
-      infiniteTransitionFrom: this.getProp('infinite') ? this.getCurrentValue() : null,
+      transitionEnabled: !infinite,
+      infiniteTransitionFrom: infinite ? this.getCurrentValue() : null,
     }));
   };
 
