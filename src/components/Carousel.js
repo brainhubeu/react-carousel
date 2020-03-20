@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
 import has from 'lodash/has';
-import concat from 'lodash/concat';
-import times from 'lodash/times';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
