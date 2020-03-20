@@ -12,7 +12,6 @@ import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
 import '../styles/Carousel.scss';
-import '../styles/Arrows.scss';
 
 class Carousel extends Component {
   static propTypes = {
@@ -22,10 +21,6 @@ class Carousel extends Component {
     slides: PropTypes.arrayOf(PropTypes.node),
     itemWidth: PropTypes.number,
     offset: PropTypes.number,
-    arrows: PropTypes.bool,
-    arrowLeft: PropTypes.element,
-    arrowRight: PropTypes.element,
-    addArrowClickHandler: PropTypes.bool,
     centered: PropTypes.bool,
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
@@ -33,10 +28,6 @@ class Carousel extends Component {
     className: PropTypes.string,
     minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
-      arrows: PropTypes.bool,
-      arrowLeft: PropTypes.element,
-      arrowRight: PropTypes.element,
-      addArrowClickHandler: PropTypes.bool,
       centered: PropTypes.bool,
       draggable: PropTypes.bool,
       keepDirectionWhenDragging: PropTypes.bool,
@@ -198,9 +189,7 @@ class Carousel extends Component {
       return;
     }
 
-    const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
-    const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
-    const width = this.node.offsetWidth - (arrowLeftWidth || 0) - (arrowRightWidth || 0);
+    const width = this.node.offsetWidth;
 
     this.setState(() => ({
       carouselWidth: width,
@@ -463,94 +452,6 @@ class Carousel extends Component {
     );
   };
 
-  /**
-   * Adds onClick handler to the arrow if possible (if it does not already have one)
-   * @param {ReactElement} element to render
-   * @param {function} onClick handler to be added to element
-   * @param {string} name of an element
-   * @param {boolean} disable info whether the arrow is disabled
-   * @return {ReactElement} element with added handler
-   */
-  renderArrowWithAddedHandler = (element, onClick, name, disable = false) => (
-    <div
-      className={
-        classnames(
-          'BrainhubCarousel__customArrows',
-          {
-            'BrainhubCarousel__arrow--disable': disable,
-          },
-          `BrainhubCarousel__custom-${name}`,
-        )
-      }
-      ref={el => this[`${name}Node`] = el}
-      onClick={this.getProp('addArrowClickHandler') ? onClick : null}
-    >
-      {element}
-    </div>
-  );
-
-  /**
-   * Renders arrow left
-   * @return {ReactElement} element
-   */
-  renderArrowLeft = () => {
-    const value = this.getCurrentValue();
-    const disabled = value <= 0;
-
-    if (this.getProp('arrowLeft')) {
-      if (!disabled) {
-        return this.renderArrowWithAddedHandler(this.getProp('arrowLeft'), this.prevSlide, 'arrowLeft');
-      }
-      const arrow = this.getProp('arrowLeftDisabled') ? this.getProp('arrowLeftDisabled') : this.getProp('arrowLeft');
-      return this.renderArrowWithAddedHandler(arrow, this.prevSlide, 'arrowLeft', disabled);
-    }
-    if (this.getProp('arrows')) {
-      return (
-        <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
-          onClick={this.prevSlide}
-          ref={el => this.arrowLeftNode = el}
-          disabled={disabled}
-        >
-          <span>prev</span>
-        </button>
-      );
-    }
-    return null;
-  };
-
-  /**
-   * Renders arrow right
-   * @return {ReactElement} element
-   */
-  renderArrowRight = () => {
-    const slides = this.getChildren();
-    const value = this.getCurrentValue();
-    const lastSlideIndex = slides.length - 1;
-    const disabled = value === lastSlideIndex;
-
-    if (this.getProp('arrowRight')) {
-      if (!disabled) {
-        return this.renderArrowWithAddedHandler(this.getProp('arrowRight'), this.nextSlide, 'arrowRight');
-      }
-      const arrow = this.getProp('arrowRightDisabled') ? this.getProp('arrowRightDisabled') : this.getProp('arrowRight');
-      return this.renderArrowWithAddedHandler(arrow, this.nextSlide, 'arrowRight', disabled);
-    }
-    if (this.getProp('arrows')) {
-      return (
-        <button
-          className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
-          onClick={this.nextSlide}
-          ref={el => this.arrowRightNode = el}
-          disabled={disabled}
-        >
-          <span>next</span>
-        </button>
-      );
-    }
-    return null;
-  };
-
   render() {
     return (
       <div>
@@ -558,9 +459,7 @@ class Carousel extends Component {
           className={classnames('BrainhubCarousel', this.getProp('className'))}
           ref={el => this.node = el}
         >
-          {this.renderArrowLeft()}
           {this.renderCarouselItems()}
-          {this.renderArrowRight()}
         </div>
       </div>
     );
