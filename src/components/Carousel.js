@@ -28,8 +28,6 @@ class Carousel extends Component {
     arrowLeft: PropTypes.element,
     arrowRight: PropTypes.element,
     addArrowClickHandler: PropTypes.bool,
-    autoPlay: PropTypes.number,
-    stopAutoPlayOnHover: PropTypes.bool,
     centered: PropTypes.bool,
     rtl: PropTypes.bool,
     draggable: PropTypes.bool,
@@ -44,8 +42,6 @@ class Carousel extends Component {
       arrowLeft: PropTypes.element,
       arrowRight: PropTypes.element,
       addArrowClickHandler: PropTypes.bool,
-      autoPlay: PropTypes.number,
-      stopAutoPlayOnHover: PropTypes.bool,
       centered: PropTypes.bool,
       draggable: PropTypes.bool,
       keepDirectionWhenDragging: PropTypes.bool,
@@ -73,7 +69,6 @@ class Carousel extends Component {
       dragOffset: 0,
       dragStart: null,
       transitionEnabled: false,
-      isAutoPlayStopped: false,
     };
     this.interval = null;
   }
@@ -98,16 +93,10 @@ class Carousel extends Component {
 
     // setting size of a carousel in state based on styling
     window.addEventListener('load', this.onResize);
-
-    // setting autoplay interval
-    this.resetInterval();
   }
 
   componentDidUpdate(prevProps) {
     const valueChanged = this.checkIfValueChanged(prevProps);
-    if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
-      this.resetInterval();
-    }
 
     if (valueChanged) {
       this.setState({
@@ -175,20 +164,6 @@ class Carousel extends Component {
     const currentValue = this.clamp(this.props.value);
     const prevValue = this.clamp(prevProps.value);
     return currentValue !== prevValue;
-  };
-
-  resetInterval = () => {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-    const autoPlay = this.getProp('autoPlay');
-    if (!isNil(autoPlay)) {
-      this.interval = setInterval(() => {
-        if (!document.hidden && !this.state.isAutoPlayStopped) {
-          this.nextSlide();
-        }
-      }, autoPlay);
-    }
   };
 
   getChildren = () => {
@@ -332,27 +307,6 @@ class Carousel extends Component {
   };
 
   /**
-   * Function handling mouse hover over element
-   * Stops auto play
-   */
-  onMouseEnter = () => {
-    this.setState(() => ({
-      isAutoPlayStopped: true,
-    }));
-  };
-
-  /**
-   * Function handling mouse leaving element
-   * Resumes auto play
-   */
-  onMouseLeave = () => {
-    this.setState(() => ({
-      isAutoPlayStopped: false,
-    }));
-    this.resetInterval();
-  };
-
-  /**
    * Simulates mouse events when touch events occur
    * @param {event} e A touch event
    */
@@ -487,10 +441,6 @@ class Carousel extends Component {
 
     let slides = children;
 
-    const isAutoPlay = this.getProp('autoPlay');
-    const isStopAutoPlayOnHover = this.getProp('stopAutoPlayOnHover');
-    const handleAutoPlayEvent = action => (isAutoPlay && isStopAutoPlayOnHover) ? action : null;
-
     return (
       <div className="BrainhubCarousel__trackContainer">
         <ul
@@ -503,8 +453,6 @@ class Carousel extends Component {
           )}
           style={trackStyles}
           ref={el => this.trackRef = el}
-          onMouseEnter={handleAutoPlayEvent(this.onMouseEnter)}
-          onMouseLeave={handleAutoPlayEvent(this.onMouseLeave)}
         >
           {slides.map((carouselItem, index) => (
             // eslint-disable-next-line no-undefined
