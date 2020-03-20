@@ -525,6 +525,18 @@ class Carousel extends Component {
     return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
   };
 
+  getCustomCarouselStyles = () => {
+    const vertical = this.getProp('vertical');
+    if (vertical) {
+      return {
+        height: this.state.carouselWidth,
+      };
+    }
+    return {
+      height: 400,
+    };
+  };
+
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
@@ -714,7 +726,11 @@ class Carousel extends Component {
         )}
       >
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
+          className={classnames(
+            'BrainhubCarousel',
+            this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '',
+          )}
+          style={this.getCustomCarouselStyles()}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}
