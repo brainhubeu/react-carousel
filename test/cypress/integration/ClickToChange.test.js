@@ -20,7 +20,7 @@ describe('Click to change', () => {
       .and('contain', 'scream');
   });
 
-  it('allows to change slide when clicks on the previous slide', () => {
+  it.only('allows to change slide when clicks on the previous slide', () => {
     cy.get('.BrainhubCarouselItem')
       .eq(1)
       .children('img')
