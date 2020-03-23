@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
 /* eslint-disable react/jsx-no-bind  */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import throttle from 'lodash/throttle';
 import has from 'lodash/has';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import config from '../constants/config';
 import useEventListener from '../hooks/useEventListener';
+import useOnResize from '../hooks/useOnResize';
 import simulateEvent from '../tools/simulateEvent';
 
 import CarouselItem from './CarouselItem';
@@ -15,9 +15,6 @@ import CarouselItem from './CarouselItem';
 import '../styles/Carousel.scss';
 
 const Carousel = props => {
-  const [carouselWidth, setCarouselWidth] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0);
-
   const [slideMovement, setSlideMovement] = useState({
     clicked: null,
     dragStart: null,
@@ -30,6 +27,8 @@ const Carousel = props => {
 
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
+
+  const [carouselWidth, windowWidth] = useOnResize(nodeRef);
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -67,23 +66,6 @@ const Carousel = props => {
     setTransitionEnabled(true);
   };
 
-  /* event handlers */
-  /**
-   * Handler setting the carouselWidth value in state (used to set proper width of track and slides)
-   * throttled to improve performance
-   * @type {Function}
-   */
-  const onResize = throttle(() => {
-    if (!nodeRef) {
-      return;
-    }
-
-    const width = nodeRef.current.offsetWidth;
-
-    setCarouselWidth(width);
-    setWindowWidth(window.innerWidth);
-  }, config.resizeEventListenerThrottle);
-
   /**
    * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
    * @param {event} e event
@@ -115,8 +97,6 @@ const Carousel = props => {
   });
 
   useEffect(() => {
-    onResize();
-
     return () => {
       if (interval) {
         clearInterval(interval);
@@ -240,8 +220,6 @@ const Carousel = props => {
   };
 
   useEventListener('mouseup', onMouseUpTouchEnd);
-  useEventListener('resize', onResize);
-  useEventListener('load', onResize);
 
   useEventListener('mousemove', onMouseMove, nodeRef.current);
   useEventListener('touchstart', simulateEvent, nodeRef.current);
