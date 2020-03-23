@@ -1,14 +1,14 @@
 /* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
-/* eslint-disable react/jsx-no-bind  */ // we disable propTypes usage checking as we use getProp function
+/* eslint-disable react/jsx-no-bind  */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import throttle from 'lodash/throttle';
-import isNil from 'lodash/isNil';
 import has from 'lodash/has';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import config from '../constants/config';
 import useEventListener from '../hooks/useEventListener';
+import simulateEvent from '../tools/simulateEvent';
 
 import CarouselItem from './CarouselItem';
 
@@ -31,54 +31,6 @@ const Carousel = props => {
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
 
-  /* ========== initial handlers and positioning setup ========== */
-  useEffect(() => {
-    // adding listener to remove transition when animation finished
-    trackRef && trackRef.current.addEventListener('transitionend', onTransitionEnd);
-
-    // adding event listeners for swipe
-    if (nodeRef) {
-      // console.log('HERE');
-      // nodeRef.current.parentElement.addEventListener('mousemove', onMouseMove, false);
-      // document.addEventListener('mouseup', onMouseUpTouchEnd, false);
-      nodeRef.current.parentElement.addEventListener('touchstart', simulateEvent, true);
-      nodeRef.current.parentElement.addEventListener('touchmove', simulateEvent, { passive: false });
-      nodeRef.current.parentElement.addEventListener('touchend', simulateEvent, true);
-    }
-
-    // setting size of a carousel in state
-    window.addEventListener('resize', onResize);
-    onResize();
-
-    // setting size of a carousel in state based on styling
-    window.addEventListener('load', onResize);
-
-    return () => {
-      trackRef && trackRef.current.removeEventListener('transitionend', onTransitionEnd);
-
-      if (nodeRef) {
-        nodeRef.current.parentElement.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUpTouchEnd);
-        nodeRef.current.parentElement.removeEventListener('touchstart', simulateEvent);
-        nodeRef.current.parentElement.removeEventListener('touchmove', simulateEvent);
-        nodeRef.current.parentElement.removeEventListener('touchend', simulateEvent);
-      }
-
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('load', onResize);
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [nodeRef.current]);
-
-  useEffect(() => {
-    setTransitionEnabled(true);
-  }, [props.value]);
-
-  /* ========== tools ========== */
-  const getCurrentValue = () => clamp(props.value);
-
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
    * @param {string} propName name of the prop you want to get
@@ -99,6 +51,7 @@ const Carousel = props => {
         }
       });
     }
+
     if (activeBreakpoint) {
       if (has(usedProps.breakpoints[activeBreakpoint], propName)) {
         return usedProps.breakpoints[activeBreakpoint][propName];
@@ -108,44 +61,11 @@ const Carousel = props => {
   };
 
   /**
-   * Check if props.value changed after update
-   * @param {object} prevProps
-   * @return {boolean} result
+   * Handler setting transitionEnabled value in state to false after transition animation ends
    */
-  const checkIfValueChanged = prevProps => {
-    const currentValue = clamp(props.value);
-    const prevValue = clamp(prevProps.value);
-    return currentValue !== prevValue;
+  const onTransitionEnd = () => {
+    setTransitionEnabled(true);
   };
-
-  const getChildren = () => {
-    if (!props.children) {
-      if (props.slides) {
-        return props.slides;
-      }
-      return [];
-    }
-    if (Array.isArray(props.children)) {
-      return props.children;
-    }
-    return [props.children];
-  };
-
-  const getActiveSlideIndex = () => getCurrentSlideIndex();
-
-  const getTargetMod = (customValue = null) => {
-    const value = isNil(customValue) ? getCurrentValue() : customValue;
-    const length = getChildren().length;
-    let targetSlide;
-    if (value >= 0) {
-      targetSlide = value % length;
-    } else {
-      targetSlide = (length - Math.abs(value % length)) % length;
-    }
-    return targetSlide;
-  };
-
-  const getTargetSlide = () => getTargetMod();
 
   /* event handlers */
   /**
@@ -194,6 +114,86 @@ const Carousel = props => {
     }
   });
 
+  /* ========== initial handlers and positioning setup ========== */
+  useEffect(() => {
+    // adding listener to remove transition when animation finished
+    trackRef && trackRef.current.addEventListener('transitionend', onTransitionEnd);
+
+    // adding event listeners for swipe
+    if (nodeRef) {
+      nodeRef.current.parentElement.addEventListener('touchstart', simulateEvent, true);
+      nodeRef.current.parentElement.addEventListener('touchmove', simulateEvent, { passive: false });
+      nodeRef.current.parentElement.addEventListener('touchend', simulateEvent, true);
+    }
+
+    // setting size of a carousel in state
+    window.addEventListener('resize', onResize);
+    onResize();
+
+    // setting size of a carousel in state based on styling
+    window.addEventListener('load', onResize);
+
+    return () => {
+      trackRef && trackRef.current.removeEventListener('transitionend', onTransitionEnd);
+
+      if (nodeRef) {
+        nodeRef.current.parentElement.removeEventListener('mousemove', onMouseMove);
+        nodeRef.current.parentElement.removeEventListener('touchstart', simulateEvent);
+        nodeRef.current.parentElement.removeEventListener('touchmove', simulateEvent);
+        nodeRef.current.parentElement.removeEventListener('touchend', simulateEvent);
+      }
+
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('load', onResize);
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [nodeRef.current]);
+
+  useEffect(() => {
+    setTransitionEnabled(true);
+  }, [props.value]);
+
+  const getChildren = () => {
+    if (!props.children) {
+      if (props.slides) {
+        return props.slides;
+      }
+      return [];
+    }
+    if (Array.isArray(props.children)) {
+      return props.children;
+    }
+    return [props.children];
+  };
+
+  /**
+   * Clamps number between 0 and last slide index.
+   * @param {number} value to be clamped
+   * @return {number} new value
+   */
+  const clamp = value => {
+    const maxValue = getChildren().length - 1;
+    if (value > maxValue) {
+      return maxValue;
+    }
+    if (value < 0) {
+      return 0;
+    }
+    return value;
+  };
+
+  const getCurrentValue = () => clamp(props.value);
+
+  /**
+   * Returns the current slide index (from either props or internal state)
+   * @return {number} index
+   */
+  const getCurrentSlideIndex = () => clamp(getCurrentValue());
+
+  const getActiveSlideIndex = () => getCurrentSlideIndex();
+
   /**
    * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
    * @param {event} e event
@@ -208,20 +208,26 @@ const Carousel = props => {
   };
 
   /**
-   * Function handling touch move if drag has started. Sets dragOffset in the state.
-   * @param {event} e event
+   * Clamps a provided value and triggers onChange
+   * @param {number} value desired index to change current value to
+   * @return {undefined}
    */
-  const onTouchMove = e => {
-    if (Math.abs(slideMovement.dragOffset)) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const { changedTouches } = e;
-    if (slideMovement.dragStart !== null) {
-      setSlideMovement(previousState => ({
-        dragOffset: changedTouches[0].pageX - previousState.dragStart,
-      }));
-    }
+  const changeSlide = value => props.onChange(clamp(value));
+
+  /**
+   * Calculates width of a single slide in a carousel
+   * @return {number} width of a slide in px
+   */
+  const getCarouselElementWidth = () => props.itemWidth || carouselWidth;
+
+  /**
+   * Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
+   * @return {number} index
+   */
+  const getNearestSlideIndex = () => {
+    const slideIndexOffset = -Math.round(slideMovement.dragOffset / getCarouselElementWidth());
+
+    return getCurrentValue() + slideIndexOffset;
   };
 
   /**
@@ -247,98 +253,6 @@ const Carousel = props => {
     }
   });
 
-  /**
-   * Handler setting transitionEnabled value in state to false after transition animation ends
-   */
-  const onTransitionEnd = () => {
-    setTransitionEnabled(true);
-  };
-
-  /**
-   * Simulates mouse events when touch events occur
-   * @param {event} e A touch event
-   */
-  const simulateEvent = e => {
-    const touch = e.changedTouches[0];
-    const {
-      screenX,
-      screenY,
-      clientX,
-      clientY,
-    } = touch;
-    const touchEventMap = {
-      touchstart: 'mousedown',
-      touchmove: 'mousemove',
-      touchend: 'mouseup',
-    };
-    const simulatedEvent = new MouseEvent(
-      touchEventMap[e.type],
-      {
-        bubbles: true,
-        cancelable: true,
-        view: window,
-        detail: 1,
-        screenX,
-        screenY,
-        clientX,
-        clientY,
-      },
-    );
-    touch.target.dispatchEvent(simulatedEvent);
-  };
-
-
-  /* ========== control ========== */
-  /**
-   * Clamps number between 0 and last slide index.
-   * @param {number} value to be clamped
-   * @return {number} new value
-   */
-  const clamp = value => {
-    const maxValue = getChildren().length - 1;
-    if (value > maxValue) {
-      return maxValue;
-    }
-    if (value < 0) {
-      return 0;
-    }
-    return value;
-  };
-
-  /**
-   * Clamps a provided value and triggers onChange
-   * @param {number} value desired index to change current value to
-   * @return {undefined}
-   */
-  const changeSlide = value => props.onChange(clamp(value));
-
-  const nextSlide = () => changeSlide(getCurrentValue());
-
-  const prevSlide = () => changeSlide(getCurrentValue());
-
-
-  /* ========== positioning ========== */
-  /**
-   * Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
-   * @return {number} index
-   */
-  const getNearestSlideIndex = () => {
-    const slideIndexOffset = -Math.round(slideMovement.dragOffset / getCarouselElementWidth());
-
-    return getCurrentValue() + slideIndexOffset;
-  };
-
-  /**
-   * Returns the current slide index (from either props or internal state)
-   * @return {number} index
-   */
-  const getCurrentSlideIndex = () => clamp(getCurrentValue());
-
-  /**
-   * Calculates width of a single slide in a carousel
-   * @return {number} width of a slide in px
-   */
-  const getCarouselElementWidth = () => props.itemWidth || carouselWidth;
 
   /**
    * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
