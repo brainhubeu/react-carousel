@@ -114,42 +114,15 @@ const Carousel = props => {
     }
   });
 
-  /* ========== initial handlers and positioning setup ========== */
   useEffect(() => {
-    // adding listener to remove transition when animation finished
-    trackRef && trackRef.current.addEventListener('transitionend', onTransitionEnd);
-
-    // adding event listeners for swipe
-    if (nodeRef) {
-      nodeRef.current.parentElement.addEventListener('touchstart', simulateEvent, true);
-      nodeRef.current.parentElement.addEventListener('touchmove', simulateEvent, { passive: false });
-      nodeRef.current.parentElement.addEventListener('touchend', simulateEvent, true);
-    }
-
-    // setting size of a carousel in state
-    window.addEventListener('resize', onResize);
     onResize();
 
-    // setting size of a carousel in state based on styling
-    window.addEventListener('load', onResize);
-
     return () => {
-      trackRef && trackRef.current.removeEventListener('transitionend', onTransitionEnd);
-
-      if (nodeRef) {
-        nodeRef.current.parentElement.removeEventListener('mousemove', onMouseMove);
-        nodeRef.current.parentElement.removeEventListener('touchstart', simulateEvent);
-        nodeRef.current.parentElement.removeEventListener('touchmove', simulateEvent);
-        nodeRef.current.parentElement.removeEventListener('touchend', simulateEvent);
-      }
-
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('load', onResize);
       if (interval) {
         clearInterval(interval);
       }
     };
-  }, [nodeRef.current]);
+  }, []);
 
   useEffect(() => {
     setTransitionEnabled(true);
@@ -267,7 +240,15 @@ const Carousel = props => {
   };
 
   useEventListener('mouseup', onMouseUpTouchEnd);
+  useEventListener('resize', onResize);
+  useEventListener('load', onResize);
+
   useEventListener('mousemove', onMouseMove, nodeRef.current);
+  useEventListener('touchstart', simulateEvent, nodeRef.current);
+  useEventListener('touchmove', simulateEvent, nodeRef.current);
+  useEventListener('touchend', simulateEvent, nodeRef.current);
+
+  useEventListener('transitionend', onTransitionEnd, trackRef.current);
 
 
   /* ========== rendering ========== */
