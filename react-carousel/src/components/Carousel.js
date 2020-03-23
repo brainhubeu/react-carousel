@@ -23,8 +23,6 @@ const Carousel = props => {
 
   const [transitionEnabled, setTransitionEnabled] = useState(false);
 
-  const interval = null;
-
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
 
@@ -95,14 +93,6 @@ const Carousel = props => {
       }));
     }
   });
-
-  useEffect(() => {
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     setTransitionEnabled(true);
