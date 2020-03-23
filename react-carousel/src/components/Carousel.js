@@ -9,6 +9,7 @@ import classnames from 'classnames';
 
 import config from '../constants/config';
 import useEventListener from '../hooks/useEventListener';
+
 import CarouselItem from './CarouselItem';
 
 import '../styles/Carousel.scss';
@@ -37,7 +38,6 @@ const Carousel = props => {
 
     // adding event listeners for swipe
     if (nodeRef) {
-
       // console.log('HERE');
       // nodeRef.current.parentElement.addEventListener('mousemove', onMouseMove, false);
       // document.addEventListener('mouseup', onMouseUpTouchEnd, false);
@@ -69,8 +69,8 @@ const Carousel = props => {
       if (interval) {
         clearInterval(interval);
       }
-    }
-  }, [ nodeRef.current]);
+    };
+  }, [nodeRef.current]);
 
   useEffect(() => {
     setTransitionEnabled(true);
