@@ -6,10 +6,10 @@ jobs:
     working_directory: ~/app/react-carousel
     steps:
       - checkout
-      - run: yarn install --non-interactive
-      - run: yarn lint
-      - run: yarn test
-      - run: yarn build
+      - run: yarn install --frozen-lockfile --non-interactive
+      - run: yarn workspace @brainhubeu/react-carousel lint
+      - run: yarn workspace @brainhubeu/react-carousel test
+      - run: yarn workspace @brainhubeu/react-carousel build
       - run:
           name: publish gh pages for a given PR
           command: ../tools/deploy-gh-pages-pr.sh
@@ -30,10 +30,11 @@ jobs:
       - image: circleci/node:12.16.1
     steps:
       - checkout
-      - run: yarn install --non-interactive
+      - run: yarn install --frozen-lockfile --non-interactive
       - run:
           name: npm publish CDN version
           command: |
+            cd react-carousel
             sed -i 's/export default Carousel;/global.BrainhubeuReactCarousel = Carousel; export default Carousel;/g' src/components/Carousel.js
             sed -i 's/export default CarouselDots;/global.BrainhubeuReactCarouselDots = CarouselDots; export default CarouselDots;/g' src/components/CarouselDots.js
             sed -i 's/export default CarouselItem;/global.BrainhubeuReactCarouselItem = CarouselItem; export default CarouselItem;/g' src/components/CarouselItem.js
@@ -49,6 +50,7 @@ jobs:
       - run:
           name: npm publish
           command: |
+            cd react-carousel
             yarn build
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish
