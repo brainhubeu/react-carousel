@@ -12,7 +12,7 @@ jobs:
       - run: yarn workspace @brainhubeu/react-carousel build
       - run:
           name: publish gh pages for a given PR
-          command: ../tools/deploy-gh-pages-pr.sh
+          command: ./tools/deploy-gh-pages-pr.sh
 
   test-e2e:
     docker:
