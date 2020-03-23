@@ -1,5 +1,6 @@
-/* eslint-disable react/no-unused-prop-types */ // we disable propTypes usage checking as we use getProp function
-import React, { Component } from 'react';
+/* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
+/* eslint-disable react/jsx-no-bind  */ // we disable propTypes usage checking as we use getProp function
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import throttle from 'lodash/throttle';
 import isNil from 'lodash/isNil';
 import has from 'lodash/has';
@@ -7,111 +8,87 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import config from '../constants/config';
-
+import useEventListener from '../hooks/useEventListener';
 import CarouselItem from './CarouselItem';
+
 import '../styles/Carousel.scss';
 
-class Carousel extends Component {
-  static propTypes = {
-    value: PropTypes.number,
-    onChange: PropTypes.func,
-    children: PropTypes.node,
-    slides: PropTypes.arrayOf(PropTypes.node),
-    itemWidth: PropTypes.number,
-    offset: PropTypes.number,
-    draggable: PropTypes.bool,
-    animationSpeed: PropTypes.number,
-    className: PropTypes.string,
-    breakpoints: PropTypes.objectOf(PropTypes.shape({
-      draggable: PropTypes.bool,
-      animationSpeed: PropTypes.number,
-      dots: PropTypes.bool,
-      className: PropTypes.string,
-    })),
-  };
-  static defaultProps = {
-    offset: 0,
-    animationSpeed: 500,
-    draggable: true,
-  };
+const Carousel = props => {
+  const [carouselWidth, setCarouselWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      carouselWidth: 0,
-      windowWidth: 0,
-      clicked: null,
-      dragOffset: 0,
-      dragStart: null,
-      transitionEnabled: false,
-    };
-    this.interval = null;
-  }
+  const [slideMovement, setSlideMovement] = useState({
+    clicked: null,
+    dragStart: null,
+    dragOffset: 0,
+  });
+
+  const [transitionEnabled, setTransitionEnabled] = useState(false);
+
+  const interval = null;
+
+  const trackRef = useRef(null);
+  const nodeRef = useRef(null);
 
   /* ========== initial handlers and positioning setup ========== */
-  componentDidMount() {
+  useEffect(() => {
     // adding listener to remove transition when animation finished
-    this.trackRef && this.trackRef.addEventListener('transitionend', this.onTransitionEnd);
+    trackRef && trackRef.current.addEventListener('transitionend', onTransitionEnd);
 
     // adding event listeners for swipe
-    if (this.node) {
-      this.node.parentElement.addEventListener('mousemove', this.onMouseMove, true);
-      document.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.parentElement.addEventListener('touchstart', this.simulateEvent, true);
-      this.node.parentElement.addEventListener('touchmove', this.simulateEvent, { passive: false });
-      this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
+    if (nodeRef) {
+
+      // console.log('HERE');
+      // nodeRef.current.parentElement.addEventListener('mousemove', onMouseMove, false);
+      // document.addEventListener('mouseup', onMouseUpTouchEnd, false);
+      nodeRef.current.parentElement.addEventListener('touchstart', simulateEvent, true);
+      nodeRef.current.parentElement.addEventListener('touchmove', simulateEvent, { passive: false });
+      nodeRef.current.parentElement.addEventListener('touchend', simulateEvent, true);
     }
 
     // setting size of a carousel in state
-    window.addEventListener('resize', this.onResize);
-    this.onResize();
+    window.addEventListener('resize', onResize);
+    onResize();
 
     // setting size of a carousel in state based on styling
-    window.addEventListener('load', this.onResize);
-  }
+    window.addEventListener('load', onResize);
 
-  componentDidUpdate(prevProps) {
-    const valueChanged = this.checkIfValueChanged(prevProps);
+    return () => {
+      trackRef && trackRef.current.removeEventListener('transitionend', onTransitionEnd);
 
-    if (valueChanged) {
-      this.setState({
-        transitionEnabled: true,
-      });
+      if (nodeRef) {
+        nodeRef.current.parentElement.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUpTouchEnd);
+        nodeRef.current.parentElement.removeEventListener('touchstart', simulateEvent);
+        nodeRef.current.parentElement.removeEventListener('touchmove', simulateEvent);
+        nodeRef.current.parentElement.removeEventListener('touchend', simulateEvent);
+      }
+
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('load', onResize);
+      if (interval) {
+        clearInterval(interval);
+      }
     }
-  }
+  }, [onMouseDown, onMouseMove, onMouseUpTouchEnd, nodeRef.current]);
 
-  componentWillUnmount() {
-    this.trackRef && this.trackRef.removeEventListener('transitionend', this.onTransitionEnd);
-
-    if (this.node) {
-      this.node.parentElement.removeEventListener('mousemove', this.onMouseMove);
-      document.removeEventListener('mouseup', this.onMouseUpTouchEnd);
-      this.node.parentElement.removeEventListener('touchstart', this.simulateEvent);
-      this.node.parentElement.removeEventListener('touchmove', this.simulateEvent);
-      this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
-    }
-
-    window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('load', this.onResize);
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-  }
+  useEffect(() => {
+    setTransitionEnabled(true);
+  }, [props.value]);
 
   /* ========== tools ========== */
-  getCurrentValue = () => this.clamp(this.props.value);
+  const getCurrentValue = () => clamp(props.value);
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
    * @param {string} propName name of the prop you want to get
-   * @param {object} customProps props object (used e.g. when you want to get prop from prevProps object instead of this.props)
+   * @param {object} customProps props object (used e.g. when you want to get prop from prevProps object instead of props)
    * @return {any} props value
    */
-  getProp = (propName, customProps = null) => {
-    const props = customProps || this.props;
+  const getProp = (propName, customProps = null) => {
+    const usedProps = customProps || props;
     let activeBreakpoint = null;
-    if (props.breakpoints) {
-      const windowWidth = this.state.windowWidth;
+    if (usedProps.breakpoints) {
       const resolutions = Object.keys(props.breakpoints);
       resolutions.forEach(resolutionString => {
         const resolution = parseInt(resolutionString);
@@ -123,42 +100,42 @@ class Carousel extends Component {
       });
     }
     if (activeBreakpoint) {
-      if (has(props.breakpoints[activeBreakpoint], propName)) {
-        return props.breakpoints[activeBreakpoint][propName];
+      if (has(usedProps.breakpoints[activeBreakpoint], propName)) {
+        return usedProps.breakpoints[activeBreakpoint][propName];
       }
     }
-    return props[propName];
+    return usedProps[propName];
   };
 
   /**
-   * Check if this.props.value changed after update
+   * Check if props.value changed after update
    * @param {object} prevProps
    * @return {boolean} result
    */
-  checkIfValueChanged = prevProps => {
-    const currentValue = this.clamp(this.props.value);
-    const prevValue = this.clamp(prevProps.value);
+  const checkIfValueChanged = prevProps => {
+    const currentValue = clamp(props.value);
+    const prevValue = clamp(prevProps.value);
     return currentValue !== prevValue;
   };
 
-  getChildren = () => {
-    if (!this.props.children) {
-      if (this.props.slides) {
-        return this.props.slides;
+  const getChildren = () => {
+    if (!props.children) {
+      if (props.slides) {
+        return props.slides;
       }
       return [];
     }
-    if (Array.isArray(this.props.children)) {
-      return this.props.children;
+    if (Array.isArray(props.children)) {
+      return props.children;
     }
-    return [this.props.children];
+    return [props.children];
   };
 
-  getActiveSlideIndex = () => this.getCurrentSlideIndex();
+  const getActiveSlideIndex = () => getCurrentSlideIndex();
 
-  getTargetMod = (customValue = null) => {
-    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
-    const length = this.getChildren().length;
+  const getTargetMod = (customValue = null) => {
+    const value = isNil(customValue) ? getCurrentValue() : customValue;
+    const length = getChildren().length;
     let targetSlide;
     if (value >= 0) {
       targetSlide = value % length;
@@ -168,7 +145,7 @@ class Carousel extends Component {
     return targetSlide;
   };
 
-  getTargetSlide = () => this.getTargetMod();
+  const getTargetSlide = () => getTargetMod();
 
   /* event handlers */
   /**
@@ -176,17 +153,15 @@ class Carousel extends Component {
    * throttled to improve performance
    * @type {Function}
    */
-  onResize = throttle(() => {
-    if (!this.node) {
+  const onResize = throttle(() => {
+    if (!nodeRef) {
       return;
     }
 
-    const width = this.node.offsetWidth;
+    const width = nodeRef.current.offsetWidth;
 
-    this.setState(() => ({
-      carouselWidth: width,
-      windowWidth: window.innerWidth,
-    }));
+    setCarouselWidth(width);
+    setWindowWidth(window.innerWidth);
   }, config.resizeEventListenerThrottle);
 
   /**
@@ -194,54 +169,56 @@ class Carousel extends Component {
    * @param {event} e event
    * @param {number} index of the element drag started on
    */
-  onMouseDown = (e, index) => {
+  const onMouseDown = useCallback((e, index) => {
     e.preventDefault();
     e.stopPropagation();
     const { pageX } = e;
-    this.setState(() => ({
+
+    setSlideMovement({
       clicked: index,
       dragStart: pageX,
-    }));
-  };
+    });
+  });
 
   /**
    * Function handling mouse move if drag has started. Sets dragOffset in the state.
    * @param {event} e event
    */
-  onMouseMove = e => {
+  const onMouseMove = useCallback(e => {
     const { pageX } = e;
-    if (this.state.dragStart !== null) {
-      this.setState(previousState => ({
+    if (slideMovement.dragStart !== null) {
+      setSlideMovement(previousState => ({
+        ...slideMovement,
         dragOffset: pageX - previousState.dragStart,
       }));
     }
-  };
+  });
 
   /**
    * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
    * @param {event} e event
    * @param {number} index of the element drag started on
    */
-  onTouchStart = (e, index) => {
+  const onTouchStart = (e, index) => {
     const { changedTouches } = e;
-    this.setState(() => ({
+    setSlideMovement({
       clicked: index,
       dragStart: changedTouches[0].pageX,
-    }));
+    });
   };
 
   /**
    * Function handling touch move if drag has started. Sets dragOffset in the state.
    * @param {event} e event
    */
-  onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset)) {
+  const onTouchMove = e => {
+    if (Math.abs(slideMovement.dragOffset)) {
       e.preventDefault();
       e.stopPropagation();
     }
     const { changedTouches } = e;
-    if (this.state.dragStart !== null) {
-      this.setState(previousState => ({
+    if (slideMovement.dragStart !== null) {
+      setSlideMovement(previousState => ({
         dragOffset: changedTouches[0].pageX - previousState.dragStart,
       }));
     }
@@ -253,37 +230,35 @@ class Carousel extends Component {
    * It resets clicked index, dragOffset and dragStart values in state.
    * @param {event} e event
    */
-  onMouseUpTouchEnd = e => {
-    if (this.state.dragStart !== null) {
+  const onMouseUpTouchEnd = useCallback(e => {
+    if (slideMovement.dragStart !== null) {
       e.preventDefault();
-      if (this.getProp('draggable')) {
-        if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
-          this.changeSlide(this.getNearestSlideIndex());
+      if (getProp('draggable')) {
+        if (Math.abs(slideMovement.dragOffset) > config.clickDragThreshold) {
+          changeSlide(getNearestSlideIndex());
         }
       }
-      this.setState(() => ({
+      setSlideMovement({
         clicked: null,
         dragOffset: 0,
         dragStart: null,
-        transitionEnabled: true,
-      }));
+      });
+      setTransitionEnabled(true);
     }
-  };
+  });
 
   /**
    * Handler setting transitionEnabled value in state to false after transition animation ends
    */
-  onTransitionEnd = () => {
-    this.setState(() => ({
-      transitionEnabled: true,
-    }));
+  const onTransitionEnd = () => {
+    setTransitionEnabled(true);
   };
 
   /**
    * Simulates mouse events when touch events occur
    * @param {event} e A touch event
    */
-  simulateEvent = e => {
+  const simulateEvent = e => {
     const touch = e.changedTouches[0];
     const {
       screenX,
@@ -319,8 +294,8 @@ class Carousel extends Component {
    * @param {number} value to be clamped
    * @return {number} new value
    */
-  clamp = value => {
-    const maxValue = this.getChildren().length - 1;
+  const clamp = value => {
+    const maxValue = getChildren().length - 1;
     if (value > maxValue) {
       return maxValue;
     }
@@ -335,11 +310,11 @@ class Carousel extends Component {
    * @param {number} value desired index to change current value to
    * @return {undefined}
    */
-  changeSlide = value => this.props.onChange(this.clamp(value));
+  const changeSlide = value => props.onChange(clamp(value));
 
-  nextSlide = () => this.changeSlide(this.getCurrentValue());
+  const nextSlide = () => changeSlide(getCurrentValue());
 
-  prevSlide = () => this.changeSlide(this.getCurrentValue());
+  const prevSlide = () => changeSlide(getCurrentValue());
 
 
   /* ========== positioning ========== */
@@ -347,47 +322,49 @@ class Carousel extends Component {
    * Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
    * @return {number} index
    */
-  getNearestSlideIndex = () => {
-    const slideIndexOffset = -Math.round(this.state.dragOffset / this.getCarouselElementWidth());
+  const getNearestSlideIndex = () => {
+    const slideIndexOffset = -Math.round(slideMovement.dragOffset / getCarouselElementWidth());
 
-    return this.getCurrentValue() + slideIndexOffset;
+    return getCurrentValue() + slideIndexOffset;
   };
 
   /**
    * Returns the current slide index (from either props or internal state)
    * @return {number} index
    */
-  getCurrentSlideIndex = () => this.clamp(this.getCurrentValue());
+  const getCurrentSlideIndex = () => clamp(getCurrentValue());
 
   /**
    * Calculates width of a single slide in a carousel
    * @return {number} width of a slide in px
    */
-  getCarouselElementWidth = () => this.props.itemWidth || this.state.carouselWidth;
+  const getCarouselElementWidth = () => props.itemWidth || carouselWidth;
 
   /**
    * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
    * @return {number} offset in px
    */
-  getTransformOffset = () => {
-    const elementWidthWithOffset = this.getCarouselElementWidth() + this.getProp('offset');
-    const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
-    const currentValue = this.getActiveSlideIndex();
+  const getTransformOffset = () => {
+    const elementWidthWithOffset = getCarouselElementWidth() + getProp('offset');
+    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
+    const currentValue = getActiveSlideIndex();
 
     return dragOffset - currentValue * elementWidthWithOffset;
   };
 
+  useEventListener('mouseup', onMouseUpTouchEnd);
+  useEventListener('mousemove', onMouseMove, nodeRef.current);
+
 
   /* ========== rendering ========== */
-  renderCarouselItems = () => {
-    const transformOffset = this.getTransformOffset();
-    const children = this.getChildren();
+  const renderCarouselItems = () => {
+    const transformOffset = getTransformOffset();
+    const children = getChildren();
 
     const trackLengthMultiplier = 1;
-    const trackWidth = this.state.carouselWidth * children.length * trackLengthMultiplier;
-    const animationSpeed = this.getProp('animationSpeed');
-    const transitionEnabled = this.state.transitionEnabled;
-    const draggable = this.getProp('draggable') && children && children.length > 1;
+    const trackWidth = carouselWidth * children.length * trackLengthMultiplier;
+    const animationSpeed = getProp('animationSpeed');
+    const draggable = getProp('draggable') && children && children.length > 1;
 
     const trackStyles = {
       width: `${trackWidth}px`,
@@ -409,20 +386,20 @@ class Carousel extends Component {
             },
           )}
           style={trackStyles}
-          ref={el => this.trackRef = el}
+          ref={trackRef}
         >
           {slides.map((carouselItem, index) => (
             // eslint-disable-next-line no-undefined
             [null, undefined].includes(carouselItem) ? null : (
               <CarouselItem
                 key={index}
-                currentSlideIndex={this.getActiveSlideIndex()}
+                currentSlideIndex={getActiveSlideIndex()}
                 index={index}
-                width={this.getCarouselElementWidth()}
-                offset={index !== slides.length ? this.props.offset : 0}
-                onMouseDown={this.onMouseDown}
-                onTouchStart={this.onTouchStart}
-                isDragging={Math.abs(this.state.dragOffset)}
+                width={getCarouselElementWidth()}
+                offset={index !== slides.length ? props.offset : 0}
+                onMouseDown={onMouseDown}
+                onTouchStart={onTouchStart}
+                isDragging={!!Math.abs(slideMovement.dragOffset)}
               >
                 {carouselItem}
               </CarouselItem>
@@ -433,18 +410,39 @@ class Carousel extends Component {
     );
   };
 
-  render() {
-    return (
-      <div>
-        <div
-          className={classnames('BrainhubCarousel', this.getProp('className'))}
-          ref={el => this.node = el}
-        >
-          {this.renderCarouselItems()}
-        </div>
+  return (
+    <div>
+      <div
+        className={classnames('BrainhubCarousel', getProp('className'))}
+        ref={nodeRef}
+      >
+        {renderCarouselItems()}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+Carousel.propTypes = {
+  value: PropTypes.number,
+  onChange: PropTypes.func,
+  children: PropTypes.node,
+  slides: PropTypes.arrayOf(PropTypes.node),
+  itemWidth: PropTypes.number,
+  offset: PropTypes.number,
+  draggable: PropTypes.bool,
+  animationSpeed: PropTypes.number,
+  className: PropTypes.string,
+  breakpoints: PropTypes.objectOf(PropTypes.shape({
+    draggable: PropTypes.bool,
+    animationSpeed: PropTypes.number,
+    dots: PropTypes.bool,
+    className: PropTypes.string,
+  })),
+};
+Carousel.defaultProps = {
+  offset: 0,
+  animationSpeed: 500,
+  draggable: true,
+};
 
 export default Carousel;
