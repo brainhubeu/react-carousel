@@ -2,7 +2,7 @@
 You can turn default arrows on, using arrows prop.
 ```jsx render
 <Carousel
-  arrows
+  plugins={['arrows']}
 >
   <img src={imageOne} />
   <img src={imageTwo} />

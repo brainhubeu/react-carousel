@@ -3,11 +3,19 @@ You can set custom arrows, using arrowLeft and arrowRight props. You can set cus
 ```jsx render
 // import Icon from 'react-fa';
 <Carousel
-    arrowLeft={<Icon name="angle-double-left" />}
-    arrowLeftDisabled={<Icon name="angle-left" />}
-    arrowRight={<Icon name="angle-double-right" />}
-    arrowRightDisabled={<Icon name="angle-right" />}
-    addArrowClickHandler
+    plugins={[
+      {
+        resolve: arrowsPlugin,
+        options: {
+          arrowLeft: <Icon name="angle-double-left" />,
+          arrowLeftDisabled: <Icon name="angle-left" />,
+          arrowRight: <Icon name="angle-double-right" />,
+          arrowRightDisabled: <Icon name="angle-right" />,
+          addArrowClickHandler: true,
+        }
+      }
+    ]}
+    
 >
   <img src={imageOne} />
   <img src={imageTwo} />

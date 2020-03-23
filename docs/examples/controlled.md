@@ -28,8 +28,10 @@ class MyCarousel extends React.Component {
           (<img src={imageTwo} />),
           (<img src={imageThree} />),
         ]}
-        arrows
-        clickToChange
+        plugins={[
+          'arrows',
+          'clickToChange'
+        ]}
       />
     </div>
     );

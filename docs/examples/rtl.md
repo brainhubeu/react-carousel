@@ -1,7 +1,9 @@
 ## RTL
 
 ```jsx render
-<Carousel arrows rtl dots>
+<Carousel 
+    plugins={['rtl', 'arrows']} 
+>
   <img src={imageOne} />
   <img src={imageTwo} />
   <img src={imageThree} />

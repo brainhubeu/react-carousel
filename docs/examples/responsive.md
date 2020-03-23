@@ -3,16 +3,35 @@ You can set all props (except value, onChange, responsive, children) to differen
 
 ```jsx render
 <Carousel
-  slidesPerPage={3}
-  arrows
+  plugins={[
+    'arrows',
+    {
+      resolve: slidesPerPagePlugin,
+      options: {
+       numberOfSlides: 3
+      }
+    },
+  ]}
   breakpoints={{
     640: {
-      slidesPerPage: 1,
-      arrows: false
+      plugins: [
+       {
+         resolve: slidesPerPagePlugin,
+         options: {
+          numberOfSlides: 1
+         }
+       },
+     ]
     },
     900: {
-      slidesPerPage: 2,
-      arrows: false
+      plugins: [
+       {
+         resolve: slidesPerPagePlugin,
+         options: {
+          numberOfSlides: 2
+         }
+       },
+     ]
     }
   }}
 >

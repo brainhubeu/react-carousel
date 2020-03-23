@@ -3,7 +3,7 @@
   url: /
   file: pages/landing.js
 
-- title: DOCS
+- title: "DOCS__BUILD_INFO__"
   dir: ../docs
   url: docs
   sidemenu:
@@ -38,12 +38,12 @@
           file: responsive.md
         - title: Autoplay & animation speed
           file: animation.md
-        - title: Simple dots
-          file: simpleDots.md
         - title: Dots
           file: dots.md
         - title: Thumbnails
           file: thumbnails.md
+        - title: Flex Container
+          file: flexContainer.md
     - title: Api
       dir: api
       items:
@@ -51,3 +51,12 @@
           file: carousel.md
         - title: Dots props
           file: dots.md
+    - title: Contributions Guide
+      dir: contributions-guide
+      items:
+        - title: Workflow
+          file: workflow.md
+        - title: Decision log
+          file: decision-log.md
+        - title: Labels
+          file: labels.md
