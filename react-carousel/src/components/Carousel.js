@@ -70,7 +70,7 @@ const Carousel = props => {
         clearInterval(interval);
       }
     }
-  }, [onMouseDown, onMouseMove, onMouseUpTouchEnd, nodeRef.current]);
+  }, [ nodeRef.current]);
 
   useEffect(() => {
     setTransitionEnabled(true);

@@ -1,0 +1,85 @@
+{
+  "name": "@brainhubeu/react-carousel",
+  "version": "2.0.0-alpha.0",
+  "description": "Carousel component for React",
+  "engines": {
+    "npm": ">=6.14.3"
+  },
+  "files": [
+    "lib/*"
+  ],
+  "scripts": {
+    "lint": "esw webpack.config.* src tools test --color",
+    "clean-dist": "rimraf ./lib && mkdir lib",
+    "prebuild": "npm run clean-dist",
+    "build": "node tools/build.js",
+    "test": "jest",
+    "precommit": "npm run lint"
+  },
+  "author": "Brainhub",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/register": "^7.8.6",
+    "autoprefixer": "^9.7.4",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "chalk": "^3.0.0",
+    "classnames": "^2.2.6",
+    "css-loader": "^3.4.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^6.8.0",
+    "eslint-config-brainhub": "^1.12.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-watch": "^6.0.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^5.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "jsdom": "^16.2.1",
+    "lodash": "^4.17.15",
+    "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
+    "rimraf": "3.0.2",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.42.0"
+  },
+  "peerDependencies": {
+    "react": ">0.14.0 || >15.0.0",
+    "react-dom": ">0.14.0 || >15.0.0"
+  },
+  "keywords": [
+    "react",
+    "carousel",
+    "react-carousel",
+    "react-component",
+    "component",
+    "image",
+    "image-gallery",
+    "image-slider",
+    "responsive",
+    "gallery",
+    "rwd"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brainhubeu/react-carousel"
+  },
+  "main": "./lib/react-carousel.js"
+}

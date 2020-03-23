@@ -40,10 +40,8 @@ node_modules
 .DS_Store
 
 # Debug files
-selenium-debug.log
 .npm.debug
 package-lock.json
 
-html-report/
-lib/
-test/cypress/videos/
+react-carousel/lib/
+cypress/videos/

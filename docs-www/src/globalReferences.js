@@ -2,9 +2,9 @@ const { default: Carousel, Dots } = (() => {
   if (!global.window) {
     global.window = {};
   }
-  if ('development' === 'development') {
+  if ('__RC_ENV__' === 'development') {
     console.log('connecting with local react-carousel source code');
-    return require('../../src');
+    return require('../../react-carousel/src');
   } else {
     console.log('connecting with @brainhubeu/react-carousel installed in node_modules');
     require('@brainhubeu/react-carousel/lib/style.css');

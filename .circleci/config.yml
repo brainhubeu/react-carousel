@@ -3,16 +3,16 @@ jobs:
   test:
     docker:
       - image: circleci/node:12.16.1
-    working_directory: ~/app
+    working_directory: ~/app/react-carousel
     steps:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
-      - run: yarn test:unit
+      - run: yarn test
       - run: yarn build
       - run:
           name: publish gh pages for a given PR
-          command: ./tools/deploy-gh-pages-pr.sh
+          command: ../tools/deploy-gh-pages-pr.sh
 
   test-e2e:
     docker:
