@@ -1,14 +1,19 @@
 /* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
 /* eslint-disable react/jsx-no-bind  */
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import has from 'lodash/has';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import config from '../constants/config';
+// hooks
 import useEventListener from '../hooks/useEventListener';
 import useOnResize from '../hooks/useOnResize';
+import useTransition from '../hooks/useTransition';
+// tools
 import simulateEvent from '../tools/simulateEvent';
+import getChildren from '../tools/getChildren';
+import clamp from '../tools/clamp';
+import config from '../constants/config';
 
 import CarouselItem from './CarouselItem';
 
@@ -21,12 +26,12 @@ const Carousel = props => {
     dragOffset: 0,
   });
 
-  const [transitionEnabled, setTransitionEnabled] = useState(false);
-
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
 
   const [carouselWidth, windowWidth] = useOnResize(nodeRef);
+
+  const transitionEnabled = useTransition(trackRef, props.value);
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -38,7 +43,7 @@ const Carousel = props => {
     const usedProps = customProps || props;
     let activeBreakpoint = null;
     if (usedProps.breakpoints) {
-      const resolutions = Object.keys(props.breakpoints);
+      const resolutions = Object.keys(usedProps.breakpoints);
       resolutions.forEach(resolutionString => {
         const resolution = parseInt(resolutionString);
         if (windowWidth <= resolution) {
@@ -57,105 +62,22 @@ const Carousel = props => {
     return usedProps[propName];
   };
 
-  /**
-   * Handler setting transitionEnabled value in state to false after transition animation ends
-   */
-  const onTransitionEnd = () => {
-    setTransitionEnabled(true);
-  };
-
-  /**
-   * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
-   * @param {event} e event
-   * @param {number} index of the element drag started on
-   */
-  const onMouseDown = useCallback((e, index) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const { pageX } = e;
-
-    setSlideMovement({
-      clicked: index,
-      dragStart: pageX,
-    });
-  });
-
-  /**
-   * Function handling mouse move if drag has started. Sets dragOffset in the state.
-   * @param {event} e event
-   */
-  const onMouseMove = useCallback(e => {
-    const { pageX } = e;
-    if (slideMovement.dragStart !== null) {
-      setSlideMovement(previousState => ({
-        ...slideMovement,
-        dragOffset: pageX - previousState.dragStart,
-      }));
-    }
-  });
-
-  useEffect(() => {
-    setTransitionEnabled(true);
-  }, [props.value]);
-
-  const getChildren = () => {
-    if (!props.children) {
-      if (props.slides) {
-        return props.slides;
-      }
-      return [];
-    }
-    if (Array.isArray(props.children)) {
-      return props.children;
-    }
-    return [props.children];
-  };
-
-  /**
-   * Clamps number between 0 and last slide index.
-   * @param {number} value to be clamped
-   * @return {number} new value
-   */
-  const clamp = value => {
-    const maxValue = getChildren().length - 1;
-    if (value > maxValue) {
-      return maxValue;
-    }
-    if (value < 0) {
-      return 0;
-    }
-    return value;
-  };
-
-  const getCurrentValue = () => clamp(props.value);
+  const getCurrentValue = () => clamp(props.value, props.children, props.slides);
 
   /**
    * Returns the current slide index (from either props or internal state)
    * @return {number} index
    */
-  const getCurrentSlideIndex = () => clamp(getCurrentValue());
+  const getCurrentSlideIndex = () => clamp(getCurrentValue(), props.children, props.slides);
 
   const getActiveSlideIndex = () => getCurrentSlideIndex();
-
-  /**
-   * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
-   * @param {event} e event
-   * @param {number} index of the element drag started on
-   */
-  const onTouchStart = (e, index) => {
-    const { changedTouches } = e;
-    setSlideMovement({
-      clicked: index,
-      dragStart: changedTouches[0].pageX,
-    });
-  };
 
   /**
    * Clamps a provided value and triggers onChange
    * @param {number} value desired index to change current value to
    * @return {undefined}
    */
-  const changeSlide = value => props.onChange(clamp(value));
+  const changeSlide = value => props.onChange(clamp(value, props.children, props.slides));
 
   /**
    * Calculates width of a single slide in a carousel
@@ -171,6 +93,63 @@ const Carousel = props => {
     const slideIndexOffset = -Math.round(slideMovement.dragOffset / getCarouselElementWidth());
 
     return getCurrentValue() + slideIndexOffset;
+  };
+
+  /**
+   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
+   * @return {number} offset in px
+   */
+  const getTransformOffset = () => {
+    const elementWidthWithOffset = getCarouselElementWidth() + getProp('offset');
+    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
+    const currentValue = getActiveSlideIndex();
+
+    return dragOffset - currentValue * elementWidthWithOffset;
+  };
+
+  /**
+   * Function handling mouse move if drag has started. Sets dragOffset in the state.
+   * @param {event} e event
+   */
+  const onMouseMove = useCallback(e => {
+    const { pageX } = e;
+    if (slideMovement.dragStart !== null) {
+      setSlideMovement(previousState => ({
+        ...slideMovement,
+        dragOffset: pageX - previousState.dragStart,
+      }));
+    }
+  }, [slideMovement]);
+
+
+  /**
+   * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
+   * @param {event} e event
+   * @param {number} index of the element drag started on
+   */
+  const onMouseDown = useCallback((e, index) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { pageX } = e;
+
+    setSlideMovement({
+      ...slideMovement,
+      clicked: index,
+      dragStart: pageX,
+    });
+  }, [slideMovement]);
+
+  /**
+   * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
+   * @param {event} e event
+   * @param {number} index of the element drag started on
+   */
+  const onTouchStart = (e, index) => {
+    const { changedTouches } = e;
+    setSlideMovement({
+      clicked: index,
+      dragStart: changedTouches[0].pageX,
+    });
   };
 
   /**
@@ -192,22 +171,8 @@ const Carousel = props => {
         dragOffset: 0,
         dragStart: null,
       });
-      setTransitionEnabled(true);
     }
   });
-
-
-  /**
-   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
-   * @return {number} offset in px
-   */
-  const getTransformOffset = () => {
-    const elementWidthWithOffset = getCarouselElementWidth() + getProp('offset');
-    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
-    const currentValue = getActiveSlideIndex();
-
-    return dragOffset - currentValue * elementWidthWithOffset;
-  };
 
   useEventListener('mouseup', onMouseUpTouchEnd);
 
@@ -216,13 +181,10 @@ const Carousel = props => {
   useEventListener('touchmove', simulateEvent, nodeRef.current);
   useEventListener('touchend', simulateEvent, nodeRef.current);
 
-  useEventListener('transitionend', onTransitionEnd, trackRef.current);
-
-
   /* ========== rendering ========== */
   const renderCarouselItems = () => {
     const transformOffset = getTransformOffset();
-    const children = getChildren();
+    const children = getChildren(props.children, props.slides);
 
     const trackLengthMultiplier = 1;
     const trackWidth = carouselWidth * children.length * trackLengthMultiplier;
@@ -308,4 +270,4 @@ Carousel.defaultProps = {
   draggable: true,
 };
 
-export default Carousel;
+export default React.memo(Carousel);
