@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.13.14",
+  "version": "1.13.15",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.14.3"
@@ -33,7 +33,7 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.1",
     "@babel/register": "^7.9.0",
-    "autoprefixer": "^9.7.4",
+    "autoprefixer": "^9.7.5",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
@@ -55,7 +55,7 @@
     "file-loader": "^6.0.0",
     "gemini": "^7.5.2",
     "html-reporter": "^5.13.0",
-    "html-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^4.0.1",
     "husky": "^4.2.3",
     "isparta": "^4.1.1",
     "jsdom": "^16.2.1",
