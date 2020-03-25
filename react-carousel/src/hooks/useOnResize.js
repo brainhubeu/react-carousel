@@ -8,8 +8,7 @@ import config from "../constants/config";
  * throttled to improve performance
  * @type {Function}
  */
-const useOnResize = nodeRef => {
-  const [carouselWidth, setCarouselWidth] = useState(0);
+const useOnResize = (nodeRef, carouselProps, setCarouselProps) => {
   const [windowWidth, setWindowWidth] = useState(0);
 
   const onResize = throttle(() => {
@@ -19,7 +18,11 @@ const useOnResize = nodeRef => {
 
     const width = nodeRef.current.offsetWidth;
 
-    setCarouselWidth(width);
+    setCarouselProps({
+      ...carouselProps,
+      carouselWidth: width,
+      itemWidth: carouselProps.itemWidth ? carouselProps.itemWidth : width,
+    });
     setWindowWidth(window.innerWidth);
   }, config.resizeEventListenerThrottle);
 
@@ -30,7 +33,7 @@ const useOnResize = nodeRef => {
   useEventListener('resize', onResize);
   useEventListener('load', onResize);
 
-  return [carouselWidth, windowWidth];
+  return [windowWidth];
 };
 
 export default useOnResize;

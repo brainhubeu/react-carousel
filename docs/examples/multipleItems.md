@@ -2,7 +2,13 @@
 You can show more than one item per page, using slidesPerPage prop.
 ```jsx render
 <Carousel
-  slidesPerPage={2}
+  plugins={[
+    {
+      resolve: slidesPerPagePlugin,
+      options: {
+       numberOfSlides: 2
+      }
+  }]}
   arrows
   infinite
 >

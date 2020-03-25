@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
 /* eslint-disable react/jsx-no-bind  */
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useContext } from 'react';
 import has from 'lodash/has';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -15,11 +15,17 @@ import getChildren from '../tools/getChildren';
 import clamp from '../tools/clamp';
 import config from '../constants/config';
 
+// context
+import { CarouselContext } from './CarouselWrapper';
 import CarouselItem from './CarouselItem';
 
 import '../styles/Carousel.scss';
 
 const Carousel = props => {
+  props.plugins && props.plugins.length && props.plugins.forEach(plugin => {
+    plugin.resolve(plugin.options);
+  });
+
   const [slideMovement, setSlideMovement] = useState({
     clicked: null,
     dragStart: null,
@@ -29,9 +35,11 @@ const Carousel = props => {
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
 
-  const [carouselWidth, windowWidth] = useOnResize(nodeRef);
-
   const transitionEnabled = useTransition(trackRef, props.value);
+
+  const { carouselProps, carouselProps: { carouselWidth, itemWidth }, setCarouselProps } = useContext(CarouselContext);
+
+  const [windowWidth] = useOnResize(nodeRef, carouselProps, setCarouselProps);
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -80,17 +88,11 @@ const Carousel = props => {
   const changeSlide = value => props.onChange(clamp(value, props.children, props.slides));
 
   /**
-   * Calculates width of a single slide in a carousel
-   * @return {number} width of a slide in px
-   */
-  const getCarouselElementWidth = () => props.itemWidth || carouselWidth;
-
-  /**
    * Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
    * @return {number} index
    */
   const getNearestSlideIndex = () => {
-    const slideIndexOffset = -Math.round(slideMovement.dragOffset / getCarouselElementWidth());
+    const slideIndexOffset = -Math.round(slideMovement.dragOffset / itemWidth);
 
     return getCurrentValue() + slideIndexOffset;
   };
@@ -100,7 +102,7 @@ const Carousel = props => {
    * @return {number} offset in px
    */
   const getTransformOffset = () => {
-    const elementWidthWithOffset = getCarouselElementWidth() + getProp('offset');
+    const elementWidthWithOffset = itemWidth + getProp('offset');
     const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
     const currentValue = getActiveSlideIndex();
 
@@ -220,7 +222,7 @@ const Carousel = props => {
                 key={index}
                 currentSlideIndex={getActiveSlideIndex()}
                 index={index}
-                width={getCarouselElementWidth()}
+                width={itemWidth}
                 offset={index !== slides.length ? props.offset : 0}
                 onMouseDown={onMouseDown}
                 onTouchStart={onTouchStart}
@@ -252,12 +254,12 @@ Carousel.propTypes = {
   onChange: PropTypes.func,
   children: PropTypes.node,
   slides: PropTypes.arrayOf(PropTypes.node),
-  itemWidth: PropTypes.number,
   offset: PropTypes.number,
   draggable: PropTypes.bool,
   animationSpeed: PropTypes.number,
   className: PropTypes.string,
   breakpoints: PropTypes.objectOf(PropTypes.shape({
+    slidesPerPage: PropTypes.number,
     draggable: PropTypes.bool,
     animationSpeed: PropTypes.number,
     dots: PropTypes.bool,
@@ -265,6 +267,7 @@ Carousel.propTypes = {
   })),
 };
 Carousel.defaultProps = {
+  slidesPerPage: 1,
   offset: 0,
   animationSpeed: 500,
   draggable: true,

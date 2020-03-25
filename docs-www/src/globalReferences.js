@@ -1,8 +1,8 @@
-const { default: Carousel, Dots } = (() => {
+const { default: Carousel, Dots, slidesPerPagePlugin } = (() => {
   if (!global.window) {
     global.window = {};
   }
-  if ('__RC_ENV__' === 'development') {
+  if ('development' === 'development') {
     console.log('connecting with local react-carousel source code');
     return require('../../react-carousel/src');
   } else {
@@ -23,5 +23,5 @@ import thumbnailOne from './static/mona_thumbnail.jpg';
 import thumbnailTwo from './static/scream_thumbnail.jpg';
 import thumbnailThree from './static/starry-night_thumbnail.jpg';
 
-export { Carousel, Dots, Icon, imageOne, imageTwo, imageThree, thumbnailOne, thumbnailTwo, thumbnailThree };
+export { Carousel, Dots, slidesPerPagePlugin, Icon, imageOne, imageTwo, imageThree, thumbnailOne, thumbnailTwo, thumbnailThree };
 
