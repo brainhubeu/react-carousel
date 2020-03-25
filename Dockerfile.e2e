@@ -11,4 +11,4 @@ COPY . /e2e
 ENV CI=true
 RUN yarn install --frozen-lockfile && \
     yarn --cwd docs-www install --frozen-lockfile && \
-    npx cypress verify --spec test/cypress/integration/ClickToChange.test.js
+    npx cypress verify
