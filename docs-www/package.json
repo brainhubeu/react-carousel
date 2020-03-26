@@ -1,7 +1,7 @@
 {
   "name": "@brainhubeu/gatsby-docs-kit-start",
   "description": "Gatsby-Docs-Kit starter repository",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "author": "Brainhub",
   "license": "MIT",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@brainhubeu/gatsby-docs-kit": "3.0.8",
-    "@brainhubeu/react-carousel": "^1.13.14",
+    "@brainhubeu/react-carousel": "^1.13.16",
     "gatsby": "2.20.3",
     "gatsby-link": "2.3.1",
     "lodash": "^4.17.15",
@@ -25,7 +25,7 @@
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-transform-react-constant-elements": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
-    "@babel/preset-react": "^7.9.1",
+    "@babel/preset-react": "^7.9.4",
     "@babel/preset-stage-1": "^7.8.3",
     "@babel/register": "^7.9.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
