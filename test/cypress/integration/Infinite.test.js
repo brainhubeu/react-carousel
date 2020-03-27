@@ -9,14 +9,52 @@ describe('Infinite', () => {
   });
 
   it('repeats slides', () => {
-    for (let i = 0; i < 17; i++) {
-      cy.get('.BrainhubCarousel__arrowRight')
-        .trigger('click');
-    }
+    cy.get('.BrainhubCarousel__arrowRight')
+      .trigger('click');
+
+    cy.get('.BrainhubCarouselItem--active')
+      .children('img')
+      .should('have.attr', 'src')
+      .and('contain', 'scream');
+
+    cy.get('.BrainhubCarousel__arrowRight')
+      .trigger('click');
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
       .should('have.attr', 'src')
       .and('contain', 'starry-night');
+
+    cy.get('.BrainhubCarousel__arrowRight')
+      .trigger('click');
+
+    cy.get('.BrainhubCarouselItem--active')
+      .children('img')
+      .should('have.attr', 'src')
+      .and('contain', 'mona');
+
+    cy.get('.BrainhubCarousel__arrowRight')
+      .trigger('click');
+
+    cy.get('.BrainhubCarouselItem--active')
+      .children('img')
+      .should('have.attr', 'src')
+      .and('contain', 'scream');
+
+    cy.get('.BrainhubCarousel__arrowRight')
+      .trigger('click');
+
+    cy.get('.BrainhubCarouselItem--active')
+      .children('img')
+      .should('have.attr', 'src')
+      .and('contain', 'starry-night');
+
+    cy.get('.BrainhubCarousel__arrowRight')
+      .trigger('click');
+
+    cy.get('.BrainhubCarouselItem--active')
+      .children('img')
+      .should('have.attr', 'src')
+      .and('contain', 'mona');
   });
 });
