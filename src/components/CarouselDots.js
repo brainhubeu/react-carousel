@@ -10,6 +10,7 @@ class CarouselDots extends Component {
     value: PropTypes.number,
     onChange: PropTypes.func,
     rtl: PropTypes.bool,
+    className: PropTypes.string,
   };
 
   onChange = index => () => {
@@ -68,7 +69,7 @@ class CarouselDots extends Component {
 
   render() {
     return (
-      <ul className={classnames('BrainhubCarousel__dots', this.props.rtl ? 'BrainhubCarousel__dots--isRTL' : '')}>
+      <ul className={classnames('BrainhubCarousel__dots', this.getProp('className'), this.props.rtl ? 'BrainhubCarousel__dots--isRTL' : '')}>
         {this.renderCarouselDots()}
       </ul>
     );
