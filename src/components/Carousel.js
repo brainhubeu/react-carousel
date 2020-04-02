@@ -590,7 +590,7 @@ class Carousel extends Component {
                 onTouchStart={this.onTouchStart}
                 clickable={this.getProp('clickToChange')}
                 isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
-                isDraggingEnabled={this.props.draggable}
+                isDraggingEnabled={this.props.draggable || this.props.clickToChange}
               >
                 {carouselItem}
               </CarouselItem>
