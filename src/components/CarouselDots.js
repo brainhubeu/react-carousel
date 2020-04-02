@@ -68,7 +68,7 @@ class CarouselDots extends Component {
   }
 
   render() {
-    const { className = '', rtl } = this.props;
+    const { className, rtl } = this.props;
     return (
       <ul className={classnames('BrainhubCarousel__dots', className, rtl ? 'BrainhubCarousel__dots--isRTL' : '')}>
         {this.renderCarouselDots()}
