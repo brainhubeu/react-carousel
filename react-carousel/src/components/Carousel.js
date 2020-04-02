@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
 /* eslint-disable react/jsx-no-bind  */
-import React, { useRef, useState, useCallback, useContext } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import has from 'lodash/has';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -8,38 +8,37 @@ import classnames from 'classnames';
 // hooks
 import useEventListener from '../hooks/useEventListener';
 import useOnResize from '../hooks/useOnResize';
-import useTransition from '../hooks/useTransition';
 // tools
 import simulateEvent from '../tools/simulateEvent';
 import getChildren from '../tools/getChildren';
 import clamp from '../tools/clamp';
 import config from '../constants/config';
 
-// context
-import { CarouselContext } from './CarouselWrapper';
 import CarouselItem from './CarouselItem';
 
 import '../styles/Carousel.scss';
 
 const Carousel = props => {
-  props.plugins && props.plugins.length && props.plugins.forEach(plugin => {
-    plugin.resolve(plugin.options);
-  });
-
   const [slideMovement, setSlideMovement] = useState({
     clicked: null,
     dragStart: null,
     dragOffset: 0,
   });
+  const [itemWidth, setItemWidth] = useState(0);
+  const [carouselWidth, setCarouselWidth] = useState(0);
+  const [trackWidth, setTrackWidth] = useState(0);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [transitionEnabled, setTransitionEnabled] = useState(false);
+  const children = getChildren(props.children, props.slides);
+  const [slides, setSlides] = useState(children);
+  const [onChange, setOnChange] = useState(null);
+
+  const getCurrentValue = () => clamp(props.value, props.children, props.slides);
 
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
 
-  const transitionEnabled = useTransition(trackRef, props.value);
-
-  const { carouselProps, carouselProps: { carouselWidth, itemWidth }, setCarouselProps } = useContext(CarouselContext);
-
-  const [windowWidth] = useOnResize(nodeRef, carouselProps, setCarouselProps);
+  const [windowWidth] = useOnResize(nodeRef, itemWidth, setItemWidth, setCarouselWidth);
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -70,22 +69,12 @@ const Carousel = props => {
     return usedProps[propName];
   };
 
-  const getCurrentValue = () => clamp(props.value, props.children, props.slides);
-
-  /**
-   * Returns the current slide index (from either props or internal state)
-   * @return {number} index
-   */
-  const getCurrentSlideIndex = () => clamp(getCurrentValue(), props.children, props.slides);
-
-  const getActiveSlideIndex = () => getCurrentSlideIndex();
-
   /**
    * Clamps a provided value and triggers onChange
    * @param {number} value desired index to change current value to
    * @return {undefined}
    */
-  const changeSlide = value => props.onChange(clamp(value, props.children, props.slides));
+  const changeSlide = value => onChange.callback(value);
 
   /**
    * Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
@@ -94,19 +83,7 @@ const Carousel = props => {
   const getNearestSlideIndex = () => {
     const slideIndexOffset = -Math.round(slideMovement.dragOffset / itemWidth);
 
-    return getCurrentValue() + slideIndexOffset;
-  };
-
-  /**
-   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
-   * @return {number} offset in px
-   */
-  const getTransformOffset = () => {
-    const elementWidthWithOffset = itemWidth + getProp('offset');
-    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
-    const currentValue = getActiveSlideIndex();
-
-    return dragOffset - currentValue * elementWidthWithOffset;
+    return onChange.getCurrentValue() + slideIndexOffset;
   };
 
   /**
@@ -133,6 +110,8 @@ const Carousel = props => {
     e.preventDefault();
     e.stopPropagation();
     const { pageX } = e;
+
+    setTransitionEnabled(false);
 
     setSlideMovement({
       ...slideMovement,
@@ -165,6 +144,7 @@ const Carousel = props => {
       e.preventDefault();
       if (getProp('draggable')) {
         if (Math.abs(slideMovement.dragOffset) > config.clickDragThreshold) {
+          setTransitionEnabled(true);
           changeSlide(getNearestSlideIndex());
         }
       }
@@ -176,6 +156,46 @@ const Carousel = props => {
     }
   });
 
+  /**
+   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
+   * @return {number} offset in px
+   */
+  const getTransformOffset = () => {
+    const elementWidthWithOffset = itemWidth + getProp('offset');
+    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
+
+    return dragOffset - props.value * elementWidthWithOffset;
+  };
+
+  const [trackStyles, setTrackStyles] = useState({
+    marginLeft: 0,
+    transform: `translateX(${getTransformOffset()}px)`,
+  });
+
+  useEffect(() => {
+    setTransitionEnabled(true);
+  }, [props.value]);
+
+  useEffect(() => {
+    setOnChange({
+      callback: props.onChange,
+      getCurrentValue,
+    });
+  }, [props.onChange]);
+
+  useEffect(() => {
+    const trackWidth = carouselWidth * children.length;
+
+    setTrackWidth(trackWidth);
+  }, [carouselWidth]);
+
+  useEffect(() => {
+    setTrackStyles({
+      ...trackStyles,
+      transform: `translateX(${getTransformOffset()}px)`,
+    });
+  }, [getTransformOffset()]);
+
   useEventListener('mouseup', onMouseUpTouchEnd);
 
   useEventListener('mousemove', onMouseMove, nodeRef.current);
@@ -183,24 +203,49 @@ const Carousel = props => {
   useEventListener('touchmove', simulateEvent, nodeRef.current);
   useEventListener('touchend', simulateEvent, nodeRef.current);
 
+  props.plugins && props.plugins.length && props.plugins.forEach(plugin => {
+    plugin.resolve({
+      props,
+      options: plugin.options,
+      state: {
+        get: {
+          carouselWidth,
+          itemWidth,
+          trackWidth,
+          slides,
+          trackStyles,
+          slideMovement,
+          onChange,
+          transitionEnabled,
+          activeSlideIndex,
+        },
+        set: {
+          setCarouselWidth,
+          setItemWidth,
+          setTrackWidth,
+          setSlides,
+          setTrackStyles,
+          setOnChange,
+          setTransitionEnabled,
+          setActiveSlideIndex,
+        },
+      },
+      refs: {
+        trackRef,
+      },
+    });
+  });
+
   /* ========== rendering ========== */
   const renderCarouselItems = () => {
-    const transformOffset = getTransformOffset();
-    const children = getChildren(props.children, props.slides);
-
-    const trackLengthMultiplier = 1;
-    const trackWidth = carouselWidth * children.length * trackLengthMultiplier;
     const animationSpeed = getProp('animationSpeed');
     const draggable = getProp('draggable') && children && children.length > 1;
 
-    const trackStyles = {
+    const currentTrackStyles = {
       width: `${trackWidth}px`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
+      transform: trackStyles.transform,
     };
-
-    trackStyles.transform = `translateX(${transformOffset}px)`;
-
-    const slides = children;
 
     return (
       <div className="BrainhubCarousel__trackContainer">
@@ -212,7 +257,7 @@ const Carousel = props => {
               'BrainhubCarousel__track--draggable': draggable,
             },
           )}
-          style={trackStyles}
+          style={currentTrackStyles}
           ref={trackRef}
         >
           {slides.map((carouselItem, index) => (
@@ -220,7 +265,7 @@ const Carousel = props => {
             [null, undefined].includes(carouselItem) ? null : (
               <CarouselItem
                 key={index}
-                currentSlideIndex={getActiveSlideIndex()}
+                currentSlideIndex={activeSlideIndex}
                 index={index}
                 width={itemWidth}
                 offset={index !== slides.length ? props.offset : 0}

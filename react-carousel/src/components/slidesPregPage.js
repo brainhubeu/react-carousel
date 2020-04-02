@@ -1,16 +1,11 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { CarouselContext } from '../components/CarouselWrapper';
 
-const slidesPerPage = ({ numberOfSlides }) => {
-  const { carouselProps, setCarouselProps } = useContext(CarouselContext);
-
+const slidesPerPage = ({ options, state }) => {
   useEffect(() => {
-    setCarouselProps({
-      ...carouselProps,
-      itemWidth: carouselProps.itemWidth/numberOfSlides,
-    });
-  }, [carouselProps.carouselWidth]);
+    const itemWidth = state.get.itemWidth || state.get.carouselWidth;
+    state.set.setItemWidth(itemWidth/options.numberOfSlides);
+  }, [state.get.carouselWidth]);
 };
 
 export default slidesPerPage;

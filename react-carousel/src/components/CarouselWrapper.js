@@ -2,38 +2,28 @@ import React, { useState } from 'react';
 import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
 
-import Carousel from './Carousel';
+import clamp from '../tools/clamp';
 
-export const CarouselContext = React.createContext({
-  carouselProps: {
-    width: 0,
-  },
-  setCarouselProps: () => {},
-});
+import Carousel from './Carousel';
 
 const CarouselWrapper = props => {
   const [builtinValue, setBuiltinValue] = useState(0);
-  const [carouselProps, setCarouselProps] = useState({
-    carouselWidth: 0,
-    itemWidth: 0,
-  });
-
-  const carouselPropsValues = { carouselProps, setCarouselProps };
 
   const onValueChange = value => {
-    setBuiltinValue(value);
+    setBuiltinValue(clamp(value, props.children, props.slides));
   };
 
   const { onChange, value, ...rest } = props;
+
   const isControlled = !isNil(value);
   return (
-    <CarouselContext.Provider value={carouselPropsValues}>
-      <Carousel
-        value={isControlled ? parseInt(value) : builtinValue}
-        onChange={isControlled ? onChange : onValueChange}
-        {...rest}
-      />
-    </CarouselContext.Provider>
+    <Carousel
+      builtinValue={builtinValue}
+      setBuiltinValue={setBuiltinValue}
+      value={isControlled ? parseInt(value) : builtinValue}
+      onChange={isControlled ? onChange : onValueChange}
+      {...rest}
+    />
   );
 };
 
