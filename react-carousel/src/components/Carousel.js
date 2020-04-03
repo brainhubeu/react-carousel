@@ -83,8 +83,6 @@ const Carousel = props => {
   const getNearestSlideIndex = () => {
     const slideIndexOffset = -Math.round(slideMovement.dragOffset / itemWidth);
 
-    console.log('CURR VAL ', onChange.getCurrentValue(), 'SLIDE INDEX OFF', slideIndexOffset);
-
     return onChange.getCurrentValue() + slideIndexOffset;
   };
 
@@ -161,7 +159,7 @@ const Carousel = props => {
   useEffect(() => {
     setOnChange({
       callback: value => {
-        props.onChange(clamp(value, props.children, props.slides))
+        props.onChange(clamp(value, props.children, props.slides));
       },
       getCurrentValue,
     });
@@ -309,6 +307,15 @@ Carousel.propTypes = {
   draggable: PropTypes.bool,
   animationSpeed: PropTypes.number,
   className: PropTypes.string,
+  plugins: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({
+        resolve: PropTypes.func,
+        options: PropTypes.object,
+      }),
+    ]),
+  ),
   breakpoints: PropTypes.objectOf(PropTypes.shape({
     slidesPerPage: PropTypes.number,
     draggable: PropTypes.bool,
@@ -322,6 +329,7 @@ Carousel.defaultProps = {
   offset: 0,
   animationSpeed: 500,
   draggable: true,
+  plugins: [],
 };
 
 export default React.memo(Carousel);
