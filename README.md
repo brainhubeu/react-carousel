@@ -389,6 +389,39 @@ render() {
 }
 ```
 
+Navigation dots can also be further customized with your own styles.
+```javascript
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
+
+// ...
+
+constructor(props) {
+  super(props);
+  this.state = {
+    value: 0,
+  };
+}
+
+onChange = value => this.setState({ value });
+
+render() {
+  return (
+    <div>
+      <Carousel
+        value={this.state.value}
+        onChange={this.onChange}
+      >
+        <img className="img-example" src={someImage} />
+        ...
+        <img className="img-example" src={anotherImage} />
+      </Carousel>
+      <Dots value={this.state.value} onChange={this.onChange} number={12} className={yourOwnClassName} />
+    </div>
+  );
+}
+```
+
 ## Unit tests
 ```
 yarn test:unit
