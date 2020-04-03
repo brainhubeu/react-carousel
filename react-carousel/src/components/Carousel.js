@@ -83,6 +83,8 @@ const Carousel = props => {
   const getNearestSlideIndex = () => {
     const slideIndexOffset = -Math.round(slideMovement.dragOffset / itemWidth);
 
+    console.log('CURR VAL ', onChange.getCurrentValue(), 'SLIDE INDEX OFF', slideIndexOffset);
+
     return onChange.getCurrentValue() + slideIndexOffset;
   };
 
@@ -156,15 +158,26 @@ const Carousel = props => {
     }
   });
 
+  useEffect(() => {
+    setOnChange({
+      callback: value => {
+        props.onChange(clamp(value, props.children, props.slides))
+      },
+      getCurrentValue,
+    });
+  }, [props.onChange, props.value]);
+
   /**
    * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
    * @return {number} offset in px
    */
   const getTransformOffset = () => {
-    const elementWidthWithOffset = itemWidth + getProp('offset');
-    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
+    if (onChange && onChange.getCurrentValue) {
+      const elementWidthWithOffset = itemWidth + getProp('offset');
+      const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
 
-    return dragOffset - props.value * elementWidthWithOffset;
+      return dragOffset - onChange.getCurrentValue() * elementWidthWithOffset;
+    }
   };
 
   const [trackStyles, setTrackStyles] = useState({
@@ -175,13 +188,6 @@ const Carousel = props => {
   useEffect(() => {
     setTransitionEnabled(true);
   }, [props.value]);
-
-  useEffect(() => {
-    setOnChange({
-      callback: props.onChange,
-      getCurrentValue,
-    });
-  }, [props.onChange]);
 
   useEffect(() => {
     const trackWidth = carouselWidth * children.length;

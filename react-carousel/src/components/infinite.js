@@ -73,15 +73,13 @@ const infinite = ({ options, props, state, refs }) => {
   }, [infiniteTransitionFrom]);
 
   useEffect(() => {
-    const onChange = value => {
-      props.setBuiltinValue(value);
-    };
-
     state.set.setOnChange({
-      callback: onChange,
+      callback: value => {
+        props.onChange(value);
+      },
       getCurrentValue: () => props.value,
     });
-  }, [props.onChange]);
+  }, [props.onChange, props.value]);
 
   useEffect(() => {
     const trackLengthMultiplier = 1 + getClonesLeft() + getClonesRight();
