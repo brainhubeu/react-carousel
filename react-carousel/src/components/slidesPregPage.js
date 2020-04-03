@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
 
+import useEventListener from '../hooks/useEventListener';
 
 const slidesPerPage = ({ options, state }) => {
-  useEffect(() => {
-    const itemWidth = state.get.itemWidth || state.get.carouselWidth;
-    state.set.setItemWidth(itemWidth/options.numberOfSlides);
-  }, [state.get.carouselWidth]);
+  const onResize = () => {
+    state.set.setItemWidth(state.get.carouselWidth/options.numberOfSlides);
+  };
+
+  useEffect(onResize, [state.get.carouselWidth]);
+
+  useEventListener('resize', onResize);
+  useEventListener('load', onResize);
 };
 
 export default slidesPerPage;

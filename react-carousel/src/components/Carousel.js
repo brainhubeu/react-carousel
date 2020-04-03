@@ -222,6 +222,7 @@ const Carousel = props => {
           onChange,
           transitionEnabled,
           activeSlideIndex,
+          windowWidth,
         },
         set: {
           setCarouselWidth,

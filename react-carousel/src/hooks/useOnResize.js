@@ -21,7 +21,7 @@ const useOnResize = (nodeRef, itemWidth, setItemWidth, setCarouselWidth) => {
     const width = nodeRef.current.offsetWidth;
 
     setCarouselWidth(width);
-    setItemWidth(itemWidth ? itemWidth : width);
+    setItemWidth(width);
 
     setWindowWidth(window.innerWidth);
   }, config.resizeEventListenerThrottle);
