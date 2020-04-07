@@ -6,6 +6,15 @@ process.env.NODE_ENV = 'test';
   require.extensions[ext] = () => null;
 });
 
+// add required globals
+/* eslint-disable no-empty-function */
+global.logger = function() {};
+global.logger.info = function() {};
+global.logger.apiSuccess = function() {};
+global.logger.apiError = function() {};
+global.logger.warn = function() {};
+/* eslint-enable */
+
 // Register babel so that it will transpile ES6 to ES5
 // before our tests run.
 require('@babel/register')();
