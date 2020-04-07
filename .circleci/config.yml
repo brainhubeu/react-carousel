@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:13.12.0
     working_directory: ~/app
     steps:
       - checkout
@@ -16,7 +16,7 @@ jobs:
 
   test-e2e:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:13.12.0
     working_directory: ~/app
     steps:
       - checkout
@@ -27,7 +27,7 @@ jobs:
 
   publish_package:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:13.12.0
     steps:
       - checkout
       - run: yarn install --non-interactive
