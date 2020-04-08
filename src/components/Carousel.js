@@ -522,9 +522,11 @@ class Carousel extends Component {
 
   getCustomCarouselStyles = () => {
     const vertical = this.getProp('vertical');
+    const padding = this.getProp('arrows') ? 40 : 0;
+
     if (vertical) {
       return {
-        height: this.state.carouselWidth,
+        height: this.state.carouselWidth + padding,
       };
     }
     return {
@@ -546,12 +548,10 @@ class Carousel extends Component {
     const animationSpeed = this.getProp('animationSpeed');
     const transitionEnabled = this.state.transitionEnabled;
     const draggable = this.getProp('draggable') && children && children.length > 1;
-
     const trackStyles = {
       width: `${trackWidth}px`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
-
     if (isRTL) {
       trackStyles.marginRight = `${this.getAdditionalClonesOffset()}px`;
       trackStyles.transform = `translateX(${-transformOffset}px)`;
@@ -724,6 +724,7 @@ class Carousel extends Component {
         <div
           className={classnames(
             'BrainhubCarousel',
+
             this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '',
           )}
           style={this.getCustomCarouselStyles()}
