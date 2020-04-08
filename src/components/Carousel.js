@@ -522,9 +522,11 @@ class Carousel extends Component {
 
   getCustomCarouselStyles = () => {
     const vertical = this.getProp('vertical');
+    const padding = this.getProp('arrows') ? 40 : 0;
+
     if (vertical) {
       return {
-        height: this.state.carouselWidth,
+        height: this.state.carouselWidth + padding,
       };
     }
     return {
