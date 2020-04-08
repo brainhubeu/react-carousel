@@ -552,6 +552,7 @@ class Carousel extends Component {
       width: `${trackWidth}px`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
     };
+
     if (isRTL) {
       trackStyles.marginRight = `${this.getAdditionalClonesOffset()}px`;
       trackStyles.transform = `translateX(${-transformOffset}px)`;
@@ -724,7 +725,6 @@ class Carousel extends Component {
         <div
           className={classnames(
             'BrainhubCarousel',
-
             this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '',
           )}
           style={this.getCustomCarouselStyles()}
