@@ -355,14 +355,14 @@ class Carousel extends Component {
   onMouseUpTouchEnd = e => {
     if (this.state.dragStart !== null) {
       e.preventDefault();
-      if (this.getProp('draggable')) {
-        if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
-          this.changeSlide(this.getNearestSlideIndex());
-        } else if (this.getProp('clickToChange')) {
-          this.changeSlide(this.getProp('infinite')
+      if (this.getProp('draggable') && Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
+        this.changeSlide(this.getNearestSlideIndex());
+      } else if (this.getProp('clickToChange')) {
+        this.changeSlide(
+          this.getProp('infinite')
             ? this.getCurrentValue() + this.state.clicked - this.getActiveSlideIndex()
-            : this.state.clicked);
-        }
+            : this.state.clicked,
+        );
       }
       this.setState(() => ({
         clicked: null,
@@ -602,6 +602,7 @@ class Carousel extends Component {
                 vertical={this.getProp('vertical')}
                 clickable={this.getProp('clickToChange')}
                 isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
+                isDraggingEnabled={this.props.draggable || this.props.clickToChange}
               >
                 {carouselItem}
               </CarouselItem>

@@ -47,3 +47,4 @@ package-lock.json
 html-report/
 lib/
 test/cypress/videos/
+docs-www/reduxcache*
