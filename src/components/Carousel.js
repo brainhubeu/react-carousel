@@ -548,6 +548,7 @@ class Carousel extends Component {
     const animationSpeed = this.getProp('animationSpeed');
     const transitionEnabled = this.state.transitionEnabled;
     const draggable = this.getProp('draggable') && children && children.length > 1;
+
     const trackStyles = {
       width: `${trackWidth}px`,
       transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
