@@ -46,5 +46,6 @@ package-lock.json
 
 html-report/
 lib/
+test/cypress/screenshots/
 test/cypress/videos/
 docs-www/reduxcache*
