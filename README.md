@@ -5,6 +5,11 @@
 [![CircleCI](https://circleci.com/gh/brainhubeu/react-carousel.svg?style=svg)](https://circleci.com/gh/brainhubeu/react-carousel)
 [![npm](https://img.shields.io/npm/v/@brainhubeu/react-carousel.svg)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
 [![npm](https://img.shields.io/npm/l/@brainhubeu/react-carousel.svg)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Last commit](https://img.shields.io/github/last-commit/brainhubeu/react-carousel.svg)](https://img.shields.io/github/last-commit/brainhubeu/react-carousel.svg)
+[![Downloads](https://img.shields.io/npm/dm/@brainhubeu/react-carousel)](https://img.shields.io/npm/dm/@brainhubeu/react-carousel)
+[![Minified](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)
+[![Activity](https://img.shields.io/github/commit-activity/y/brainhubeu/react-carousel.svg)](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)
 
 React carousel 
 
