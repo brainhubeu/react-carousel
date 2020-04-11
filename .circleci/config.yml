@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  check_branch_name:
     docker:
       - image: circleci/node:12.16.1
     working_directory: ~/app
@@ -18,14 +18,25 @@ jobs:
               echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
               exit 1
             fi
+  deploy_test_environment:
+    docker:
+      - image: circleci/node:12.16.1
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: publish gh pages for a test environment
+          command: ./tools/deploy-gh-pages-pr.sh
+  test:
+    docker:
+      - image: circleci/node:12.16.1
+    working_directory: ~/app
+    steps:
+      - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
       - run: yarn test:unit
       - run: yarn build
-      - run:
-          name: publish gh pages for a given PR
-          command: ./tools/deploy-gh-pages-pr.sh
-
   test-e2e:
     docker:
       - image: circleci/node:12.16.1
@@ -72,12 +83,21 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test
-      - test-e2e
+      - check_branch_name
+      - test:
+          requires:
+            - check_branch_name
+      - test-e2e:
+          requires:
+            - check_branch_name
+      - deploy_test_environment:
+          requires:
+            - check_branch_name
       - publish_package:
           requires:
             - test
             - test-e2e
+            - deploy_test_environment
           filters:
             branches:
               only:
