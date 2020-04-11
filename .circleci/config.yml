@@ -15,7 +15,7 @@ jobs:
             then
               echo $branch is a valid name
             else
-              echo $branch is not valid because the branch name must match ^(fix|feature|breaking)/
+              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
               exit 1
             fi
       - run: yarn install --non-interactive
