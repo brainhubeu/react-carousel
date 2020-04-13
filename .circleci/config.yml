@@ -6,7 +6,6 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-      - run: env
       - run:
           name: fail if the branch name does not start with a valid prefix
           command: |
@@ -68,8 +67,6 @@ jobs:
           command: |
             branch=`git log --oneline | grep '[0-9a-f]\{8\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
             echo branch=$branch
-            branch=fix/new-test-branch
-            echo branch=$branch
             if [[ "$branch" =~ ^(fix)/ ]]; then
               npm version patch -m "%s [ci skip]"
             elif [[ "$branch" =~ ^(feature)/ ]]; then
@@ -91,7 +88,7 @@ jobs:
             yarn build
             sed -i 's/  "version": "\(.*\)",/  "version": "\1-cdn",/g' package.json
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-            echo npm publish
+            npm publish
             git add .
             git stash
       - run:
@@ -99,7 +96,7 @@ jobs:
           command: |
             yarn build
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-            echo npm publish
+            npm publish
       - run:
           name: update itself in docs
           command: |
@@ -110,15 +107,28 @@ jobs:
       - run: git push origin $CIRCLE_BRANCH
       - run:
           name: publish gh pages
-          command: echo ./tools/deploy-gh-pages.sh
+          command: ./tools/deploy-gh-pages.sh
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
+      - check_branch_name
+      - test:
+          requires:
+            - check_branch_name
+      - test-e2e:
+          requires:
+            - check_branch_name
+      - deploy_test_environment:
+          requires:
+            - check_branch_name
       - publish_package:
+          requires:
+            - test
+            - test-e2e
+            - deploy_test_environment
           filters:
             branches:
               only:
                 - master
-                - fix/improve-workflow-to-avoid-failing-builds
