@@ -59,6 +59,9 @@ jobs:
           command: |
             git config --global user.email "devops@brainhub.pl"
             git config --global user.name "DevOps Brainhub"
+            git remote -v
+            git remote add origin https://$GIT_TOKEN@github.com/brainhubeu/react-carousel
+            git remote -v
       - run:
           name: bump NPM version
           command: |
