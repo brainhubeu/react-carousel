@@ -97,11 +97,12 @@ jobs:
             yarn build
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish
+      - run: sleep 10
       - run:
           name: update itself in docs
           command: |
             cd docs-www
-            yarn add @brainhubeu/react-carousel
+            yarn add @brainhubeu/react-carousel --non-interactive
             git add .
             git commit -m 'update @brainhubeu/react-carousel in docs-www'
       - run: git push origin $CIRCLE_BRANCH
