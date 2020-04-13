@@ -64,6 +64,8 @@ jobs:
           command: |
             branch=`git log --oneline | grep '[0-9a-f]\{8\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
             echo branch=$branch
+            branch=fix/new-test-branch
+            echo branch=$branch
             if [[ "$branch" =~ ^(fix)/ ]]; then
               npm version patch
             elif [[ "$branch" =~ ^(feature)/ ]]; then
