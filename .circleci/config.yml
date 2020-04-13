@@ -62,7 +62,7 @@ jobs:
       - run:
           name: bump NPM version
           command: |
-            branch=`git log --oneline | grep '[0-9a-f]\{8\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g'`
+            branch=`git log --oneline | grep '[0-9a-f]\{8\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
             echo branch=$branch
             if [[ "$branch" =~ ^(fix)/ ]]; then
               npm version patch
@@ -111,21 +111,7 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - check_branch_name
-      - test:
-          requires:
-            - check_branch_name
-      - test-e2e:
-          requires:
-            - check_branch_name
-      - deploy_test_environment:
-          requires:
-            - check_branch_name
       - publish_package:
-          requires:
-            - test
-            - test-e2e
-            - deploy_test_environment
           filters:
             branches:
               only:
