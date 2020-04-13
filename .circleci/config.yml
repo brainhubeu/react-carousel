@@ -71,11 +71,11 @@ jobs:
             branch=fix/new-test-branch
             echo branch=$branch
             if [[ "$branch" =~ ^(fix)/ ]]; then
-              npm version patch
+              npm version patch -m "%s [ci skip]"
             elif [[ "$branch" =~ ^(feature)/ ]]; then
-              npm version minor
+              npm version minor -m "%s [ci skip]"
             elif [[ "$branch" =~ ^(breaking)/ ]]; then
-              npm version major
+              npm version major -m "%s [ci skip]"
             else
               echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
               exit 1
