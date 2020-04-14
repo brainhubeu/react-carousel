@@ -2,7 +2,7 @@ version: 2
 jobs:
   check_branch_name:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     working_directory: ~/app
     steps:
       - checkout
@@ -19,7 +19,7 @@ jobs:
             fi
   deploy_test_environment:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     working_directory: ~/app
     steps:
       - checkout
@@ -28,7 +28,7 @@ jobs:
           command: ./tools/deploy-gh-pages-pr.sh
   test:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     working_directory: ~/app
     steps:
       - checkout
@@ -38,7 +38,7 @@ jobs:
       - run: yarn build
   test-e2e:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     working_directory: ~/app
     steps:
       - checkout
@@ -49,7 +49,7 @@ jobs:
 
   publish_package:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     steps:
       - checkout
       - run: yarn install --non-interactive
