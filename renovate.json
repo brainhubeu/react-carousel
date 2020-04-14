@@ -4,6 +4,7 @@
   "groupName": "NPM dependencies",
   "labels": ["renovate"],
   "rangeStrategy": "bump",
+  "branchPrefix": "fix/renovate/",
   "docker": {
     "major": {
       "enabled": true
