@@ -43,8 +43,8 @@ class CarouselItem extends PureComponent {
           minWidth: `${this.props.width}px`,
           pointerEvents: this.props.isDragging ? 'none' : null,
         }}
-        onMouseDown={this.props.isDraggingEnabled && this.onMouseDown}
-        onTouchStart={this.props.isDraggingEnabled && this.onTouchStart}
+        onMouseDown={this.props.isDraggingEnabled ? this.onMouseDown : null}
+        onTouchStart={this.props.isDraggingEnabled ? this.onTouchStart : null}
       >
         {this.props.children}
       </li>
