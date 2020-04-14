@@ -5,7 +5,6 @@ jobs:
       - image: circleci/node:12.16.2
     working_directory: ~/app
     steps:
-      - checkout
       - run:
           name: fail if the branch name does not start with a valid prefix
           command: |
