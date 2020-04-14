@@ -1147,10 +1147,10 @@
     react-helmet "^5.2.1"
     react-live "^1.12.0"
 
-"@brainhubeu/react-carousel@^1.13.20":
-  version "1.13.20"
-  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.13.20.tgz#29fde78c99e2bc80e16c733850fab832077a0b67"
-  integrity sha512-M0YChicW1ipw0VDcg9hRsH3o8rqRXLQmrndoFoUH/lRFKTr3/u+oY0GRWPvellFSdP090ZlznsR9LUqRxxhtbQ==
+"@brainhubeu/react-carousel@^1.13.27":
+  version "1.13.27"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.13.27.tgz#3cf6c43ce0b5a38ce5b4fc950995dac5379ffafe"
+  integrity sha512-TAdgeNnGdCQYxp6mjSuukB+KZyNa7EXuScWMeZ0V9gRlIdkq/QFJORTYqMWx3u4YPZSBG25uRAY0csdHg/5d9Q==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -5727,7 +5727,6 @@ fastq@^1.6.0:
 
 "favicons-webpack-plugin@https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
   version "0.0.9"
-  uid "0872de414061baaad0a2853c77ae75bc38b8bbbf"
   resolved "https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
   dependencies:
     core-js "^2.5.7"
