@@ -65,7 +65,7 @@ jobs:
       - run:
           name: bump NPM version
           command: |
-            branch=`git log --oneline | grep '[0-9a-f]\{8\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
+            branch=`git log --oneline | grep '[0-9a-f]\{6,40\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
             echo branch=$branch
             if [[ "$branch" =~ ^(fix)/ ]]; then
               npm version patch -m "%s [ci skip]"
