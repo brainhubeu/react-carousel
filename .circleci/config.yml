@@ -104,7 +104,7 @@ jobs:
             cd docs-www
             yarn add @brainhubeu/react-carousel --non-interactive
             git add .
-            git commit -m 'update @brainhubeu/react-carousel in docs-www'
+            git commit -m 'update @brainhubeu/react-carousel in docs-www [ci skip]'
       - run: git push origin $CIRCLE_BRANCH
       - run:
           name: publish gh pages
