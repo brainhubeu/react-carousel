@@ -10,11 +10,11 @@ jobs:
           name: fail if the branch name does not start with a valid prefix
           command: |
             branch=$CIRCLE_BRANCH
-            if [[ "$branch" =~ ^(fix|feature|breaking)/ ]]
+            if [[ "$branch" =~ ^(fix|feature|breaking)/ || "$branch" == 'master' ]]
             then
               echo $branch is a valid name
             else
-              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
+              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/' or be master
               exit 1
             fi
   deploy_test_environment:
