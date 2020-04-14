@@ -24,7 +24,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: publish gh pages for a test environment
+          name: publish gh pages to one of the test environments
           command: ./tools/deploy-gh-pages-pr.sh
   test:
     docker:
