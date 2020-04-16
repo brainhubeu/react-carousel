@@ -1,8 +1,33 @@
 version: 2
 jobs:
+  check_branch_name:
+    docker:
+      - image: circleci/node:12.16.2
+    working_directory: ~/app
+    steps:
+      - run:
+          name: fail if the branch name does not start with a valid prefix
+          command: |
+            branch=$CIRCLE_BRANCH
+            if [[ "$branch" =~ ^(fix|feature|breaking)/ || "$branch" == 'master' ]]
+            then
+              echo $branch is a valid name
+            else
+              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/' or be master
+              exit 1
+            fi
+  deploy_test_environment:
+    docker:
+      - image: circleci/node:12.16.2
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: publish gh pages to one of the test environments
+          command: ./tools/deploy-gh-pages-pr.sh
   test:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     working_directory: ~/app
     steps:
       - checkout
@@ -16,13 +41,9 @@ jobs:
           name: Upload coverage to coveralls
           command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: yarn build
-      - run:
-          name: publish gh pages for a given PR
-          command: ./tools/deploy-gh-pages-pr.sh
-
   test-e2e:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     working_directory: ~/app
     steps:
       - checkout
@@ -33,10 +54,35 @@ jobs:
 
   publish_package:
     docker:
-      - image: circleci/node:12.16.1
+      - image: circleci/node:12.16.2
     steps:
       - checkout
       - run: yarn install --non-interactive
+      - run:
+          name: configure GitHub user
+          command: |
+            git config --global user.email "devops@brainhub.pl"
+            git config --global user.name "DevOps Brainhub"
+            git remote -v
+            git remote remove origin
+            git remote add origin https://$GIT_TOKEN@github.com/brainhubeu/react-carousel
+            git remote -v
+      - run:
+          name: bump NPM version
+          command: |
+            branch=`git log --oneline | grep '[0-9a-f]\{6,40\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
+            echo branch=$branch
+            if [[ "$branch" =~ ^(fix)/ ]]; then
+              npm version patch -m "%s [ci skip]"
+            elif [[ "$branch" =~ ^(feature)/ ]]; then
+              npm version minor -m "%s [ci skip]"
+            elif [[ "$branch" =~ ^(breaking)/ ]]; then
+              npm version major -m "%s [ci skip]"
+            else
+              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
+              exit 1
+            fi
+      - run: git push origin $CIRCLE_BRANCH
       - run:
           name: npm publish CDN version
           command: |
@@ -48,8 +94,6 @@ jobs:
             sed -i 's/  "version": "\(.*\)",/  "version": "\1-cdn",/g' package.json
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish
-            git config --global user.email "devops@brainhub.pl"
-            git config --global user.name "DevOps Brainhub"
             git add .
             git stash
       - run:
@@ -58,6 +102,15 @@ jobs:
             yarn build
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish
+      - run: sleep 10
+      - run:
+          name: update itself in docs
+          command: |
+            cd docs-www
+            yarn add @brainhubeu/react-carousel --non-interactive
+            git add .
+            git commit -m 'update @brainhubeu/react-carousel in docs-www [ci skip]'
+      - run: git push origin $CIRCLE_BRANCH
       - run:
           name: publish gh pages
           command: ./tools/deploy-gh-pages.sh
@@ -66,12 +119,21 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test
-      - test-e2e
+      - check_branch_name
+      - test:
+          requires:
+            - check_branch_name
+      - test-e2e:
+          requires:
+            - check_branch_name
+      - deploy_test_environment:
+          requires:
+            - check_branch_name
       - publish_package:
           requires:
             - test
             - test-e2e
+            - deploy_test_environment
           filters:
             branches:
               only:
