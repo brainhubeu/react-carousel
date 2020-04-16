@@ -33,7 +33,13 @@ jobs:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
-      - run: yarn test:unit
+      - run: yarn test:unit:coverage:ci
+      - run:
+          name: Generate coveralls config
+          command: "echo repo_token: $COVERALLS_REPO_TOKEN > ./.coveralls.yml"
+      - run:
+          name: Upload coverage to coveralls
+          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: yarn build
   test-e2e:
     docker:
