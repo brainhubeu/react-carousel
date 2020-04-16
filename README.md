@@ -9,7 +9,7 @@
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 [![Downloads](https://img.shields.io/npm/dm/@brainhubeu/react-carousel?color=blue)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
-[![Activity](https://img.shields.io/github/commit-activity/m/brainhubeu/react-carousel.svg)](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)
+[![Activity](https://img.shields.io/github/commit-activity/m/brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/commits/master)
 [![Minified](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
 [![npm](https://img.shields.io/npm/v/@brainhubeu/react-carousel.svg)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
 [![Contributors](https://img.shields.io/github/contributors/brainhubeu/react-carousel?color=blue)](https://github.com/brainhubeu/react-carousel/graphs/contributors)
