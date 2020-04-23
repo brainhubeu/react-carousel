@@ -38,7 +38,7 @@ class Carousel extends Component {
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
-    dots: PropTypes.bool,
+    dots: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Dots)]),
     className: PropTypes.string,
     minDraggableOffset: PropTypes.number,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
@@ -56,7 +56,7 @@ class Carousel extends Component {
       draggable: PropTypes.bool,
       keepDirectionWhenDragging: PropTypes.bool,
       animationSpeed: PropTypes.number,
-      dots: PropTypes.bool,
+      dots: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Dots)]),
       className: PropTypes.string,
     })),
   };
@@ -267,7 +267,6 @@ class Carousel extends Component {
     return this.getTargetMod();
   };
 
-
   /* event handlers */
   /**
    * Handler setting the carouselWidth value in state (used to set proper width of track and slides)
@@ -297,10 +296,10 @@ class Carousel extends Component {
   onMouseDown = (e, index) => {
     e.preventDefault();
     e.stopPropagation();
-    const { pageX } = e;
+    const coordinate = this.getProp('vertical') ? e.pageY : e.pageX;
     this.setState(() => ({
       clicked: index,
-      dragStart: pageX,
+      dragStart: coordinate,
     }));
   };
 
@@ -309,10 +308,10 @@ class Carousel extends Component {
    * @param {event} e event
    */
   onMouseMove = e => {
-    const { pageX } = e;
     if (this.state.dragStart !== null) {
+      const coordinate = this.getProp('vertical') ? e.pageY : e.pageX;
       this.setState(previousState => ({
-        dragOffset: this.getProp('rtl') ? previousState.dragStart - pageX : pageX - previousState.dragStart,
+        dragOffset: this.getProp('rtl') ? previousState.dragStart - coordinate : coordinate - previousState.dragStart,
       }));
     }
   };
@@ -323,10 +322,10 @@ class Carousel extends Component {
    * @param {number} index of the element drag started on
    */
   onTouchStart = (e, index) => {
-    const { changedTouches } = e;
+    const coordinate = this.getProp('vertical') ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
     this.setState(() => ({
       clicked: index,
-      dragStart: changedTouches[0].pageX,
+      dragStart: coordinate,
     }));
   };
 
@@ -339,10 +338,10 @@ class Carousel extends Component {
       e.preventDefault();
       e.stopPropagation();
     }
-    const { changedTouches } = e;
     if (this.state.dragStart !== null) {
+      const coordinate = this.getProp('vertical') ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
       this.setState(previousState => ({
-        dragOffset: this.getProp('rtl') ? previousState.dragStart - changedTouches[0].pageX : changedTouches[0].pageX - previousState.dragStart,
+        dragOffset: this.getProp('rtl') ? previousState.dragStart - coordinate: coordinate - previousState.dragStart,
       }));
     }
   };
@@ -521,6 +520,20 @@ class Carousel extends Component {
     return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
   };
 
+  getCustomCarouselStyles = () => {
+    const vertical = this.getProp('vertical');
+    const padding = this.getProp('arrows') ? 40 : 0;
+
+    if (vertical) {
+      return {
+        height: this.state.carouselWidth + padding,
+      };
+    }
+    return {
+      height: 400,
+    };
+  };
+
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
@@ -588,6 +601,7 @@ class Carousel extends Component {
                 offset={index !== slides.length ? this.props.offset : 0}
                 onMouseDown={this.onMouseDown}
                 onTouchStart={this.onTouchStart}
+                vertical={this.getProp('vertical')}
                 clickable={this.getProp('clickToChange')}
                 isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
                 isDraggingEnabled={this.props.draggable || this.props.clickToChange}
@@ -690,8 +704,11 @@ class Carousel extends Component {
   };
 
   renderDots() {
-    if (this.getProp('dots')) {
-      return <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={this.getChildren().length} rtl={this.getProp('rtl')} />;
+    const dotsElement = this.getProp('dots');
+    const children = this.getChildren();
+    const vertical = this.getProp('vertical');
+    if (dotsElement) {
+      return React.isValidElement(dotsElement) ? React.cloneElement(dotsElement, { vertical }) : <Dots value={this.getCurrentValue()} onChange={this.changeSlide} number={children.length} rtl={this.getProp('rtl')} />;
     }
     return null;
   }
@@ -699,9 +716,19 @@ class Carousel extends Component {
   render() {
     const isRTL = this.getProp('rtl');
     return (
-      <div>
+      <div
+        className={classnames(
+          {
+            'BrainhubCarousel--vertical': this.getProp('vertical'),
+          },
+        )}
+      >
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
+          className={classnames(
+            'BrainhubCarousel',
+            this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '',
+          )}
+          style={this.getCustomCarouselStyles()}
           ref={el => this.node = el}
         >
           {this.renderArrowLeft()}

@@ -49,6 +49,10 @@ $dots-color: black;
     opacity: 0.5;
     cursor: pointer;
 
+    &.BrainhubCarousel__thumbnail--vertical {
+      transform: rotate(-90deg);
+    }
+    
     &.BrainhubCarousel__thumbnail--selected {
       opacity: 1 !important;
     }

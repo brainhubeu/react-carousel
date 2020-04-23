@@ -44,6 +44,8 @@
           file: dots.md
         - title: Thumbnails
           file: thumbnails.md
+        - title: Vertical
+          file: vertical.md
     - title: Api
       dir: api
       items:
