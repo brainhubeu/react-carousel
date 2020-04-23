@@ -2,7 +2,7 @@
 
 > Feature-rich, react-way carousel component that does not suck
 
-[![gif](./assets/carousel-gif.gif)](https://brainhubeu.github.io/react-carousel/)
+[![gif](assets/gifs/carousel.gif)](https://brainhubeu.github.io/react-carousel/)
 
 [![CircleCI](https://circleci.com/gh/brainhubeu/react-carousel.svg?style=svg)](https://circleci.com/gh/brainhubeu/react-carousel)
 [![Last commit](https://img.shields.io/github/last-commit/brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/commits/master)
