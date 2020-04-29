@@ -5,4 +5,9 @@ module.exports = {
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.js',
   ],
+  coverageReporters: [
+    'text',
+    ['lcov', {
+      projectRoot: './',
+    }]],
 };
