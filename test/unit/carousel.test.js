@@ -102,7 +102,7 @@ describe('Carousel', () => {
     });
   });
   describe('breakpoints', () => {
-    it('Picks up correct props for set window size', () => {
+    it('picks up correct props to set window size', () => {
       window.resizeTo(2000, 2000);
 
       const wrapper = setup({
