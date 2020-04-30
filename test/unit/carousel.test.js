@@ -96,7 +96,7 @@ describe('Carousel', () => {
   });
 
   describe('RTL', () => {
-    it('Adds BrainhubCarousel--isRTL when in RTL mode', () => {
+    it('adds BrainhubCarousel--isRTL when in RTL mode', () => {
       const wrapper = setup({
         rtl: true,
       });
