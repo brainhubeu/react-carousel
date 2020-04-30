@@ -204,7 +204,7 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('third')).toBeTruthy();
     });
 
-    it('Displays the last slide if the value is greater than the number of slides', () => {
+    it('displays the last slide if the value is greater than the number of slides', () => {
       const wrapper = mount(
         <Carousel
           value={10}
