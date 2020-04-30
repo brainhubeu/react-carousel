@@ -54,7 +54,8 @@ describe('Carousel', () => {
 
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(3);
     });
-    it('Renders additional clones when in infinite mode', () => {
+
+    it('renders additional clones when in infinite mode', () => {
       const wrapper = setup({
         infinite: true,
       });
