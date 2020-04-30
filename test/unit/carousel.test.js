@@ -263,6 +263,7 @@ describe('Carousel', () => {
 
       expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toEqual(true);
     });
+
     it('custom arrows work as expected', () => {
       const wrapper = setup({
         arrowLeft: <div className="left" />,
