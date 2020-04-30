@@ -150,6 +150,7 @@ describe('Carousel', () => {
 
       expect(clearInterval).toHaveBeenCalledTimes(1);
     });
+
     it('changes slides automatically', () => {
       jest.useFakeTimers();
 
