@@ -33,7 +33,7 @@ jobs:
       - checkout
       - run: yarn install --non-interactive
       - run: yarn lint
-      - run: yarn test:unit:coverage:ci
+      - run: yarn test:unit:coverage
       - run:
           name: Generate coveralls config
           command: "echo repo_token: $COVERALLS_REPO_TOKEN > ./.coveralls.yml"

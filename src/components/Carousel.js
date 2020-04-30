@@ -232,19 +232,6 @@ class Carousel extends Component {
     ? this.getCurrentSlideIndex() + this.getClonesLeft() * this.getChildren().length
     : this.getCurrentSlideIndex();
 
-  /* infinite calculations */
-  getSlidesBounds = (customValue = null) => {
-    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
-    const length = this.getChildren().length;
-    const times = ((value + 1) / length);
-    const ceil = Math.ceil(times);
-
-    return {
-      low: (ceil - 1) * length,
-      high: ceil * length - 1,
-    };
-  };
-
   getTargetMod = (customValue = null) => {
     const value = isNil(customValue) ? this.getCurrentValue() : customValue;
     const length = this.getChildren().length;
@@ -328,23 +315,6 @@ class Carousel extends Component {
       clicked: index,
       dragStart: changedTouches[0].pageX,
     }));
-  };
-
-  /**
-   * Function handling touch move if drag has started. Sets dragOffset in the state.
-   * @param {event} e event
-   */
-  onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset) > this.props.minDraggableOffset) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const { changedTouches } = e;
-    if (this.state.dragStart !== null) {
-      this.setState(previousState => ({
-        dragOffset: this.getProp('rtl') ? previousState.dragStart - changedTouches[0].pageX : changedTouches[0].pageX - previousState.dragStart,
-      }));
-    }
   };
 
   /**
