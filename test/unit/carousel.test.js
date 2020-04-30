@@ -280,7 +280,9 @@ describe('Carousel', () => {
       wrapper.find('.right').simulate('click');
       expect(wrapper.find('.left-disabled')).toHaveLength(0);
       expect(wrapper.find('.left')).toHaveLength(1);
+
       wrapper.find('.right').simulate('click');
+
       expect(wrapper.find('.right-disabled')).toHaveLength(1);
       expect(wrapper.find('.right')).toHaveLength(0);
     });
