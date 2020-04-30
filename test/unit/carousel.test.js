@@ -243,6 +243,7 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
     });
   });
+
   describe('arrows', () => {
     it('renders arrows', () => {
       const wrapper = setup({
