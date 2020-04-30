@@ -189,7 +189,8 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem').at(2).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
     });
 
-    it('Negative slide values for infinite option', () => {
+
+    it('negative slide values for infinite option', () => {
       const wrapper = mount(
         <Carousel
           value={-1}
