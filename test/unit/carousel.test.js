@@ -73,7 +73,8 @@ describe('Carousel', () => {
 
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(1);
     });
-    it('Renders carousel items when passed as a prop', () => {
+
+    it('renders carousel items when passed as a prop', () => {
       const wrapper = mount(
         <Carousel/>,
       );
