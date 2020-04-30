@@ -83,6 +83,7 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(0);
     });
   });
+
   describe('itemWidth', () => {
     it('overwrites carousel item width', () => {
       const wrapper = setup({
