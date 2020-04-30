@@ -92,6 +92,7 @@ describe('Carousel', () => {
       expect(item.props().style).toHaveProperty('width', '250px');
     });
   });
+
   describe('RTL', () => {
     it('Adds BrainhubCarousel--isRTL when in RTL mode', () => {
       const wrapper = setup({
