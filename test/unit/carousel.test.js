@@ -211,7 +211,7 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('third')).toBeTruthy();
     });
 
-    it('Displays the first slide if the value is lower than 0', () => {
+    it('displays the first slide if the value is lower than 0', () => {
       const wrapper = mount(
         <Carousel
           value={-10}
