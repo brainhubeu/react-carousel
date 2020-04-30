@@ -138,6 +138,7 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem').first().prop('style').width).toEqual(`${declaredWidth}px`);
     });
   });
+
   describe('autoplay', () => {
     it('clears interval on unmount when autoplay was enabled', () => {
       jest.useFakeTimers();
