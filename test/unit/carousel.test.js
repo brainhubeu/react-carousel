@@ -163,13 +163,13 @@ describe('Carousel', () => {
         animationSpeed: 1,
       });
 
-      expect(wrapper.find('.BrainhubCarouselItem').at(0).hasClass('BrainhubCarouselItem--active')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem').at(0).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
 
       jest.advanceTimersByTime(11);
 
       wrapper.update();
 
-      expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
     });
   });
   describe('Carousel value', () => {
@@ -178,7 +178,7 @@ describe('Carousel', () => {
         value: 2,
       });
 
-      expect(wrapper.find('.BrainhubCarouselItem').at(2).hasClass('BrainhubCarouselItem--active')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem').at(2).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
     });
     it('Negative slide values for infinite option', () => {
       const wrapper = mount(
@@ -192,7 +192,7 @@ describe('Carousel', () => {
         </Carousel>,
       );
 
-      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('third')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('third')).toBeTruthy();
     });
     it('Displays the last slide if the value is bigger than the number of slides', () => {
       const wrapper = mount(
@@ -205,7 +205,7 @@ describe('Carousel', () => {
         </Carousel>,
       );
 
-      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('third')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('third')).toBeTruthy();
     });
 
     it('Displays the first slide if the value is lower than 0', () => {
@@ -219,7 +219,7 @@ describe('Carousel', () => {
         </Carousel>,
       );
 
-      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('first')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('first')).toBeTruthy();
     });
   });
   describe('dots', () => {
@@ -236,11 +236,11 @@ describe('Carousel', () => {
         dots: true,
       });
 
-      expect(wrapper.find('.BrainhubCarouselItem').first().hasClass('BrainhubCarouselItem--active')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem').first().hasClass('BrainhubCarouselItem--active')).toBeTruthy();
 
       wrapper.find('.BrainhubCarousel__dot').at(1).simulate('click');
 
-      expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
     });
   });
   describe('arrows', () => {
@@ -257,11 +257,11 @@ describe('Carousel', () => {
         arrows: true,
       });
 
-      expect(wrapper.find('.BrainhubCarouselItem').first().hasClass('BrainhubCarouselItem--active')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem').first().hasClass('BrainhubCarouselItem--active')).toBeTruthy();
 
       wrapper.find('.BrainhubCarousel__arrowRight').simulate('click');
 
-      expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toEqual(true);
+      expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
     });
     it('custom arrows work as expected', () => {
       const wrapper = setup({
