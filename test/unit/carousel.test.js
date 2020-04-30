@@ -119,6 +119,7 @@ describe('Carousel', () => {
 
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(21);
     });
+
     it(`uses default value if it's not declared in breakpoint`, () => {
       window.resizeTo(2000, 2000);
 
