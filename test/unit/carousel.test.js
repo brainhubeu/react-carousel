@@ -180,6 +180,7 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
     });
   });
+
   describe('Carousel value', () => {
     it('sets carousel initial slide index', () => {
       const wrapper = setup({
