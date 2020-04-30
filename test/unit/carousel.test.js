@@ -225,6 +225,7 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('first')).toBeTruthy();
     });
   });
+
   describe('dots', () => {
     it('renders dots', () => {
       const wrapper = setup({
