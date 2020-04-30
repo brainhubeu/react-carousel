@@ -277,7 +277,9 @@ describe('Carousel', () => {
       });
 
       expect(wrapper.find('.left-disabled')).toHaveLength(1);
+
       wrapper.find('.right').simulate('click');
+
       expect(wrapper.find('.left-disabled')).toHaveLength(0);
       expect(wrapper.find('.left')).toHaveLength(1);
 
