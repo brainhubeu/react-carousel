@@ -83,7 +83,7 @@ describe('Carousel', () => {
     });
   });
   describe('itemWidth', () => {
-    it('Overwrites carousel item width', () => {
+    it('overwrites carousel item width', () => {
       const wrapper = setup({
         itemWidth: 250,
       });
