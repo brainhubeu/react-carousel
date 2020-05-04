@@ -11,3 +11,8 @@ By default, clicking the slides does nothing. You can change that behavior with 
  <img src={imageThree} />
 </Carousel>
 ```
+
+### Apple iOS
+The carousel items should not be associated with the CSS
+property `justify-content: center;`. This property causes
+wrong justification on iOS.
