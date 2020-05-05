@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.13.40",
+  "version": "1.13.41",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.14.4"
@@ -15,11 +15,10 @@
     "build": "node tools/build.js",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test:unit": "mocha tools/testSetup.js \"./test/unit/*.js\" --exit",
+    "test:unit": "jest",
     "test:e2e": "start-server-and-test start-test-app http://localhost:8000 cypress:run",
     "test-dockerized:e2e": "docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test",
-    "test:unit:coverage": "nyc --reporter=text-summary yarn test:unit",
-    "test:unit:coverage:ci": "nyc --reporter=lcov --reporter=text-summary yarn test:unit",
+    "test:unit:coverage": "yarn jest --coverage",
     "start-test-app": "yarn --cwd docs-www develop",
     "precommit": "npm run lint"
   },
@@ -59,9 +58,9 @@
     "html-webpack-plugin": "^4.2.0",
     "husky": "^4.2.5",
     "isparta": "^4.1.1",
+    "jest": "^25.4.0",
     "jsdom": "^16.2.2",
     "lodash": "^4.17.15",
-    "mocha": "^7.1.1",
     "node-sass": "^4.13.1",
     "nyc": "^15.0.1",
     "postcss-loader": "^3.0.0",
@@ -71,8 +70,6 @@
     "react-test-renderer": "^16.13.1",
     "rimraf": "3.0.2",
     "sass-loader": "^8.0.2",
-    "sinon": "^9.0.2",
-    "sinon-chai": "^3.5.0",
     "start-server-and-test": "^1.11.0",
     "style-loader": "^1.1.4",
     "uglifyjs-webpack-plugin": "^2.2.0",
