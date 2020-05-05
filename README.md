@@ -170,7 +170,7 @@ You can access a clickable demo with many examples and a [live code editor](http
 | [**rtl**](https://brainhubeu.github.io/react-carousel/docs/examples/rtl) | *Boolean* | `false` | Indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well) |
 | **slides** | *Array* | `undefined` | Alternative way to pass slides. This prop expects an array of JSX <img> elements |
 | [**slidesPerPage**](https://brainhubeu.github.io/react-carousel/docs/examples/multipleItems) | *Number* | `1` | Number of slides visible at once |
-| [**slidesPerScroll**](https://brainhubeu.github.io/react-carousel/docs/examples/slidesPerScroll) | *Number* | `1` | śNumber by which value will change on scroll (autoPlay, arrow click, drag)|
+| [**slidesPerScroll**](https://brainhubeu.github.io/react-carousel/docs/examples/slidesPerScroll) | *Number* | `1` | Number by which value will change on scroll (autoPlay, arrow click, drag)|
 | **stopAutoPlayOnHover** | *Boolean* | `undefined` | Determines if autoPlay should stop when mouse hover over carousel |
 | [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Number* | `undefined` | Current slide's index (zero based, depends on the elements order) |
 
