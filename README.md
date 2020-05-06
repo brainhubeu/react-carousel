@@ -1,72 +1,65 @@
-# react-carousel
+<br/>
+<h1 align="center">
+  <a href="https://brainhubeu.github.io/react-carousel/"><img src="https://github.com/brainhubeu/react-carousel/readme/assets/logo.gif" alt="" width="200"/></a>
+  <br/>
+  react-carousel
+</h1>
 
-> Feature-rich, react-way carousel component that does not suck
+<p align="center">
+  Feature-rich, react-way carousel component that does not suck
+</p>
 
-[![gif](assets/gifs/carousel.gif)](https://brainhubeu.github.io/react-carousel/)
+<p align="center">
+  <strong>
+    <a href="https://brainhubeu.github.io/react-carousel/">Live code demo</a> | 
+    <a href="https://brainhub.eu/contact/">Hire us</a>
+  </strong>
+</p>
 
-[![CircleCI](https://circleci.com/gh/brainhubeu/react-carousel.svg?style=svg)](https://circleci.com/gh/brainhubeu/react-carousel)
-[![Last commit](https://img.shields.io/github/last-commit/brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/commits/master)
-[![license](https://img.shields.io/npm/l/@brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/blob/master/LICENSE.md)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+<div align="center">
+  
+  [![CircleCI](https://circleci.com/gh/brainhubeu/react-carousel.svg?style=svg)](https://circleci.com/gh/brainhubeu/react-carousel)
+  [![Last commit](https://img.shields.io/github/last-commit/brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/commits/master)
+  [![license](https://img.shields.io/npm/l/@brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/blob/master/LICENSE.md)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+  [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+  
+  [![Coveralls github](https://img.shields.io/coveralls/github/brainhubeu/react-carousel.svg)](https://coveralls.io/github/brainhubeu/react-carousel?branch=master)
+  [![Downloads](https://img.shields.io/npm/dm/@brainhubeu/react-carousel?color=blue)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
+  [![Activity](https://img.shields.io/github/commit-activity/m/brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/commits/master)
+  [![Minified](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
+  [![npm](https://img.shields.io/npm/v/@brainhubeu/react-carousel.svg)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
+  [![Contributors](https://img.shields.io/github/contributors/brainhubeu/react-carousel?color=blue)](https://github.com/brainhubeu/react-carousel/graphs/contributors)
+</div>
 
-[![Coveralls github](https://img.shields.io/coveralls/github/brainhubeu/react-carousel.svg)](https://coveralls.io/github/brainhubeu/react-carousel?branch=master)
-[![Downloads](https://img.shields.io/npm/dm/@brainhubeu/react-carousel?color=blue)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
-[![Activity](https://img.shields.io/github/commit-activity/m/brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/commits/master)
-[![Minified](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
-[![npm](https://img.shields.io/npm/v/@brainhubeu/react-carousel.svg)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
-[![Contributors](https://img.shields.io/github/contributors/brainhubeu/react-carousel?color=blue)](https://github.com/brainhubeu/react-carousel/graphs/contributors)
-
-React carousel 
+## Table of Contents
+- 🔌 [Installation](#installation)
+- 🐥 [Usage](#usage)
+- 🔨 [Props](#props)
+  - 🎠 [Carousel Props](#carousel-props)
+  - 🐾 [Dots Props](#dots-props)
+- 🐞 [Tests](#tests)
+- 😻 [Contributing](#contributing)
+- 📝 [Decision Log](#decision-log)
 
 ## Why?
 There are some great carousels (like slick) that do not have real React implementations. This library provides you with carousel that is not merely a wrapper for some jQuery solution, can be used as controlled or uncontrolled element (similar to [inputs](https://reactjs.org/docs/uncontrolled-components.html)), and has tons of useful features.
 
 ## Installation
-`npm i @brainhubeu/react-carousel`
+### Basic
+```
+npm i @brainhubeu/react-carousel
+```
 
 ### Typescript
-`npm i @types/brainhubeu__react-carousel -D`
-
-## Demo
-You can access a clickable demo with many examples and a live code editor [here](https://brainhubeu.github.io/react-carousel/).
-
-## Roadmap
-[The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.
-You're more than welcome to vote:
-- with 👍if you like a given feature request or you'd like a given bug to be fixed
-- with ❤️ if you love a given feature request or fixing a given bug is critical for you
-- with 👎if in your opinion, a given feature would create more damages than the value provided by it or you consider a given bug to be a feature
-
-We don't give any guarantee to fix even the most liked issues but 👍and ❤️ increase probability of fixing while 👎decreases the probability of fixing.
-
-You're also more than welcome to:
-- submit a feature request
-- report a bug
-- ask a question
-- comment an issue, discussing the details
-- open a PR, fixing a given issue
-
-## Usage
-By default the component does not need anything except children to render simple carousel.
-Remember that styles does not have to be imported everytime you use carousel, you can do it once in an entry point of your bundle.
-```javascript
-import React, { Component } from 'react';
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-
-export default class MyCarousel extends Component {
-  render() {
-    return (
-      <Carousel>
-        <img src={imageOne} />
-        <img src={imageTwo} />
-        <img src={imageThree} />
-      </Carousel>
-    );
-  }
-}
 ```
+npm i @types/brainhubeu__react-carousel -D
+```
+
+### In order to run the docs/demo locally:
+- `cd docs-www`
+- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
+- `yarn develop`
 
 ### CDN
 If you don't use any bundler like Webpack, you can add these scripts to your HTML file, `body` section:
@@ -83,283 +76,31 @@ Then, you can use the following global variables:
 - `BrainhubeuReactCarouselItem`
 - `BrainhubeuReactCarouselWrapper`
 
-### SSR
-When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
-```js
-import dynamic from 'next/dynamic';
-
-const { default: Carousel, Dots } = dynamic(
- () => require('@brainhubeu/react-carousel'),
- { ssr: false },
-);
-```
-
-### Carousel as controlled element
-You can control which slides are being shown by providing Carousel with value and onChange props
+## Usage
+By default, the component does not need anything except children to render a simple carousel.
+Remember that styles do not have to be imported every time you use carousel, you can do it once in an entry point of your bundle.
 ```javascript
+import React, { Component } from 'react';
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-// ...
-
-constructor(props) {
-  super(props);
-  this.state = {
-    value: 0,
-  };
-}
-
-// we check if we got event from input (and it has target property) or just value from Carousel 
-onChange = e => this.setState({ value: e.target ? e.target.value : e });
-render() {
-  return (
-    <div>
-      <input value={this.state.value} onChange={this.onChange} type="number" />
-      <Carousel
-        value={this.state.value}
-        onChange={this.onChange}
-      >
+export default class MyCarousel extends Component {
+  render() {
+    return (
+      <Carousel arrows dots>
         <img src={imageOne} />
         <img src={imageTwo} />
         <img src={imageThree} />
       </Carousel>
-    </div>
-  );
+    );
+  }
 }
 ```
 
-Where:
-* `value` is the current slide's index (zero based, in the example above imageOne has index 0, imageTwo has index 1 and so on)
-* `onChange` handler triggered when carousel wants to change current slide (e.g. on arrow click or on swipe)
-
-### Default arrows
-You can turn default arrows on with `arrows` prop
-```javascript
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-
-// ...
-
-render() {
-  return (
-    <Carousel
-      arrows
-    >
-      <img src={imageOne} />
-      <img src={imageTwo} />
-      <img src={imageThree} />
-    </Carousel>
-  );
-}
-```
-Where:
-* `arrows` is **boolean** flag that determines usage of default arrows
-
-### Custom arrows
-You can define custom components for arrows using `arrowLeft` and `arrowRight` props. If you don't need to change default click listeners, add `addArrowClickHandler` prop. Otherwise, add click event handlers to your custom components.
-```javascript
-import Carousel from '@brainhubeu/react-carousel';
-import Icon from 'react-fa';
-import '@brainhubeu/react-carousel/lib/style.css';
-
-// ...
-
-render() {
-  return (
-    <Carousel
-      arrowLeft={<Icon className="icon-example" name="arrow-left" />}
-      arrowRight={<Icon className="icon-example" name="arrow-right" />}
-      addArrowClickHandler
-    >
-      <img src={imageOne} />
-      <img src={imageTwo} />
-      <img src={imageThree} />
-    </Carousel>
-  );
-}
-```
-
-Where:
-* `arrowLeft` and `arrowRight` are React components for arrows
-* `addArrowClickHandler` is **boolean** flag - default click event handlers are used when it's set to true
-
-### Passing slides as a prop
-
-```javascript
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-
-// ...
-
-render() {
-  const slides = [
-    (<img key={1} src={abstractImage} />),
-    (<img key={2} src={animalsImage} />),
-    (<img key={3} src={businessImage} />),
-    (<img key={4} src={cityImage} />),
-    (<img key={5} src={fashionImage} />),
-    (<img key={6} src={foodImage} />),
-    (<img key={7} src={natureImage} />),
-    (<img key={8} src={nightlifeImage} />),
-    (<img key={9} src={peopleImage} />),
-    (<img key={10} src={sportsImage} />),
-    (<img key={11} src={technicsImage} />),
-    (<img key={12} src={transportImage} />),
-  ];
-
-  return (
-    <Carousel slides={slides} />
-  );
-}
-```
-Where:
-* `slides` is an **array** of slides (it must be an array, if you want to use a component as an only slide you have to pass it as a child)
-
-
-### Additional options
-```javascript
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-
-// ...
-
-render() {
-  return (
-    <Carousel
-      slidesPerPage={5}
-      slidesPerScroll={2}
-      animationSpeed={1500}
-      autoPlay={3000}
-      stopAutoPlayOnHover
-      offset={50}
-      itemWidth={250}
-      clickToChange
-      centered
-      rtl
-    >
-      <img src={imageOne} />
-      <img src={imageTwo} />
-      <img src={imageThree} />
-    </Carousel>
-  );
-}
-```
-
-Where:
-* `slidesPerPage` is the **number** of slides visible at once 
-* `slidesPerScroll` is the **number** by which value will change on autoPlay and when arrow is clicked 
-* `animationSpeed` (*number*) transition duration in milliseconds
-* `autoPlay` (*number*) slide change interval in milliseconds
-* `stopAutoPlayOnHover` (*boolean*) determines if autoPlay should stop when mouse hover over carousel
-* `offset` (*number*) padding between items
-* `itemWidth` (*number*) determines custom width for each slide in carousel
-* `clickToChange` *boolean* indicating if clicking on a slide should trigger changing the current value
-* `centered` *boolean* indicating if the current active slide should be aligned to the center or to the left of a carousel
-* `rtl` *boolean* indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well)
-
-### Infinite
-```javascript
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-
-// ...
-
-render() {
-  return (
-    <div>
-      <Carousel
-        infinite
-      >
-        <img className="img-example" src={someImage} />
-        ...
-        <img className="img-example" src={anotherImage} />
-      </Carousel>
-    </div>
-  );
-}
-```
-
-### Responsive
-All props (except value, onChange, responsive, children) can be set to different values on different screen resolution
-```javascript
-import Carousel from '@brainhubeu/react-carousel';
-import Icon from 'react-fa';
-
-// ...
-
-render() {
-  return (
-    <Carousel
-      slidesPerPage={5}
-      slidesPerScroll={2}
-      infinite
-      clickToChange
-      centered
-      breakpoints={{
-        1000: { // these props will be applied when screen width is less than 1000px
-          slidesPerPage: 2,
-          clickToChange: false,
-          centered: false,
-          arrows: true,
-          infinite: false,
-        },
-        500: {
-          slidesPerPage: 1,
-          slidesPerScroll: 1,
-          clickToChange: false,
-          centered: false,
-          arrowLeft: (<Icon className="icon-example" name="arrow-left" />),
-          arrowRight: (<Icon className="icon-example" name="arrow-right" />),
-          animationSpeed: 2000,
-          infinite: false,
-        },
-      }}
-    >
-      <img src={imageOne} />
-      <img src={imageTwo} />
-      <img src={imageThree} />
-    </Carousel>
-  );
-}
-```
-
-Note: In the example above you cannot leave clickToChange value out in 500 breakpoint. In that case value from 1000 breakpoint will not be applied as the options are not inherited from higher to lower resolutions, only from default to current resolution.
+[![gif](readme/assets/carousel.gif)](https://github.com/brainhubeu/react-carousel/)
 
 ### Showing dots or thumbnails
-There is a separate Dots component that can be used to show navigation dots.
-```javascript
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
-
-// ...
-
-constructor(props) {
-  super(props);
-  this.state = {
-    value: 0,
-  };
-}
-
-onChange = value => this.setState({ value });
-
-render() {
-  return (
-    <div>
-      <Carousel
-        value={this.state.value}
-        onChange={this.onChange}
-      >
-        <img className="img-example" src={someImage} />
-        ...
-        <img className="img-example" src={anotherImage} />
-      </Carousel>
-      <Dots value={this.state.value} onChange={this.onChange} number={12} />
-    </div>
-  );
-}
-```
-
-It can also show thumbnails instead of dots
+There is a separate Dots component that can be used to fully control navigation dots or add thumbnails.
 ```javascript
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
@@ -400,64 +141,97 @@ render() {
 }
 ```
 
-Navigation dots can also be further customized with your own styles.
-```javascript
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
+[![gif](readme/assets/thumbnails.gif)](https://github.com/brainhubeu/react-carousel/)
 
-// ...
+## Props
+You can access a clickable demo with many examples and a [live code editor](https://brainhubeu.github.io/react-carousel/) by clicking on a Prop name.
 
-constructor(props) {
-  super(props);
-  this.state = {
-    value: 0,
-  };
-}
+### Carousel props
 
-onChange = value => this.setState({ value });
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| [**addArrowClickHandler**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *Boolean* | `undefined` | Has to be added for arrowLeft and arrowRight to work |
+| [**animationSpeed**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `500` | Determines transition duration in milliseconds |
+| [**arrowLeft**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default left arrow (if you provide these custom arrows, you don't have to use arrows prop) |
+| [**arrowRight**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default right arrow (if you provide these custom arrows, you don't have to use arrows prop) |
+| [**arrows**](https://brainhubeu.github.io/react-carousel/docs/examples/defaultArrows) | *Boolean* | `false` | Renders default arrows |
+| [**autoPlay**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `undefined` | Slide change interval in milliseconds |
+| [**breakpoints**](https://brainhubeu.github.io/react-carousel/docs/examples/responsive) | *Object* | `undefined` | All props (except of `value`, `onChange`, `responsive`, `children`) can be set to different values on different screen resolutions |
+| [**centered**](https://brainhubeu.github.io/react-carousel/docs/examples/centered) | *Boolean* | `undefined` | Aligned active slide to the center of the carousel |
+| [**clickToChange**](https://brainhubeu.github.io/react-carousel/docs/examples/clickToChange) | *Boolean* | `undefined` | Clicking on a slide changes current slide to the clicked one |
+| [**dots**](https://brainhubeu.github.io/react-carousel/docs/examples/simpleDots) | *Boolean* | `undefined` | Renders default dots under the carousel |
+| [**draggable**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `true` | Makes it possible to drag to the next slide with mouse cursor |
+| [**infinite**](https://brainhubeu.github.io/react-carousel/docs/examples/infinite) | *Boolean* | `undefined` | Creates an infinite carousel width |
+| **itemWidth** | *Number* | `undefined` | Determines custom width for every slide in the carousel |
+| [**keepDirectionWhenDragging**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `undefined` | While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged |
+| **minDraggableOffset** | *Number* | `10` | Defines the minimum offset to consider the drag gesture |
+| **offset** | *Number* | `0` | Padding between items |
+| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Function* | `undefined` | Handler triggered when current slide is about to change (e.g. on arrow click or on swipe) |
+| [**rtl**](https://brainhubeu.github.io/react-carousel/docs/examples/rtl) | *Boolean* | `false` | Indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well) |
+| **slides** | *Array* | `undefined` | Alternative way to pass slides. This prop expects an array of JSX <img> elements |
+| [**slidesPerPage**](https://brainhubeu.github.io/react-carousel/docs/examples/multipleItems) | *Number* | `1` | Number of slides visible at once |
+| [**slidesPerScroll**](https://brainhubeu.github.io/react-carousel/docs/examples/slidesPerScroll) | *Number* | `1` | Number by which value will change on scroll (autoPlay, arrow click, drag)|
+| **stopAutoPlayOnHover** | *Boolean* | `undefined` | Determines if autoPlay should stop when mouse hover over carousel |
+| [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Number* | `undefined` | Current slide's index (zero based, depends on the elements order) |
 
-render() {
-  return (
-    <div>
-      <Carousel
-        value={this.state.value}
-        onChange={this.onChange}
-      >
-        <img className="img-example" src={someImage} />
-        ...
-        <img className="img-example" src={anotherImage} />
-      </Carousel>
-      <Dots value={this.state.value} onChange={this.onChange} number={12} className={yourOwnClassName} />
-    </div>
-  );
-}
-```
+### Dots props
 
-## Unit tests
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| [**number**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | Amount of slides | Number of slides in the carousel you want to control |
+| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Function* | `undefined` | `onChange` callback (works the same way as `onChange` in `Carousel` component) |
+| **rtl** | *Boolean* | `false` | Indicating if the dots should have direction from Right to Left |
+| [**thumbnails**](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
+| [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | slide position in the slides Array | Current `Carousel` value |
+
+## Tests
+
+### Unit tests
 ```
 yarn test:unit
 ```
 
-## E2E tests
-
+### E2E tests
 ```
 yarn test:e2e
 ```
 
-## Local running
-In order to run the docs/ demo locally:
-- `cd docs-www`
-- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
-- `yarn develop`
+## Contributing
+[The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.
+You're more than welcome to vote:
+- with 👍if you like a given feature request or you'd like a given bug to be fixed
+- with ❤️ if you love a given feature request or fixing a given bug is critical for you
+- with 👎if in your opinion, a given feature would create more damages than the value provided by it or you consider a given bug to be a feature
 
+We don't give any guarantee to fix even the most liked issues but 👍and ❤️ increase probability of fixing while 👎decreases the probability of fixing.
+
+You're also more than welcome to:
+- submit a feature request
+- report a bug
+- ask a question
+- comment an issue, discussing the details
+- open a PR, fixing a given issue
+
+## Decision log
+
+### SSR
+When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
+```js
+import dynamic from 'next/dynamic';
+
+const { default: Carousel, Dots } = dynamic(
+ () => require('@brainhubeu/react-carousel'),
+ { ssr: false },
+);
+```
 
 ## License
 
-react-carousel is copyright © 2018-2020 [Brainhub](https://brainhub.eu/?utm_source=github) It is free software, and may be redistributed under the terms specified in the [license](LICENSE.md).
+react-carousel is copyright © 2018-2020 [Brainhub](https://brainhub.eu/?utm_source=github). It is free software and may be redistributed under the terms specified in the [license](LICENSE.md).
 
 ## About
 
-react-carousel is maintained by the Brainhub development team. It is funded by Brainhub and the names and logos for Brainhub are trademarks of Brainhub Sp. z o.o.. You can check other open-source projects supported/developed by our teammates here. 
+react-carousel is maintained by the Brainhub development team. It is funded by Brainhub and the names and logos for Brainhub are trademarks of Brainhub Sp. z o.o.. You can check other open-source projects supported/developed by our teammates [here](https://github.com/brainhubeu). 
 
 [![Brainhub](https://brainhub.eu/brainhub.svg)](https://brainhub.eu/?utm_source=github)
 
