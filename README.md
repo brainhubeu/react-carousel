@@ -1,6 +1,8 @@
 <br/>
 <h1 align="center">
-  <a href="https://brainhubeu.github.io/react-carousel/"><img src="https://github.com/brainhubeu/react-carousel/readme/assets/logo.gif" alt="" width="200"/></a>
+  <a href="https://brainhubeu.github.io/react-carousel/">
+    <img src="https://github.com/brainhubeu/react-carousel/raw/master/readme/assets/logo.gif" alt="" width="200"/>
+  </a>
   <br/>
   react-carousel
 </h1>
@@ -97,7 +99,7 @@ export default class MyCarousel extends Component {
 }
 ```
 
-[![gif](readme/assets/carousel.gif)](https://github.com/brainhubeu/react-carousel/)
+[![gif](readme/assets/carousel.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/simpleUsage)
 
 ### Showing dots or thumbnails
 There is a separate Dots component that can be used to fully control navigation dots or add thumbnails.
@@ -141,7 +143,7 @@ render() {
 }
 ```
 
-[![gif](readme/assets/thumbnails.gif)](https://github.com/brainhubeu/react-carousel/)
+[![gif](readme/assets/thumbnails.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails)
 
 ## Props
 You can access a clickable demo with many examples and a [live code editor](https://brainhubeu.github.io/react-carousel/) by clicking on a Prop name.
