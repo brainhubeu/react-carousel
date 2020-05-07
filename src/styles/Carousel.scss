@@ -1,29 +1,33 @@
-.BrainhubCarousel {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+.BrainhubCarousel__container {
+  width: 100%;
 
-  &.BrainhubCarousel--isRTL {
-    direction: rtl;
-
-    .BrainhubCarousel__trackContainer {
-      .BrainhubCarousel__track {
-        direction: rtl;
+  .BrainhubCarousel {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  
+    &.BrainhubCarousel--isRTL {
+      direction: rtl;
+  
+      .BrainhubCarousel__trackContainer {
+        .BrainhubCarousel__track {
+          direction: rtl;
+        }
       }
     }
-  }
-
-  .BrainhubCarousel__trackContainer {
-    overflow: hidden;
-    .BrainhubCarousel__track {
-      display: flex;
+  
+    .BrainhubCarousel__trackContainer {
       overflow: hidden;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-
-      &.BrainhubCarousel__track--transition {
-        transition: transform;
+      .BrainhubCarousel__track {
+        display: flex;
+        overflow: hidden;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+  
+        &.BrainhubCarousel__track--transition {
+          transition: transform;
+        }
       }
     }
   }
