@@ -669,7 +669,7 @@ class Carousel extends Component {
   render() {
     const isRTL = this.getProp('rtl');
     return (
-      <div>
+      <div className="BrainhubCarousel__container">
         <div
           className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
           ref={el => this.node = el}
