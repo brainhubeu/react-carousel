@@ -17,6 +17,26 @@ class CarouselItem extends PureComponent {
     isDraggingEnabled: PropTypes.bool,
   };
 
+  constructor(props) {
+    super(props);
+    this.childrenRef = React.createRef();
+  }
+
+  /* ========== Resize, if necessary. Workaround for iOS safari ========== */
+  componentDidUpdate() {
+    this.childrenRef.current.style = null;
+    if (this.childrenRef.current.offsetWidth > this.props.width) {
+      this.childrenRef.current.style.width = `${this.props.width}px`;
+    }
+  }
+
+  getChildren() {
+    return React.cloneElement(
+      this.props.children,
+      { ref: this.childrenRef },
+    );
+  }
+
   onMouseDown = event => {
     this.props.onMouseDown(event, this.props.index);
   };
@@ -46,7 +66,7 @@ class CarouselItem extends PureComponent {
         onMouseDown={this.props.isDraggingEnabled ? this.onMouseDown : null}
         onTouchStart={this.props.isDraggingEnabled ? this.onTouchStart : null}
       >
-        {this.props.children}
+        {this.getChildren()}
       </li>
     );
   }
