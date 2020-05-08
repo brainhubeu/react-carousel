@@ -2,7 +2,7 @@ version: 2
 jobs:
   check_branch_name:
     docker:
-      - image: circleci/node:12.16.2
+      - image: circleci/node:12.16.3
     working_directory: ~/app
     steps:
       - run:
@@ -18,7 +18,7 @@ jobs:
             fi
   deploy_test_environment:
     docker:
-      - image: circleci/node:12.16.2
+      - image: circleci/node:12.16.3
     working_directory: ~/app
     steps:
       - checkout
@@ -27,7 +27,7 @@ jobs:
           command: ./tools/deploy-gh-pages-pr.sh
   test:
     docker:
-      - image: circleci/node:12.16.2
+      - image: circleci/node:12.16.3
     working_directory: ~/app
     steps:
       - checkout
@@ -43,7 +43,7 @@ jobs:
       - run: yarn build
   test-e2e:
     docker:
-      - image: circleci/node:12.16.2
+      - image: circleci/node:12.16.3
     working_directory: ~/app
     steps:
       - checkout
@@ -54,7 +54,7 @@ jobs:
 
   publish_package:
     docker:
-      - image: circleci/node:12.16.2
+      - image: circleci/node:12.16.3
     steps:
       - checkout
       - run: yarn install --non-interactive
@@ -82,6 +82,7 @@ jobs:
               echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
               exit 1
             fi
+      - run: git pull --no-edit origin $CIRCLE_BRANCH
       - run: git push origin $CIRCLE_BRANCH
       - run:
           name: npm publish CDN version
@@ -110,6 +111,7 @@ jobs:
             yarn add @brainhubeu/react-carousel --non-interactive
             git add .
             git commit -m 'update @brainhubeu/react-carousel in docs-www [ci skip]'
+      - run: git pull --no-edit origin $CIRCLE_BRANCH
       - run: git push origin $CIRCLE_BRANCH
       - run:
           name: publish gh pages
