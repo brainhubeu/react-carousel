@@ -24,6 +24,35 @@ class CarouselItem extends PureComponent {
 
   /* ========== Resize, if necessary. Workaround for iOS safari ========== */
   componentDidUpdate() {
+    if (!this.childrenRef.current.offsetWidth || this.childrenRef.current.offsetWidth === 0) {
+      this.observeWidth();
+      return;
+    }
+    this.resizeChildren();
+  }
+
+  observeWidth() {
+    try {
+      const resizeObserver = new ResizeObserver(() => {
+        this.resizeChildren();
+        resizeObserver.unobserve(this.childrenRef.current);
+      });
+      resizeObserver.observe(this.childrenRef.current);
+    } catch (error) {
+      if (error.name !== 'ReferenceError') {
+        throw error;
+      }
+      // workaround for missing Observer API
+      const intervalId = setInterval(() => {
+        if (this.childrenRef.current.offsetWidth && this.childrenRef.current.offsetWidth > 0) {
+          clearInterval(intervalId);
+          this.resizeChildren();
+        }
+      }, 200);
+    }
+  }
+
+  resizeChildren() {
     this.childrenRef.current.style = null;
     if (this.childrenRef.current.offsetWidth > this.props.width) {
       this.childrenRef.current.style.width = `${this.props.width}px`;
