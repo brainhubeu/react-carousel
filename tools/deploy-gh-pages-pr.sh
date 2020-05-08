@@ -7,7 +7,7 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-for page_number in {1..12}
+for page_number in {1..20}
 do
   echo "page_number=$page_number"
   pr_number=`curl -s "https://beghp.github.io/gh-pages-rc-$page_number/" | grep -o '★☂☀[0-9]\+♞♜♖' | grep -o '[0-9]\+' | head -1 || echo ''`
@@ -33,12 +33,12 @@ do
     fi
   fi
 done
-echo "final page_number=$page_number"
-if [[ "$page_number" == '' ]]
+if [[ "$page_number" == '20' ]]
 then
   echo 'no free page'
   exit
 fi
+echo "final page_number=$page_number"
 
 page_url="https://beghp.github.io/gh-pages-rc-$page_number"
 echo "page_url=$page_url"
