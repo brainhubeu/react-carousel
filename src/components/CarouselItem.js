@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 import '../styles/CarouselItem.scss';
+import ResizeObserverPF from 'resize-observer-polyfill';
 
 class CarouselItem extends PureComponent {
   static propTypes = {
@@ -23,7 +24,37 @@ class CarouselItem extends PureComponent {
   }
 
   /* ========== Resize, if necessary. Workaround for iOS safari ========== */
-  componentDidUpdate() {
+  componentDidMount() {
+    this.observeWidth();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.width !== this.props.width) {
+      this.resizeChildren();
+    }
+  }
+
+  observeWidth() {
+    try {
+      const resizeObserver = new ResizeObserver(() => {
+        this.resizeChildren();
+        resizeObserver.unobserve(this.childrenRef.current);
+      });
+      resizeObserver.observe(this.childrenRef.current);
+    } catch (error) {
+      if (error.name !== 'ReferenceError') {
+        throw error;
+      }
+      // workaround for missing Observer API
+      const resizeObserver = new ResizeObserverPF(() => {
+        this.resizeChildren();
+        resizeObserver.unobserve(this.childrenRef.current);
+      });
+      resizeObserver.observe(this.childrenRef.current);
+    }
+  }
+
+  resizeChildren() {
     this.childrenRef.current.style = null;
     if (this.childrenRef.current.offsetWidth > this.props.width) {
       this.childrenRef.current.style.width = `${this.props.width}px`;

@@ -116,7 +116,7 @@ class Carousel extends Component {
       this.resetInterval();
     }
 
-    if (!this.state.transitionEnabled) {
+    if (valueChanged) {
       this.setState({
         transitionEnabled: true,
       });
