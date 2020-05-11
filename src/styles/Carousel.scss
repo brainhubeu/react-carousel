@@ -1,33 +1,34 @@
 .BrainhubCarousel__container {
   width: 100%;
+  overflow: hidden;
+}
 
-  .BrainhubCarousel {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-  
-    &.BrainhubCarousel--isRTL {
-      direction: rtl;
-  
-      .BrainhubCarousel__trackContainer {
-        .BrainhubCarousel__track {
-          direction: rtl;
-        }
+.BrainhubCarousel {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  &.BrainhubCarousel--isRTL {
+    direction: rtl;
+
+    .BrainhubCarousel__trackContainer {
+      .BrainhubCarousel__track {
+        direction: rtl;
       }
     }
-  
-    .BrainhubCarousel__trackContainer {
+  }
+
+  .BrainhubCarousel__trackContainer {
+    overflow: hidden;
+    .BrainhubCarousel__track {
+      display: flex;
       overflow: hidden;
-      .BrainhubCarousel__track {
-        display: flex;
-        overflow: hidden;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-  
-        &.BrainhubCarousel__track--transition {
-          transition: transform;
-        }
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      &.BrainhubCarousel__track--transition {
+        transition: transform;
       }
     }
   }

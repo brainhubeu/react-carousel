@@ -3,14 +3,14 @@
 You can use a Carousel within a flex container
 ```jsx render
 
-<div style={{ display: 'flex', justifyContent: 'center', flexFlow: 'column', alignContent: 'center', textAlign: 'center' }}>
+<div style={{ display: 'flex', justifyContent: 'center', flexFlow: 'row', alignContent: 'center', textAlign: 'center' }}>
     <Carousel>
         <img src={imageOne} />
         <img src={imageTwo} />
         <img src={imageThree} />
     </Carousel>
     <div>
-        Lorem Ipsum
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </div>
 </div>
 ```
