@@ -7,6 +7,7 @@ import concat from 'lodash/concat';
 import times from 'lodash/times';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import ReactResizeDetector from 'react-resize-detector';
 
 import config from '../constants/config';
 
@@ -100,13 +101,6 @@ class Carousel extends Component {
       this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
     }
 
-    // setting size of a carousel in state
-    window.addEventListener('resize', this.onResize);
-    this.onResize();
-
-    // setting size of a carousel in state based on styling
-    window.addEventListener('load', this.onResize);
-
     // setting autoplay interval
     this.resetInterval();
   }
@@ -135,8 +129,6 @@ class Carousel extends Component {
       this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
     }
 
-    window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('load', this.onResize);
     if (this.interval) {
       clearInterval(this.interval);
     }
@@ -675,9 +667,11 @@ class Carousel extends Component {
           className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
           ref={el => this.node = el}
         >
-          {this.renderArrowLeft()}
-          {this.renderCarouselItems()}
-          {this.renderArrowRight()}
+          <ReactResizeDetector handleWidth onResize={this.onResize}>
+            {this.renderArrowLeft()}
+            {this.renderCarouselItems()}
+            {this.renderArrowRight()}
+          </ReactResizeDetector>
         </div>
         {this.renderDots()}
       </div>
