@@ -1,7 +1,7 @@
 {
   "name": "@brainhubeu/gatsby-docs-kit-start",
   "description": "Gatsby-Docs-Kit starter repository",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "author": "Brainhub",
   "license": "MIT",
   "scripts": {
@@ -29,7 +29,7 @@
     "@babel/preset-stage-1": "^7.8.3",
     "@babel/register": "^7.9.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "eslint-config-brainhub": "^1.12.0",
     "gatsby-plugin-google-analytics": "2.2.2",
     "gh-pages": "^2.2.0",
