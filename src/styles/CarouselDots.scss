@@ -19,6 +19,7 @@ $dots-color: black;
     padding: 10px;
     border: none;
     opacity: 0.5;
+    font-size: 0;
     cursor: pointer;
     -webkit-appearance: none;
 
@@ -47,6 +48,7 @@ $dots-color: black;
     padding: 10px;
     border: none;
     opacity: 0.5;
+    font-size: 0;
     cursor: pointer;
 
     &.BrainhubCarousel__thumbnail--selected {
