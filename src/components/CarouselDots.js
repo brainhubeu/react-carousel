@@ -17,14 +17,14 @@ class CarouselDots extends Component {
     const numberOfSlides = this.props.number || this.props.thumbnails.length;
     const moduloItem = this.calculateButtonValue() % numberOfSlides;
 
-    return this.props.onChange(this.props.value - ( moduloItem - index));
+    return this.props.onChange(this.props.value - (moduloItem - index));
   };
 
   calculateButtonValue = () => {
     const numberOfSlides = this.props.number || this.props.thumbnails.length;
     return this.props.value >= 0
       ? this.props.value
-      : this.props.value + numberOfSlides * Math.ceil(Math.abs(this.props.value/numberOfSlides));
+      : this.props.value + numberOfSlides * Math.ceil(Math.abs(this.props.value / numberOfSlides));
   };
 
   renderCarouselDots() {
@@ -33,7 +33,7 @@ class CarouselDots extends Component {
 
       return this.props.thumbnails.slice(0, dotsLength).map((thumbnail, index) => (
         <li key={index}>
-          <div
+          <button
             className={classnames(
               'BrainhubCarousel__thumbnail',
               { 'BrainhubCarousel__thumbnail--selected': index === this.calculateButtonValue() % dotsLength },
@@ -42,7 +42,7 @@ class CarouselDots extends Component {
             onClick={this.onChange(index)}
           >
             {thumbnail}
-          </div>
+          </button>
         </li>
       ));
     }
@@ -51,7 +51,7 @@ class CarouselDots extends Component {
     for (let i = 0; i < this.props.number; i++) {
       dots.push(
         <li key={i}>
-          <div
+          <button
             className={classnames(
               'BrainhubCarousel__dot',
               { 'BrainhubCarousel__dot--selected': i === this.calculateButtonValue() % this.props.number },
@@ -60,7 +60,7 @@ class CarouselDots extends Component {
             onClick={this.onChange(i)}
           >
             {i + 1}
-          </div>
+          </button>
         </li>,
       );
     }
