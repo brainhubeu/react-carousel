@@ -37,7 +37,8 @@ class CarouselItem extends PureComponent {
         )}
         style={{
           transitionDuration: '0ms',
-          transform: `translate3d(${this.props.offset / 2}px, ${this.props.offset / 2}px, 0px)`,
+          transform: `translateX(${this.props.offset / 2}px)`,
+          paddingRight: `${this.props.offset / 2}px`,
           width: `${this.props.width}px`,
           maxWidth: `${this.props.width}px`,
           minWidth: `${this.props.width}px`,
