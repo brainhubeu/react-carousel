@@ -44,6 +44,8 @@
           file: dots.md
         - title: Thumbnails
           file: thumbnails.md
+        - title: Flex Container
+          file: flexContainer.md
     - title: Api
       dir: api
       items:
