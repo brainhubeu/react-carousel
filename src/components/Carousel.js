@@ -101,6 +101,7 @@ class Carousel extends Component {
       this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
     }
 
+    this.onResize();
     // setting autoplay interval
     this.resetInterval();
   }
@@ -668,9 +669,9 @@ class Carousel extends Component {
           ref={el => this.node = el}
         >
           <ReactResizeDetector handleWidth onResize={this.onResize}>
-            {this.renderArrowLeft()}
-            {this.renderCarouselItems()}
-            {this.renderArrowRight()}
+            {<this.renderArrowLeft key="arrow-left"/>}
+            {<this.renderCarouselItems key="carousel"/>}
+            {<this.renderArrowRight key="arrow-right"/>}
           </ReactResizeDetector>
         </div>
         {this.renderDots()}
