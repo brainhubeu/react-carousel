@@ -58,11 +58,6 @@ npm i @brainhubeu/react-carousel
 npm i @types/brainhubeu__react-carousel -D
 ```
 
-### In order to run the docs/demo locally:
-- `cd docs-www`
-- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
-- `yarn develop`
-
 ### CDN
 If you don't use any bundler like Webpack, you can add these scripts to your HTML file, `body` section:
 ```html
@@ -213,6 +208,11 @@ You're also more than welcome to:
 - ask a question
 - comment an issue, discussing the details
 - open a PR, fixing a given issue
+
+### In order to run the docs/demo locally:
+- `cd docs-www`
+- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
+- `yarn develop`
 
 ### Labels
 Our issues are marked with the following labels:
