@@ -492,6 +492,7 @@ class Carousel extends Component {
     return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
   };
 
+  getIdCarouselItem = index => index % this.getChildren().length + 1;
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
@@ -553,6 +554,7 @@ class Carousel extends Component {
             [null, undefined].includes(carouselItem) ? null : (
               <CarouselItem
                 key={index}
+                id={this.getIdCarouselItem(index)}
                 currentSlideIndex={this.getActiveSlideIndex()}
                 index={index}
                 width={this.getCarouselElementWidth()}
