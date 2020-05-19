@@ -21,7 +21,7 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Environment**
-- please paste the result of `npx @brainhubeu/envinfo@latest --preset brainhubeu`
+- please paste the result of `npx envinfo --system --binaries --browsers --npmPackages '@brainhubeu/*'`
 - desktop or mobile (which device & OS if mobile)?
 - Browser [e.g. Chrome, Safari]
 
