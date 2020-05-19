@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 import '../styles/CarouselItem.scss';
-import ResizeObserverPF from 'resize-observer-polyfill';
+import ResizeObserver from 'resize-observer-polyfill';
+
+const childrenWidthMap = new Map();
 
 class CarouselItem extends PureComponent {
   static propTypes = {
@@ -13,6 +15,7 @@ class CarouselItem extends PureComponent {
     width: PropTypes.number,
     offset: PropTypes.number,
     index: PropTypes.number,
+    id: PropTypes.number,
     currentSlideIndex: PropTypes.number,
     isDragging: PropTypes.bool,
     isDraggingEnabled: PropTypes.bool,
@@ -34,24 +37,20 @@ class CarouselItem extends PureComponent {
     }
   }
 
+  componentDidUnmount() {
+    childrenWidthMap.delete(this.props.id);
+  }
+
   observeWidth() {
-    try {
-      const resizeObserver = new ResizeObserver(() => {
-        this.resizeChildren();
-        resizeObserver.unobserve(this.childrenRef.current);
-      });
-      resizeObserver.observe(this.childrenRef.current);
-    } catch (error) {
-      if (error.name !== 'ReferenceError') {
-        throw error;
-      }
-      // workaround for missing Observer API
-      const resizeObserver = new ResizeObserverPF(() => {
-        this.resizeChildren();
-        resizeObserver.unobserve(this.childrenRef.current);
-      });
-      resizeObserver.observe(this.childrenRef.current);
+    if (childrenWidthMap.has(this.props.id)) {
+      this.childrenRef.current.style.width = childrenWidthMap.get(this.props.id);
     }
+
+    const resizeObserver = new ResizeObserver(() => {
+      this.resizeChildren();
+      resizeObserver.unobserve(this.childrenRef.current);
+    });
+    resizeObserver.observe(this.childrenRef.current);
   }
 
   resizeChildren() {
@@ -59,6 +58,7 @@ class CarouselItem extends PureComponent {
     if (this.childrenRef.current.offsetWidth > this.props.width) {
       this.childrenRef.current.style.width = `${this.props.width}px`;
     }
+    childrenWidthMap.set(this.props.id, this.childrenRef.current.offsetWidth);
   }
 
   getChildren() {
