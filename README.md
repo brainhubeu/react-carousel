@@ -58,11 +58,6 @@ npm i @brainhubeu/react-carousel
 npm i @types/brainhubeu__react-carousel -D
 ```
 
-### In order to run the docs/demo locally:
-- `cd docs-www`
-- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
-- `yarn develop`
-
 ### CDN
 If you don't use any bundler like Webpack, you can add these scripts to your HTML file, `body` section:
 ```html
@@ -186,18 +181,6 @@ You can access a clickable demo with many examples and a [live code editor](http
 | [**thumbnails**](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
 | [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | slide position in the slides Array | Current `Carousel` value |
 
-## Tests
-
-### Unit tests
-```
-yarn test:unit
-```
-
-### E2E tests
-```
-yarn test:e2e
-```
-
 ## Contributing
 [The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.
 You're more than welcome to vote:
@@ -213,6 +196,29 @@ You're also more than welcome to:
 - ask a question
 - comment an issue, discussing the details
 - open a PR, fixing a given issue
+
+### Setting up local development which means running the docs/demo locally:
+- `git clone https://github.com/brainhubeu/react-carousel`
+- `cd react-carousel`
+- `yarn`
+- `cd docs-www`
+- `yarn`
+- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
+- `yarn develop`
+- open http://localhost:8000/
+
+### Tests
+Each test command should be run from the root directory.
+
+#### Unit tests
+```
+yarn test:unit
+```
+
+#### E2E tests
+```
+yarn test:e2e
+```
 
 ### Labels
 Our issues are marked with the following labels:
