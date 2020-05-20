@@ -7,14 +7,15 @@ class MyCarousel extends React.Component {
 
   resizeSurrounding() {
     const width = document.querySelector('#width').value;
-    document.querySelector('#surrounding').style.width = width;
+    document.querySelector('#surrounding').style.width = `${width}px`;
   }
 
   render() {
     return (
     <div id="surrounding">
-      <input type="text" id="width"/>
-      <button onClick={this.resizeSurrounding}>Set width</button>
+      <label for="width">Width (px)</label>
+      <input type="number" id="width"/>
+      <input type="button" onClick={this.resizeSurrounding} id="set" value="Set width"/>
       <Carousel
         centered
         infinite
