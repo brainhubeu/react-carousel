@@ -2,6 +2,8 @@
 /* eslint-disable react/jsx-no-bind  */
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import has from 'lodash/has';
+import flow from 'lodash/flow';
+import _bind from 'lodash/bind';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -13,6 +15,7 @@ import simulateEvent from '../tools/simulateEvent';
 import getChildren from '../tools/getChildren';
 import clamp from '../tools/clamp';
 import config from '../constants/config';
+import STRATEGIES from '../constants/strategies';
 
 import CarouselItem from './CarouselItem';
 
@@ -31,14 +34,62 @@ const Carousel = props => {
   const [transitionEnabled, setTransitionEnabled] = useState(false);
   const children = getChildren(props.children, props.slides);
   const [slides, setSlides] = useState(children);
-  const [onChange, setOnChange] = useState(null);
-
-  const getCurrentValue = () => clamp(props.value, props.children, props.slides);
+  const [trackStyles, setTrackStyles] = useState({
+    marginLeft: 0,
+    transform: 0,
+  });
 
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
 
   const [windowWidth] = useOnResize(nodeRef, itemWidth, setItemWidth, setCarouselWidth);
+
+
+  const plugins = props?.plugins.map(plugin =>
+    plugin.resolve({
+      props,
+      options: plugin.options,
+      state: {
+        get: {
+          carouselWidth,
+          itemWidth,
+          trackWidth,
+          slides,
+          trackStyles,
+          slideMovement,
+          transitionEnabled,
+          activeSlideIndex,
+          windowWidth,
+        },
+        set: {
+          setCarouselWidth,
+          setItemWidth,
+          setTrackWidth,
+          setSlides,
+          setTrackStyles,
+          setTransitionEnabled,
+          setActiveSlideIndex,
+        },
+      },
+      refs: {
+        trackRef,
+      },
+    })
+);
+
+  const getStrategies = strategyName => plugins
+    .map(plugin => plugin.strategies && plugin.strategies[strategyName])
+    .filter(strategy => typeof strategy === 'function');
+
+  const getCurrentValue = () => {
+    const getCurrentValueBase = () => clamp(props.value, props.children, props.slides);
+
+    const strategies = getStrategies(STRATEGIES.GET_CURRENT_VALUE);
+
+    return strategies.length
+      ? flow([getCurrentValueBase, ...getStrategies(STRATEGIES.GET_CURRENT_VALUE)])()
+      : getCurrentValueBase();
+  };
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -70,20 +121,13 @@ const Carousel = props => {
   };
 
   /**
-   * Clamps a provided value and triggers onChange
-   * @param {number} value desired index to change current value to
-   * @return {undefined}
-   */
-  const changeSlide = value => onChange.callback(value);
-
-  /**
    * Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
    * @return {number} index
    */
   const getNearestSlideIndex = () => {
     const slideIndexOffset = -Math.round(slideMovement.dragOffset / itemWidth);
 
-    return onChange.getCurrentValue() + slideIndexOffset;
+    return getCurrentValue() + slideIndexOffset;
   };
 
   /**
@@ -134,6 +178,32 @@ const Carousel = props => {
   };
 
   /**
+   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
+   * @return {number} offset in px
+   */
+  const getTransformOffset = () => {
+    const elementWidthWithOffset = itemWidth + getProp('offset');
+    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
+
+    return dragOffset - getCurrentValue() * elementWidthWithOffset;
+  };
+
+  /**
+   * calculates next slide value and triggers onChange
+   * @param {number} value desired index to change current value to
+   */
+  const changeSlide = value => {
+    const changeSlideBase = value => clamp(value, props.children, props.slides);
+
+    const enhancedStrategies = getStrategies(STRATEGIES.CHANGE_SLIDE).map(strategy => _bind(strategy, null, value));
+
+    const strategiesResult = enhancedStrategies.length
+      ? flow([changeSlideBase, ...enhancedStrategies])()
+      : changeSlideBase(value);
+    props.onChange(strategiesResult);
+  };
+
+  /**
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
    * if drag was short (or it was just a click) it changes slide to the clicked (or touched) one.
    * It resets clicked index, dragOffset and dragStart values in state.
@@ -154,33 +224,6 @@ const Carousel = props => {
         dragStart: null,
       });
     }
-  });
-
-  useEffect(() => {
-    setOnChange({
-      callback: value => {
-        props.onChange(clamp(value, props.children, props.slides));
-      },
-      getCurrentValue,
-    });
-  }, [props.onChange, props.value]);
-
-  /**
-   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
-   * @return {number} offset in px
-   */
-  const getTransformOffset = () => {
-    if (onChange && onChange.getCurrentValue) {
-      const elementWidthWithOffset = itemWidth + getProp('offset');
-      const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
-
-      return dragOffset - onChange.getCurrentValue() * elementWidthWithOffset;
-    }
-  };
-
-  const [trackStyles, setTrackStyles] = useState({
-    marginLeft: 0,
-    transform: `translateX(${getTransformOffset()}px)`,
   });
 
   useEffect(() => {
@@ -207,39 +250,7 @@ const Carousel = props => {
   useEventListener('touchmove', simulateEvent, nodeRef.current);
   useEventListener('touchend', simulateEvent, nodeRef.current);
 
-  props.plugins && props.plugins.length && props.plugins.forEach(plugin => {
-    plugin.resolve({
-      props,
-      options: plugin.options,
-      state: {
-        get: {
-          carouselWidth,
-          itemWidth,
-          trackWidth,
-          slides,
-          trackStyles,
-          slideMovement,
-          onChange,
-          transitionEnabled,
-          activeSlideIndex,
-          windowWidth,
-        },
-        set: {
-          setCarouselWidth,
-          setItemWidth,
-          setTrackWidth,
-          setSlides,
-          setTrackStyles,
-          setOnChange,
-          setTransitionEnabled,
-          setActiveSlideIndex,
-        },
-      },
-      refs: {
-        trackRef,
-      },
-    });
-  });
+  plugins?.forEach(plugin => typeof plugin === 'function' ? plugin() : plugin.plugin());
 
   /* ========== rendering ========== */
   const renderCarouselItems = () => {
