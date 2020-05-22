@@ -6,9 +6,14 @@ import config from '../constants/config';
 import useEventListener from './useEventListener';
 
 /**
- * Handler setting the carouselWidth value in state (used to set proper width of track and slides)
+ * hook setting the carouselWidth value in state (used to set proper width of track and slides)
  * throttled to improve performance
- * @type {Function}
+ *
+ * @param {node} nodeRef
+ * @param {number} itemWidth
+ * @param {function} setItemWidth
+ * @param {function} setCarouselWidth
+ * @return {[number]} updated window width size
  */
 const useOnResize = (nodeRef, itemWidth, setItemWidth, setCarouselWidth) => {
   const [windowWidth, setWindowWidth] = useState(0);

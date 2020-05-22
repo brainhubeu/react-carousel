@@ -4,6 +4,7 @@ import React, { useRef, useState, useCallback, useEffect } from 'react';
 import has from 'lodash/has';
 import flow from 'lodash/flow';
 import _bind from 'lodash/bind';
+import flatten from 'lodash/flatten';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -14,8 +15,8 @@ import useOnResize from '../hooks/useOnResize';
 import simulateEvent from '../tools/simulateEvent';
 import getChildren from '../tools/getChildren';
 import clamp from '../tools/clamp';
-import config from '../constants/config';
 import STRATEGIES from '../constants/strategies';
+import pluginsOrder from '../constants/pluginsOrder';
 
 import CarouselItem from './CarouselItem';
 
@@ -43,7 +44,6 @@ const Carousel = props => {
   const nodeRef = useRef(null);
 
   const [windowWidth] = useOnResize(nodeRef, itemWidth, setItemWidth, setCarouselWidth);
-
 
   const plugins = props?.plugins.map(plugin =>
     plugin.resolve({
@@ -76,8 +76,10 @@ const Carousel = props => {
       },
     })
 );
+  const itemClassNames = flatten(plugins.map(plugin => plugin.itemClassNames)).filter(className => typeof className === 'string');
 
   const getStrategies = strategyName => plugins
+    .sort((a, b) => pluginsOrder.indexOf(a.name) - pluginsOrder.indexOf(b.name))
     .map(plugin => plugin.strategies && plugin.strategies[strategyName])
     .filter(strategy => typeof strategy === 'function');
 
@@ -140,6 +142,7 @@ const Carousel = props => {
       setSlideMovement(previousState => ({
         ...slideMovement,
         dragOffset: pageX - previousState.dragStart,
+        dragEnd: pageX,
       }));
     }
   }, [slideMovement]);
@@ -154,8 +157,6 @@ const Carousel = props => {
     e.preventDefault();
     e.stopPropagation();
     const { pageX } = e;
-
-    setTransitionEnabled(false);
 
     setSlideMovement({
       ...slideMovement,
@@ -198,7 +199,7 @@ const Carousel = props => {
     const enhancedStrategies = getStrategies(STRATEGIES.CHANGE_SLIDE).map(strategy => _bind(strategy, null, value));
 
     const strategiesResult = enhancedStrategies.length
-      ? flow([changeSlideBase, ...enhancedStrategies])()
+      ? flow([() => value, changeSlideBase, ...enhancedStrategies])()
       : changeSlideBase(value);
     props.onChange(strategiesResult);
   };
@@ -213,10 +214,8 @@ const Carousel = props => {
     if (slideMovement.dragStart !== null) {
       e.preventDefault();
       if (getProp('draggable')) {
-        if (Math.abs(slideMovement.dragOffset) > config.clickDragThreshold) {
-          setTransitionEnabled(true);
-          changeSlide(getNearestSlideIndex());
-        }
+        setTransitionEnabled(true);
+        changeSlide(getNearestSlideIndex());
       }
       setSlideMovement({
         clicked: null,
@@ -243,14 +242,22 @@ const Carousel = props => {
     });
   }, [getTransformOffset()]);
 
+  /**
+   * Handler setting transitionEnabled value in state to false after transition animation ends
+   */
+  const onTransitionEnd = () => {
+    setTransitionEnabled(false);
+  };
+
   useEventListener('mouseup', onMouseUpTouchEnd);
 
   useEventListener('mousemove', onMouseMove, nodeRef.current);
   useEventListener('touchstart', simulateEvent, nodeRef.current);
   useEventListener('touchmove', simulateEvent, nodeRef.current);
   useEventListener('touchend', simulateEvent, nodeRef.current);
+  useEventListener('transitionend', onTransitionEnd, trackRef.current);
 
-  plugins?.forEach(plugin => typeof plugin === 'function' ? plugin() : plugin.plugin());
+  plugins?.forEach(plugin => typeof plugin === 'function' ? plugin() : plugin.plugin && plugin.plugin());
 
   /* ========== rendering ========== */
   const renderCarouselItems = () => {
@@ -280,6 +287,7 @@ const Carousel = props => {
             // eslint-disable-next-line no-undefined
             [null, undefined].includes(carouselItem) ? null : (
               <CarouselItem
+                clickable
                 key={index}
                 currentSlideIndex={activeSlideIndex}
                 index={index}
@@ -288,6 +296,7 @@ const Carousel = props => {
                 onMouseDown={onMouseDown}
                 onTouchStart={onTouchStart}
                 isDragging={!!Math.abs(slideMovement.dragOffset)}
+                itemClassNames={itemClassNames}
               >
                 {carouselItem}
               </CarouselItem>

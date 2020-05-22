@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react';
 
 import getChildren from '../tools/getChildren';
 import useEventListener from '../hooks/useEventListener';
-import STRATEGIES from "../constants/strategies";
+import STRATEGIES from '../constants/strategies';
+import { INFINITE } from '../constants/pluginsOrder';
 
 const NUMBER_OF_INFINITE_CLONES = 3;
 
 const infinite = ({ options, props, state, refs }) => ({
+  name: INFINITE,
   plugin: () => {
     const [infiniteTransitionFrom, setInfiniteTransitionFrom] = useState(0);
 
@@ -101,7 +103,9 @@ const infinite = ({ options, props, state, refs }) => ({
   },
 
   strategies: {
-    [STRATEGIES.CHANGE_SLIDE]: original => console.log(original) || original,
+    [STRATEGIES.CHANGE_SLIDE]: original =>
+      // state.set.setTransitionEnabled(false);
+      original,
     [STRATEGIES.GET_CURRENT_VALUE]: () => props.value,
   },
 });
