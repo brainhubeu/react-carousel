@@ -1,6 +1,6 @@
 import Carousel from './components/CarouselWrapper';
 import CarouselDots from './components/CarouselDots';
-import slidesPerPage from './components/slidesPregPage';
+import slidesPerPage from './components/slidesPerPage';
 import infinite from './components/infinite';
 import clickToChange from './components/clickToChange';
 

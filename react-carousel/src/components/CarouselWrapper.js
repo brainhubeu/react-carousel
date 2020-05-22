@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
+import { RecoilRoot } from 'recoil';
 
 import Carousel from './Carousel';
 
@@ -15,11 +16,13 @@ const CarouselWrapper = props => {
 
   const isControlled = !isNil(value);
   return (
-    <Carousel
-      value={isControlled ? parseInt(value) : builtinValue}
-      onChange={isControlled ? onChange : onValueChange}
-      {...rest}
-    />
+    <RecoilRoot>
+      <Carousel
+        value={isControlled ? parseInt(value) : builtinValue}
+        onChange={isControlled ? onChange : onValueChange}
+        {...rest}
+      />
+    </RecoilRoot>
   );
 };
 

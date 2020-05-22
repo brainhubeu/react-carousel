@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
 /* eslint-disable react/jsx-no-bind  */
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import has from 'lodash/has';
 import flow from 'lodash/flow';
 import _bind from 'lodash/bind';
@@ -17,70 +18,55 @@ import getChildren from '../tools/getChildren';
 import clamp from '../tools/clamp';
 import STRATEGIES from '../constants/strategies';
 import pluginsOrder from '../constants/pluginsOrder';
+import {
+  activeSlideIndexState,
+  carouselWidthState,
+  itemWidthState,
+  slideMovementState, slidesState,
+  trackStylesState,
+  trackWidthState,
+  transitionEnabledState,
+} from '../state/carousel';
 
 import CarouselItem from './CarouselItem';
 
 import '../styles/Carousel.scss';
 
 const Carousel = props => {
-  const [slideMovement, setSlideMovement] = useState({
-    clicked: null,
-    dragStart: null,
-    dragOffset: 0,
-  });
-  const [itemWidth, setItemWidth] = useState(0);
-  const [carouselWidth, setCarouselWidth] = useState(0);
-  const [trackWidth, setTrackWidth] = useState(0);
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [transitionEnabled, setTransitionEnabled] = useState(false);
+  const [slideMovement, setSlideMovement] = useRecoilState(slideMovementState);
+  const [itemWidth, setItemWidth] = useRecoilState(itemWidthState);
+  const [carouselWidth, setCarouselWidth] = useRecoilState(carouselWidthState);
+  const [trackWidth, setTrackWidth] = useRecoilState(trackWidthState);
+  const [activeSlideIndex] = useRecoilState(activeSlideIndexState);
+  const [transitionEnabled, setTransitionEnabled] = useRecoilState(transitionEnabledState);
+  const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
   const children = getChildren(props.children, props.slides);
-  const [slides, setSlides] = useState(children);
-  const [trackStyles, setTrackStyles] = useState({
-    marginLeft: 0,
-    transform: 0,
-  });
+  const [slides, setSlides] = useRecoilState(slidesState);
 
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
 
   const [windowWidth] = useOnResize(nodeRef, itemWidth, setItemWidth, setCarouselWidth);
 
+  useEffect(() => {
+    setSlides(children);
+  }, []);
+
   const plugins = props?.plugins.map(plugin =>
     plugin.resolve({
       props,
       options: plugin.options,
-      state: {
-        get: {
-          carouselWidth,
-          itemWidth,
-          trackWidth,
-          slides,
-          trackStyles,
-          slideMovement,
-          transitionEnabled,
-          activeSlideIndex,
-          windowWidth,
-        },
-        set: {
-          setCarouselWidth,
-          setItemWidth,
-          setTrackWidth,
-          setSlides,
-          setTrackStyles,
-          setTransitionEnabled,
-          setActiveSlideIndex,
-        },
-      },
-      refs: {
-        trackRef,
-      },
+      refs: { trackRef },
     })
-);
+  );
   const itemClassNames = flatten(plugins.map(plugin => plugin.itemClassNames)).filter(className => typeof className === 'string');
 
-  const getStrategies = strategyName => plugins
+  const strategies = plugins
     .sort((a, b) => pluginsOrder.indexOf(a.name) - pluginsOrder.indexOf(b.name))
-    .map(plugin => plugin.strategies && plugin.strategies[strategyName])
+    .map(plugin => plugin.strategies && plugin.strategies());
+
+  const getStrategies = strategyName => strategies
+    .map(strategy => strategy && strategy[strategyName])
     .filter(strategy => typeof strategy === 'function');
 
   const getCurrentValue = () => {

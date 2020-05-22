@@ -1,3 +1,8 @@
+import {
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from 'recoil';
 import { isNil } from 'lodash';
 import times from 'lodash/times';
 import concat from 'lodash/concat';
@@ -7,12 +12,31 @@ import getChildren from '../tools/getChildren';
 import useEventListener from '../hooks/useEventListener';
 import STRATEGIES from '../constants/strategies';
 import { INFINITE } from '../constants/pluginsOrder';
+import {
+  activeSlideIndexState,
+  carouselWidthState,
+  itemWidthState,
+  slideMovementState,
+  slidesState,
+  trackStylesState,
+  trackWidthState,
+  transitionEnabledState,
+} from '../state/carousel';
 
 const NUMBER_OF_INFINITE_CLONES = 3;
 
-const infinite = ({ options, props, state, refs }) => ({
+const infinite = ({ options, props, refs }) => ({
   name: INFINITE,
   plugin: () => {
+    const slideMovement = useRecoilValue(slideMovementState);
+    const itemWidth = useRecoilValue(itemWidthState);
+    const carouselWidth = useRecoilValue(carouselWidthState);
+    const setTrackWidth = useSetRecoilState(trackWidthState);
+    const [activeSlideIndex, setActiveSlideIndex] = useRecoilState(activeSlideIndexState);
+    const setTransitionEnabled = useSetRecoilState(transitionEnabledState);
+    const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
+    const setSlides = useSetRecoilState(slidesState);
+
     const [infiniteTransitionFrom, setInfiniteTransitionFrom] = useState(0);
 
     const numberOfInfiniteClones = options.numberOfInfiniteClones || NUMBER_OF_INFINITE_CLONES;
@@ -52,35 +76,35 @@ const infinite = ({ options, props, state, refs }) => ({
     const getClonesLeft = () => numberOfInfiniteClones + getAdditionalClonesLeft();
     const getClonesRight = () => numberOfInfiniteClones + getAdditionalClonesRight();
 
-    const getAdditionalClonesOffset = () => -children.length * state.get.itemWidth * getAdditionalClonesLeft();
+    const getAdditionalClonesOffset = () => -children.length * itemWidth * getAdditionalClonesLeft();
 
     /**
      * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)
      * @return {number} offset in px
      */
     const getTransformOffset = () => {
-      const elementWidthWithOffset = state.get.itemWidth;
-      const dragOffset = state.get.slideMovement.dragOffset;
-      const currentValue = state.get.activeSlideIndex;
+      const elementWidthWithOffset = itemWidth;
+      const dragOffset = slideMovement.dragOffset;
+      const currentValue = activeSlideIndex;
       const additionalClonesOffset = getAdditionalClonesOffset();
 
       return dragOffset - currentValue * elementWidthWithOffset - additionalClonesOffset;
     };
 
     useEffect(() => {
-      state.set.setActiveSlideIndex(getTargetSlide() + getClonesLeft() * children.length);
+      setActiveSlideIndex(getTargetSlide() + getClonesLeft() * children.length);
     }, [props.value]);
 
     useEffect(() => {
-      state.set.setActiveSlideIndex(getTargetSlide() + getClonesLeft() * children.length);
-      state.set.setTransitionEnabled(false);
+      setActiveSlideIndex(getTargetSlide() + getClonesLeft() * children.length);
+      setTransitionEnabled(false);
     }, [infiniteTransitionFrom]);
 
     useEffect(() => {
       const trackLengthMultiplier = 1 + getClonesLeft() + getClonesRight();
 
-      state.set.setTrackStyles({
-        ...state.get.trackStyles,
+      setTrackStyles({
+        ...trackStyles,
         marginLeft: `${getAdditionalClonesOffset()}px`,
         transform: `translateX(${getTransformOffset()}px)`,
       });
@@ -88,13 +112,13 @@ const infinite = ({ options, props, state, refs }) => ({
       const clonesLeft = times(getClonesLeft(), () => children);
       const clonesRight = times(getClonesRight(), () => children);
 
-      state.set.setTrackWidth(state.get.carouselWidth * children.length * trackLengthMultiplier);
-      state.set.setSlides(concat(...clonesLeft, children, ...clonesRight));
-    }, [state.get.carouselWidth, children.length]);
+      setTrackWidth(carouselWidth * children.length * trackLengthMultiplier);
+      setSlides(concat(...clonesLeft, children, ...clonesRight));
+    }, [carouselWidth, children.length]);
 
     useEffect(() => {
-      state.set.setTrackStyles({
-        ...state.get.trackStyles,
+      setTrackStyles({
+        trackStyles,
         transform: `translateX(${getTransformOffset()}px)`,
       });
     }, [getTransformOffset()]);
@@ -102,12 +126,11 @@ const infinite = ({ options, props, state, refs }) => ({
     useEventListener('transitionend', onTransitionEnd, refs.trackRef.current);
   },
 
-  strategies: {
+  strategies: () => ({
     [STRATEGIES.CHANGE_SLIDE]: original =>
-      // state.set.setTransitionEnabled(false);
       original,
     [STRATEGIES.GET_CURRENT_VALUE]: () => props.value,
-  },
+  }),
 });
 
 export default infinite;
