@@ -60,6 +60,7 @@ class Carousel extends Component {
       animationSpeed: PropTypes.number,
       dots: PropTypes.bool,
       className: PropTypes.string,
+      rtl: PropTypes.bool,
     })),
   };
   static defaultProps = {
