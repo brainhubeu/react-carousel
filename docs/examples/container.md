@@ -14,13 +14,11 @@ class MyCarousel extends React.Component {
     return (
     <div id="surrounding">
       <label for="width">Width (px)</label>
-      <input type="number" id="width"/>
-      <input type="button" onClick={this.resizeSurrounding} id="set" value="Set width"/>
+      <input type="number" id="width" onChange={this.resizeSurrounding}/>
       <Carousel
         centered
         infinite
-        arrows
-        slidesPerPage={1}>
+        arrows>
 
         <img src={imageOne} />
         <img src={imageTwo} />
