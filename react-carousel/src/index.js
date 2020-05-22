@@ -1,8 +1,8 @@
 import Carousel from './components/CarouselWrapper';
 import CarouselDots from './components/CarouselDots';
-import slidesPerPage from './components/slidesPerPage';
-import infinite from './components/infinite';
-import clickToChange from './components/clickToChange';
+import slidesPerPage from './plugins/slidesPerPage';
+import infinite from './plugins/infinite';
+import clickToChange from './plugins/clickToChange';
 
 export const slidesPerPagePlugin = slidesPerPage;
 export const Dots = CarouselDots;
