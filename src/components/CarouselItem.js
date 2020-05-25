@@ -4,8 +4,6 @@ import classname from 'classnames';
 import '../styles/CarouselItem.scss';
 import ResizeObserver from 'resize-observer-polyfill';
 
-const childrenWidthMap = new Map();
-
 class CarouselItem extends PureComponent {
   static propTypes = {
     onMouseDown: PropTypes.func,
@@ -37,15 +35,7 @@ class CarouselItem extends PureComponent {
     }
   }
 
-  componentDidUnmount() {
-    childrenWidthMap.delete(this.props.id);
-  }
-
   observeWidth() {
-    if (childrenWidthMap.has(this.props.id)) {
-      this.childrenRef.current.style.width = childrenWidthMap.get(this.props.id);
-    }
-
     const resizeObserver = new ResizeObserver(() => {
       this.resizeChildren();
       resizeObserver.unobserve(this.childrenRef.current);
@@ -58,7 +48,6 @@ class CarouselItem extends PureComponent {
     if (this.childrenRef.current.offsetWidth > this.props.width) {
       this.childrenRef.current.style.width = `${this.props.width}px`;
     }
-    childrenWidthMap.set(this.props.id, this.childrenRef.current.offsetWidth);
   }
 
   getChildren() {
