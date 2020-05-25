@@ -127,9 +127,13 @@ const infinite = ({ options, props, refs }) => ({
   },
 
   strategies: () => ({
-    [STRATEGIES.CHANGE_SLIDE]: original =>
-      original,
+    [STRATEGIES.CHANGE_SLIDE]: original => console.log('ORIGNAIl ', original)
+      || original,
     [STRATEGIES.GET_CURRENT_VALUE]: () => props.value,
+  }),
+
+  carouselProps: () => ({
+    test: () => console.log('nothing'),
   }),
 });
 

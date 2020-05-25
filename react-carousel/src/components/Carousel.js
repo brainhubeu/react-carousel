@@ -1,10 +1,8 @@
 /* eslint-disable react/no-unused-prop-types  */ // we disable propTypes usage checking as we use getProp function
 /* eslint-disable react/jsx-no-bind  */
 import React, { useRef, useCallback, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import has from 'lodash/has';
-import flow from 'lodash/flow';
-import _bind from 'lodash/bind';
 import flatten from 'lodash/flatten';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -15,11 +13,9 @@ import useOnResize from '../hooks/useOnResize';
 // tools
 import simulateEvent from '../tools/simulateEvent';
 import getChildren from '../tools/getChildren';
-import clamp from '../tools/clamp';
-import STRATEGIES from '../constants/strategies';
 import pluginsOrder from '../constants/pluginsOrder';
 import {
-  activeSlideIndexState,
+  activeSlideIndexState, carouselStrategiesState,
   carouselWidthState,
   itemWidthState,
   slideMovementState, slidesState,
@@ -42,6 +38,7 @@ const Carousel = props => {
   const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
   const children = getChildren(props.children, props.slides);
   const [slides, setSlides] = useRecoilState(slidesState);
+  const setStrategies = useSetRecoilState(carouselStrategiesState);
 
   const trackRef = useRef(null);
   const nodeRef = useRef(null);
@@ -61,23 +58,18 @@ const Carousel = props => {
   );
   const itemClassNames = flatten(plugins.map(plugin => plugin.itemClassNames)).filter(className => typeof className === 'string');
 
+  const customProps = plugins
+    .map(plugin => plugin.carouselProps && plugin.carouselProps());
+
+  const merged = Object.assign({}, ...customProps);
+
   const strategies = plugins
     .sort((a, b) => pluginsOrder.indexOf(a.name) - pluginsOrder.indexOf(b.name))
     .map(plugin => plugin.strategies && plugin.strategies());
 
-  const getStrategies = strategyName => strategies
-    .map(strategy => strategy && strategy[strategyName])
-    .filter(strategy => typeof strategy === 'function');
+  setStrategies(strategies);
 
-  const getCurrentValue = () => {
-    const getCurrentValueBase = () => clamp(props.value, props.children, props.slides);
-
-    const strategies = getStrategies(STRATEGIES.GET_CURRENT_VALUE);
-
-    return strategies.length
-      ? flow([getCurrentValueBase, ...getStrategies(STRATEGIES.GET_CURRENT_VALUE)])()
-      : getCurrentValueBase();
-  };
+  const getCurrentValue = () => props.value;
 
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
@@ -180,14 +172,7 @@ const Carousel = props => {
    * @param {number} value desired index to change current value to
    */
   const changeSlide = value => {
-    const changeSlideBase = value => clamp(value, props.children, props.slides);
-
-    const enhancedStrategies = getStrategies(STRATEGIES.CHANGE_SLIDE).map(strategy => _bind(strategy, null, value));
-
-    const strategiesResult = enhancedStrategies.length
-      ? flow([() => value, changeSlideBase, ...enhancedStrategies])()
-      : changeSlideBase(value);
-    props.onChange(strategiesResult);
+    props.onChange(value);
   };
 
   /**
@@ -268,6 +253,7 @@ const Carousel = props => {
           )}
           style={currentTrackStyles}
           ref={trackRef}
+          {...merged}
         >
           {slides.map((carouselItem, index) => (
             // eslint-disable-next-line no-undefined

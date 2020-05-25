@@ -1,4 +1,4 @@
-const { default: Carousel, Dots, slidesPerPagePlugin, infinitePlugin, clickToChangePlugin } = (() => {
+const { default: Carousel, Dots, slidesPerPagePlugin, infinitePlugin, clickToChangePlugin, autoplayPlugin } = (() => {
   if (!global.window) {
     global.window = {};
   }
@@ -23,5 +23,5 @@ import thumbnailOne from './static/mona_thumbnail.jpg';
 import thumbnailTwo from './static/scream_thumbnail.jpg';
 import thumbnailThree from './static/starry-night_thumbnail.jpg';
 
-export { Carousel, Dots, slidesPerPagePlugin, infinitePlugin, clickToChangePlugin, Icon, imageOne, imageTwo, imageThree, thumbnailOne, thumbnailTwo, thumbnailThree };
+export { Carousel, Dots, slidesPerPagePlugin, infinitePlugin, clickToChangePlugin, autoplayPlugin, Icon, imageOne, imageTwo, imageThree, thumbnailOne, thumbnailTwo, thumbnailThree };
 

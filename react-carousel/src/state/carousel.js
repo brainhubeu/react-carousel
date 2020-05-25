@@ -1,4 +1,8 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+import flow from 'lodash/flow';
+
+import clamp from '../tools/clamp';
+import STRATEGIES from '../constants/strategies';
 
 export const slideMovementState = atom({
   key: '@brainhubeu/react-carousel/slideMovementState',
@@ -47,3 +51,55 @@ export const trackStylesState = atom({
   },
 });
 
+export const carouselStrategiesState = atom({
+  key: '@brainhubeu/react-carousel/carouselStrategiesState',
+  default: [],
+});
+
+export const currentSlideValueState = atom({
+  key: '@brainhubeu/react-carousel/currentSlideValueState',
+  default: 0,
+});
+
+export const carouselValueState = atom({
+  key: '@brainhubeu/react-carousel/carouselValueState',
+  default: 0,
+});
+
+export const getCurrentValueSelector = selector({
+  key: '@brainhubeu/react-carousel/getCurrentSlideSelector',
+  get: ({ get }) => {
+    const value = get(carouselValueState);
+
+    const slides = get(slidesState);
+    const getCurrentValueBase = () => clamp(value, slides, slides);
+
+    // console.log('BASE ', getCurrentValueBase());
+
+    const strategies = get(carouselStrategiesState)
+      .map(strategy => strategy && strategy[STRATEGIES.GET_CURRENT_VALUE])
+      .filter(strategy => typeof strategy === 'function');
+
+    // console.log('STRATEGY', strategies);
+
+    return strategies.length
+      ? flow([getCurrentValueBase, ...strategies])()
+      : getCurrentValueBase();
+  },
+  set: ({ set, get }, value) => {
+    const slides = get(slidesState);
+    const getCurrentValueBase = () => clamp(value, slides, slides);
+
+    const strategies = get(carouselStrategiesState)
+      .map(strategy => strategy && strategy[STRATEGIES.CHANGE_SLIDE])
+      .filter(strategy => typeof strategy === 'function');
+
+    const newValue = strategies.length
+      ? flow([getCurrentValueBase, ...strategies])()
+      : getCurrentValueBase();
+
+    console.log('NEW VAL ', newValue);
+
+    set(carouselValueState, newValue);
+  },
+});
