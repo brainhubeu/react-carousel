@@ -152,12 +152,8 @@ class Carousel extends Component {
     const additionalClones = this.getNeededAdditionalClones();
     return additionalClones < 0 ? -additionalClones : 0;
   };
-  getAdditionalClonesRight = () => {
-    const additionalClones = this.getNeededAdditionalClones();
-    return additionalClones > 0 ? additionalClones : 0;
-  };
   getClonesLeft = () => config.numberOfInfiniteClones + this.getAdditionalClonesLeft();
-  getClonesRight = () => config.numberOfInfiniteClones + this.getAdditionalClonesRight();
+  getClonesRight = () => config.numberOfInfiniteClones;
 
   getAdditionalClonesOffset = () =>
     -this.getChildren().length * this.getCarouselElementWidth() * this.getAdditionalClonesLeft();
