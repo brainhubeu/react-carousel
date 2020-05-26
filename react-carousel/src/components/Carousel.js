@@ -69,8 +69,6 @@ const Carousel = props => {
 
   setStrategies(strategies);
 
-  const getCurrentValue = () => props.value;
-
   /**
    * Returns the value of a prop based on the current window width and breakpoints provided
    * @param {string} propName name of the prop you want to get
@@ -107,7 +105,7 @@ const Carousel = props => {
   const getNearestSlideIndex = () => {
     const slideIndexOffset = -Math.round(slideMovement.dragOffset / itemWidth);
 
-    return getCurrentValue() + slideIndexOffset;
+    return props.value + slideIndexOffset;
   };
 
   /**
@@ -164,15 +162,7 @@ const Carousel = props => {
     const elementWidthWithOffset = itemWidth + getProp('offset');
     const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
 
-    return dragOffset - getCurrentValue() * elementWidthWithOffset;
-  };
-
-  /**
-   * calculates next slide value and triggers onChange
-   * @param {number} value desired index to change current value to
-   */
-  const changeSlide = value => {
-    props.onChange(value);
+    return dragOffset - props.value * elementWidthWithOffset;
   };
 
   /**
@@ -186,7 +176,7 @@ const Carousel = props => {
       e.preventDefault();
       if (getProp('draggable')) {
         setTransitionEnabled(true);
-        changeSlide(getNearestSlideIndex());
+        props.onChange(getNearestSlideIndex());
       }
       setSlideMovement({
         clicked: null,
