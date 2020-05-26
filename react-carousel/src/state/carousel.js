@@ -68,7 +68,7 @@ export const getCurrentValueSelector = selector({
     const value = get(carouselValueState);
 
     const slides = get(slidesState);
-    const getCurrentValueBase = () => clamp(value, slides, slides);
+    const getCurrentValueBase = () => clamp(value, slides);
 
     const strategies = get(carouselStrategiesState)
       .map(strategy => strategy && strategy[STRATEGIES.GET_CURRENT_VALUE])
@@ -82,7 +82,7 @@ export const getCurrentValueSelector = selector({
   },
   set: ({ set, get }, value) => {
     const slides = get(slidesState);
-    const getCurrentValueBase = () => clamp(value, slides, slides);
+    const getCurrentValueBase = () => clamp(value, slides);
 
     const strategies = get(carouselStrategiesState)
       .map(strategy => strategy && strategy[STRATEGIES.CHANGE_SLIDE])

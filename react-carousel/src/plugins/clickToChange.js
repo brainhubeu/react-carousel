@@ -55,7 +55,7 @@ const clickToChange = ({ props }) => ({
       },
     };
   },
-  itemClassNames: [
+  itemClassNames: () => [
     'BrainhubCarouselItem--clickable',
   ],
 });

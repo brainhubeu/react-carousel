@@ -56,7 +56,23 @@ const Carousel = props => {
       refs: { trackRef },
     })
   );
-  const itemClassNames = flatten(plugins.map(plugin => plugin.itemClassNames)).filter(className => typeof className === 'string');
+  const itemClassNames = flatten(
+    plugins
+      .map(plugin => plugin.itemClassNames && plugin.itemClassNames({
+        props,
+        options: plugin.options,
+        refs: { trackRef },
+      })))
+    .filter(className => typeof className === 'string');
+
+  const carouselClassNames = flatten(
+    plugins
+      .map(plugin => plugin.carouselClassNames && plugin.carouselClassNames({
+        props,
+        options: plugin.options,
+        refs: { trackRef },
+      })))
+    .filter(className => typeof className === 'string');
 
   const customProps = plugins
     .map(plugin => plugin.carouselProps && plugin.carouselProps());
@@ -272,7 +288,7 @@ const Carousel = props => {
   return (
     <div>
       <div
-        className={classnames('BrainhubCarousel', getProp('className'))}
+        className={classnames('BrainhubCarousel', getProp('className'), ...(carouselClassNames || []))}
         ref={nodeRef}
       >
         {renderCarouselItems()}

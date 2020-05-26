@@ -1,29 +1,33 @@
 /**
  * Clamps number between 0 and last slide index.
  * @param {number} value to be clamped
- * @param {[node]} children of react-carousel component
- * @param {[node]} slides defined as react-carousel property
+ * @param {[node]} slides of react-carousel component
+ * @param {boolean} rtl decide whether to clamp value for rtl carousel
  * @return {number} new value
  */
-const clamp = (value, children, slides) => {
+const clamp = (value, slides, rtl = false) => {
   const getChildren = () => {
-    if (!children) {
-      if (slides) {
-        return slides;
-      }
-      return [];
+    if (slides) {
+      return slides;
     }
-    if (Array.isArray(children)) {
-      return children;
-    }
-    return [children];
+    return [];
   };
 
   const maxValue = getChildren().length - 1;
-  if (value > maxValue) {
-    return maxValue;
+  if (!rtl) {
+    if (value > maxValue) {
+      return maxValue;
+    }
+    if (value < 0) {
+      return 0;
+    }
+    return value;
   }
-  if (value < 0) {
+
+  if (value < -maxValue) {
+    return -maxValue;
+  }
+  if (value > 0) {
     return 0;
   }
   return value;
