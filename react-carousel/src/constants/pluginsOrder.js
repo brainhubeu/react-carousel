@@ -4,6 +4,7 @@ export const INFINITE = 'INFINITE';
 export const AUTOPLAY = 'AUTOPLAY';
 export const RTL = 'RTL';
 export const CENTERED = 'CENTERED';
+export const SLIDES_PER_SCROLL = 'SLIDES_PER_SCROLL';
 
 const pluginsOrder = [
   SLIDES_PER_PAGE,
@@ -12,6 +13,7 @@ const pluginsOrder = [
   RTL,
   CLICK_TO_CHANGE,
   CENTERED,
+  SLIDES_PER_SCROLL,
 ];
 
 export default pluginsOrder;

@@ -6,6 +6,7 @@ import clickToChange from './plugins/clickToChange';
 import autoplay from './plugins/autoplay';
 import rtl from './plugins/rtl';
 import centered from './plugins/centered';
+import slidesPerScroll from './plugins/slidesPerScroll';
 
 export const slidesPerPagePlugin = slidesPerPage;
 export const Dots = CarouselDots;
@@ -14,4 +15,5 @@ export const clickToChangePlugin = clickToChange;
 export const autoplayPlugin = autoplay;
 export const rtlPlugin = rtl;
 export const centeredPlugin = centered;
+export const slidesPerScrollPlugin = slidesPerScroll;
 export default Carousel;
