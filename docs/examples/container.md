@@ -12,18 +12,20 @@ class MyCarousel extends React.Component {
 
   render() {
     return (
-    <div id="surrounding">
-      <label for="width">Width (px)</label>
+    <div>
+      <label for="width">Width (px) </label>
       <input type="number" id="width" onChange={this.resizeSurrounding}/>
-      <Carousel
-        centered
-        infinite
-        arrows>
-
-        <img src={imageOne} />
-        <img src={imageTwo} />
-        <img src={imageThree} />
-      </Carousel>
+      <div id="surrounding">
+        <Carousel
+          centered
+          infinite
+          arrows
+        >
+          <img src={imageOne} />
+          <img src={imageTwo} />
+          <img src={imageThree} />
+        </Carousel>
+      </div>
     </div>
     );
   }
