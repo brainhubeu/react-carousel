@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "1.15.4",
+  "version": "1.15.5",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.14.4"
@@ -67,6 +67,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-resize-detector": "^4.2.3",
     "react-test-renderer": "^16.13.1",
     "resize-observer-polyfill": "^1.5.1",
     "rimraf": "3.0.2",
