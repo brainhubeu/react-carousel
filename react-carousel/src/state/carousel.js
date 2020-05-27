@@ -19,6 +19,11 @@ export const itemWidthState = atom({
   default: 0,
 });
 
+export const itemOffsetState = atom({
+  key: '@brainhubeu/react-carousel/itemOffsetState',
+  default: 0,
+});
+
 export const carouselWidthState = atom({
   key: '@brainhubeu/react-carousel/carouselWidthState',
   default: 0,
@@ -95,5 +100,35 @@ export const getCurrentValueSelector = selector({
       : getCurrentValueBase();
 
     set(carouselValueState, newValue);
+  },
+});
+
+/**
+ * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
+ * @return {number} offset in px
+ */
+export const transformOffsetSelector = selector({
+  key: '@brainhubeu/react-carousel/transformOffsetSelector',
+  get: ({ get }) => {
+    const itemWidth = get(itemWidthState);
+    const itemOffset = get(itemOffsetState);
+    const dragOffset = get(slideMovementState).dragOffset;
+    const value = get(carouselValueState);
+
+    const getTransformOffsetBase = () => {
+      const elementWidthWithOffset = itemWidth + itemOffset;
+
+      return dragOffset - value * elementWidthWithOffset;
+    };
+
+    const strategies = get(carouselStrategiesState)
+      .map(strategy => strategy && strategy[STRATEGIES.GET_TRANSFORM_OFFSET])
+      .filter(strategy => typeof strategy === 'function');
+
+    const enhancedStrategies = strategies.map(strategy => _bind(strategy, null, value));
+
+    return strategies.length
+      ? flow([getTransformOffsetBase, ...enhancedStrategies])()
+      : getTransformOffsetBase();
   },
 });

@@ -3,7 +3,7 @@ import { useRecoilValue, RecoilRoot, useSetRecoilState } from 'recoil';
 import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
 
-import { carouselValueState, getCurrentValueSelector } from '../state/carousel';
+import { carouselValueState, getCurrentValueSelector, transformOffsetSelector } from '../state/carousel';
 
 import Carousel from './Carousel';
 
@@ -12,10 +12,12 @@ const CarouselWrapper = props => {
   const builtinValue = useRecoilValue(carouselValueState);
 
   const { onChange, value, ...rest } = props;
+  const transformOffset = useRecoilValue(transformOffsetSelector);
 
   const isControlled = !isNil(value);
   return (
     <Carousel
+      transformOffset={transformOffset}
       value={isControlled ? parseInt(value) : builtinValue}
       onChange={isControlled ? onChange : setBuiltinValue}
       {...rest}

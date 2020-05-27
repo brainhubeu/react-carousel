@@ -17,8 +17,10 @@ import pluginsOrder from '../constants/pluginsOrder';
 import {
   activeSlideIndexState, carouselStrategiesState,
   carouselWidthState,
+  itemOffsetState,
   itemWidthState,
-  slideMovementState, slidesState,
+  slideMovementState,
+  slidesState,
   trackStylesState,
   trackWidthState,
   transitionEnabledState,
@@ -31,6 +33,7 @@ import '../styles/Carousel.scss';
 const Carousel = props => {
   const [slideMovement, setSlideMovement] = useRecoilState(slideMovementState);
   const [itemWidth, setItemWidth] = useRecoilState(itemWidthState);
+  const setItemOffset = useSetRecoilState(itemOffsetState);
   const [carouselWidth, setCarouselWidth] = useRecoilState(carouselWidthState);
   const [trackWidth, setTrackWidth] = useRecoilState(trackWidthState);
   const [activeSlideIndex] = useRecoilState(activeSlideIndexState);
@@ -171,17 +174,6 @@ const Carousel = props => {
   };
 
   /**
-   * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
-   * @return {number} offset in px
-   */
-  const getTransformOffset = () => {
-    const elementWidthWithOffset = itemWidth + getProp('offset');
-    const dragOffset = getProp('draggable') ? slideMovement.dragOffset : 0;
-
-    return dragOffset - props.value * elementWidthWithOffset;
-  };
-
-  /**
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
    * if drag was short (or it was just a click) it changes slide to the clicked (or touched) one.
    * It resets clicked index, dragOffset and dragStart values in state.
@@ -203,6 +195,10 @@ const Carousel = props => {
   });
 
   useEffect(() => {
+    setItemOffset(getProp('offset'));
+  }, [getProp('offset')]);
+
+  useEffect(() => {
     setTransitionEnabled(true);
   }, [props.value]);
 
@@ -215,9 +211,9 @@ const Carousel = props => {
   useEffect(() => {
     setTrackStyles({
       ...trackStyles,
-      transform: `translateX(${getTransformOffset()}px)`,
+      transform: `translateX(${props.transformOffset}px)`,
     });
-  }, [getTransformOffset()]);
+  }, [props.transformOffset]);
 
   /**
    * Handler setting transitionEnabled value in state to false after transition animation ends
@@ -306,6 +302,7 @@ Carousel.propTypes = {
   draggable: PropTypes.bool,
   animationSpeed: PropTypes.number,
   className: PropTypes.string,
+  transformOffset: PropTypes.string,
   plugins: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.func,
@@ -321,6 +318,7 @@ Carousel.propTypes = {
     animationSpeed: PropTypes.number,
     dots: PropTypes.bool,
     className: PropTypes.string,
+    transformOffset: PropTypes.string,
   })),
 };
 Carousel.defaultProps = {

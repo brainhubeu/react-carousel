@@ -28,11 +28,10 @@ const NUMBER_OF_INFINITE_CLONES = 3;
 const infinite = ({ options, props, refs }) => ({
   name: INFINITE,
   plugin: () => {
-    const slideMovement = useRecoilValue(slideMovementState);
     const itemWidth = useRecoilValue(itemWidthState);
     const carouselWidth = useRecoilValue(carouselWidthState);
     const setTrackWidth = useSetRecoilState(trackWidthState);
-    const [activeSlideIndex, setActiveSlideIndex] = useRecoilState(activeSlideIndexState);
+    const setActiveSlideIndex = useSetRecoilState(activeSlideIndexState);
     const setTransitionEnabled = useSetRecoilState(transitionEnabledState);
     const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
     const setSlides = useSetRecoilState(slidesState);
@@ -78,19 +77,6 @@ const infinite = ({ options, props, refs }) => ({
 
     const getAdditionalClonesOffset = () => -children.length * itemWidth * getAdditionalClonesLeft();
 
-    /**
-     * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)
-     * @return {number} offset in px
-     */
-    const getTransformOffset = () => {
-      const elementWidthWithOffset = itemWidth;
-      const dragOffset = slideMovement.dragOffset;
-      const currentValue = activeSlideIndex;
-      const additionalClonesOffset = getAdditionalClonesOffset();
-
-      return dragOffset - currentValue * elementWidthWithOffset - additionalClonesOffset;
-    };
-
     useEffect(() => {
       setActiveSlideIndex(getTargetSlide() + getClonesLeft() * children.length);
     }, [props.value]);
@@ -106,7 +92,6 @@ const infinite = ({ options, props, refs }) => ({
       setTrackStyles({
         ...trackStyles,
         marginLeft: `${getAdditionalClonesOffset()}px`,
-        transform: `translateX(${getTransformOffset()}px)`,
       });
 
       const clonesLeft = times(getClonesLeft(), () => children);
@@ -116,20 +101,27 @@ const infinite = ({ options, props, refs }) => ({
       setSlides(concat(...clonesLeft, children, ...clonesRight));
     }, [carouselWidth, children.length]);
 
-    useEffect(() => {
-      setTrackStyles({
-        trackStyles,
-        transform: `translateX(${getTransformOffset()}px)`,
-      });
-    }, [getTransformOffset()]);
-
     useEventListener('transitionend', onTransitionEnd, refs.trackRef.current);
   },
 
-  strategies: () => ({
-    [STRATEGIES.CHANGE_SLIDE]: original => original,
-    [STRATEGIES.GET_CURRENT_VALUE]: () => props.value,
-  }),
+  strategies: () => {
+    const itemWidth = useRecoilValue(itemWidthState);
+    const slideMovement = useRecoilValue(slideMovementState);
+    const activeSlideIndex = useRecoilValue(activeSlideIndexState);
+
+    const marginLeft = (slideMovement.marginLeft || '0').match(/\d/g).join('');
+
+    return {
+      [STRATEGIES.CHANGE_SLIDE]: original => original,
+      [STRATEGIES.GET_CURRENT_VALUE]: () => props.value,
+      [STRATEGIES.GET_TRANSFORM_OFFSET]: () => {
+        const elementWidthWithOffset = itemWidth;
+        const dragOffset = slideMovement.dragOffset;
+
+        return dragOffset - activeSlideIndex * elementWidthWithOffset - marginLeft;
+      },
+    };
+  },
 });
 
 export default infinite;

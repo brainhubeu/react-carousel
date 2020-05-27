@@ -5,6 +5,7 @@ import infinite from './plugins/infinite';
 import clickToChange from './plugins/clickToChange';
 import autoplay from './plugins/autoplay';
 import rtl from './plugins/rtl';
+import centered from './plugins/centered';
 
 export const slidesPerPagePlugin = slidesPerPage;
 export const Dots = CarouselDots;
@@ -12,4 +13,5 @@ export const infinitePlugin = infinite;
 export const clickToChangePlugin = clickToChange;
 export const autoplayPlugin = autoplay;
 export const rtlPlugin = rtl;
+export const centeredPlugin = centered;
 export default Carousel;
