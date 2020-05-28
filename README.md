@@ -230,6 +230,13 @@ Our issues are marked with the following labels:
   - `answering: reported by brainhubeu` if the issue is created by any member of the `brainhubeu` organization with no comments by external contributors
   - otherwise `answering: answered` if the last comment is by a `brainhubeu` member
   - otherwise `answering: not answered`
+- severity (only for bugs, mutually exclusive):
+  - `severity: blocked` - nothing is working
+  - `severity: critical` - the most important features are often broken
+  - `severity: major` - the most important features are sometimes broken or medium important features are often broken
+  - `severity: medium` - medium important features are sometimes broken or less important features are often broken
+  - `severity: minor` - less important features are sometimes broken
+  - `severity: trivial` - it'd be nice to fix but we can live without fixing it
 - used by third-party GitHub apps:
   - `💵 Funded on Issuehunt` - funded on IssueHunt so you can earn money, fixing the given issue
   - `🎁 Rewarded on Issuehunt` - already rewarded on IssueHunt
