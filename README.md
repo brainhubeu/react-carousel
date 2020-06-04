@@ -8,7 +8,7 @@
 </h1>
 
 <p align="center">
-  Feature-rich, react-way carousel component that does not suck
+  A pure React carousel, powered by <a href="https://brainhub.eu/">Brainhub</a> (craftsmen who ❤️ JS) and <a href="https://issuehunt.io/r/brainhubeu/react-carousel">IssueHunt</a>, open for new feature proposals
 </p>
 
 <p align="center">
