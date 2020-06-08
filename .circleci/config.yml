@@ -81,7 +81,7 @@ jobs:
             elif [[ "$branch" =~ ^(breaking)/ ]]; then
               npm version major -m "%s [ci skip]"
             else
-              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
+              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/'
               exit 1
             fi
       - run: git pull --no-edit origin $CIRCLE_BRANCH
