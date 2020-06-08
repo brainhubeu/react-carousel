@@ -9,11 +9,11 @@ jobs:
           name: fail if the branch name does not start with a valid prefix
           command: |
             branch=$CIRCLE_BRANCH
-            if [[ "$branch" =~ ^(fix|feature|breaking)/ || "$branch" == 'master' ]]
+            if [[ "$branch" =~ ^(dependabot|fix|feature|breaking)/ || "$branch" == 'master' ]]
             then
               echo $branch is a valid name
             else
-              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/' or be master
+              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/' or be master
               exit 1
             fi
   deploy_test_environment:
@@ -72,7 +72,9 @@ jobs:
           command: |
             branch=`git log --oneline | grep '[0-9a-f]\{6,40\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
             echo branch=$branch
-            if [[ "$branch" =~ ^(fix)/ ]]; then
+            if [[ "$branch" =~ ^(dependabot)/ ]]; then
+              npm version patch -m "%s [ci skip]"
+            elif [[ "$branch" =~ ^(fix)/ ]]; then
               npm version patch -m "%s [ci skip]"
             elif [[ "$branch" =~ ^(feature)/ ]]; then
               npm version minor -m "%s [ci skip]"
