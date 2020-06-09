@@ -8,7 +8,7 @@
 </h1>
 
 <p align="center">
-  Feature-rich, react-way carousel component that does not suck
+  A pure React carousel, powered by <a href="https://brainhub.eu/">Brainhub</a> (craftsmen who ❤️ JS) and <a href="https://issuehunt.io/r/brainhubeu/react-carousel">IssueHunt</a>, open for new feature proposals
 </p>
 
 <p align="center">
@@ -72,6 +72,17 @@ Then, you can use the following global variables:
 - `BrainhubeuReactCarouselDots`
 - `BrainhubeuReactCarouselItem`
 - `BrainhubeuReactCarouselWrapper`
+
+### SSR
+When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
+```js
+import dynamic from 'next/dynamic';
+
+const { default: Carousel, Dots } = dynamic(
+ () => require('@brainhubeu/react-carousel'),
+ { ssr: false },
+);
+```
 
 ## Usage
 By default, the component does not need anything except children to render a simple carousel.
@@ -220,66 +231,14 @@ yarn test:unit
 yarn test:e2e
 ```
 
+### Workflow
+See [the Workflow subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/workflow)
+
 ### Labels
-Our issues are marked with the following labels:
-- issue type (mutually exclusive):
-  - `bug`
-  - `enhancement` - a feature request or a proposal to improve tests or to improve README or to improve anything beside fixing a bug
-  - `question`
-- answering labels (mutually exclusive):
-  - `answering: reported by brainhubeu` if the issue is created by any member of the `brainhubeu` organization with no comments by external contributors
-  - otherwise `answering: answered` if the last comment is by a `brainhubeu` member
-  - otherwise `answering: not answered`
-- used by third-party GitHub apps:
-  - `💵 Funded on Issuehunt` - funded on IssueHunt so you can earn money, fixing the given issue
-  - `🎁 Rewarded on Issuehunt` - already rewarded on IssueHunt
-- other labels:
-  - `duplicate` - if the given issue is a duplicate of another issue
-  - `no reproduction details` - if we miss details needed to reproduce the given issue
-  - `needs discussion` - if we need to discuss details of the given issue
-  - `proposed issuehunt` if we consider the given issue to fund on IssueHunt
-  - `hacktoberfest` - used in [Hacktoberfest](https://hacktoberfest.digitalocean.com/) during October, each year so you can obtain a T-shirt according to the Hacktoberfest rules
-  
-PRs labels:
-- testing  (mutually exclusive):
-  - `tested & works` 
-  - `tested & fails`
-- used by third-party GitHub apps:
-  - `renovate` for PRs opened by Renovate
-  - `dependencies` for PRs opened by Dependabot
-- other labels:
-  - `wip` - Work in Progress so don't merge
-  
-Labels used for both issues and PRs:
-- `blocked` if a given issue or PR is blocked by another issue or PR
+See [the Labels subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/labels)
 
-## Decision log
-
-### React
-We love [React](https://github.com/facebook/react) so we'd like to focus on React only and in the nearest future, we don't plan to make this library working in another framework like [Vue.js](https://github.com/vuejs/vue).
-
-### Cypress
-We've decided that [Cypress](https://github.com/cypress-io/cypress) is better than [Hermione](https://github.com/gemini-testing/hermione) (Hermione predecessor is [Gemini](https://github.com/gemini-testing/gemini)) because Hermione required setting a very large tolerance in order to pass both locally and in CI. Moreover, Cypress is much more popular.
-
-### SSR
-When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
-```js
-import dynamic from 'next/dynamic';
-
-const { default: Carousel, Dots } = dynamic(
- () => require('@brainhubeu/react-carousel'),
- { ssr: false },
-);
-```
-
-### Renovate
-We've decided that [Renovate](https://github.com/renovatebot/renovate) is better than [Greenkeeper](https://github.com/greenkeeperio/greenkeeper) because Renovate is very configurable and has a great support.
-
-### IssueHunt
-We've decided to use [IssueHunt](https://issuehunt.io/) to fund issues so we can get more contributors (more contributors, more popular a given project), assign a value to issues and reward active contributors.
-
-### Testing environment deployment
-We've decided to use http://beghp.github.io/ domain to deploy each branch there because in a version deployed to [Netlify](https://www.netlify.com/) we've noticed broken fonts so deploying to GitHub Pages gives an environment the most possibly similar to the [production version](https://brainhubeu.github.io/react-carousel/). `beghp` is an acronym from Brainhub.eu GitHub Pages and we use this organization in order to keep only real repos in the `brainhubeu` organization.
+### Decision log
+See [the Decision log subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/decision-log)
 
 ## License
 

@@ -29,7 +29,7 @@ describe('Click to change', () => {
     cy.get('.BrainhubCarouselItem')
       .eq(0)
       .children('img')
-      .click({ force: true } );
+      .click({ force: true });
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
