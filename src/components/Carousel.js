@@ -20,6 +20,7 @@ class Carousel extends Component {
   static propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
+    onSlideClick: PropTypes.func,
     children: PropTypes.node,
     slides: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
@@ -553,6 +554,7 @@ class Carousel extends Component {
                 offset={index !== slides.length ? this.props.offset : 0}
                 onMouseDown={this.onMouseDown}
                 onTouchStart={this.onTouchStart}
+                onSlideClick={this.props.onSlideClick}
                 clickable={this.getProp('clickToChange')}
                 isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
                 isDraggingEnabled={this.props.draggable || this.props.clickToChange}

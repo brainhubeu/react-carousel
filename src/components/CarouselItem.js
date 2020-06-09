@@ -7,6 +7,7 @@ class CarouselItem extends PureComponent {
   static propTypes = {
     onMouseDown: PropTypes.func,
     onTouchStart: PropTypes.func,
+    onSlideClick: PropTypes.func,
     clickable: PropTypes.bool,
     children: PropTypes.node,
     width: PropTypes.number,
@@ -24,6 +25,8 @@ class CarouselItem extends PureComponent {
   onTouchStart = event => {
     this.props.onTouchStart(event, this.props.index);
   };
+
+  handleClickSlide = () => this.props.onSlideClick(this.props.index);
 
   render() {
     return (
@@ -45,6 +48,7 @@ class CarouselItem extends PureComponent {
         }}
         onMouseDown={this.props.isDraggingEnabled ? this.onMouseDown : null}
         onTouchStart={this.props.isDraggingEnabled ? this.onTouchStart : null}
+        onClick={this.props.onSlideClick ? this.handleClickSlide : null}
       >
         {this.props.children}
       </li>
