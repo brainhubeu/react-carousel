@@ -4,6 +4,8 @@
 
 * ```onChange: Function```: Handler triggered when current slide is about to change (e.g. on arrow click or on swipe).
 
+* ```onSlideClick: Function```: OnClick callback. Triggered when user click on a carousel slide (return slide index).
+
 * ```slides: Array``` Alternative way to pass slides. This prop expects an array of JSX \<img\> elements.
 
 * ```slidesPerPage: Number```: Number of slides visible at once.
