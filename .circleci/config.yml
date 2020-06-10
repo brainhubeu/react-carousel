@@ -1,4 +1,10 @@
-version: 2
+version: 2.1
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:12.17.0
+    working_directory: ~/app
+
 jobs:
   check_branch_name:
     docker:
@@ -26,9 +32,7 @@ jobs:
           name: publish gh pages to one of the test environments
           command: ./tools/deploy-gh-pages-pr.sh
   test:
-    docker:
-      - image: circleci/node:12.17.0
-    working_directory: ~/app
+    executor: node-executor
     steps:
       - checkout
       - run: yarn install --non-interactive
@@ -37,10 +41,14 @@ jobs:
       - run:
           name: Generate coveralls config
           command: "echo repo_token: $COVERALLS_REPO_TOKEN > ./.coveralls.yml"
-      - run:
-          name: Upload coverage to coveralls
-          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: yarn build
+      - persist_to_workspace:
+          root: ~/app
+          paths:
+            - .git
+            - node_modules
+            - .coveralls.yml
+            - coverage
   test-e2e:
     docker:
       - image: circleci/node:12.17.0
@@ -53,11 +61,14 @@ jobs:
           command: docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test
 
   publish_package:
-    docker:
-      - image: circleci/node:12.17.0
+    executor: node-executor
     steps:
-      - checkout
-      - run: yarn install --non-interactive
+      - attach_workspace:
+          at: ~/app
+      - run: git checkout .
+      - run:
+          name: Upload coverage to coveralls
+          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run:
           name: configure GitHub user
           command: |
