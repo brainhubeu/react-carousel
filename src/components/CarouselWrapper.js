@@ -17,10 +17,12 @@ class CarouselWrapper extends Component {
     };
   }
 
-  onChange = (customOnChange) => value => {
+  onChange = customOnChange => value => {
     this.setState({ value });
-    if(!isNil(customOnChange)) customOnChange(value);
-  }
+    if (!isNil(customOnChange)) {
+      customOnChange(value);
+    }
+  };
 
   render() {
     const { value, onChange, ...rest } = this.props;
