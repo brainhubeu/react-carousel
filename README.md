@@ -43,7 +43,7 @@
 - 😻 [Contributing](#contributing)
   - 💁 [Setting up local development](#setting-up-local-development-which-means-running-the-docsdemo-locally)
   - 🐞 [Tests](#tests)
-  - 🏋️‍[Workflow](#workflow)
+  - 🏋️‍ [Workflow](#workflow)
   - 🏷 [Labels](#labels)
   - 📝 [Decision Log](#decision-log)
 
