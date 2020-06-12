@@ -17,7 +17,10 @@ class CarouselWrapper extends Component {
     };
   }
 
-  onChange = value => this.setState({ value });
+  onChange = (customOnChange) => value => {
+    this.setState({ value });
+    if(!isNil(customOnChange)) customOnChange(value);
+  }
 
   render() {
     const { value, onChange, ...rest } = this.props;
@@ -25,7 +28,7 @@ class CarouselWrapper extends Component {
     return (
       <Carousel
         value={isControlled ? parseInt(value) : this.state.value}
-        onChange={isControlled ? onChange : this.onChange}
+        onChange={isControlled ? onChange : this.onChange(onChange)}
         {...rest}
       />
     );
