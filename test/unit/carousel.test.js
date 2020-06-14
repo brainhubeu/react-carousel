@@ -341,7 +341,25 @@ describe('Carousel', () => {
         </Carousel>,
       );
 
-      expect(wrapper.find('.BrainhubCarousel__loader')).toHaveLength(2);
+      expect(wrapper.find('.BrainhubCarousel__loader')).toHaveLength(3);
+    });
+
+    it('correctly lazy loads slides if `slidesPerPage` is set', () => {
+      const wrapper = mount(
+        <Carousel
+          lazyLoad
+          slidesPerPage={2}
+        >
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+        </Carousel>,
+      );
+
+      expect(wrapper.find('.BrainhubCarousel__loader')).toHaveLength(3);
     });
 
     it('custom lazy loader element', () => {

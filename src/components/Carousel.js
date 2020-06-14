@@ -116,8 +116,10 @@ class Carousel extends Component {
     this.resetInterval();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const valueChanged = this.checkIfValueChanged(prevProps);
+    const windowWidthChanged = this.state.windowWidth !== prevState.windowWidth;
+
     if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
       this.resetInterval();
     }
@@ -128,7 +130,7 @@ class Carousel extends Component {
       });
     }
 
-    if (valueChanged && this.props.lazyLoad) {
+    if (this.getProp('lazyLoad') && (windowWidthChanged || valueChanged)) {
       this.setLazyLoadedSlides();
     }
   }
@@ -205,10 +207,11 @@ class Carousel extends Component {
     const children = this.getChildren();
     const currentSlideIndex = this.getCurrentSlideIndex();
     const slidesPerScroll = this.getProp('slidesPerScroll');
+    const slidesPerPage = this.getProp('slidesPerPage');
     const infinite = this.getProp('infinite');
 
     const prevStep = currentSlideIndex - slidesPerScroll;
-    const nextStep = currentSlideIndex + (slidesPerScroll - 1) + slidesPerScroll;
+    const nextStep = currentSlideIndex + (slidesPerPage - 1) + slidesPerScroll;
 
     let hooped = false;
     let prevIndex = this.clamp(prevStep);
