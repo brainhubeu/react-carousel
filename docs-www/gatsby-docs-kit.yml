@@ -20,6 +20,8 @@
           file: multipleItems.md
         - title: Click to change
           file: clickToChange.md
+        - title: Container wrapper
+          file: container.md
         - title: Default arrows
           file: defaultArrows.md
         - title: Custom arrows
@@ -53,3 +55,12 @@
           file: carousel.md
         - title: Dots props
           file: dots.md
+    - title: Contributions Guide
+      dir: contributions-guide
+      items:
+        - title: Workflow
+          file: workflow.md
+        - title: Decision log
+          file: decision-log.md
+        - title: Labels
+          file: labels.md

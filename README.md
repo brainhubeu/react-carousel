@@ -8,7 +8,7 @@
 </h1>
 
 <p align="center">
-  Feature-rich, react-way carousel component that does not suck
+  A pure React carousel, powered by <a href="https://brainhub.eu/">Brainhub</a> (craftsmen who ❤️ JS) and <a href="https://issuehunt.io/r/brainhubeu/react-carousel">IssueHunt</a>, open for new feature proposals
 </p>
 
 <p align="center">
@@ -40,9 +40,12 @@
 - 🔨 [Props](#props)
   - 🎠 [Carousel Props](#carousel-props)
   - 🐾 [Dots Props](#dots-props)
-- 🐞 [Tests](#tests)
 - 😻 [Contributing](#contributing)
-- 📝 [Decision Log](#decision-log)
+  - 💁 [Setting up local development](#setting-up-local-development-which-means-running-the-docsdemo-locally)
+  - 🐞 [Tests](#tests)
+  - 🏋️‍ [Workflow](#workflow)
+  - 🏷 [Labels](#labels)
+  - 📝 [Decision Log](#decision-log)
 
 ## Why?
 There are some great carousels (like slick) that do not have real React implementations. This library provides you with carousel that is not merely a wrapper for some jQuery solution, can be used as controlled or uncontrolled element (similar to [inputs](https://reactjs.org/docs/uncontrolled-components.html)), and has tons of useful features.
@@ -58,11 +61,6 @@ npm i @brainhubeu/react-carousel
 npm i @types/brainhubeu__react-carousel -D
 ```
 
-### In order to run the docs/demo locally:
-- `cd docs-www`
-- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
-- `yarn develop`
-
 ### CDN
 If you don't use any bundler like Webpack, you can add these scripts to your HTML file, `body` section:
 ```html
@@ -77,6 +75,17 @@ Then, you can use the following global variables:
 - `BrainhubeuReactCarouselDots`
 - `BrainhubeuReactCarouselItem`
 - `BrainhubeuReactCarouselWrapper`
+
+### SSR
+When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
+```js
+import dynamic from 'next/dynamic';
+
+const { default: Carousel, Dots } = dynamic(
+ () => require('@brainhubeu/react-carousel'),
+ { ssr: false },
+);
+```
 
 ## Usage
 By default, the component does not need anything except children to render a simple carousel.
@@ -186,18 +195,6 @@ You can access a clickable demo with many examples and a [live code editor](http
 | [**thumbnails**](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
 | [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | slide position in the slides Array | Current `Carousel` value |
 
-## Tests
-
-### Unit tests
-```
-yarn test:unit
-```
-
-### E2E tests
-```
-yarn test:e2e
-```
-
 ## Contributing
 [The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.
 You're more than welcome to vote:
@@ -214,66 +211,37 @@ You're also more than welcome to:
 - comment an issue, discussing the details
 - open a PR, fixing a given issue
 
-### Labels
-Our issues are marked with the following labels:
-- issue type (mutually exclusive):
-  - `bug`
-  - `enhancement` - a feature request or a proposal to improve tests or to improve README or to improve anything beside fixing a bug
-  - `question`
-- answering labels (mutually exclusive):
-  - `answering: reported by brainhubeu` if the issue is created by any member of the `brainhubeu` organization with no comments by external contributors
-  - otherwise `answering: answered` if the last comment is by a `brainhubeu` member
-  - otherwise `answering: not answered`
-- used by third-party GitHub apps:
-  - `💵 Funded on Issuehunt` - funded on IssueHunt so you can earn money, fixing the given issue
-  - `🎁 Rewarded on Issuehunt` - already rewarded on IssueHunt
-- other labels:
-  - `duplicate` - if the given issue is a duplicate of another issue
-  - `no reproduction details` - if we miss details needed to reproduce the given issue
-  - `needs discussion` - if we need to discuss details of the given issue
-  - `proposed issuehunt` if we consider the given issue to fund on IssueHunt
-  - `hacktoberfest` - used in [Hacktoberfest](https://hacktoberfest.digitalocean.com/) during October, each year so you can obtain a T-shirt according to the Hacktoberfest rules
-  
-PRs labels:
-- testing  (mutually exclusive):
-  - `tested & works` 
-  - `tested & fails`
-- used by third-party GitHub apps:
-  - `renovate` for PRs opened by Renovate
-  - `dependencies` for PRs opened by Dependabot
-- other labels:
-  - `wip` - Work in Progress so don't merge
-  
-Labels used for both issues and PRs:
-- `blocked` if a given issue or PR is blocked by another issue or PR
+### Setting up local development which means running the docs/demo locally:
+- `git clone https://github.com/brainhubeu/react-carousel`
+- `cd react-carousel`
+- `yarn`
+- `cd docs-www`
+- `yarn`
+- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
+- `yarn develop`
+- open http://localhost:8000/
 
-## Decision log
+### Tests
+Each test command should be run from the root directory.
 
-### React
-We love [React](https://github.com/facebook/react) so we'd like to focus on React only and in the nearest future, we don't plan to make this library working in another framework like [Vue.js](https://github.com/vuejs/vue).
-
-### Cypress
-We've decided that [Cypress](https://github.com/cypress-io/cypress) is better than [Hermione](https://github.com/gemini-testing/hermione) (Hermione predecessor is [Gemini](https://github.com/gemini-testing/gemini)) because Hermione required setting a very large tolerance in order to pass both locally and in CI. Moreover, Cypress is much more popular.
-
-### SSR
-When using `@brainhubeu/react-carousel` with SSR (Server-side Rendering), we recommend [Next.js](https://github.com/zeit/next.js) as `@brainhubeu/react-carousel` currently doesn't work on the server side so it must be rendered on the client side (maybe we'll provide server-side working in the future).
-```js
-import dynamic from 'next/dynamic';
-
-const { default: Carousel, Dots } = dynamic(
- () => require('@brainhubeu/react-carousel'),
- { ssr: false },
-);
+#### Unit tests
+```
+yarn test:unit
 ```
 
-### Renovate
-We've decided that [Renovate](https://github.com/renovatebot/renovate) is better than [Greenkeeper](https://github.com/greenkeeperio/greenkeeper) because Renovate is very configurable and has a great support.
+#### E2E tests
+```
+yarn test:e2e
+```
 
-### IssueHunt
-We've decided to use [IssueHunt](https://issuehunt.io/) to fund issues so we can get more contributors (more contributors, more popular a given project), assign a value to issues and reward active contributors.
+### Workflow
+See [the Workflow subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/workflow)
 
-### Testing environment deployment
-We've decided to use http://beghp.github.io/ domain to deploy each branch there because in a version deployed to [Netlify](https://www.netlify.com/) we've noticed broken fonts so deploying to GitHub Pages gives an environment the most possibly similar to the [production version](https://brainhubeu.github.io/react-carousel/). `beghp` is an acronym from Brainhub.eu GitHub Pages and we use this organization in order to keep only real repos in the `brainhubeu` organization.
+### Labels
+See [the Labels subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/labels)
+
+### Decision log
+See [the Decision log subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/decision-log)
 
 ## License
 

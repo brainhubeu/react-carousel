@@ -1,24 +1,30 @@
-version: 2
+version: 2.1
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:12.17.0
+    working_directory: ~/app
+
 jobs:
   check_branch_name:
     docker:
-      - image: circleci/node:12.16.3
+      - image: circleci/node:12.17.0
     working_directory: ~/app
     steps:
       - run:
           name: fail if the branch name does not start with a valid prefix
           command: |
             branch=$CIRCLE_BRANCH
-            if [[ "$branch" =~ ^(fix|feature|breaking)/ || "$branch" == 'master' ]]
+            if [[ "$branch" =~ ^(dependabot|fix|feature|breaking)/ || "$branch" == 'master' ]]
             then
               echo $branch is a valid name
             else
-              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/' or be master
+              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/' or be master
               exit 1
             fi
   deploy_test_environment:
     docker:
-      - image: circleci/node:12.16.3
+      - image: circleci/node:12.17.0
     working_directory: ~/app
     steps:
       - checkout
@@ -26,9 +32,7 @@ jobs:
           name: publish gh pages to one of the test environments
           command: ./tools/deploy-gh-pages-pr.sh
   test:
-    docker:
-      - image: circleci/node:12.16.3
-    working_directory: ~/app
+    executor: node-executor
     steps:
       - checkout
       - run: yarn install --non-interactive
@@ -37,13 +41,17 @@ jobs:
       - run:
           name: Generate coveralls config
           command: "echo repo_token: $COVERALLS_REPO_TOKEN > ./.coveralls.yml"
-      - run:
-          name: Upload coverage to coveralls
-          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: yarn build
+      - persist_to_workspace:
+          root: ~/app
+          paths:
+            - .git
+            - node_modules
+            - .coveralls.yml
+            - coverage
   test-e2e:
     docker:
-      - image: circleci/node:12.16.3
+      - image: circleci/node:12.17.0
     working_directory: ~/app
     steps:
       - checkout
@@ -53,11 +61,14 @@ jobs:
           command: docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test
 
   publish_package:
-    docker:
-      - image: circleci/node:12.16.3
+    executor: node-executor
     steps:
-      - checkout
-      - run: yarn install --non-interactive
+      - attach_workspace:
+          at: ~/app
+      - run: git checkout .
+      - run:
+          name: Upload coverage to coveralls
+          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run:
           name: configure GitHub user
           command: |
@@ -72,14 +83,16 @@ jobs:
           command: |
             branch=`git log --oneline | grep '[0-9a-f]\{6,40\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
             echo branch=$branch
-            if [[ "$branch" =~ ^(fix)/ ]]; then
+            if [[ "$branch" =~ ^(dependabot)/ ]]; then
+              npm version patch -m "%s [ci skip]"
+            elif [[ "$branch" =~ ^(fix)/ ]]; then
               npm version patch -m "%s [ci skip]"
             elif [[ "$branch" =~ ^(feature)/ ]]; then
               npm version minor -m "%s [ci skip]"
             elif [[ "$branch" =~ ^(breaking)/ ]]; then
               npm version major -m "%s [ci skip]"
             else
-              echo $branch is not valid because the branch name must match '^(fix|feature|breaking)/'
+              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/'
               exit 1
             fi
       - run: git pull --no-edit origin $CIRCLE_BRANCH
