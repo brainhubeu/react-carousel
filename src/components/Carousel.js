@@ -139,15 +139,23 @@ class Carousel extends Component {
   /* ========== tools ========== */
   getCurrentValue = () => this.props.infinite ? this.props.value : this.clamp(this.props.value);
 
-  getNeededAdditionalClones = () =>
-    Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+  getNeededAdditionalClones = () => {
+    if (Math.abs(this.getCurrentSlideIndex()) > this.getChildren().length) {
+      return Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+    }
+    return 0;
+  };
 
   getAdditionalClonesLeft = () => {
     const additionalClones = this.getNeededAdditionalClones();
     return additionalClones < 0 ? -additionalClones : 0;
   };
+  getAdditionalClonesRight = () => {
+    const additionalClones = this.getNeededAdditionalClones();
+    return additionalClones > 0 ? additionalClones : 0;
+  };
   getClonesLeft = () => config.numberOfInfiniteClones + this.getAdditionalClonesLeft();
-  getClonesRight = () => config.numberOfInfiniteClones;
+  getClonesRight = () => config.numberOfInfiniteClones + this.getAdditionalClonesRight();
 
   getAdditionalClonesOffset = () =>
     -this.getChildren().length * this.getCarouselElementWidth() * this.getAdditionalClonesLeft();
