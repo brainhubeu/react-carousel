@@ -36,19 +36,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install --non-interactive
-      - run: yarn lint
-      - run: yarn test:unit:coverage
-      - run:
-          name: Generate coveralls config
-          command: "echo repo_token: $COVERALLS_REPO_TOKEN > ./.coveralls.yml"
-      - run: yarn build
-      - persist_to_workspace:
-          root: ~/app
-          paths:
-            - .git
-            - node_modules
-            - .coveralls.yml
-            - coverage
+      - run: yarn danger ci --failOnErrors --id @brainhubeu/react-carousel
   test-e2e:
     docker:
       - image: circleci/node:12.17.0
@@ -138,18 +126,3 @@ workflows:
       - test:
           requires:
             - check_branch_name
-      - test-e2e:
-          requires:
-            - check_branch_name
-      - deploy_test_environment:
-          requires:
-            - check_branch_name
-      - publish_package:
-          requires:
-            - test
-            - test-e2e
-            - deploy_test_environment
-          filters:
-            branches:
-              only:
-                - master
