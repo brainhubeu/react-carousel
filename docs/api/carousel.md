@@ -40,6 +40,8 @@
 
 * ```minDraggableOffset: Number``` Defines the minimum offset to consider the drag gesture
 
+* ```handleIsReady: Function``` Callback thrown after the carousel is loaded
+
 ## Default Properties:
 
 - ```offset: 0```
