@@ -25,6 +25,7 @@
   "author": "Brainhub",
   "license": "MIT",
   "devDependencies": {
+    "@angular/forms": "^9.1.11",
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
