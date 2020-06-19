@@ -36,6 +36,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install --non-interactive
+      - run: cat dangerfile.js
       - run: yarn danger ci --failOnErrors --id @brainhubeu/react-carousel
   test-e2e:
     docker:
