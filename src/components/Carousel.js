@@ -144,8 +144,12 @@ class Carousel extends Component {
   /* ========== tools ========== */
   getCurrentValue = () => this.props.infinite ? this.props.value : this.clamp(this.props.value);
 
-  getNeededAdditionalClones = () =>
-    Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+  getNeededAdditionalClones = () => {
+    if (Math.abs(this.getCurrentSlideIndex()) > this.getChildren().length) {
+      return Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+    }
+    return 0;
+  };
 
   getAdditionalClonesLeft = () => {
     const additionalClones = this.getNeededAdditionalClones();
@@ -490,7 +494,6 @@ class Carousel extends Component {
 
     return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
   };
-
 
   /* ========== rendering ========== */
   renderCarouselItems = () => {
