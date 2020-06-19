@@ -69,6 +69,7 @@
     "react-dom": "^16.13.1",
     "react-resize-detector": "^4.2.3",
     "react-test-renderer": "^16.13.1",
+    "resize-observer-polyfill": "^1.5.1",
     "rimraf": "3.0.2",
     "sass-loader": "^8.0.2",
     "start-server-and-test": "^1.11.0",
