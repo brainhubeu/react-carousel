@@ -104,6 +104,6 @@
   },
   "main": "./lib/react-carousel.js",
   "dependencies": {
-    "no-license-example": "^1.0.2"
+    "no-license-example": "^1.0.3"
   }
 }
