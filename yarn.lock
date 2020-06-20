@@ -8439,10 +8439,10 @@ no-case@^3.0.3:
     lower-case "^2.0.1"
     tslib "^1.10.0"
 
-no-license-example@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/no-license-example/-/no-license-example-1.0.1.tgz#b6a48106e5ee4e8117be7615c07fc2dee16a9a7a"
-  integrity sha512-xhAlM/0/E48rzdy34tokOR0+9utEPC4QMJe38rsZ6McVamnKEJoiKrhovIrtVohU5k/RaiDxjg0zSkuazgTGBw==
+no-license-example@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/no-license-example/-/no-license-example-1.0.2.tgz#c8f7cab772191f16e9071f1cfa552905f6ff32f4"
+  integrity sha512-R/BOKDTCTQqKRMBCAKmRExE+9c1EeXdtqhexyRBzoDEiyHizAhM2Tc4GvkQqXCDGnkA0UY9es2C6dFLN1WybVw==
 
 node-cleanup@^2.1.2:
   version "2.1.2"
