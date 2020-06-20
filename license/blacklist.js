@@ -1,5 +1,6 @@
 /* Provide a list of blacklisted licenses for the project below */
 const blacklist = [
+  'UNKNOWN',
   '389-exception',
   'AAL',
   'ADSL',
