@@ -16,6 +16,7 @@ const whitelist = [
   'CC0-1.0',
   'ISC',
   'MIT',
+  'MIT,Apache2',
   'WTFPL',
   'Zlib',
 ];
