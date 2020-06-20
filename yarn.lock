@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@angular/forms@^9.1.11":
-  version "9.1.11"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-9.1.11.tgz#fa246144649236613598a0471aa7f39b60f986b5"
-  integrity sha512-t4WHrh6ot1r8zdV+3fJz7g9rCok77c9CiIevhH2dR/idxD+HtFR0wqmcBQzsn+rNVB0f0TiSHDrj+TeELIFyWw==
-
 "@babel/cli@^7.10.1":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.10.1.tgz#b6e5cd43a17b8f639442ab027976408ebe6d79a0"
@@ -8438,11 +8433,6 @@ no-case@^3.0.3:
   dependencies:
     lower-case "^2.0.1"
     tslib "^1.10.0"
-
-no-license-example@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/no-license-example/-/no-license-example-1.0.3.tgz#a9e57230f5dd61923bde9aee65c27950e8fa00d9"
-  integrity sha512-AEpbPGWtlI5+JGOv19dpwGM7xbEVfVrElBhV2IigfsQWnJmoLV48nIrxPBOWw7q+GGYKrLudhZWRj528wg3jNg==
 
 node-cleanup@^2.1.2:
   version "2.1.2"
