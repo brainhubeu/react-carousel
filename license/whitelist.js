@@ -7,6 +7,7 @@ const whitelist = [
   '(MIT OR CC0-1.0)',
   '(WTFPL OR MIT)',
   '0BSD',
+  'AFLv2.1',
   'Apache-2.0',
   'BSD-2-Clause',
   'BSD-3-Clause OR MIT',
