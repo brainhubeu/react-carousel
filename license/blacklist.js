@@ -355,7 +355,6 @@ const blacklist = [
   'Unicode-DFS-2016',
   'Unicode-TOU',
   'Universal-FOSS-exception-1.0',
-  'Unlicense',
   'VOSTROM',
   'VSL-1.0',
   'Vim',
