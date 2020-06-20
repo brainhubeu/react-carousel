@@ -7,6 +7,7 @@ const whitelist = [
   'MIT',
   'WTFPL',
   '0BSD',
+  'CC-BY-4.0',
 ];
 
 module.exports = whitelist;
