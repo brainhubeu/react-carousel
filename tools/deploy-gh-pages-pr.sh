@@ -55,6 +55,7 @@ fi
 
 sed -i 's/__RC_ENV__/development/g' docs-www/src/globalReferences.js
 sed -i 's/__RC_ENV__/development/g' docs-www/package.json
+sed -i "s/__BUILD_INFO__/ (PR #$pr_number, built on `date +'%Y-%m-%d %H:%M:%S'`)/g" docs-www/gatsby-docs-kit.yml
 cat docs-www/src/globalReferences.js
 cat docs-www/package.json
 remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
