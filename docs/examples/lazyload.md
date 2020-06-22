@@ -37,14 +37,14 @@ class MyCarousel extends React.Component {
           (<img src={imageOne} />),
           (<img src={imageTwo} />),
           (<img src={imageThree} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/53e2d245424faa0df7c5d57bc32f3e7b1d3ac3e45659764e742a7cdd95_640.jpg'} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/54e3d04b4951af14f1dc8460962e33791c3ad6e04e50744172287ad29448c7_640.jpg'} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/52e6d6454c5bac14f1dc8460962e33791c3ad6e04e5074417c2d78dc974ec4_640.jpg'} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/53e0d74b4250ad14f1dc8460962e33791c3ad6e04e50744172277fd09549cd_640.jpg'} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/54e1d3434a57a514f1dc8460962e33791c3ad6e04e50744172277ed79044cd_640.jpg'} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/53e2d6414255af14f1dc8460962e33791c3ad6e04e50744075277cd39e48c3_640.jpg'} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/55e3d14a4f5aa414f1dc8460962e33791c3ad6e04e50744172287cd09f4cc4_640.jpg'} />),
-          (<img src={'https://randomwordgenerator.com/img/picture-generator/57e8d1404856ad14f1dc8460962e33791c3ad6e04e50744172297cdc924cc3_640.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingBlue/400x300_OilPaintingBlue_e5da36b84b744f0cb34d9a2af0f16eb9.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingGreen/400x300_OilPaintingGreen_a8faa36968fd4281a5fa9fe25838a419.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingOrange/400x300_OilPaintingOrange_343378d437ff4249bd921f8d13a6e570.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingRed/400x300_OilPaintingRed_711f45d1c05f44c3b40c591a09ce90b4.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingBlueReal/400x300_OilPaintingBlueReal_59c8f5b4112947b1942dbb8f171cd668.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingGreenReal/400x300_OilPaintingGreenReal_733e1f2644584c4fbb8b0592b6d6da2e.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingOrangeReal/400x300_OilPaintingOrangeReal_6b9780c693cb44ef835df60a67b4c2b7.jpg'} />),
+          (<img src={'http://rndimg.com/ImageStore/OilPaintingRedReal/400x300_OilPaintingRedReal_7bba436bea9247e8b0196061dd776c7c.jpg'} />),
         ]}
       />
     </div>

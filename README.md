@@ -179,6 +179,8 @@ You can access a clickable demo with many examples and a [live code editor](http
 | **slides** | *Array* | `undefined` | Alternative way to pass slides. This prop expects an array of JSX <img> elements |
 | [**slidesPerPage**](https://brainhubeu.github.io/react-carousel/docs/examples/multipleItems) | *Number* | `1` | Number of slides visible at once |
 | [**slidesPerScroll**](https://brainhubeu.github.io/react-carousel/docs/examples/slidesPerScroll) | *Number* | `1` | Number by which value will change on scroll (autoPlay, arrow click, drag)|
+| [**lazyLoad**](https://brainhubeu.github.io/react-carousel/docs/examples/lazyload) | *Boolean* | `false` | Initially, it loads only the closest next / previous slide to the current one based on the value of the slidesPerPage variable. Other slides are loaded as needed. |
+| **lazyLoader** | *React node* | `undefined` | To be used instead of the default loader |
 | **stopAutoPlayOnHover** | *Boolean* | `undefined` | Determines if autoPlay should stop when mouse hover over carousel |
 | [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Number* | `undefined` | Current slide's index (zero based, depends on the elements order) |
 
