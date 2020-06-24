@@ -19,6 +19,7 @@ do
   elif [[ "https://github.com/brainhubeu/react-carousel/pull/$pr_number" == "$CIRCLE_PULL_REQUEST" ]]
   then
     echo "this PR is already deployed to the page no $page_number"
+    already_deployed_page_number=$page_number
     break
   else
     echo "a PR (no $pr_number) exists for page no $page_number"
@@ -41,13 +42,14 @@ then
     exit
   fi
   echo "deploying to $first_free_page_number as it's the first free place"
-  page_number=$first_free_page_number
+  final_page_number=$first_free_page_number
 else
   echo "the PR was deployed to the page no $page_number so keeping the same place"
+  final_page_number=$already_deployed_page_number
 fi
-echo "final page_number=$page_number"
+echo "final_page_number=$final_page_number"
 
-page_url="https://beghp.github.io/gh-pages-rc-$page_number"
+page_url="https://beghp.github.io/gh-pages-rc-$final_page_number"
 echo "page_url=$page_url"
 
 
@@ -55,14 +57,14 @@ sed -i 's/__RC_ENV__/development/g' docs-www/src/globalReferences.js
 sed -i 's/__RC_ENV__/development/g' docs-www/package.json
 cat docs-www/src/globalReferences.js
 cat docs-www/package.json
-remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$page_number.git
+remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$final_page_number.git
 
 yarn install --non-interactive
 
 rm .babelrc
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=gh-pages-rc-$page_number yarn build
+PATH_PREFIX=gh-pages-rc-$final_page_number yarn build
 cd ..
 
 mkdir -p gh-pages-branch
