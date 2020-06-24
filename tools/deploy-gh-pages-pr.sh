@@ -88,14 +88,16 @@ git push --force --quiet origin gh-pages
 cd ..
 rm -rf gh-pages-branch
 
-pr_body=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]' | perl -pe 's/\r?\n/<br>/' | sed 's@<br/>@<br>@g'`
+api_pr_url=`echo "$CIRCLE_PULL_REQUEST" | sed 's@https://github.com/brainhubeu/react-carousel/pull/@https://api.github.com/repos/brainhubeu/react-carousel/pulls/@g'`
+echo api_pr_url=$api_pr_url
+pr_body=`curl -s $api_pr_url | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]' | perl -pe 's/\r?\n/<br>/' | sed 's@<br/>@<br>@g'`
 echo "pr_body=$pr_body"
 deployed_match=`echo $pr_body | grep 'Deployed to https://beghp.github.io' || echo ''`
 if [[ "$deployed_match" != '' ]]
 then
   echo 'page URL already added to the PR description'
 else
-  curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br>$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
+  curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br>$pr_body\"}" $api_pr_url
 fi
 
 echo "Finished Deployment of gh pages to $page_url"
