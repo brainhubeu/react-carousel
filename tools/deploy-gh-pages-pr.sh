@@ -15,7 +15,6 @@ do
   if [[ "$pr_number" == '' ]]
   then
     echo "no PR exists for page no $page_number"
-    break
   elif [[ "https://github.com/brainhubeu/react-carousel/pull/$pr_number" == "$CIRCLE_PULL_REQUEST" ]]
   then
     echo "this PR is already deployed to the page no $page_number"
