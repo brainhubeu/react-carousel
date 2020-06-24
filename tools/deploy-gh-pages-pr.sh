@@ -29,14 +29,21 @@ do
       echo 'the PR is open, continue searching an empty page'
     else
       echo 'the PR is not open'
-      break
+      first_free_page_number=$pr_number
     fi
   fi
 done
 if [[ "$page_number" == '20' ]]
 then
-  echo 'no free page'
-  exit
+  if [[ "first_free_page_number" == '' ]]
+  then
+    echo 'no free page'
+    exit
+  fi
+  echo "deploying to $first_free_page_number as it's the first free place"
+  page_number=$first_free_page_number
+else
+  echo "the PR was deployed to the page no $page_number so keeping the same place"
 fi
 echo "final page_number=$page_number"
 
