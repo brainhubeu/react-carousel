@@ -43,15 +43,6 @@ echo "final page_number=$page_number"
 page_url="https://beghp.github.io/gh-pages-rc-$page_number"
 echo "page_url=$page_url"
 
-pr_body=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]' | perl -pe 's/\r?\n/<br>/' | sed 's@<br/>@<br>@g'`
-echo "pr_body=$pr_body"
-deployed_match=`echo $pr_body | grep 'Deployed to https://beghp.github.io' || echo ''`
-if [[ "$deployed_match" != '' ]]
-then
-  echo 'page URL already added to the PR description'
-else
-  curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br>$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
-fi
 
 sed -i 's/__RC_ENV__/development/g' docs-www/src/globalReferences.js
 sed -i 's/__RC_ENV__/development/g' docs-www/package.json
@@ -96,5 +87,15 @@ git push --force --quiet origin gh-pages
 
 cd ..
 rm -rf gh-pages-branch
+
+pr_body=`curl -s "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number" | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["body"]' | perl -pe 's/\r?\n/<br>/' | sed 's@<br/>@<br>@g'`
+echo "pr_body=$pr_body"
+deployed_match=`echo $pr_body | grep 'Deployed to https://beghp.github.io' || echo ''`
+if [[ "$deployed_match" != '' ]]
+then
+  echo 'page URL already added to the PR description'
+else
+  curl -i -H "Authorization: token $GIT_TOKEN" -X PATCH -d "{\"body\":\"Deployed to $page_url<br>$pr_body\"}"  "https://api.github.com/repos/brainhubeu/react-carousel/pulls/$pr_number"
+fi
 
 echo "Finished Deployment of gh pages to $page_url"
