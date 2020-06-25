@@ -45,7 +45,7 @@ then
   if [[ "$first_free_page_number" == '' || "$first_free_page_number" == '20' ]]
   then
     echo 'no free page'
-    exit
+    exit 1
   fi
   echo "deploying to $first_free_page_number as it's the first free place"
   final_page_number=$first_free_page_number
