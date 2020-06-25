@@ -15,7 +15,7 @@ do
   if [[ "$pr_number" == '' ]]
   then
     echo "no PR exists for page no $page_number"
-    last_free_page_number=$pr_number
+    last_free_page_number=$page_number
   elif [[ "https://github.com/brainhubeu/react-carousel/pull/$pr_number" == "$CIRCLE_PULL_REQUEST" ]]
   then
     echo "this PR is already deployed to the page no $page_number"
@@ -30,13 +30,13 @@ do
       echo 'the PR is open, continue searching an empty page'
     else
       echo 'the PR is not open'
-      last_free_page_number=$pr_number
+      last_free_page_number=$page_number
     fi
   fi
 done
 if [[ "$page_number" == '20' ]]
 then
-  if [[ "last_free_page_number" == '' ]]
+  if [[ "$last_free_page_number" == '' ]]
   then
     echo 'no free page'
     exit
