@@ -3,7 +3,7 @@
   url: /
   file: pages/landing.js
 
-- title: DOCS
+- title: "DOCS__BUILD_INFO__"
   dir: ../docs
   url: docs
   sidemenu:
