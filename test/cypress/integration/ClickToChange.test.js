@@ -1,3 +1,9 @@
+// TODO find a better way
+Cypress.on('uncaught:exception', error => {
+  console.error('an uncaught eaten exception', error);
+  return false;
+});
+
 describe('Click to change', () => {
   beforeEach(() => {
     cy.visit('/docs/examples/clickToChange/');
