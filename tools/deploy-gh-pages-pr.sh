@@ -42,7 +42,7 @@ do
 done
 if [[ "$page_number" == '20' ]]
 then
-  if [[ "$first_free_page_number" == '' -o "$first_free_page_number" == '20' ]]
+  if [[ "$first_free_page_number" == '' || "$first_free_page_number" == '20' ]]
   then
     echo 'no free page'
     exit
