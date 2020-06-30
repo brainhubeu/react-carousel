@@ -652,10 +652,7 @@ class Carousel extends Component {
                   isDraggingEnabled={this.props.draggable || this.props.clickToChange}
                 >
                   {
-                    !lazyLoad && carouselItem
-                  }
-                  {
-                    lazyLoad && this.state.lazyLoadedSlides[realSlideIndex]
+                    !lazyLoad || (lazyLoad && this.state.lazyLoadedSlides[realSlideIndex])
                       ? carouselItem
                       : this.renderLazyLoader()
                   }
