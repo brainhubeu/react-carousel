@@ -32,6 +32,7 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "@babel/register": "^7.10.1",
+    "@brainhubeu/license-auditor": "^1.0.18",
     "autoprefixer": "^9.8.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
@@ -45,6 +46,7 @@
     "coveralls": "^3.1.0",
     "css-loader": "^3.5.3",
     "cypress": "^4.7.0",
+    "danger": "^10.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^7.1.0",
@@ -99,5 +101,6 @@
     "type": "git",
     "url": "https://github.com/brainhubeu/react-carousel"
   },
-  "main": "./lib/react-carousel.js"
+  "main": "./lib/react-carousel.js",
+  "dependencies": {}
 }
