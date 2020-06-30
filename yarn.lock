@@ -1179,10 +1179,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@brainhubeu/license-auditor@^1.0.13":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@brainhubeu/license-auditor/-/license-auditor-1.0.13.tgz#0bc5cd02877a8757fa2c3c2de9c8ca65b6346a4a"
-  integrity sha512-/9ElgfvZduasw9ilA0oTL/SH3wLEcvawzuNI0xHx0MW4QTBPmYPCE7kcJq9Jv0iTmLhMu3esLmK2Nd7mHPsdUA==
+"@brainhubeu/license-auditor@^1.0.18":
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/license-auditor/-/license-auditor-1.0.18.tgz#20b2d63292f2a62278f2158eb7e62e0e72ba2095"
+  integrity sha512-lgeFzJuiq1MJViGNsHPb1yH0ZmTV2wOhirSfo5qMvF2hFg4erEE2iYOiWTG4UE9dmq37orbe/p8X5w0dPa4QFg==
   dependencies:
     license-checker "^25.0.1"
 
