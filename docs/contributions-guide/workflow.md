@@ -10,7 +10,7 @@
 1. The CI deploys the PR to one of the testing environments.
 1. A `brainhubeu` organization member tests the PR:
     - what to test?
-      - whether it fixes the bug or the feature request is working
+      - whether the bug is really fixed or the newly implemented feature is working correctly
       - whether it doesn't break anything (doesn't cause any new bug)
     - where?
       - if a manual code analysis tells the PR doesn't affect the mobile and it's a simple change, only desktop (the newest Chrome in any OS)

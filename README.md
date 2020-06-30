@@ -40,9 +40,12 @@
 - 🔨 [Props](#props)
   - 🎠 [Carousel Props](#carousel-props)
   - 🐾 [Dots Props](#dots-props)
-- 🐞 [Tests](#tests)
 - 😻 [Contributing](#contributing)
-- 📝 [Decision Log](#decision-log)
+  - 💁 [Setting up local development](#setting-up-local-development-which-means-running-the-docsdemo-locally)
+  - 🐞 [Tests](#tests)
+  - 🏋️‍ [Workflow](#workflow)
+  - 🏷 [Labels](#labels)
+  - 📝 [Decision Log](#decision-log)
 
 ## Why?
 There are some great carousels (like slick) that do not have real React implementations. This library provides you with carousel that is not merely a wrapper for some jQuery solution, can be used as controlled or uncontrolled element (similar to [inputs](https://reactjs.org/docs/uncontrolled-components.html)), and has tons of useful features.
