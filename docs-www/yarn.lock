@@ -1756,10 +1756,10 @@
     react-helmet "^5.2.1"
     react-live "^1.12.0"
 
-"@brainhubeu/react-carousel@^1.19.10":
-  version "1.19.10"
-  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.19.10.tgz#f9aa506ea9ca585391d2037caa3ae197aa66abb9"
-  integrity sha512-v0TJh7jNT+VAd64ioLwQcP09bliUnmI5coQ3/su2AkKeppgMpdj7hdIg8OXTzo2zzqwBFHbuYCusjlTG2TMHuQ==
+"@brainhubeu/react-carousel@^1.19.11":
+  version "1.19.11"
+  resolved "https://registry.yarnpkg.com/@brainhubeu/react-carousel/-/react-carousel-1.19.11.tgz#c66ea80b84e0f88d6ae6c7dc10f1c92542b50140"
+  integrity sha512-7kK/OxGpDTvKcpO0c8XvEC+QxNbgHKPZr20jmDRYS+pBQg4Ac3D28JTrAzd4u3ilfEs9GcMzjNxhiYjR0nyRiA==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
