@@ -29,6 +29,8 @@ class Carousel extends Component {
     arrows: PropTypes.bool,
     arrowLeft: PropTypes.element,
     arrowRight: PropTypes.element,
+    left: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    right: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     addArrowClickHandler: PropTypes.bool,
     autoPlay: PropTypes.number,
     stopAutoPlayOnHover: PropTypes.bool,
@@ -67,6 +69,8 @@ class Carousel extends Component {
     offset: 0,
     slidesPerPage: 1,
     slidesPerScroll: 1,
+    left: 37,
+    right: 39,
     animationSpeed: 500,
     draggable: true,
     rtl: false,
@@ -101,6 +105,8 @@ class Carousel extends Component {
       this.node.parentElement.addEventListener('touchmove', this.simulateEvent, { passive: false });
       this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
     }
+    // focus ref for keyboard input
+    this.trackRef.focus();
 
     this.onResize();
     // setting autoplay interval
@@ -315,6 +321,18 @@ class Carousel extends Component {
       dragStart: changedTouches[0].pageX,
     }));
   };
+
+  /**
+   * Function handling left and right arrow presses.
+   * @param {event} e event
+   */
+  onKeyDown = e => {
+      if (e.keyCode === this.props.left || e.key === this.props.left) {
+        this.prevSlide();
+      } else if (e.keyCode === this.props.right || e.key === this.props.right) {
+        this.nextSlide();
+      }
+  }
 
   /**
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
@@ -544,6 +562,8 @@ class Carousel extends Component {
           ref={el => this.trackRef = el}
           onMouseEnter={handleAutoPlayEvent(this.onMouseEnter)}
           onMouseLeave={handleAutoPlayEvent(this.onMouseLeave)}
+          onKeyDown={this.onKeyDown}
+          tabIndex="0"
         >
           {slides.map((carouselItem, index) => (
             // eslint-disable-next-line no-undefined

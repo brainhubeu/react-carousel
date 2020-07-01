@@ -18,6 +18,8 @@
 
 * ```arrowLeft: React element```, ```arrowRight: React element```: React elements to be used instead of default arrows (if you provide these custom arrows, you don't have to use ```arrows``` prop).
 
+* ```left: String | Number```, ```right: String | Number```: The KeyCode or Key for keyboard inputs for changing to the previous or next slide.
+
 * ```addArrowClickHandler: Boolean``` Has to be added for arrowLeft and arrowRight to work.
 
 * ```autoPlay: Number```: Slide change interval in milliseconds.
