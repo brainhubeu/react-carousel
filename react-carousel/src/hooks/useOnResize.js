@@ -32,7 +32,7 @@ const useOnResize = ({ width, nodeRef, setItemWidth, setCarouselWidth, trackCont
     } else {
       onResize();
     }
-  }, [width]);
+  }, [width, trackContainerRef.current]);
 };
 
 export default useOnResize;

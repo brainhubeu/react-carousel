@@ -54,7 +54,7 @@ const Carousel = props => {
     afterCarouselItems,
     strategies,
     merged,
-  } = carouselPluginResolver(props.plugins, props, trackRef);
+  } = carouselPluginResolver(props.plugins, props, trackRef, trackContainerRef, nodeRef);
 
   setStrategies(strategies);
 

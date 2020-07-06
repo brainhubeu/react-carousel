@@ -3,7 +3,7 @@ import flatten from 'lodash/flatten';
 import { plugins as pluginsFunc } from '../constants/plugins';
 import pluginsOrder from '../constants/pluginsOrder';
 
-const carouselPluginResolver = (plugins, carouselProps, trackRef) => {
+const carouselPluginResolver = (plugins, carouselProps, trackRef, trackContainerRef, nodeRef) => {
   const carouselPlugins = carouselProps?.plugins.map(plugin => {
     if (typeof(plugin) === 'string') {
       return pluginsFunc[plugin.toUpperCase()] && pluginsFunc[plugin.toUpperCase()]({
@@ -18,7 +18,7 @@ const carouselPluginResolver = (plugins, carouselProps, trackRef) => {
     return plugin.resolve({
       pluginProps: carouselProps,
       options: plugin.options,
-      refs: { trackRef },
+      refs: { trackRef, trackContainerRef, nodeRef },
     });
   }
 
