@@ -240,6 +240,7 @@ const Carousel = props => {
 };
 
 Carousel.propTypes = {
+  width: PropTypes.number,
   value: PropTypes.number,
   onChange: PropTypes.func,
   children: PropTypes.node,

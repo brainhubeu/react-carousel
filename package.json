@@ -10,6 +10,7 @@
   "scripts": {
     "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('Use yarn for installing: https://yarnpkg.com/en/docs/install')\"",
     "start-test-app": "yarn workspace react-carousel-docs develop",
+    "lint": "yarn workspace @brainhubeu/react-carousel lint",
     "build": "yarn workspace @brainhubeu/react-carousel build",
     "test:e2e": "start-server-and-test start-test-app http://localhost:8000 cypress:run",
     "test:unit:coverage": "yarn workspace @brainhubeu/react-carousel test:coverage",
