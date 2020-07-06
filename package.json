@@ -2,6 +2,7 @@
   "private": true,
   "workspaces": ["docs-www", "react-carousel"],
   "devDependencies": {
+    "@brainhubeu/license-auditor": "^1.0.30",
     "cypress": "^4.9.0",
     "start-server-and-test": "^1.11.0",
     "danger": "^10.2.1"
