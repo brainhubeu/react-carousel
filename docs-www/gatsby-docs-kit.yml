@@ -20,6 +20,8 @@
           file: multipleItems.md
         - title: Click to change
           file: clickToChange.md
+        - title: Container wrapper
+          file: container.md
         - title: Default arrows
           file: defaultArrows.md
         - title: Custom arrows
