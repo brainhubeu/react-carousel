@@ -74,7 +74,6 @@ remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$final_page_number.git
 
 yarn install --non-interactive
 
-rm ./react-carousel/.babelrc
 PATH_PREFIX=gh-pages-rc-$final_page_number yarn build
 
 mkdir -p gh-pages-branch
