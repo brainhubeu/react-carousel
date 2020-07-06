@@ -7,7 +7,7 @@ import STRATEGIES from '../constants/strategies';
 const getAdditionalScroll = (baseToScroll, customToScroll) => {
   if (baseToScroll < 0) {
     return baseToScroll - (customToScroll - baseToScroll);
-  } else if ( baseToScroll > 0) {
+  } else if (baseToScroll > 0) {
     return customToScroll - baseToScroll;
   }
   return 0;

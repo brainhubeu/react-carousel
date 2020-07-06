@@ -8,14 +8,14 @@ const CarouselDots = ({ value, thumbnails, number, onChange, rtl, className }) =
     const numberOfSlides = number || thumbnails.length;
     return value >= 0
       ? value
-      : value + numberOfSlides * Math.ceil(Math.abs(value/numberOfSlides));
+      : value + numberOfSlides * Math.ceil(Math.abs(value / numberOfSlides));
   };
 
   const onDotClick = index => () => {
     const numberOfSlides = number || thumbnails.length;
     const moduloItem = calculateButtonValue() % numberOfSlides;
 
-    return onChange(value - ( moduloItem - index));
+    return onChange(value - (moduloItem - index));
   };
 
   const renderCarouselDots = () => {

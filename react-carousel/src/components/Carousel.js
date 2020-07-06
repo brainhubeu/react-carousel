@@ -256,7 +256,7 @@ Carousel.propTypes = {
       PropTypes.func,
       PropTypes.shape({
         resolve: PropTypes.func,
-        options: PropTypes.object,
+        options: PropTypes.object, // eslint-disable-line react/forbid-prop-types
       }),
     ]),
   ),

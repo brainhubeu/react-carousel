@@ -46,7 +46,7 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
 
   const getNeededAdditionalClones = () => {
     if (Math.abs(pluginProps.value) > children.length) {
-      return Math.ceil((pluginProps.value ) / children.length);
+      return Math.ceil((pluginProps.value) / children.length);
     }
     return 0;
   };

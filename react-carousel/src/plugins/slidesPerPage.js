@@ -19,7 +19,7 @@ const slidesPerPage = ({ options = defaultOptions }) => ({
     const [carouselWidth] = useRecoilState(carouselWidthState);
 
     const onResize = () => {
-      setItemWidth(carouselWidth/options.numberOfSlides);
+      setItemWidth(carouselWidth / options.numberOfSlides);
     };
 
     useEffect(onResize, [carouselWidth]);
