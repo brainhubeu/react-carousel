@@ -12,9 +12,11 @@ describe('Infinite', () => {
     for (let i = 0; i < 17; i++) {
       cy.get('.BrainhubCarousel__arrowRight')
         .trigger('click');
+
+      cy.wait(5);
     }
 
-    cy.wait(1);
+    cy.wait(20);
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
@@ -27,9 +29,11 @@ describe('Infinite', () => {
     for (let i = 0; i < 17; i++) {
       cy.get('.BrainhubCarousel__arrowLeft')
         .trigger('click');
+
+      cy.wait(5);
     }
 
-    cy.wait(1);
+    cy.wait(20);
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
