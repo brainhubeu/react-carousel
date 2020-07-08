@@ -1,10 +1,12 @@
 {
   "root": true,
   "extends": [
-    "brainhub"
+    "brainhub",
+    "prettier"
   ],
   "plugins": [
-    "cypress"
+    "cypress",
+    "prettier"
   ],
   "env": {
     "jest": true,
@@ -17,7 +19,6 @@
     }
   },
   "rules": {
-    "no-invalid-this": 0,
-    "react/no-deprecated": 0
+    "prettier/prettier": "error"
   }
 }

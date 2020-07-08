@@ -49,7 +49,7 @@ const autoplay = ({ pluginProps, options = defaultOptions }) => ({
       resetInterval();
     };
 
-    const handleAutoPlayEvent = action => action;
+    const handleAutoPlayEvent = (action) => action;
 
     return {
       onMouseEnter: handleAutoPlayEvent(onMouseEnter),

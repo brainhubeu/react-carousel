@@ -10,8 +10,7 @@ describe('Infinite', () => {
 
   it('repeats slides when swipes right', () => {
     for (let i = 0; i < 17; i++) {
-      cy.get('.BrainhubCarousel__arrowRight')
-        .trigger('click');
+      cy.get('.BrainhubCarousel__arrowRight').trigger('click');
 
       cy.wait(5);
     }
@@ -27,8 +26,7 @@ describe('Infinite', () => {
 
   it('repeats slides when swipes left', () => {
     for (let i = 0; i < 17; i++) {
-      cy.get('.BrainhubCarousel__arrowLeft')
-        .trigger('click');
+      cy.get('.BrainhubCarousel__arrowLeft').trigger('click');
 
       cy.wait(5);
     }

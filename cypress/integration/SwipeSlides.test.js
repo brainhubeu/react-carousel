@@ -13,7 +13,7 @@ describe('Swipe slides', () => {
       .trigger('mousedown')
       .trigger('mousemove', { pageX: 100 })
       .wait(10)
-      .trigger('mouseup', { force: true })
+      .trigger('mouseup', { force: true });
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')

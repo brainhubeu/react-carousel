@@ -17,8 +17,12 @@ describe('arrows', () => {
       plugins: ['arrows'],
     });
 
-    expect(wrapper.find('.BrainhubCarousel__arrowRight').props().disabled).toBeFalsy();
-    expect(wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled).toBeTruthy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowRight').props().disabled,
+    ).toBeFalsy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled,
+    ).toBeTruthy();
   });
 
   test('arrow right is disabled when there are no more slides on the right', () => {
@@ -27,8 +31,12 @@ describe('arrows', () => {
       plugins: ['arrows'],
     });
 
-    expect(wrapper.find('.BrainhubCarousel__arrowRight').props().disabled).toBeTruthy();
-    expect(wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled).toBeFalsy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowRight').props().disabled,
+    ).toBeTruthy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled,
+    ).toBeFalsy();
   });
 
   test('both arrows are enabled with infinite plugin', () => {
@@ -36,8 +44,12 @@ describe('arrows', () => {
       plugins: ['arrows', 'infinite'],
     });
 
-    expect(wrapper.find('.BrainhubCarousel__arrowRight').props().disabled).toBeFalsy();
-    expect(wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled).toBeFalsy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowRight').props().disabled,
+    ).toBeFalsy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled,
+    ).toBeFalsy();
   });
 
   test('changes slide on active arrow click', () => {
@@ -45,11 +57,21 @@ describe('arrows', () => {
       plugins: ['arrows'],
     });
 
-    expect(wrapper.find('.BrainhubCarouselItem').first().hasClass('BrainhubCarouselItem--active')).toBeTruthy();
+    expect(
+      wrapper
+        .find('.BrainhubCarouselItem')
+        .first()
+        .hasClass('BrainhubCarouselItem--active'),
+    ).toBeTruthy();
 
     wrapper.find('.BrainhubCarousel__arrowRight').simulate('click');
 
-    expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
+    expect(
+      wrapper
+        .find('.BrainhubCarouselItem')
+        .at(1)
+        .hasClass('BrainhubCarouselItem--active'),
+    ).toBeTruthy();
   });
 
   test('custom arrows work as expected', () => {

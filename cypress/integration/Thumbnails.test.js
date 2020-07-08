@@ -9,9 +9,7 @@ describe('Thumbnails', () => {
   });
 
   it('changes slide on thumbnail click', () => {
-    cy.get('.BrainhubCarousel__thumbnail')
-      .eq(2)
-      .click();
+    cy.get('.BrainhubCarousel__thumbnail').eq(2).click();
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')

@@ -1,9 +1,11 @@
-import {
-  useRecoilValue,
-} from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
-import { carouselWidthState, itemOffsetState, itemWidthState } from '../state/carousel';
+import {
+  carouselWidthState,
+  itemOffsetState,
+  itemWidthState,
+} from '../state/carousel';
 import STRATEGIES from '../constants/strategies';
 
 const centered = () => ({
@@ -16,7 +18,7 @@ const centered = () => ({
     return {
       [STRATEGIES.GET_TRANSFORM_OFFSET]: (original, prev) => {
         const elementWidthWithOffset = itemWidth + itemOffset;
-        const additionalOffset = (carouselWidth / 2) - (elementWidthWithOffset / 2);
+        const additionalOffset = carouselWidth / 2 - elementWidthWithOffset / 2;
         return prev + additionalOffset;
       },
     };

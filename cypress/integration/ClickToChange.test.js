@@ -1,5 +1,5 @@
 // TODO find a better way
-Cypress.on('uncaught:exception', error => {
+Cypress.on('uncaught:exception', (error) => {
   console.error('an uncaught eaten exception', error);
   return false;
 });
@@ -19,7 +19,7 @@ describe('Click to change', () => {
       .eq(1)
       .trigger('mousedown')
       .wait(10)
-      .trigger('mouseup', { force: true })
+      .trigger('mouseup', { force: true });
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
@@ -32,13 +32,13 @@ describe('Click to change', () => {
       .eq(1)
       .trigger('mousedown')
       .wait(10)
-      .trigger('mouseup', { force: true })
+      .trigger('mouseup', { force: true });
 
     cy.get('.BrainhubCarouselItem')
       .eq(0)
       .trigger('mousedown')
       .wait(10)
-      .trigger('mouseup', { force: true })
+      .trigger('mouseup', { force: true });
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')

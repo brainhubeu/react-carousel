@@ -2,10 +2,7 @@ import { useRecoilValue } from 'recoil';
 
 import STRATEGIES from '../constants/strategies';
 import { pluginNames } from '../constants/plugins';
-import {
-  activeSlideIndexState,
-  slideMovementState,
-} from '../state/carousel';
+import { activeSlideIndexState, slideMovementState } from '../state/carousel';
 
 let previousClicked = 0;
 
@@ -47,7 +44,6 @@ const clickToChange = ({ pluginProps }) => ({
             return prev;
           }
 
-
           previousClicked = slideMovement.clicked;
           if (activeSlideIndex) {
             return pluginProps.value + slideMovement.clicked - activeSlideIndex;
@@ -59,9 +55,7 @@ const clickToChange = ({ pluginProps }) => ({
       },
     };
   },
-  itemClassNames: () => [
-    'BrainhubCarouselItem--clickable',
-  ],
+  itemClassNames: () => ['BrainhubCarouselItem--clickable'],
 });
 
 export default clickToChange;

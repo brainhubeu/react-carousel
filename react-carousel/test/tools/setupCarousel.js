@@ -5,9 +5,7 @@ import CarouselWrapper from '../../src/components/CarouselWrapper';
 
 const setup = (options = {}) =>
   mount(
-    <CarouselWrapper
-      {...options}
-    >
+    <CarouselWrapper {...options}>
       <div
         style={{
           width: '300px',

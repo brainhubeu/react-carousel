@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import '../styles/CarouselDots.scss';
 
-const CarouselDots = ({ value, thumbnails, number, onChange, rtl, className }) => {
+const CarouselDots = ({
+  value,
+  thumbnails,
+  number,
+  onChange,
+  rtl,
+  className,
+}) => {
   const calculateButtonValue = () => {
     const numberOfSlides = number || thumbnails.length;
     return value >= 0
@@ -11,7 +18,7 @@ const CarouselDots = ({ value, thumbnails, number, onChange, rtl, className }) =
       : value + numberOfSlides * Math.ceil(Math.abs(value / numberOfSlides));
   };
 
-  const onDotClick = index => () => {
+  const onDotClick = (index) => () => {
     const numberOfSlides = number || thumbnails.length;
     const moduloItem = calculateButtonValue() % numberOfSlides;
 
@@ -25,10 +32,10 @@ const CarouselDots = ({ value, thumbnails, number, onChange, rtl, className }) =
       return thumbnails.slice(0, dotsLength).map((thumbnail, index) => (
         <li key={index}>
           <div
-            className={classnames(
-              'BrainhubCarousel__thumbnail',
-              { 'BrainhubCarousel__thumbnail--selected': index === calculateButtonValue() % dotsLength },
-            )}
+            className={classnames('BrainhubCarousel__thumbnail', {
+              'BrainhubCarousel__thumbnail--selected':
+                index === calculateButtonValue() % dotsLength,
+            })}
             type="button"
             onClick={onDotClick(index)}
           >
@@ -43,10 +50,10 @@ const CarouselDots = ({ value, thumbnails, number, onChange, rtl, className }) =
       dots.push(
         <li key={i}>
           <div
-            className={classnames(
-              'BrainhubCarousel__dot',
-              { 'BrainhubCarousel__dot--selected': i === calculateButtonValue() % number },
-            )}
+            className={classnames('BrainhubCarousel__dot', {
+              'BrainhubCarousel__dot--selected':
+                i === calculateButtonValue() % number,
+            })}
             type="button"
             onClick={onDotClick(i)}
           >
@@ -59,7 +66,13 @@ const CarouselDots = ({ value, thumbnails, number, onChange, rtl, className }) =
   };
 
   return (
-    <ul className={classnames('BrainhubCarousel__dots', className, rtl ? 'BrainhubCarousel__dots--isRTL' : '')}>
+    <ul
+      className={classnames(
+        'BrainhubCarousel__dots',
+        className,
+        rtl ? 'BrainhubCarousel__dots--isRTL' : '',
+      )}
+    >
       {renderCarouselDots()}
     </ul>
   );

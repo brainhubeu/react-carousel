@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { carouselValueState, slideMovementState, slidesState, trackStylesState } from '../state/carousel';
+import {
+  carouselValueState,
+  slideMovementState,
+  slidesState,
+  trackStylesState,
+} from '../state/carousel';
 import { pluginNames } from '../constants/plugins';
 import STRATEGIES from '../constants/strategies';
 import clamp from '../tools/clamp';

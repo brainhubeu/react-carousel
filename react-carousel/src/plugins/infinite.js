@@ -1,8 +1,4 @@
-import {
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { isNil } from 'lodash';
 import times from 'lodash/times';
 import concat from 'lodash/concat';
@@ -46,7 +42,7 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
 
   const getNeededAdditionalClones = () => {
     if (Math.abs(pluginProps.value) > children.length) {
-      return Math.ceil((pluginProps.value) / children.length);
+      return Math.ceil(pluginProps.value / children.length);
     }
     return 0;
   };
@@ -56,7 +52,8 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
     return additionalClones < 0 ? -additionalClones : 0;
   };
 
-  const getAdditionalClonesOffset = () => -children.length * itemWidth * getAdditionalClonesLeft();
+  const getAdditionalClonesOffset = () =>
+    -children.length * itemWidth * getAdditionalClonesLeft();
 
   return {
     name: pluginNames.INFINITE,
@@ -73,12 +70,15 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
         const additionalClones = getNeededAdditionalClones();
         return additionalClones > 0 ? additionalClones : 0;
       };
-      const getClonesLeft = () => numberOfInfiniteClones + getAdditionalClonesLeft();
-      const getClonesRight = () => numberOfInfiniteClones + getAdditionalClonesRight();
-
+      const getClonesLeft = () =>
+        numberOfInfiniteClones + getAdditionalClonesLeft();
+      const getClonesRight = () =>
+        numberOfInfiniteClones + getAdditionalClonesRight();
 
       useEffect(() => {
-        setActiveSlideIndex(getTargetSlide() + getClonesLeft() * children.length);
+        setActiveSlideIndex(
+          getTargetSlide() + getClonesLeft() * children.length,
+        );
 
         setTrackStyles({
           ...trackStyles,
@@ -101,16 +101,23 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
       const slideMovement = useRecoilValue(slideMovementState);
       const activeSlideIndex = useRecoilValue(activeSlideIndexState);
 
-      const marginLeft = (slideMovement.marginLeft || '0').match(/\d/g).join('');
+      const marginLeft = (slideMovement.marginLeft || '0')
+        .match(/\d/g)
+        .join('');
 
       return {
-        [STRATEGIES.CHANGE_SLIDE]: original => original,
+        [STRATEGIES.CHANGE_SLIDE]: (original) => original,
         [STRATEGIES.GET_CURRENT_VALUE]: () => pluginProps.value,
         [STRATEGIES.GET_TRANSFORM_OFFSET]: () => {
           const elementWidthWithOffset = itemWidth;
           const dragOffset = slideMovement.dragOffset;
 
-          return dragOffset - activeSlideIndex * elementWidthWithOffset - marginLeft - getAdditionalClonesOffset();
+          return (
+            dragOffset -
+            activeSlideIndex * elementWidthWithOffset -
+            marginLeft -
+            getAdditionalClonesOffset()
+          );
         },
       };
     },

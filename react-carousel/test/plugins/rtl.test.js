@@ -14,7 +14,11 @@ describe('infinite', () => {
       plugins: ['rtl', 'arrows'],
     });
 
-    expect(wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled).toBeTruthy();
-    expect(wrapper.find('.BrainhubCarousel__arrowRight').props().disabled).toBeFalsy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowLeft').props().disabled,
+    ).toBeTruthy();
+    expect(
+      wrapper.find('.BrainhubCarousel__arrowRight').props().disabled,
+    ).toBeFalsy();
   });
 });

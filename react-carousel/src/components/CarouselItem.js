@@ -37,16 +37,13 @@ const CarouselItem = ({
     childrenRef.current && resizeObserver.observe(childrenRef.current);
   };
 
-  const getChildren = () => React.cloneElement(
-    children,
-    { ref: childrenRef },
-  );
+  const getChildren = () => React.cloneElement(children, { ref: childrenRef });
 
-  const onItemMouseDown = event => {
+  const onItemMouseDown = (event) => {
     onMouseDown(event, index);
   };
 
-  const onItemTouchStart = event => {
+  const onItemTouchStart = (event) => {
     onTouchStart(event, index);
   };
 

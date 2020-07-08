@@ -76,10 +76,12 @@ export const getCurrentValueSelector = selector({
     const getCurrentValueBase = () => clamp(value, slides);
 
     const strategies = get(carouselStrategiesState)
-      .map(strategy => strategy && strategy[STRATEGIES.GET_CURRENT_VALUE])
-      .filter(strategy => typeof strategy === 'function');
+      .map((strategy) => strategy && strategy[STRATEGIES.GET_CURRENT_VALUE])
+      .filter((strategy) => typeof strategy === 'function');
 
-    const enhancedStrategies = strategies.map(strategy => _bind(strategy, null, value));
+    const enhancedStrategies = strategies.map((strategy) =>
+      _bind(strategy, null, value),
+    );
 
     return enhancedStrategies.length
       ? flow([getCurrentValueBase, ...strategies])()
@@ -90,10 +92,12 @@ export const getCurrentValueSelector = selector({
     const getCurrentValueBase = () => clamp(value, slides);
 
     const strategies = get(carouselStrategiesState)
-      .map(strategy => strategy && strategy[STRATEGIES.CHANGE_SLIDE])
-      .filter(strategy => typeof strategy === 'function');
+      .map((strategy) => strategy && strategy[STRATEGIES.CHANGE_SLIDE])
+      .filter((strategy) => typeof strategy === 'function');
 
-    const enhancedStrategies = strategies.map(strategy => _bind(strategy, null, value));
+    const enhancedStrategies = strategies.map((strategy) =>
+      _bind(strategy, null, value),
+    );
 
     const newValue = strategies.length
       ? flow([getCurrentValueBase, ...enhancedStrategies])()
@@ -122,10 +126,12 @@ export const transformOffsetSelector = selector({
     };
 
     const strategies = get(carouselStrategiesState)
-      .map(strategy => strategy && strategy[STRATEGIES.GET_TRANSFORM_OFFSET])
-      .filter(strategy => typeof strategy === 'function');
+      .map((strategy) => strategy && strategy[STRATEGIES.GET_TRANSFORM_OFFSET])
+      .filter((strategy) => typeof strategy === 'function');
 
-    const enhancedStrategies = strategies.map(strategy => _bind(strategy, null, value));
+    const enhancedStrategies = strategies.map((strategy) =>
+      _bind(strategy, null, value),
+    );
 
     return strategies.length
       ? flow([getTransformOffsetBase, ...enhancedStrategies])()
@@ -151,10 +157,12 @@ export const nearestSlideSelector = selector({
     };
 
     const strategies = get(carouselStrategiesState)
-      .map(strategy => strategy && strategy[STRATEGIES.GET_NEAREST_SLIDE])
-      .filter(strategy => typeof strategy === 'function');
+      .map((strategy) => strategy && strategy[STRATEGIES.GET_NEAREST_SLIDE])
+      .filter((strategy) => typeof strategy === 'function');
 
-    const enhancedStrategies = strategies.map(strategy => _bind(strategy, null, value));
+    const enhancedStrategies = strategies.map((strategy) =>
+      _bind(strategy, null, value),
+    );
 
     return strategies.length
       ? flow([getNearestSlideBase, ...enhancedStrategies])()

@@ -14,7 +14,7 @@ import {
 
 import Carousel from './Carousel';
 
-const CarouselWrapper = props => {
+const CarouselWrapper = (props) => {
   const changeSlide = useSetRecoilState(getCurrentValueSelector);
   const value = useRecoilValue(carouselValueState);
   const setTransitionEnabled = useSetRecoilState(transitionEnabledState);
@@ -32,10 +32,14 @@ const CarouselWrapper = props => {
   const carouselProps = Object.entries(rest.breakpoints || {})
     .filter(([resolution]) => window.innerWidth <= resolution)
     .sort(([prevRes], [nextRes]) => nextRes - prevRes)
-    .reduce((prev, [_, props]) => ({ // eslint-disable-line no-unused-vars
-      ...prev,
-      ...props,
-    }), _omit(rest, ['breakpoints']));
+    .reduce(
+      // eslint-disable-next-line no-unused-vars
+      (prev, [_, props]) => ({
+        ...prev,
+        ...props,
+      }),
+      _omit(rest, ['breakpoints']),
+    );
 
   const isControlled = !_isNil(customValue);
   return (
@@ -55,9 +59,9 @@ CarouselWrapper.propTypes = {
   onChange: PropTypes.func,
 };
 
-const RecoiledComponent = props => (
+const RecoiledComponent = (props) => (
   <RecoilRoot>
-    <CarouselWrapper {...props}/>
+    <CarouselWrapper {...props} />
   </RecoilRoot>
 );
 

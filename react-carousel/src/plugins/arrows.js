@@ -17,22 +17,27 @@ import './arrows.scss';
  * @param {boolean} disable info whether the arrow is disabled
  * @return {ReactElement} element with added handler
  */
-const renderArrowWithAddedHandler = (element, onClick, name, addArrowClickHandler, disable = false) => (
+const renderArrowWithAddedHandler = (
+  element,
+  onClick,
+  name,
+  addArrowClickHandler,
+  disable = false,
+) => (
   <div
     key={`@brainhubeu/react-carousel/${uuidv4()}`}
-    className={
-      classnames(
-        'BrainhubCarousel__customArrows',
-        {
-          'BrainhubCarousel__arrow--disable': disable,
-        },
-        `BrainhubCarousel__custom-${name}`,
-      )
-    }
+    className={classnames(
+      'BrainhubCarousel__customArrows',
+      {
+        'BrainhubCarousel__arrow--disable': disable,
+      },
+      `BrainhubCarousel__custom-${name}`,
+    )}
     onClick={addArrowClickHandler ? onClick : null}
   >
     {element}
-  </div>);
+  </div>
+);
 
 const arrows = ({ pluginProps, options = {} }) => ({
   name: pluginNames.ARROWS,
@@ -42,16 +47,32 @@ const arrows = ({ pluginProps, options = {} }) => ({
     const slides = useRecoilValue(slidesState);
 
     const prevSlide = useCallback(
-      () => pluginProps.onChange(pluginProps.value - 1), [pluginProps.value, pluginProps.onChange]);
+      () => pluginProps.onChange(pluginProps.value - 1),
+      [pluginProps.value, pluginProps.onChange],
+    );
 
-    const disabled = pluginProps.value <= 0 && pluginProps?.children?.length === slides.length;
+    const disabled =
+      pluginProps.value <= 0 && pluginProps?.children?.length === slides.length;
 
     if (options.arrowLeft) {
       if (!disabled) {
-        return renderArrowWithAddedHandler(options.arrowLeft, prevSlide, 'arrowLeft', options.addArrowClickHandler);
+        return renderArrowWithAddedHandler(
+          options.arrowLeft,
+          prevSlide,
+          'arrowLeft',
+          options.addArrowClickHandler,
+        );
       }
-      const arrow = options.arrowLeftDisabled ? options.arrowLeftDisabled : options.arrowLeft;
-      return renderArrowWithAddedHandler(arrow, changeSlide, 'arrowLeft', options.addArrowClickHandler, disabled);
+      const arrow = options.arrowLeftDisabled
+        ? options.arrowLeftDisabled
+        : options.arrowLeft;
+      return renderArrowWithAddedHandler(
+        arrow,
+        changeSlide,
+        'arrowLeft',
+        options.addArrowClickHandler,
+        disabled,
+      );
     }
     return (
       <button
@@ -70,16 +91,33 @@ const arrows = ({ pluginProps, options = {} }) => ({
     const slides = useRecoilValue(slidesState);
 
     const nextSlide = useCallback(
-      () => pluginProps.onChange(pluginProps.value + 1), [pluginProps.value, pluginProps.onChange]);
+      () => pluginProps.onChange(pluginProps.value + 1),
+      [pluginProps.value, pluginProps.onChange],
+    );
 
-    const disabled = pluginProps.value >= slides.length - 1 && pluginProps?.children?.length === slides.length;
+    const disabled =
+      pluginProps.value >= slides.length - 1 &&
+      pluginProps?.children?.length === slides.length;
 
     if (options.arrowRight) {
       if (!disabled) {
-        return renderArrowWithAddedHandler(options.arrowRight, nextSlide, 'arrowLeft', options.addArrowClickHandler);
+        return renderArrowWithAddedHandler(
+          options.arrowRight,
+          nextSlide,
+          'arrowLeft',
+          options.addArrowClickHandler,
+        );
       }
-      const arrow = options.arrowRightDisabled ? options.arrowRightDisabled : options.arrowRight;
-      return renderArrowWithAddedHandler(arrow, changeSlide, 'arrowLeft', options.addArrowClickHandler, disabled);
+      const arrow = options.arrowRightDisabled
+        ? options.arrowRightDisabled
+        : options.arrowRight;
+      return renderArrowWithAddedHandler(
+        arrow,
+        changeSlide,
+        'arrowLeft',
+        options.addArrowClickHandler,
+        disabled,
+      );
     }
     return (
       <button

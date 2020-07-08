@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
-import {
-  useSetRecoilState,
-} from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import useEventListener from '../hooks/useEventListener';
 import { pluginNames } from '../constants/plugins';
@@ -19,8 +17,10 @@ const slidesPerPage = ({ pluginProps, refs, options = defaultOptions }) => ({
     const setItemWidth = useSetRecoilState(itemWidthState);
 
     const onResize = () => {
-      const width = refs.nodeRef.current.offsetWidth
-        - (refs.nodeRef.current.offsetWidth - refs.trackContainerRef.current.offsetWidth);
+      const width =
+        refs.nodeRef.current.offsetWidth -
+        (refs.nodeRef.current.offsetWidth -
+          refs.trackContainerRef.current.offsetWidth);
 
       setItemWidth(width / options.numberOfSlides);
     };

@@ -29,14 +29,16 @@ import CarouselItem from './CarouselItem';
 
 import '../styles/Carousel.scss';
 
-const Carousel = props => {
+const Carousel = (props) => {
   const [slideMovement, setSlideMovement] = useRecoilState(slideMovementState);
   const [itemWidth, setItemWidth] = useRecoilState(itemWidthState);
   const setItemOffset = useSetRecoilState(itemOffsetState);
   const [carouselWidth, setCarouselWidth] = useRecoilState(carouselWidthState);
   const [trackWidth, setTrackWidth] = useRecoilState(trackWidthState);
   const [activeSlideIndex] = useRecoilState(activeSlideIndexState);
-  const [transitionEnabled, setTransitionEnabled] = useRecoilState(transitionEnabledState);
+  const [transitionEnabled, setTransitionEnabled] = useRecoilState(
+    transitionEnabledState,
+  );
   const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
   const children = getChildren(props.children, props.slides);
   const [slides, setSlides] = useRecoilState(slidesState);
@@ -55,7 +57,13 @@ const Carousel = props => {
     afterCarouselItems,
     strategies,
     merged,
-  } = carouselPluginResolver(props.plugins, props, trackRef, trackContainerRef, nodeRef);
+  } = carouselPluginResolver(
+    props.plugins,
+    props,
+    trackRef,
+    trackContainerRef,
+    nodeRef,
+  );
 
   setStrategies(strategies);
 
@@ -63,35 +71,40 @@ const Carousel = props => {
    * Function handling mouse move if drag has started. Sets dragOffset in the state.
    * @param {event} e event
    */
-  const onMouseMove = useCallback(e => {
-    const { pageX } = e;
-    if (slideMovement.dragStart !== null) {
-      setSlideMovement(previousState => ({
-        ...slideMovement,
-        dragOffset: pageX - previousState.dragStart,
-        dragEnd: pageX,
-      }));
-    }
-  }, [slideMovement]);
-
+  const onMouseMove = useCallback(
+    (e) => {
+      const { pageX } = e;
+      if (slideMovement.dragStart !== null) {
+        setSlideMovement((previousState) => ({
+          ...slideMovement,
+          dragOffset: pageX - previousState.dragStart,
+          dragEnd: pageX,
+        }));
+      }
+    },
+    [slideMovement],
+  );
 
   /**
    * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
    * @param {event} e event
    * @param {number} index of the element drag started on
    */
-  const onMouseDown = useCallback((e, index) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setTransitionEnabled(false);
-    const { pageX } = e;
+  const onMouseDown = useCallback(
+    (e, index) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setTransitionEnabled(false);
+      const { pageX } = e;
 
-    setSlideMovement({
-      ...slideMovement,
-      clicked: index,
-      dragStart: pageX,
-    });
-  }, [slideMovement]);
+      setSlideMovement({
+        ...slideMovement,
+        clicked: index,
+        dragStart: pageX,
+      });
+    },
+    [slideMovement],
+  );
 
   /**
    * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
@@ -112,7 +125,7 @@ const Carousel = props => {
    * It resets clicked index, dragOffset and dragStart values in state.
    * @param {event} e event
    */
-  const onMouseUpTouchEnd = useCallback(e => {
+  const onMouseUpTouchEnd = useCallback((e) => {
     if (slideMovement.dragStart !== null) {
       e.preventDefault();
       if (props.draggable) {
@@ -172,7 +185,9 @@ const Carousel = props => {
   useEventListener('touchmove', simulateEvent, nodeRef.current);
   useEventListener('touchend', simulateEvent, nodeRef.current);
 
-  carouselPlugins?.forEach(plugin => typeof plugin === 'function' ? plugin() : plugin.plugin && plugin.plugin());
+  carouselPlugins?.forEach((plugin) =>
+    typeof plugin === 'function' ? plugin() : plugin.plugin && plugin.plugin(),
+  );
 
   /* ========== rendering ========== */
   const renderCarouselItems = () => {
@@ -181,7 +196,9 @@ const Carousel = props => {
 
     const currentTrackStyles = {
       width: `${trackWidth}px`,
-      transitionDuration: transitionEnabled ? `${animationSpeed}ms, ${animationSpeed}ms` : null,
+      transitionDuration: transitionEnabled
+        ? `${animationSpeed}ms, ${animationSpeed}ms`
+        : null,
       transform: `translateX(${trackStyles.transform}px)`,
       marginLeft: `${trackStyles.marginLeft}px`,
       marginRight: `${trackStyles.marginRight}px`,
@@ -190,13 +207,10 @@ const Carousel = props => {
     return (
       <div className="BrainhubCarousel__trackContainer" ref={trackContainerRef}>
         <ul
-          className={classnames(
-            'BrainhubCarousel__track',
-            {
-              'BrainhubCarousel__track--transition': transitionEnabled,
-              'BrainhubCarousel__track--draggable': draggable,
-            },
-          )}
+          className={classnames('BrainhubCarousel__track', {
+            'BrainhubCarousel__track--transition': transitionEnabled,
+            'BrainhubCarousel__track--draggable': draggable,
+          })}
           style={currentTrackStyles}
           ref={trackRef}
           {...merged}
@@ -226,7 +240,11 @@ const Carousel = props => {
   return (
     <div className="BrainhubCarousel__container">
       <div
-        className={classnames('BrainhubCarousel', props.className, ...(carouselClassNames || []))}
+        className={classnames(
+          'BrainhubCarousel',
+          props.className,
+          ...(carouselClassNames || []),
+        )}
         ref={nodeRef}
       >
         {React.createElement(React.Fragment, null, beforeCarouselItems)}
@@ -260,14 +278,16 @@ Carousel.propTypes = {
       }),
     ]),
   ),
-  breakpoints: PropTypes.objectOf(PropTypes.shape({
-    slidesPerPage: PropTypes.number,
-    draggable: PropTypes.bool,
-    animationSpeed: PropTypes.number,
-    dots: PropTypes.bool,
-    className: PropTypes.string,
-    transformOffset: PropTypes.string,
-  })),
+  breakpoints: PropTypes.objectOf(
+    PropTypes.shape({
+      slidesPerPage: PropTypes.number,
+      draggable: PropTypes.bool,
+      animationSpeed: PropTypes.number,
+      dots: PropTypes.bool,
+      className: PropTypes.string,
+      transformOffset: PropTypes.string,
+    }),
+  ),
 };
 Carousel.defaultProps = {
   slidesPerPage: 1,

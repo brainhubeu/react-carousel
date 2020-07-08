@@ -9,16 +9,14 @@ describe('Arrows', () => {
   });
 
   it('changes slide when clicks on the arrow', () => {
-    cy.get('.BrainhubCarousel__arrowRight')
-      .trigger('click');
+    cy.get('.BrainhubCarousel__arrowRight').trigger('click');
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
       .should('have.attr', 'src')
       .and('contain', 'scream');
 
-    cy.get('.BrainhubCarousel__arrowLeft')
-      .trigger('click');
+    cy.get('.BrainhubCarousel__arrowLeft').trigger('click');
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
@@ -28,8 +26,7 @@ describe('Arrows', () => {
 
   it(`doesn't allow to click on the arrow if there is no more slides`, () => {
     for (let i = 0; i < 2; i++) {
-      cy.get('.BrainhubCarousel__arrowRight')
-        .trigger('click');
+      cy.get('.BrainhubCarousel__arrowRight').trigger('click');
     }
 
     cy.get('.BrainhubCarouselItem--active')
@@ -37,7 +34,6 @@ describe('Arrows', () => {
       .should('have.attr', 'src')
       .and('contain', 'starry-night');
 
-    cy.get('.BrainhubCarousel__arrowRight')
-      .should('be.disabled');
+    cy.get('.BrainhubCarousel__arrowRight').should('be.disabled');
   });
 });

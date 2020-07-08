@@ -1,17 +1,30 @@
 {
   "private": true,
-  "workspaces": ["docs-www", "react-carousel"],
+  "workspaces": [
+    "docs-www",
+    "react-carousel"
+  ],
   "devDependencies": {
     "@brainhubeu/license-auditor": "^1.0.30",
     "cypress": "^4.9.0",
-    "start-server-and-test": "^1.11.0",
     "danger": "^10.2.1",
-    "husky": "^4.2.5"
+    "eslint": "^6.8.0",
+    "eslint-config-brainhub": "^1.12.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-watch": "^6.0.1",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "start-server-and-test": "^1.11.0"
   },
   "scripts": {
     "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('Use yarn for installing: https://yarnpkg.com/en/docs/install')\"",
     "start-test-app": "yarn workspace react-carousel-docs develop",
-    "lint": "yarn workspace @brainhubeu/react-carousel lint",
+    "format": "prettier --write \"./**/*.{js,json}\"",
+    "lint": "eslint docs-www/ react-carousel/ cypress/ --color",
     "build": "yarn workspace @brainhubeu/react-carousel build",
     "test:e2e": "start-server-and-test start-test-app http://localhost:8000 cypress:run",
     "test:unit:coverage": "yarn workspace @brainhubeu/react-carousel test:coverage",
@@ -21,8 +34,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint",
+      "pre-commit": "lint-staged",
       "pre-push": "yarn test:unit:coverage"
     }
+  },
+  "lint-staged": {
+    "**/*.+(js|jsx)": [
+      "yarn format",
+      "yarn lint --fix"
+    ]
   }
 }

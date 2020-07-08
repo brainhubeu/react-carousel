@@ -5,14 +5,22 @@ const webpack = require('webpack');
 
 const config = require('../webpack.config.prod');
 
-const { chalkError, chalkSuccess, chalkWarning, chalkProcessing } = require('./chalkConfig');
+const {
+  chalkError,
+  chalkSuccess,
+  chalkWarning,
+  chalkProcessing,
+} = require('./chalkConfig');
 
 process.env.NODE_ENV = 'production'; // this assures React is built in prod mode and that the Babel dev config doesn't apply.
 
-console.log(chalkProcessing('Generating minified bundle. This will take a moment...'));
+console.log(
+  chalkProcessing('Generating minified bundle. This will take a moment...'),
+);
 
 webpack(config).run((error, stats) => {
-  if (error) { // so a fatal error occurred. Stop here.
+  if (error) {
+    // so a fatal error occurred. Stop here.
     console.log(chalkError(error));
     process.exit(1);
   }
@@ -20,17 +28,21 @@ webpack(config).run((error, stats) => {
   const jsonStats = stats.toJson();
 
   if (stats.hasErrors()) {
-    jsonStats.errors.forEach(error => console.log(chalkError(error)));
+    jsonStats.errors.forEach((error) => console.log(chalkError(error)));
     process.exit(1);
   }
 
   if (stats.hasWarnings()) {
     console.log(chalkWarning('Webpack generated the following warnings: '));
-    jsonStats.warnings.forEach(warning => console.log(chalkWarning(warning)));
+    jsonStats.warnings.forEach((warning) => console.log(chalkWarning(warning)));
   }
 
   console.log(`Webpack stats: ${stats}`);
 
   // if we got this far, the build succeeded.
-  console.log(chalkSuccess('Your app is compiled in production mode in /lib. It\'s ready to roll!'));
+  console.log(
+    chalkSuccess(
+      `Your app is compiled in production mode in /lib. It's ready to roll!`,
+    ),
+  );
 });

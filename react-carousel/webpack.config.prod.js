@@ -26,10 +26,7 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
-    modules: [
-      'node_modules',
-      path.join(__dirname, 'src'),
-    ],
+    modules: ['node_modules', path.join(__dirname, 'src')],
   },
   devtool: 'source-map',
   entry: './src/index.js',

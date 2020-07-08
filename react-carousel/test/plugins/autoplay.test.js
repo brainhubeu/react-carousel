@@ -35,12 +35,22 @@ describe('autoplay', () => {
       animationSpeed: 1,
     });
 
-    expect(wrapper.find('.BrainhubCarouselItem').at(0).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
+    expect(
+      wrapper
+        .find('.BrainhubCarouselItem')
+        .at(0)
+        .hasClass('BrainhubCarouselItem--active'),
+    ).toBeTruthy();
 
     jest.advanceTimersByTime(11);
 
     wrapper.update();
 
-    expect(wrapper.find('.BrainhubCarouselItem').at(1).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
+    expect(
+      wrapper
+        .find('.BrainhubCarouselItem')
+        .at(1)
+        .hasClass('BrainhubCarouselItem--active'),
+    ).toBeTruthy();
   });
 });

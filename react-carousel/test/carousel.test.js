@@ -23,13 +23,7 @@ describe('Carousel', () => {
     });
 
     it('renders carousel items when passed as a prop', () => {
-      const wrapper = mount(
-        <CarouselWrapper
-          slides={[
-            <div key={0}/>,
-          ]}
-        />,
-      );
+      const wrapper = mount(<CarouselWrapper slides={[<div key={0} />]} />);
 
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(1);
     });
@@ -57,7 +51,6 @@ describe('Carousel', () => {
       });
       window.resizeTo(2000, 2000);
 
-
       const item = wrapper.find('.BrainhubCarouselItem').first();
 
       expect(item.props().style).toHaveProperty('width', '250px');
@@ -75,7 +68,6 @@ describe('Carousel', () => {
         },
       });
       window.resizeTo(2500, 2500);
-
 
       const item = wrapper.find('.BrainhubCarouselItem').first();
 
@@ -99,7 +91,9 @@ describe('Carousel', () => {
         },
       });
 
-      expect(wrapper.find('.BrainhubCarouselItem').first().prop('style').width).toEqual(`${declaredWidth}px`);
+      expect(
+        wrapper.find('.BrainhubCarouselItem').first().prop('style').width,
+      ).toEqual(`${declaredWidth}px`);
     });
 
     it('sets carousel initial slide index', () => {
@@ -107,35 +101,46 @@ describe('Carousel', () => {
         value: 2,
       });
 
-      expect(wrapper.find('.BrainhubCarouselItem').at(2).hasClass('BrainhubCarouselItem--active')).toBeTruthy();
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem')
+          .at(2)
+          .hasClass('BrainhubCarouselItem--active'),
+      ).toBeTruthy();
     });
 
     it('displays the last slide if the value is greater than the number of slides', () => {
       const wrapper = mount(
-        <CarouselWrapper
-          value={10}
-        >
-          <div/>
-          <div/>
-          <div className={'third'}/>
+        <CarouselWrapper value={10}>
+          <div />
+          <div />
+          <div className={'third'} />
         </CarouselWrapper>,
       );
 
-      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('third')).toBeTruthy();
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem--active')
+          .children()
+          .hasClass('third'),
+      ).toBeTruthy();
     });
 
     it('displays the first slide if the value is lower than 0', () => {
       const wrapper = mount(
-        <CarouselWrapper
-          value={-10}
-        >
-          <div className={'first'}/>
-          <div/>
-          <div/>
+        <CarouselWrapper value={-10}>
+          <div className={'first'} />
+          <div />
+          <div />
         </CarouselWrapper>,
       );
 
-      expect(wrapper.find('.BrainhubCarouselItem--active').children().hasClass('first')).toBeTruthy();
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem--active')
+          .children()
+          .hasClass('first'),
+      ).toBeTruthy();
     });
   });
 });

@@ -23,7 +23,10 @@ const slidesPerScroll = ({ options, pluginProps }) => ({
       [STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
         const baseToScroll = prev - currentValue;
 
-        const additionalToScroll = getAdditionalScroll(baseToScroll, options.numberOfSlides);
+        const additionalToScroll = getAdditionalScroll(
+          baseToScroll,
+          options.numberOfSlides,
+        );
 
         if (pluginProps?.children?.length !== slides.length) {
           return prev + additionalToScroll;

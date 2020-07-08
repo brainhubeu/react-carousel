@@ -9,9 +9,7 @@ describe('Dots', () => {
   });
 
   it('changes slide on dot click', () => {
-    cy.get('.BrainhubCarousel__dot')
-      .eq(2)
-      .click();
+    cy.get('.BrainhubCarousel__dot').eq(2).click();
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
