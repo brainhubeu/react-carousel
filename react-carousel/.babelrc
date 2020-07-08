@@ -12,6 +12,9 @@
         "transform-react-constant-elements",
         "transform-react-remove-prop-types"
       ]
+    },
+    "test": {
+      "plugins": ["@babel/plugin-transform-runtime"]
     }
   }
 }

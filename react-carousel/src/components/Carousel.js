@@ -3,6 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { withResizeDetector } from 'react-resize-detector';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import _compact from 'lodash/compact';
 
 // hooks
 import useEventListener from '../hooks/useEventListener';
@@ -200,25 +201,22 @@ const Carousel = props => {
           ref={trackRef}
           {...merged}
         >
-          {slides.map((carouselItem, index) => (
-            // eslint-disable-next-line no-undefined
-            [null, undefined].includes(carouselItem) ? null : (
-              <CarouselItem
-                clickable
-                key={index}
-                currentSlideIndex={activeSlideIndex || props.value}
-                index={index}
-                width={itemWidth}
-                offset={index !== slides.length ? props.offset : 0}
-                onMouseDown={onMouseDown}
-                onTouchStart={onTouchStart}
-                isDragging={!!Math.abs(slideMovement.dragOffset)}
-                itemClassNames={itemClassNames}
-                isDraggingEnabled={props.draggable}
-              >
-                {carouselItem}
-              </CarouselItem>
-            )
+          {_compact(slides).map((carouselItem, index) => (
+            <CarouselItem
+              clickable
+              key={index}
+              currentSlideIndex={activeSlideIndex || props.value}
+              index={index}
+              width={props.itemWidth || itemWidth}
+              offset={index !== slides.length ? props.offset : 0}
+              onMouseDown={onMouseDown}
+              onTouchStart={onTouchStart}
+              isDragging={!!Math.abs(slideMovement.dragOffset)}
+              itemClassNames={itemClassNames}
+              isDraggingEnabled={props.draggable}
+            >
+              {carouselItem}
+            </CarouselItem>
           ))}
         </ul>
       </div>
@@ -240,6 +238,7 @@ const Carousel = props => {
 };
 
 Carousel.propTypes = {
+  itemWidth: PropTypes.number,
   width: PropTypes.number,
   value: PropTypes.number,
   onChange: PropTypes.func,
@@ -253,6 +252,7 @@ Carousel.propTypes = {
   nearestSlideIndex: PropTypes.number,
   plugins: PropTypes.arrayOf(
     PropTypes.oneOfType([
+      PropTypes.string,
       PropTypes.func,
       PropTypes.shape({
         resolve: PropTypes.func,

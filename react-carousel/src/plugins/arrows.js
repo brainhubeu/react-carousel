@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import classnames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 import { pluginNames } from '../constants/plugins';
 import { getCurrentValueSelector, slidesState } from '../state/carousel';
@@ -18,6 +19,7 @@ import './arrows.scss';
  */
 const renderArrowWithAddedHandler = (element, onClick, name, addArrowClickHandler, disable = false) => (
   <div
+    key={`@brainhubeu/react-carousel/${uuidv4()}`}
     className={
       classnames(
         'BrainhubCarousel__customArrows',
@@ -53,6 +55,7 @@ const arrows = ({ pluginProps, options = {} }) => ({
     }
     return (
       <button
+        key={'@brainhubeu/react-carousel/arrow-left'}
         className="BrainhubCarousel__arrows BrainhubCarousel__arrowLeft"
         onClick={prevSlide}
         disabled={disabled}
@@ -80,6 +83,7 @@ const arrows = ({ pluginProps, options = {} }) => ({
     }
     return (
       <button
+        key={'@brainhubeu/react-carousel/arrow-right'}
         className="BrainhubCarousel__arrows BrainhubCarousel__arrowRight"
         onClick={nextSlide}
         disabled={disabled}

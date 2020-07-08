@@ -21,18 +21,20 @@ const CarouselItem = ({
   const isInitialMount = useRef(true);
 
   const resizeChildren = () => {
-    childrenRef.current.style = null;
-    if (childrenRef.current.offsetWidth > width) {
-      childrenRef.current.style.width = `${width}px`;
+    if (childrenRef.current) {
+      childrenRef.current.style = null;
+      if (childrenRef.current.offsetWidth > width) {
+        childrenRef.current.style.width = `${width}px`;
+      }
     }
   };
 
   const observeWidth = () => {
     const resizeObserver = new ResizeObserver(() => {
       resizeChildren();
-      resizeObserver.unobserve(childrenRef.current);
+      childrenRef.current && resizeObserver.unobserve(childrenRef.current);
     });
-    resizeObserver.observe(childrenRef.current);
+    childrenRef.current && resizeObserver.observe(childrenRef.current);
   };
 
   const getChildren = () => React.cloneElement(
