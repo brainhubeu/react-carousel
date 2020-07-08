@@ -74,7 +74,7 @@ class Carousel extends Component {
     animationSpeed: 500,
     draggable: true,
     rtl: false,
-    lazyLoad: true,
+    lazyLoad: false,
     minDraggableOffset: 10,
   };
 

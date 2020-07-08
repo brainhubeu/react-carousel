@@ -23,6 +23,7 @@ class MyCarousel extends React.Component {
       <Carousel
         value={this.state.value}
         onChange={this.onChange}
+        lazyLoad
         arrows
         slidesPerScroll={2}
         slidesPerPage={2}
