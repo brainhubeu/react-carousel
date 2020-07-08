@@ -7,7 +7,7 @@ import {
   carouselValueState,
   carouselWidthState,
   slideMovementState,
-} from '../state/carousel';
+} from '../state/atoms/carouselAtoms';
 
 const keepDirectionWhenDragging = () => ({
   name: pluginNames.KEEP_DIRECTION_WHEN_DRAGGING,

@@ -1,9 +1,10 @@
 import { useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
-import { carouselValueState, slidesState } from '../state/carousel';
 import STRATEGIES from '../constants/strategies';
 import clamp from '../tools/clamp';
+import { carouselValueState } from '../state/atoms/carouselAtoms';
+import { slidesState } from '../state/atoms/slideAtoms';
 
 const getAdditionalScroll = (baseToScroll, customToScroll) => {
   if (baseToScroll < 0) {

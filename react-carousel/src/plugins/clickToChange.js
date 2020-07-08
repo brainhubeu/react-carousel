@@ -2,7 +2,8 @@ import { useRecoilValue } from 'recoil';
 
 import STRATEGIES from '../constants/strategies';
 import { pluginNames } from '../constants/plugins';
-import { activeSlideIndexState, slideMovementState } from '../state/carousel';
+import { slideMovementState } from '../state/atoms/carouselAtoms';
+import { activeSlideIndexState } from '../state/atoms/slideAtoms';
 
 let previousClicked = 0;
 

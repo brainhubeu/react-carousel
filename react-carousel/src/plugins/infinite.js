@@ -9,13 +9,15 @@ import STRATEGIES from '../constants/strategies';
 import { pluginNames } from '../constants/plugins';
 import {
   activeSlideIndexState,
-  carouselWidthState,
   itemWidthState,
-  slideMovementState,
   slidesState,
+} from '../state/atoms/slideAtoms';
+import {
+  carouselWidthState,
+  slideMovementState,
   trackStylesState,
   trackWidthState,
-} from '../state/carousel';
+} from '../state/atoms/carouselAtoms';
 
 const defaultOptions = {
   numberOfInfiniteClones: 3,

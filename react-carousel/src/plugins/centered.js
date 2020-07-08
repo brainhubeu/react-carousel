@@ -1,11 +1,8 @@
 import { useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
-import {
-  carouselWidthState,
-  itemOffsetState,
-  itemWidthState,
-} from '../state/carousel';
+import { itemOffsetState, itemWidthState } from '../state/atoms/slideAtoms';
+import { carouselWidthState } from '../state/atoms/carouselAtoms';
 import STRATEGIES from '../constants/strategies';
 
 const centered = () => ({

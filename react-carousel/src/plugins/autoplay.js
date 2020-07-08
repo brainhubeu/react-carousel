@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
-import { getCurrentValueSelector } from '../state/carousel';
+import { getCurrentValueSelector } from '../state/selectors/carouselSelectors';
 
 let interval = null;
 

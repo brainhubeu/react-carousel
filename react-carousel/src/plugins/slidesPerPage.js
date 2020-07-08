@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 
 import useEventListener from '../hooks/useEventListener';
 import { pluginNames } from '../constants/plugins';
-import { itemWidthState } from '../state/carousel';
+import { itemWidthState } from '../state/atoms/slideAtoms';
 
 const defaultOptions = {
   numberOfSlides: 3,

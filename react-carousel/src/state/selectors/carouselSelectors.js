@@ -1,71 +1,19 @@
-import { atom, selector } from 'recoil';
-import flow from 'lodash/flow';
+import { selector } from 'recoil';
+import _flow from 'lodash/flow';
 import _bind from 'lodash/bind';
 
-import clamp from '../tools/clamp';
-import STRATEGIES from '../constants/strategies';
-
-export const slideMovementState = atom({
-  key: '@brainhubeu/react-carousel/slideMovementState',
-  default: {
-    clicked: null,
-    dragStart: null,
-    dragOffset: 0,
-  },
-});
-
-export const itemWidthState = atom({
-  key: '@brainhubeu/react-carousel/itemWidthState',
-  default: 0,
-});
-
-export const itemOffsetState = atom({
-  key: '@brainhubeu/react-carousel/itemOffsetState',
-  default: 0,
-});
-
-export const carouselWidthState = atom({
-  key: '@brainhubeu/react-carousel/carouselWidthState',
-  default: 0,
-});
-
-export const trackWidthState = atom({
-  key: '@brainhubeu/react-carousel/trackWidthState',
-  default: 0,
-});
-
-export const activeSlideIndexState = atom({
-  key: '@brainhubeu/react-carousel/activeSlideIndexState',
-  default: 0,
-});
-
-export const transitionEnabledState = atom({
-  key: '@brainhubeu/react-carousel/transitionEnabledState',
-  default: false,
-});
-
-export const slidesState = atom({
-  key: '@brainhubeu/react-carousel/slidesState',
-  default: [],
-});
-
-export const trackStylesState = atom({
-  key: '@brainhubeu/react-carousel/trackStylesState',
-  default: {
-    marginLeft: 0,
-    transform: 0,
-  },
-});
-
-export const carouselStrategiesState = atom({
-  key: '@brainhubeu/react-carousel/carouselStrategiesState',
-  default: [],
-});
-
-export const carouselValueState = atom({
-  key: '@brainhubeu/react-carousel/carouselValueState',
-  default: 0,
-});
+import clamp from '../../tools/clamp';
+import STRATEGIES from '../../constants/strategies';
+import {
+  carouselStrategiesState,
+  carouselValueState,
+  slideMovementState,
+} from '../atoms/carouselAtoms';
+import {
+  itemOffsetState,
+  itemWidthState,
+  slidesState,
+} from '../atoms/slideAtoms';
 
 export const getCurrentValueSelector = selector({
   key: '@brainhubeu/react-carousel/getCurrentSlideSelector',
@@ -84,7 +32,7 @@ export const getCurrentValueSelector = selector({
     );
 
     return enhancedStrategies.length
-      ? flow([getCurrentValueBase, ...strategies])()
+      ? _flow([getCurrentValueBase, ...strategies])()
       : getCurrentValueBase();
   },
   set: ({ set, get }, value) => {
@@ -100,7 +48,7 @@ export const getCurrentValueSelector = selector({
     );
 
     const newValue = strategies.length
-      ? flow([getCurrentValueBase, ...enhancedStrategies])()
+      ? _flow([getCurrentValueBase, ...enhancedStrategies])()
       : getCurrentValueBase();
 
     set(carouselValueState, newValue);
@@ -134,7 +82,7 @@ export const transformOffsetSelector = selector({
     );
 
     return strategies.length
-      ? flow([getTransformOffsetBase, ...enhancedStrategies])()
+      ? _flow([getTransformOffsetBase, ...enhancedStrategies])()
       : getTransformOffsetBase();
   },
 });
@@ -165,7 +113,7 @@ export const nearestSlideSelector = selector({
     );
 
     return strategies.length
-      ? flow([getNearestSlideBase, ...enhancedStrategies])()
+      ? _flow([getNearestSlideBase, ...enhancedStrategies])()
       : getNearestSlideBase();
   },
 });

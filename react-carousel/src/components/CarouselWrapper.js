@@ -6,11 +6,13 @@ import PropTypes from 'prop-types';
 
 import {
   carouselValueState,
+  transitionEnabledState,
+} from '../state/atoms/carouselAtoms';
+import {
   getCurrentValueSelector,
   nearestSlideSelector,
   transformOffsetSelector,
-  transitionEnabledState,
-} from '../state/carousel';
+} from '../state/selectors/carouselSelectors';
 
 import Carousel from './Carousel';
 

@@ -4,7 +4,8 @@ import classnames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 
 import { pluginNames } from '../constants/plugins';
-import { getCurrentValueSelector, slidesState } from '../state/carousel';
+import { getCurrentValueSelector } from '../state/selectors/carouselSelectors';
+import { slidesState } from '../state/atoms/slideAtoms';
 
 import './arrows.scss';
 

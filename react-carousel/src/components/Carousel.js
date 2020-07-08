@@ -14,16 +14,18 @@ import getChildren from '../tools/getChildren';
 import carouselPluginResolver from '../tools/carouselPluginResolver';
 import {
   activeSlideIndexState,
-  carouselStrategiesState,
-  carouselWidthState,
   itemOffsetState,
   itemWidthState,
-  slideMovementState,
   slidesState,
+} from '../state/atoms/slideAtoms';
+import {
+  carouselStrategiesState,
+  carouselWidthState,
   trackStylesState,
   trackWidthState,
   transitionEnabledState,
-} from '../state/carousel';
+  slideMovementState,
+} from '../state/atoms/carouselAtoms';
 
 import CarouselItem from './CarouselItem';
 
