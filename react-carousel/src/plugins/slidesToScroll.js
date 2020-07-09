@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
-import STRATEGIES from '../constants/strategies';
+import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 import clamp from '../tools/clamp';
 import { carouselValueState } from '../state/atoms/carouselAtoms';
 import { slidesState } from '../state/atoms/slideAtoms';
@@ -25,7 +25,7 @@ const slidesToScroll = ({ carouselProps, options = defaultOptions }) => ({
     const currentValue = useRecoilValue(carouselValueState);
     const slides = useRecoilValue(slidesState);
     return {
-      [STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
+      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
         const baseToScroll = prev - currentValue;
 
         const additionalToScroll = getAdditionalScroll(

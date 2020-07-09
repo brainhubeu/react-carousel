@@ -3,15 +3,15 @@ import _flow from 'lodash/flow';
 import _bind from 'lodash/bind';
 
 import clamp from '../../tools/clamp';
-import STRATEGIES from '../../constants/strategies';
+import CAROUSEL_STRATEGIES from '../../constants/carouselStrategies';
 import {
   carouselStrategiesState,
   carouselValueState,
   slideMovementState,
 } from '../atoms/carouselAtoms';
 import {
-  itemOffsetState,
-  itemWidthState,
+  slideOffsetState,
+  slideWidthState,
   slidesState,
 } from '../atoms/slideAtoms';
 
@@ -24,7 +24,10 @@ export const getCurrentValueSelector = selector({
     const getCurrentValueBase = () => clamp(value, slides);
 
     const strategies = get(carouselStrategiesState)
-      .map((strategy) => strategy && strategy[STRATEGIES.GET_CURRENT_VALUE])
+      .map(
+        (strategy) =>
+          strategy && strategy[CAROUSEL_STRATEGIES.GET_CURRENT_VALUE],
+      )
       .filter((strategy) => typeof strategy === 'function');
 
     const enhancedStrategies = strategies.map((strategy) =>
@@ -40,7 +43,7 @@ export const getCurrentValueSelector = selector({
     const getCurrentValueBase = () => clamp(value, slides);
 
     const strategies = get(carouselStrategiesState)
-      .map((strategy) => strategy && strategy[STRATEGIES.CHANGE_SLIDE])
+      .map((strategy) => strategy && strategy[CAROUSEL_STRATEGIES.CHANGE_SLIDE])
       .filter((strategy) => typeof strategy === 'function');
 
     const enhancedStrategies = strategies.map((strategy) =>
@@ -62,19 +65,22 @@ export const getCurrentValueSelector = selector({
 export const transformOffsetSelector = selector({
   key: '@brainhubeu/react-carousel/transformOffsetSelector',
   get: ({ get }) => {
-    const itemWidth = get(itemWidthState);
-    const itemOffset = get(itemOffsetState);
+    const slideWidth = get(slideWidthState);
+    const slideOffset = get(slideOffsetState);
     const dragOffset = get(slideMovementState).dragOffset;
     const value = get(carouselValueState);
 
     const getTransformOffsetBase = () => {
-      const elementWidthWithOffset = itemWidth + itemOffset;
+      const elementWidthWithOffset = slideWidth + slideOffset;
 
       return dragOffset - value * elementWidthWithOffset;
     };
 
     const strategies = get(carouselStrategiesState)
-      .map((strategy) => strategy && strategy[STRATEGIES.GET_TRANSFORM_OFFSET])
+      .map(
+        (strategy) =>
+          strategy && strategy[CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET],
+      )
       .filter((strategy) => typeof strategy === 'function');
 
     const enhancedStrategies = strategies.map((strategy) =>
@@ -94,18 +100,21 @@ export const transformOffsetSelector = selector({
 export const nearestSlideSelector = selector({
   key: '@brainhubeu/react-carousel/nearestSlideSelector',
   get: ({ get }) => {
-    const itemWidth = get(itemWidthState);
+    const slideWidth = get(slideWidthState);
     const dragOffset = get(slideMovementState).dragOffset;
     const value = get(carouselValueState);
 
     const getNearestSlideBase = () => {
-      const slideIndexOffset = -Math.round(dragOffset / itemWidth);
+      const slideIndexOffset = -Math.round(dragOffset / slideWidth);
 
       return value + slideIndexOffset;
     };
 
     const strategies = get(carouselStrategiesState)
-      .map((strategy) => strategy && strategy[STRATEGIES.GET_NEAREST_SLIDE])
+      .map(
+        (strategy) =>
+          strategy && strategy[CAROUSEL_STRATEGIES.GET_NEAREST_SLIDE],
+      )
       .filter((strategy) => typeof strategy === 'function');
 
     const enhancedStrategies = strategies.map((strategy) =>

@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 
 import useEventListener from '../hooks/useEventListener';
 import { pluginNames } from '../constants/plugins';
-import { itemWidthState } from '../state/atoms/slideAtoms';
+import { slideWidthState } from '../state/atoms/slideAtoms';
 
 const defaultOptions = {
   numberOfSlides: 3,
@@ -14,7 +14,7 @@ const slidesToShow = ({ carouselProps, refs, options = defaultOptions }) => ({
   plugin: () => {
     const isInitialMount = useRef(true);
 
-    const setItemWidth = useSetRecoilState(itemWidthState);
+    const setItemWidth = useSetRecoilState(slideWidthState);
 
     const onResize = () => {
       const width =

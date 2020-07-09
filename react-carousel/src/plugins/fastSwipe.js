@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
 import './rtl.scss';
-import STRATEGIES from '../constants/strategies';
+import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 import {
   carouselValueState,
   carouselWidthState,
@@ -17,7 +17,7 @@ const fastSwipe = () => ({
     const value = useRecoilValue(carouselValueState);
 
     return {
-      [STRATEGIES.GET_NEAREST_SLIDE]: () => {
+      [CAROUSEL_STRATEGIES.GET_NEAREST_SLIDE]: () => {
         const slideIndexOffset =
           dragOffset > 0
             ? -Math.ceil(dragOffset / carouselWidth)

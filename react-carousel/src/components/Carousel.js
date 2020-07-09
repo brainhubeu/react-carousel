@@ -14,8 +14,8 @@ import getChildren from '../tools/getChildren';
 import carouselPluginResolver from '../tools/carouselPluginResolver';
 import {
   activeSlideIndexState,
-  itemOffsetState,
-  itemWidthState,
+  slideOffsetState,
+  slideWidthState,
   slidesState,
 } from '../state/atoms/slideAtoms';
 import {
@@ -33,8 +33,8 @@ import '../styles/Carousel.scss';
 
 const Carousel = (props) => {
   const [slideMovement, setSlideMovement] = useRecoilState(slideMovementState);
-  const [itemWidth, setItemWidth] = useRecoilState(itemWidthState);
-  const setItemOffset = useSetRecoilState(itemOffsetState);
+  const [itemWidth, setItemWidth] = useRecoilState(slideWidthState);
+  const setItemOffset = useSetRecoilState(slideOffsetState);
   const [carouselWidth, setCarouselWidth] = useRecoilState(carouselWidthState);
   const [trackWidth, setTrackWidth] = useRecoilState(trackWidthState);
   const [activeSlideIndex] = useRecoilState(activeSlideIndexState);

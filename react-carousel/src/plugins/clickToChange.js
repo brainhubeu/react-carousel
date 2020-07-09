@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import STRATEGIES from '../constants/strategies';
+import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 import { pluginNames } from '../constants/plugins';
 import { slideMovementState } from '../state/atoms/carouselAtoms';
 import { activeSlideIndexState } from '../state/atoms/slideAtoms';
@@ -29,7 +29,7 @@ const clickToChange = ({ carouselProps }) => ({
     const activeSlideIndex = useRecoilValue(activeSlideIndexState);
 
     return {
-      [STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
+      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
         const direction = getDirection(
           Math.abs(slideMovement.dragStart),
           Math.abs(slideMovement.dragEnd) || 0,

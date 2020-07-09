@@ -5,12 +5,12 @@ export const activeSlideIndexState = atom({
   default: 0,
 });
 
-export const itemWidthState = atom({
+export const slideWidthState = atom({
   key: '@brainhubeu/react-carousel/itemWidthState',
   default: 0,
 });
 
-export const itemOffsetState = atom({
+export const slideOffsetState = atom({
   key: '@brainhubeu/react-carousel/itemOffsetState',
   default: 0,
 });

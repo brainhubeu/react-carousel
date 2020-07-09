@@ -5,11 +5,11 @@ import concat from 'lodash/concat';
 import { useEffect } from 'react';
 
 import getChildren from '../tools/getChildren';
-import STRATEGIES from '../constants/strategies';
+import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 import { pluginNames } from '../constants/plugins';
 import {
   activeSlideIndexState,
-  itemWidthState,
+  slideWidthState,
   slidesState,
 } from '../state/atoms/slideAtoms';
 import {
@@ -24,7 +24,7 @@ const defaultOptions = {
 };
 
 const infinite = ({ options = defaultOptions, carouselProps }) => {
-  const itemWidth = useRecoilValue(itemWidthState);
+  const itemWidth = useRecoilValue(slideWidthState);
   const children = getChildren(carouselProps.children, carouselProps.slides);
 
   const getTargetMod = (customValue = null) => {
@@ -108,9 +108,9 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
         .join('');
 
       return {
-        [STRATEGIES.CHANGE_SLIDE]: (original) => original,
-        [STRATEGIES.GET_CURRENT_VALUE]: () => carouselProps.value,
-        [STRATEGIES.GET_TRANSFORM_OFFSET]: () => {
+        [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original) => original,
+        [CAROUSEL_STRATEGIES.GET_CURRENT_VALUE]: () => carouselProps.value,
+        [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: () => {
           const elementWidthWithOffset = itemWidth;
           const dragOffset = slideMovement.dragOffset;
 

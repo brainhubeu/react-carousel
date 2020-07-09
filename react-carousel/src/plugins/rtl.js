@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
-import STRATEGIES from '../constants/strategies';
+import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 import clamp from '../tools/clamp';
 import { slidesState } from '../state/atoms/slideAtoms';
 import {
@@ -34,7 +34,7 @@ const rtl = ({ carouselProps }) => ({
     const value = useRecoilValue(carouselValueState);
 
     return {
-      [STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
+      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
         if (slideMovement.dragOffset) {
           return clamp(original, slides);
         }
@@ -47,7 +47,7 @@ const rtl = ({ carouselProps }) => ({
         }
         return rtlValue;
       },
-      [STRATEGIES.GET_TRANSFORM_OFFSET]: (original, prev) => -prev,
+      [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (original, prev) => -prev,
     };
   },
   carouselClassNames: () => {
