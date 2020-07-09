@@ -9,8 +9,8 @@ import {
   slideMovementState,
 } from '../state/atoms/carouselAtoms';
 
-const keepDirectionWhenDragging = () => ({
-  name: pluginNames.KEEP_DIRECTION_WHEN_DRAGGING,
+const fastSwipe = () => ({
+  name: pluginNames.FAST_SWIPE,
   strategies: () => {
     const carouselWidth = useRecoilValue(carouselWidthState);
     const dragOffset = useRecoilValue(slideMovementState).dragOffset;
@@ -29,4 +29,4 @@ const keepDirectionWhenDragging = () => ({
   },
 });
 
-export default keepDirectionWhenDragging;
+export default fastSwipe;

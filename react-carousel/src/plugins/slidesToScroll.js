@@ -15,8 +15,12 @@ const getAdditionalScroll = (baseToScroll, customToScroll) => {
   return 0;
 };
 
-const slidesPerScroll = ({ options, pluginProps }) => ({
-  name: pluginNames.SLIDES_PER_SCROLL,
+const defaultOptions = {
+  numberOfSlides: 3,
+};
+
+const slidesToScroll = ({ carouselProps, options = defaultOptions }) => ({
+  name: pluginNames.SLIDES_TO_SCROLL,
   strategies: () => {
     const currentValue = useRecoilValue(carouselValueState);
     const slides = useRecoilValue(slidesState);
@@ -29,7 +33,7 @@ const slidesPerScroll = ({ options, pluginProps }) => ({
           options.numberOfSlides,
         );
 
-        if (pluginProps?.children?.length !== slides.length) {
+        if (carouselProps?.children?.length !== slides.length) {
           return prev + additionalToScroll;
         }
         return clamp(prev + additionalToScroll, slides);
@@ -38,4 +42,4 @@ const slidesPerScroll = ({ options, pluginProps }) => ({
   },
 });
 
-export default slidesPerScroll;
+export default slidesToScroll;

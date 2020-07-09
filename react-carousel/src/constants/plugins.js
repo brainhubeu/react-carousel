@@ -1,37 +1,37 @@
 import pluginsFunc from '../plugins';
 
 const {
-  slidesPerPage,
+  slidesToShow,
   infinite,
   clickToChange,
   autoplay,
   rtl,
   centered,
-  slidesPerScroll,
+  slidesToScroll,
   arrows,
-  keepDirectionWhenDragging,
+  fastSwipe,
 } = pluginsFunc;
 
 export const pluginNames = {
-  SLIDES_PER_PAGE: 'SLIDESPERPAGE',
+  SLIDES_TO_SHOW: 'SLIDESTOSHOW',
   CLICK_TO_CHANGE: 'CLICKTOCHANGE',
   INFINITE: 'INFINITE',
   AUTOPLAY: 'AUTOPLAY',
   RTL: 'RTL',
   CENTERED: 'CENTERED',
-  SLIDES_PER_SCROLL: 'SLIDESPERSCROLL',
+  SLIDES_TO_SCROLL: 'SLIDESTOSCROLL',
   ARROWS: 'ARROWS',
-  KEEP_DIRECTION_WHEN_DRAGGING: 'KEEPDIRECTIONWHENDRAGGING',
+  FAST_SWIPE: 'FASTSWIPE',
 };
 
 export const plugins = {
-  [pluginNames.SLIDES_PER_PAGE]: slidesPerPage,
+  [pluginNames.SLIDES_TO_SHOW]: slidesToShow,
   [pluginNames.CLICK_TO_CHANGE]: clickToChange,
   [pluginNames.INFINITE]: infinite,
   [pluginNames.RTL]: rtl,
   [pluginNames.AUTOPLAY]: autoplay,
   [pluginNames.CENTERED]: centered,
-  [pluginNames.SLIDES_PER_SCROLL]: slidesPerScroll,
+  [pluginNames.SLIDES_TO_SCROLL]: slidesToScroll,
   [pluginNames.ARROWS]: arrows,
-  [pluginNames.KEEP_DIRECTION_WHEN_DRAGGING]: keepDirectionWhenDragging,
+  [pluginNames.FAST_SWIPE]: fastSwipe,
 };

@@ -12,9 +12,9 @@ const defaultOptions = {
   interval: 2000,
 };
 
-const autoplay = ({ pluginProps, options = defaultOptions }) => ({
+const autoplay = ({ carouselProps, options = defaultOptions }) => ({
   name: pluginNames.AUTOPLAY,
-  carouselProps: () => {
+  carouselCustomProps: () => {
     const changeSlide = useSetRecoilState(getCurrentValueSelector);
     const [autoPlayStopped, setAutoPlayStopped] = useState(false);
 
@@ -24,7 +24,7 @@ const autoplay = ({ pluginProps, options = defaultOptions }) => ({
       }
       interval = setInterval(() => {
         if (!document.hidden && !autoPlayStopped) {
-          changeSlide(pluginProps.value + 1);
+          changeSlide(carouselProps.value + 1);
         }
       }, options.interval || DEFAULT_AUTOPLAY);
     };

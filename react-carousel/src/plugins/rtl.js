@@ -13,20 +13,20 @@ import {
 
 import './rtl.scss';
 
-const rtl = ({ pluginProps }) => ({
+const rtl = ({ carouselProps }) => ({
   name: pluginNames.RTL,
   plugin: () => {
     const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
     const slides = useRecoilValue(slidesState);
 
     useEffect(() => {
-      if (pluginProps?.children?.length !== slides.length) {
+      if (carouselProps?.children?.length !== slides.length) {
         setTrackStyles({
           ...trackStyles,
-          transform: -pluginProps.transformOffset,
+          transform: -carouselProps.transformOffset,
         });
       }
-    }, [pluginProps.transformOffset]);
+    }, [carouselProps.transformOffset]);
   },
   strategies: () => {
     const slides = useRecoilValue(slidesState);
@@ -55,7 +55,7 @@ const rtl = ({ pluginProps }) => ({
     const rtlClassName = 'BrainhubCarousel--isRTL';
     const classNames = [];
 
-    if (pluginProps.children.length === slides.length) {
+    if (carouselProps.children.length === slides.length) {
       classNames.push(rtlClassName);
     }
 

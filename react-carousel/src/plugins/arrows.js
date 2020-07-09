@@ -40,7 +40,7 @@ const renderArrowWithAddedHandler = (
   </div>
 );
 
-const arrows = ({ pluginProps, options = {} }) => ({
+const arrows = ({ carouselProps, options = {} }) => ({
   name: pluginNames.ARROWS,
   // eslint-disable-next-line react/display-name
   beforeCarouselItems: () => {
@@ -48,12 +48,13 @@ const arrows = ({ pluginProps, options = {} }) => ({
     const slides = useRecoilValue(slidesState);
 
     const prevSlide = useCallback(
-      () => pluginProps.onChange(pluginProps.value - 1),
-      [pluginProps.value, pluginProps.onChange],
+      () => carouselProps.onChange(carouselProps.value - 1),
+      [carouselProps.value, carouselProps.onChange],
     );
 
     const disabled =
-      pluginProps.value <= 0 && pluginProps?.children?.length === slides.length;
+      carouselProps.value <= 0 &&
+      carouselProps?.children?.length === slides.length;
 
     if (options.arrowLeft) {
       if (!disabled) {
@@ -92,13 +93,13 @@ const arrows = ({ pluginProps, options = {} }) => ({
     const slides = useRecoilValue(slidesState);
 
     const nextSlide = useCallback(
-      () => pluginProps.onChange(pluginProps.value + 1),
-      [pluginProps.value, pluginProps.onChange],
+      () => carouselProps.onChange(carouselProps.value + 1),
+      [carouselProps.value, carouselProps.onChange],
     );
 
     const disabled =
-      pluginProps.value >= slides.length - 1 &&
-      pluginProps?.children?.length === slides.length;
+      carouselProps.value >= slides.length - 1 &&
+      carouselProps?.children?.length === slides.length;
 
     if (options.arrowRight) {
       if (!disabled) {

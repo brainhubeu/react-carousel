@@ -1,21 +1,21 @@
-import slidesPerPage from './slidesPerPage';
+import slidesToShow from './slidesToShow';
 import infinite from './infinite';
 import clickToChange from './clickToChange';
 import autoplay from './autoplay';
 import rtl from './rtl';
 import centered from './centered';
-import slidesPerScroll from './slidesPerScroll';
+import slidesToScroll from './slidesToScroll';
 import arrows from './arrows';
-import keepDirectionWhenDragging from './keepDirectionWhenDragging';
+import fastSwipe from './fastSwipe';
 
 export default {
-  slidesPerPage,
+  slidesToShow,
   infinite,
   clickToChange,
   autoplay,
   rtl,
   centered,
-  slidesPerScroll,
+  slidesToScroll,
   arrows,
-  keepDirectionWhenDragging,
+  fastSwipe,
 };

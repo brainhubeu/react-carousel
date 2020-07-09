@@ -1,5 +1,5 @@
 import setupCarousel from '../tools/setupCarousel';
-import slidesPerScroll from '../../src/plugins/slidesPerScroll';
+import slidesToScroll from '../../src/plugins/slidesToScroll';
 
 describe('slidesPerScroll plugin', () => {
   test('slides forward as many slides as described in plugin options', () => {
@@ -7,7 +7,7 @@ describe('slidesPerScroll plugin', () => {
       plugins: [
         'arrows',
         {
-          resolve: slidesPerScroll,
+          resolve: slidesToScroll,
           options: {
             numberOfSlides: 2,
           },
@@ -36,7 +36,7 @@ describe('slidesPerScroll plugin', () => {
       plugins: [
         'arrows',
         {
-          resolve: slidesPerScroll,
+          resolve: slidesToScroll,
           options: {
             numberOfSlides: 2,
           },
@@ -74,7 +74,7 @@ describe('slidesPerScroll plugin', () => {
       plugins: [
         'arrows',
         {
-          resolve: slidesPerScroll,
+          resolve: slidesToScroll,
           options: {
             numberOfSlides: 5,
           },

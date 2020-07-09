@@ -22,7 +22,7 @@ const getDirection = (dragStart, dragOffset) => {
   return DIRECTION.NONE;
 };
 
-const clickToChange = ({ pluginProps }) => ({
+const clickToChange = ({ carouselProps }) => ({
   name: pluginNames.CLICK_TO_CHANGE,
   strategies: () => {
     const slideMovement = useRecoilValue(slideMovementState);
@@ -47,7 +47,9 @@ const clickToChange = ({ pluginProps }) => ({
 
           previousClicked = slideMovement.clicked;
           if (activeSlideIndex) {
-            return pluginProps.value + slideMovement.clicked - activeSlideIndex;
+            return (
+              carouselProps.value + slideMovement.clicked - activeSlideIndex
+            );
           }
           return slideMovement.clicked;
         }

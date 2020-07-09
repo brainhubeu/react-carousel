@@ -20,15 +20,15 @@ import {
 } from '../state/atoms/carouselAtoms';
 
 const defaultOptions = {
-  numberOfInfiniteClones: 3,
+  numberOfInfiniteClones: 1,
 };
 
-const infinite = ({ options = defaultOptions, pluginProps }) => {
+const infinite = ({ options = defaultOptions, carouselProps }) => {
   const itemWidth = useRecoilValue(itemWidthState);
-  const children = getChildren(pluginProps.children, pluginProps.slides);
+  const children = getChildren(carouselProps.children, carouselProps.slides);
 
   const getTargetMod = (customValue = null) => {
-    const value = isNil(customValue) ? pluginProps.value : customValue;
+    const value = isNil(customValue) ? carouselProps.value : customValue;
     const length = children.length;
 
     return value >= 0
@@ -39,12 +39,12 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
   const getTargetSlide = () => {
     const mod = getTargetMod(0);
 
-    return mod + pluginProps.value;
+    return mod + carouselProps.value;
   };
 
   const getNeededAdditionalClones = () => {
-    if (Math.abs(pluginProps.value) > children.length) {
-      return Math.ceil(pluginProps.value / children.length);
+    if (Math.abs(carouselProps.value) > children.length) {
+      return Math.ceil(carouselProps.value / children.length);
     }
     return 0;
   };
@@ -86,7 +86,7 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
           ...trackStyles,
           marginLeft: getAdditionalClonesOffset(),
         });
-      }, [pluginProps.value]);
+      }, [carouselProps.value]);
 
       useEffect(() => {
         const trackLengthMultiplier = 1 + getClonesLeft() + getClonesRight();
@@ -96,7 +96,7 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
 
         setTrackWidth(carouselWidth * children.length * trackLengthMultiplier);
         setSlides(concat(...clonesLeft, children, ...clonesRight));
-      }, [carouselWidth, children.length, pluginProps.value]);
+      }, [carouselWidth, children.length, carouselProps.value]);
     },
 
     strategies: () => {
@@ -109,7 +109,7 @@ const infinite = ({ options = defaultOptions, pluginProps }) => {
 
       return {
         [STRATEGIES.CHANGE_SLIDE]: (original) => original,
-        [STRATEGIES.GET_CURRENT_VALUE]: () => pluginProps.value,
+        [STRATEGIES.GET_CURRENT_VALUE]: () => carouselProps.value,
         [STRATEGIES.GET_TRANSFORM_OFFSET]: () => {
           const elementWidthWithOffset = itemWidth;
           const dragOffset = slideMovement.dragOffset;

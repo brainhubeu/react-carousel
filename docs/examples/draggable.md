@@ -4,9 +4,9 @@ Carousel is draggable by default. You can disable this option by setting draggab
 <Carousel
   plugins={[
     'infinite',
-    'keepDirectionWhenDragging',
+    'fastSwipe',
     {
-      resolve: slidesPerPagePlugin,
+      resolve: slidesToShowPlugin,
       options: {
        numberOfSlides: 2
       }

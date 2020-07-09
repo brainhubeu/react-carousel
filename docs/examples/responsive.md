@@ -6,7 +6,7 @@ You can set all props (except value, onChange, responsive, children) to differen
   plugins={[
     'arrows',
     {
-      resolve: slidesPerPagePlugin,
+      resolve: slidesToShowPlugin,
       options: {
        numberOfSlides: 3
       }
@@ -16,7 +16,7 @@ You can set all props (except value, onChange, responsive, children) to differen
     640: {
       plugins: [
        {
-         resolve: slidesPerPagePlugin,
+         resolve: slidesToShowPlugin,
          options: {
           numberOfSlides: 1
          }
@@ -26,7 +26,7 @@ You can set all props (except value, onChange, responsive, children) to differen
     900: {
       plugins: [
        {
-         resolve: slidesPerPagePlugin,
+         resolve: slidesToShowPlugin,
          options: {
           numberOfSlides: 2
          }

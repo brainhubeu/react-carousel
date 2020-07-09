@@ -7,13 +7,13 @@ You can change how far the carousel should move when you click arrow, using slid
      'infinite',
      'arrows',
     {
-      resolve: slidesPerPagePlugin,
+      resolve: slidesToShowPlugin,
       options: {
        numberOfSlides: 2,
       },
     },
     {
-      resolve: slidesPerScrollPlugin,
+      resolve: slidesToScrollPlugin,
       options: {
        numberOfSlides: 2,
       },

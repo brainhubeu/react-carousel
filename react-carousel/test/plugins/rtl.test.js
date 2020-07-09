@@ -1,6 +1,6 @@
 import setupCarousel from '../tools/setupCarousel';
 
-describe('infinite', () => {
+describe('rtl', () => {
   test('adds BrainhubCarousel--isRTL when in RTL mode', () => {
     const wrapper = setupCarousel({
       plugins: ['rtl'],

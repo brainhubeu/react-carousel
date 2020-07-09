@@ -11,15 +11,15 @@ import thumbnailThree from './static/starry-night_thumbnail.jpg';
 const {
   default: Carousel,
   Dots,
-  slidesPerPagePlugin,
+  slidesToShowPlugin,
   infinitePlugin,
   clickToChangePlugin,
   autoplayPlugin,
   rtlPlugin,
   centeredPlugin,
-  slidesPerScrollPlugin,
+  slidesToScrollPlugin,
   arrowsPlugin,
-  keepDirectionWhenDraggingPlugin,
+  fastSwipePlugin,
 } = (() => {
   if (!global.window) {
     global.window = {};
@@ -39,15 +39,15 @@ const {
 export {
   Carousel,
   Dots,
-  slidesPerPagePlugin,
+  slidesToShowPlugin,
   infinitePlugin,
   clickToChangePlugin,
   autoplayPlugin,
   rtlPlugin,
   centeredPlugin,
-  slidesPerScrollPlugin,
+  slidesToScrollPlugin,
   arrowsPlugin,
-  keepDirectionWhenDraggingPlugin,
+  fastSwipePlugin,
   Icon,
   imageOne,
   imageTwo,

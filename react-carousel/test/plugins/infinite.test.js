@@ -6,6 +6,6 @@ describe('infinite', () => {
       plugins: ['infinite'],
     });
 
-    expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(21);
+    expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(9);
   });
 });

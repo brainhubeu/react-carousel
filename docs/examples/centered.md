@@ -7,7 +7,7 @@ By default, the current slide is aligned to the left. You can change that behavi
     'infinite',
     'arrows',
     {
-      resolve: slidesPerPagePlugin,
+      resolve: slidesToShowPlugin,
       options: {
        numberOfSlides: 2,
       },

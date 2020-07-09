@@ -17,9 +17,11 @@ class MyCarousel extends React.Component {
       <input type="number" id="width" onChange={this.resizeSurrounding}/>
       <div id="surrounding">
         <Carousel
-          centered
-          infinite
-          arrows
+          plugins={[
+            'centered',
+            'infinite',
+            'arrows'
+          ]}
         >
           <img src={imageOne} />
           <img src={imageTwo} />

@@ -9,8 +9,8 @@ const defaultOptions = {
   numberOfSlides: 3,
 };
 
-const slidesPerPage = ({ pluginProps, refs, options = defaultOptions }) => ({
-  name: pluginNames.SLIDES_PER_PAGE,
+const slidesToShow = ({ carouselProps, refs, options = defaultOptions }) => ({
+  name: pluginNames.SLIDES_TO_SHOW,
   plugin: () => {
     const isInitialMount = useRef(true);
 
@@ -31,11 +31,11 @@ const slidesPerPage = ({ pluginProps, refs, options = defaultOptions }) => ({
       } else {
         onResize();
       }
-    }, [pluginProps.width, refs.trackContainerRef.current]);
+    }, [carouselProps.width, refs.trackContainerRef.current]);
 
     useEventListener('resize', onResize);
     useEventListener('load', onResize);
   },
 });
 
-export default slidesPerPage;
+export default slidesToShow;

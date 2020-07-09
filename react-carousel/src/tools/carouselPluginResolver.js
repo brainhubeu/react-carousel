@@ -15,7 +15,7 @@ const carouselPluginResolver = (
       return (
         pluginsFunc[plugin.toUpperCase()] &&
         pluginsFunc[plugin.toUpperCase()]({
-          pluginProps: {
+          carouselProps: {
             ...carouselProps,
             children: carouselProps.children
               ? carouselProps.children
@@ -27,7 +27,7 @@ const carouselPluginResolver = (
       );
     }
     return plugin.resolve({
-      pluginProps: carouselProps,
+      carouselProps,
       options: plugin.options,
       refs: { trackRef, trackContainerRef, nodeRef },
     });
@@ -56,8 +56,8 @@ const carouselPluginResolver = (
     ),
   ).filter((className) => typeof className === 'string');
 
-  const customProps = carouselPlugins.map(
-    (plugin) => plugin.carouselProps && plugin.carouselProps(),
+  const carouselCustomProps = carouselPlugins.map(
+    (plugin) => plugin.carouselCustomProps && plugin.carouselCustomProps(),
   );
 
   const beforeCarouselItems =
@@ -70,7 +70,7 @@ const carouselPluginResolver = (
       (plugin) => plugin.afterCarouselItems && plugin.afterCarouselItems(),
     ) || [];
 
-  const merged = Object.assign({}, ...customProps);
+  const merged = Object.assign({}, ...carouselCustomProps);
 
   const strategies = carouselPlugins
     .sort((a, b) => pluginsOrder.indexOf(a.name) - pluginsOrder.indexOf(b.name))

@@ -6,7 +6,7 @@ You can show more than one item per page, using slidesPerPage prop.
     'infinite',
     'arrows',
     {
-      resolve: slidesPerPagePlugin,
+      resolve: slidesToShowPlugin,
       options: {
        numberOfSlides: 2
       }

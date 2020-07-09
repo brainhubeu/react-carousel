@@ -6,7 +6,7 @@ By default, clicking the slides does nothing. You can change that behavior with 
     'clickToChange',
     'centered',
     {
-      resolve: slidesPerPagePlugin,
+      resolve: slidesToShowPlugin,
       options: {
        numberOfSlides: 2
       }
