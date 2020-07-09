@@ -1,5 +1,5 @@
-## Slides per scroll
-You can change how far the carousel should move when you click arrow, using slidesPerScroll prop. The default value is 1.
+## Slides to scroll
+You can change how far the carousel should move when you click arrow or swipe, using slidesToScroll plugin. The default value is 3.
 ```jsx render
 <Carousel
   plugins={[

@@ -1,5 +1,5 @@
 ## Click to change
-By default, clicking the slides does nothing. You can change that behavior with clickToChange prop. 
+By default, clicking the slides does nothing. You can change that behavior with clickToChange plugin. 
 ```jsx render
 <Carousel
   plugins={[

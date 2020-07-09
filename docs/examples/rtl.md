@@ -1,5 +1,5 @@
-## RTL
-
+## RTL layout
+Carousel supports right to left layout
 ```jsx render
 <Carousel 
     plugins={['rtl', 'arrows']} 

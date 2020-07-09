@@ -3,12 +3,7 @@
 <Carousel
   plugins={[
     'arrows',
-    {
-      resolve: infinitePlugin,
-      options: {
-        numberOfInfiniteClones: 3,
-      },
-    },
+    'infinite'
   ]}
 >
   <img src={imageOne} />

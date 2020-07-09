@@ -6,8 +6,6 @@ import { getCurrentValueSelector } from '../state/selectors/carouselSelectors';
 
 let interval = null;
 
-const DEFAULT_AUTOPLAY = 1000;
-
 const defaultOptions = {
   interval: 2000,
 };
@@ -26,7 +24,7 @@ const autoplay = ({ carouselProps, options = defaultOptions }) => ({
         if (!document.hidden && !autoPlayStopped) {
           changeSlide(carouselProps.value + 1);
         }
-      }, options.interval || DEFAULT_AUTOPLAY);
+      }, options.interval);
     };
 
     // setting autoplay interval

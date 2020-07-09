@@ -1,5 +1,5 @@
 ## Responsive
-You can set all props (except value, onChange, responsive, children) to different values on different screen resolutions. The props set will override the existing prop (if already set).
+You can set all props and plugins to different values on different screen resolutions. The props set will override the existing prop (if already set).
 
 ```jsx render
 <Carousel

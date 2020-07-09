@@ -14,6 +14,8 @@
 
 * ```draggable: Boolean``` Makes it possible to drag to the next slide with mouse cursor.
 
+* ```breakpoints: Object``` All props can be set to different values on different screen resolutions
+
 ## Default Properties:
  
 - ```offset: 0```

@@ -97,7 +97,7 @@ import '@brainhubeu/react-carousel/lib/style.css';
 export default class MyCarousel extends Component {
   render() {
     return (
-      <Carousel arrows dots>
+      <Carousel plugins={['arrows']}>
         <img src={imageOne} />
         <img src={imageTwo} />
         <img src={imageThree} />
@@ -160,39 +160,29 @@ You can access a clickable demo with many examples and a [live code editor](http
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| [**addArrowClickHandler**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *Boolean* | `undefined` | Has to be added for arrowLeft and arrowRight to work |
-| [**animationSpeed**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `500` | Determines transition duration in milliseconds |
-| [**arrowLeft**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default left arrow (if you provide these custom arrows, you don't have to use arrows prop) |
-| [**arrowRight**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default right arrow (if you provide these custom arrows, you don't have to use arrows prop) |
-| [**arrows**](https://brainhubeu.github.io/react-carousel/docs/examples/defaultArrows) | *Boolean* | `false` | Renders default arrows |
-| [**autoPlay**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `undefined` | Slide change interval in milliseconds |
-| [**breakpoints**](https://brainhubeu.github.io/react-carousel/docs/examples/responsive) | *Object* | `undefined` | All props (except of `value`, `onChange`, `responsive`, `children`) can be set to different values on different screen resolutions |
-| [**centered**](https://brainhubeu.github.io/react-carousel/docs/examples/centered) | *Boolean* | `undefined` | Aligned active slide to the center of the carousel |
-| [**clickToChange**](https://brainhubeu.github.io/react-carousel/docs/examples/clickToChange) | *Boolean* | `undefined` | Clicking on a slide changes current slide to the clicked one |
-| [**dots**](https://brainhubeu.github.io/react-carousel/docs/examples/simpleDots) | *Boolean* | `undefined` | Renders default dots under the carousel |
-| [**draggable**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `true` | Makes it possible to drag to the next slide with mouse cursor |
-| [**infinite**](https://brainhubeu.github.io/react-carousel/docs/examples/infinite) | *Boolean* | `undefined` | Creates an infinite carousel width |
-| **itemWidth** | *Number* | `undefined` | Determines custom width for every slide in the carousel |
-| [**keepDirectionWhenDragging**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `undefined` | While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged |
-| **minDraggableOffset** | *Number* | `10` | Defines the minimum offset to consider the drag gesture |
-| **offset** | *Number* | `0` | Padding between items |
-| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Function* | `undefined` | Handler triggered when current slide is about to change (e.g. on arrow click or on swipe) |
-| [**rtl**](https://brainhubeu.github.io/react-carousel/docs/examples/rtl) | *Boolean* | `false` | Indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well) |
-| **slides** | *Array* | `undefined` | Alternative way to pass slides. This prop expects an array of JSX <img> elements |
-| [**slidesPerPage**](https://brainhubeu.github.io/react-carousel/docs/examples/multipleItems) | *Number* | `1` | Number of slides visible at once |
-| [**slidesPerScroll**](https://brainhubeu.github.io/react-carousel/docs/examples/slidesPerScroll) | *Number* | `1` | Number by which value will change on scroll (autoPlay, arrow click, drag)|
-| **stopAutoPlayOnHover** | *Boolean* | `undefined` | Determines if autoPlay should stop when mouse hover over carousel |
 | [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Number* | `undefined` | Current slide's index (zero based, depends on the elements order) |
+| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Function* | `undefined` | Handler triggered when current slide is about to change (e.g. on arrow click or on swipe) |
+| **slides** | *Array* | `undefined` | Alternative way to pass slides. This prop expects an array of JSX <img> elements |
+| **itemWidth** | *Number* | `undefined` | Determines custom width for every slide in the carousel |
+| **offset** | *Number* | `0` | Padding between items |
+| [**animationSpeed**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `500` | Determines transition duration in milliseconds |
+| [**draggable**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `true` | Makes it possible to drag to the next slide with mouse cursor |
+| [**breakpoints**](https://brainhubeu.github.io/react-carousel/docs/examples/responsive) | *Object* | `undefined` | All props can be set to different values on different screen resolutions |
+
+### Plugins
+You can extend react-carousel default behavior by applying plugins shipped within carousel or by creating and applying your own ones
+
+[**Plugins documentation**](https://beghp.github.io/gh-pages-rc-15/docs/api/plugins)
 
 ### Dots props
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| [**number**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | Amount of slides | Number of slides in the carousel you want to control |
-| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Function* | `undefined` | `onChange` callback (works the same way as `onChange` in `Carousel` component) |
-| **rtl** | *Boolean* | `false` | Indicating if the dots should have direction from Right to Left |
-| [**thumbnails**](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
 | [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | slide position in the slides Array | Current `Carousel` value |
+| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Function* | `undefined` | `onChange` callback (works the same way as `onChange` in `Carousel` component) |
+| [**number**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | Amount of slides | Number of slides in the carousel you want to control |
+| [**thumbnails**](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
+| [**rtl**](https://brainhubeu.github.io/react-carousel/docs/examples/rtl) | *Boolean* | `false` | Indicating if the dots should have direction from Right to Left |
 
 ## Contributing
 [The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.

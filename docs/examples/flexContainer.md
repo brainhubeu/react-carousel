@@ -1,5 +1,4 @@
 ## Flex Container
-
 You can use a Carousel within a flex container
 ```jsx render
 

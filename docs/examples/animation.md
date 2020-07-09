@@ -1,5 +1,5 @@
 ## Autoplay & Animation speed
-You can set how often slides will change automatically using autoPlay prop (in ms). Animation speed can also be changed, using animationSpeed prop (which is actually animation duration in ms).
+You can set how often slides will change automatically using autoPlay plugin and interval option. Animation speed can also be changed, using animationSpeed prop (which is actually animation duration in ms).
 ```jsx render
 <Carousel
     plugins={[
@@ -7,7 +7,7 @@ You can set how often slides will change automatically using autoPlay prop (in m
     {
       resolve: autoplayPlugin,
       options: {
-        autoplay: 2000,
+        interval: 2000,
       }
     },
   ]}   

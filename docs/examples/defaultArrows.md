@@ -1,5 +1,5 @@
 ## Default Arrows
-You can turn default arrows on, using arrows prop.
+You can turn default arrows on, using arrows plugin.
 ```jsx render
 <Carousel
   plugins={['arrows']}

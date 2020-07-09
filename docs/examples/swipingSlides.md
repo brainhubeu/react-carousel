@@ -1,5 +1,5 @@
-## Multiple items
-Carousel is draggable by default. You can disable this option by setting draggable={false} and change its behaviour with option keepDirectionWhenDragging.
+## Swiping slides
+You can change the swiping behaviour with fastSwipe plugin, and you can disable swiping by setting props draggable={false}
 ```jsx render
 <Carousel
   plugins={[

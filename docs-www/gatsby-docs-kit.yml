@@ -16,26 +16,24 @@
           file: simpleUsage.md
         - title: Controlled component
           file: controlled.md
-        - title: Mulitple slides per page
+        - title: Mulitple slides to show
           file: multipleSlides.md
         - title: Click to change
           file: clickToChange.md
-        - title: Container wrapper
-          file: container.md
         - title: Default arrows
           file: defaultArrows.md
         - title: Custom arrows
           file: customArrows.md
         - title: Infinite
           file: infinite.md
-        - title: RTL
+        - title: RTL layout
           file: rtl.md
         - title: Centered
           file: centered.md
         - title: Slides per scroll
           file: slidesPerScroll.md
-        - title: Draggable
-          file: draggable.md
+        - title: Swiping slides
+          file: swipingSlides.md
         - title: Responsive
           file: responsive.md
         - title: Autoplay & animation speed
@@ -44,6 +42,8 @@
           file: dots.md
         - title: Thumbnails
           file: thumbnails.md
+        - title: Resizable carousel
+          file: resizableCarousel.md
         - title: Flex Container
           file: flexContainer.md
     - title: Api
@@ -51,6 +51,8 @@
       items:
         - title: Carousel props
           file: carousel.md
+        - title: Plugins
+          file: plugins.md
         - title: Dots props
           file: dots.md
     - title: Contributions Guide
