@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 import '../styles/CarouselItem.scss';
+import ResizeObserver from 'resize-observer-polyfill';
 
 class CarouselItem extends PureComponent {
   static propTypes = {
@@ -16,6 +17,46 @@ class CarouselItem extends PureComponent {
     isDragging: PropTypes.bool,
     isDraggingEnabled: PropTypes.bool,
   };
+
+  constructor(props) {
+    super(props);
+    this.childrenRef = React.createRef();
+  }
+
+  /* ========== Resize, if necessary. Workaround for iOS safari ========== */
+  componentDidMount() {
+    this.observeWidth();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.width !== this.props.width) {
+      this.resizeChildren();
+    }
+  }
+
+  observeWidth() {
+    const resizeObserver = new ResizeObserver(() => {
+      this.resizeChildren();
+      this.childrenRef.current && resizeObserver.unobserve(this.childrenRef.current);
+    });
+    this.childrenRef.current && resizeObserver.observe(this.childrenRef.current);
+  }
+
+  resizeChildren() {
+    if (this.childrenRef.current) {
+      this.childrenRef.current.style = null;
+      if (this.childrenRef.current.offsetWidth > this.props.width) {
+        this.childrenRef.current.style.width = `${this.props.width}px`;
+      }
+    }
+  }
+
+  getChildren() {
+    return React.cloneElement(
+      this.props.children,
+      { ref: this.childrenRef },
+    );
+  }
 
   onMouseDown = event => {
     this.props.onMouseDown(event, this.props.index);
@@ -46,7 +87,7 @@ class CarouselItem extends PureComponent {
         onMouseDown={this.props.isDraggingEnabled ? this.onMouseDown : null}
         onTouchStart={this.props.isDraggingEnabled ? this.onTouchStart : null}
       >
-        {this.props.children}
+        {this.getChildren()}
       </li>
     );
   }

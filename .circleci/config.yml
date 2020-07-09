@@ -2,13 +2,13 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:12.17.0
+      - image: circleci/node:12.18.2
     working_directory: ~/app
 
 jobs:
   check_branch_name:
     docker:
-      - image: circleci/node:12.17.0
+      - image: circleci/node:12.18.2
     working_directory: ~/app
     steps:
       - run:
@@ -24,7 +24,7 @@ jobs:
             fi
   deploy_test_environment:
     docker:
-      - image: circleci/node:12.17.0
+      - image: circleci/node:12.18.2
     working_directory: ~/app
     steps:
       - checkout
@@ -36,6 +36,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install --non-interactive
+      - run: yarn danger ci --failOnErrors --id @brainhubeu/react-carousel
       - run: yarn lint
       - run: yarn test:unit:coverage
       - run:
@@ -51,7 +52,7 @@ jobs:
             - coverage
   test-e2e:
     docker:
-      - image: circleci/node:12.17.0
+      - image: circleci/node:12.18.2
     working_directory: ~/app
     steps:
       - checkout

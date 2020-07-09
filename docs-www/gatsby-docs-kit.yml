@@ -3,7 +3,7 @@
   url: /
   file: pages/landing.js
 
-- title: DOCS
+- title: "DOCS__BUILD_INFO__"
   dir: ../docs
   url: docs
   sidemenu:
@@ -48,6 +48,8 @@
           file: thumbnails.md
         - title: Flex Container
           file: flexContainer.md
+        - title: Lazy load
+          file: lazyload.md
     - title: Api
       dir: api
       items:
