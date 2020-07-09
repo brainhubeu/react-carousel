@@ -22,15 +22,14 @@
   },
   "scripts": {
     "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('Use yarn for installing: https://yarnpkg.com/en/docs/install')\"",
-    "start-test-app": "yarn workspace react-carousel-docs develop",
+    "start-demo": "yarn workspace react-carousel-docs develop",
     "format": "prettier --write \"./**/*.{js,json}\"",
     "lint": "eslint docs-www/ react-carousel/ cypress/ --color",
     "build": "yarn workspace @brainhubeu/react-carousel build",
-    "test:e2e": "start-server-and-test start-test-app http://localhost:8000 cypress:run",
+    "test:e2e": "start-server-and-test start-demo http://localhost:8000 cypress:run",
     "test:unit:coverage": "yarn workspace @brainhubeu/react-carousel test:coverage",
     "test-dockerized:e2e": "docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "yarn cypress run"
   },
   "husky": {
     "hooks": {
