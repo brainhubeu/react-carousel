@@ -300,4 +300,75 @@ describe('Carousel', () => {
       expect(wrapper.find('.right')).toHaveLength(0);
     });
   });
+
+  describe('lazy load', () => {
+    it('lazy loads in simple mode', () => {
+      const wrapper = setup({
+        lazyLoad: true,
+      });
+
+      expect(wrapper.find('.BrainhubCarousel__loader')).toHaveLength(1);
+    });
+
+    it('lazy loads previous slide when in infinite mode', () => {
+      const wrapper = mount(
+        <Carousel
+          lazyLoad
+          infinite
+        >
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+        </Carousel>,
+      );
+
+      expect(wrapper.find('.BrainhubCarouselItem').last().children().hasClass('BrainhubCarousel__loader')).toBeFalsy();
+    });
+
+    it('lazy loads more slides if `slidesPerScroll` is set', () => {
+      const wrapper = mount(
+        <Carousel
+          lazyLoad
+          slidesPerScroll={2}
+        >
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+        </Carousel>,
+      );
+
+      expect(wrapper.find('.BrainhubCarousel__loader')).toHaveLength(3);
+    });
+
+    it('correctly lazy loads slides if `slidesPerPage` is set', () => {
+      const wrapper = mount(
+        <Carousel
+          lazyLoad
+          slidesPerPage={2}
+        >
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+          <div/>
+        </Carousel>,
+      );
+
+      expect(wrapper.find('.BrainhubCarousel__loader')).toHaveLength(3);
+    });
+
+    it('custom lazy loader element', () => {
+      const wrapper = setup({
+        lazyLoad: true,
+        lazyLoader: <div className="custom-loader" />,
+      });
+
+      expect(wrapper.find('.custom-loader')).toHaveLength(1);
+    });
+  });
 });
