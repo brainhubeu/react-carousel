@@ -30,8 +30,8 @@
           file: rtl.md
         - title: Centered
           file: centered.md
-        - title: Slides per scroll
-          file: slidesPerScroll.md
+        - title: Slides to scroll
+          file: slidesToScroll.md
         - title: Swiping slides
           file: swipingSlides.md
         - title: Responsive
