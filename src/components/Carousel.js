@@ -45,7 +45,6 @@ class Carousel extends Component {
     className: PropTypes.string,
     minDraggableOffset: PropTypes.number,
     onInit: PropTypes.func,
-    handleIsReady: PropTypes.func,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
       slidesPerScroll: PropTypes.number,
@@ -117,7 +116,7 @@ class Carousel extends Component {
     // setting autoplay interval
     this.resetInterval();
 
-    if (typeof this.props.handleIsReady === 'function') {
+    if (typeof this.props.onInit === 'function') {
       this.props.onInit();
     }
   }
