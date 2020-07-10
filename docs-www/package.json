@@ -1,7 +1,7 @@
 {
   "name": "@brainhubeu/gatsby-docs-kit-start",
   "description": "Gatsby-Docs-Kit starter repository",
-  "version": "0.0.51",
+  "version": "0.0.52",
   "author": "Brainhub",
   "license": "MIT",
   "scripts": {
@@ -14,29 +14,29 @@
   },
   "dependencies": {
     "@brainhubeu/gatsby-docs-kit": "3.0.8",
-    "@brainhubeu/react-carousel": "^1.19.11",
+    "@brainhubeu/react-carousel": "^1.19.15",
     "gatsby": "2.20.24",
     "gatsby-link": "2.3.1",
     "lodash": "^4.17.15",
     "react-fa": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.10.1",
-    "@babel/plugin-transform-react-constant-elements": "^7.10.1",
-    "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.10.2",
-    "@babel/preset-react": "^7.10.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-react-constant-elements": "^7.10.4",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
     "@babel/preset-stage-1": "^7.8.3",
-    "@babel/register": "^7.10.1",
+    "@babel/register": "^7.10.4",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "eslint": "^7.1.0",
+    "eslint": "^7.3.1",
     "eslint-config-brainhub": "^1.13.0",
     "gatsby-plugin-google-analytics": "2.2.2",
-    "gh-pages": "^3.0.0",
+    "gh-pages": "^3.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "peerDependencies": {
-    "@babel/core": "^7.10.2"
+    "@babel/core": "^7.10.4"
   }
 }

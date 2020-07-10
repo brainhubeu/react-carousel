@@ -37,15 +37,17 @@ class CarouselItem extends PureComponent {
   observeWidth() {
     const resizeObserver = new ResizeObserver(() => {
       this.resizeChildren();
-      resizeObserver.unobserve(this.childrenRef.current);
+      this.childrenRef.current && resizeObserver.unobserve(this.childrenRef.current);
     });
-    resizeObserver.observe(this.childrenRef.current);
+    this.childrenRef.current && resizeObserver.observe(this.childrenRef.current);
   }
 
   resizeChildren() {
-    this.childrenRef.current.style = null;
-    if (this.childrenRef.current.offsetWidth > this.props.width) {
-      this.childrenRef.current.style.width = `${this.props.width}px`;
+    if (this.childrenRef.current) {
+      this.childrenRef.current.style = null;
+      if (this.childrenRef.current.offsetWidth > this.props.width) {
+        this.childrenRef.current.style.width = `${this.props.width}px`;
+      }
     }
   }
 
