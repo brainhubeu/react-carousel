@@ -40,6 +40,10 @@
 
 * ```minDraggableOffset: Number``` Defines the minimum offset to consider the drag gesture
 
+* ```lazyLoad: Boolean``` Initially, it loads only the closest next / previous slide to the current one based on the value of the slidesPerPage variable. Other slides are loaded as needed.
+
+* ```lazyLoader: React node``` To be used instead of the default loader
+
 ## Default Properties:
 
 - ```offset: 0```

@@ -1,3 +1,9 @@
+// TODO find a better way
+Cypress.on('uncaught:exception', error => {
+  console.error('an uncaught eaten exception', error);
+  return false;
+});
+
 describe('Click to change', () => {
   beforeEach(() => {
     cy.visit('/docs/examples/clickToChange/');
@@ -29,7 +35,7 @@ describe('Click to change', () => {
     cy.get('.BrainhubCarouselItem')
       .eq(0)
       .children('img')
-      .click({ force: true } );
+      .click({ force: true });
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')

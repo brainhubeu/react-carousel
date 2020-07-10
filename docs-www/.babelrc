@@ -1,6 +1,14 @@
 {
   "presets": [
-    "@babel/env",
+    [
+      "@babel/preset-env",
+      {
+        "loose": true,
+        "modules": false,
+        "shippedProposals": true,
+        "useBuiltIns": "usage"
+      }
+    ],
     "@babel/react"
   ],
   "plugins": [

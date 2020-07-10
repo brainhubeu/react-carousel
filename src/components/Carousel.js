@@ -7,6 +7,7 @@ import concat from 'lodash/concat';
 import times from 'lodash/times';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import ReactResizeDetector from 'react-resize-detector';
 
 import config from '../constants/config';
 
@@ -35,6 +36,8 @@ class Carousel extends Component {
     centered: PropTypes.bool,
     infinite: PropTypes.bool,
     rtl: PropTypes.bool,
+    lazyLoad: PropTypes.bool,
+    lazyLoader: PropTypes.node,
     draggable: PropTypes.bool,
     keepDirectionWhenDragging: PropTypes.bool,
     animationSpeed: PropTypes.number,
@@ -44,6 +47,7 @@ class Carousel extends Component {
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
       slidesPerScroll: PropTypes.number,
+      itemWidth: PropTypes.number,
       arrows: PropTypes.bool,
       arrowLeft: PropTypes.element,
       arrowRight: PropTypes.element,
@@ -58,6 +62,9 @@ class Carousel extends Component {
       animationSpeed: PropTypes.number,
       dots: PropTypes.bool,
       className: PropTypes.string,
+      rtl: PropTypes.bool,
+      lazyLoad: PropTypes.bool,
+      lazyLoader: PropTypes.node,
     })),
   };
   static defaultProps = {
@@ -67,6 +74,7 @@ class Carousel extends Component {
     animationSpeed: 500,
     draggable: true,
     rtl: false,
+    lazyLoad: false,
     minDraggableOffset: 10,
   };
 
@@ -81,6 +89,7 @@ class Carousel extends Component {
       transitionEnabled: false,
       infiniteTransitionFrom: props.infinite ? props.value : null, // indicates what slide we are transitioning from (in case of infinite carousel), contains number value or null
       isAutoPlayStopped: false,
+      lazyLoadedSlides: [],
     };
     this.interval = null;
   }
@@ -99,33 +108,30 @@ class Carousel extends Component {
       this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
     }
 
-    // setting size of a carousel in state
-    window.addEventListener('resize', this.onResize);
-    this.onResize();
-
-    // setting size of a carousel in state based on styling
-    window.addEventListener('load', this.onResize);
+    this.onResize(() => {
+      this.setLazyLoadedSlides();
+    });
 
     // setting autoplay interval
     this.resetInterval();
   }
 
-  shouldComponentUpdate(newProps) {
-    const valueChanged = this.checkIfValueChanged(newProps);
+  componentDidUpdate(prevProps, prevState) {
+    const valueChanged = this.checkIfValueChanged(prevProps);
+    const windowWidthChanged = this.state.windowWidth !== prevState.windowWidth;
+
+    if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
+      this.resetInterval();
+    }
 
     if (valueChanged) {
       this.setState({
         transitionEnabled: true,
       });
-      return false;
     }
-    return true;
-  }
 
-  componentDidUpdate(prevProps) {
-    const valueChanged = this.checkIfValueChanged(prevProps);
-    if (this.getProp('autoPlay') !== this.getProp('autoPlay', prevProps) || valueChanged) {
-      this.resetInterval();
+    if (this.getProp('lazyLoad') && (windowWidthChanged || valueChanged)) {
+      this.setLazyLoadedSlides();
     }
   }
 
@@ -140,8 +146,6 @@ class Carousel extends Component {
       this.node.parentElement.removeEventListener('touchend', this.simulateEvent);
     }
 
-    window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('load', this.onResize);
     if (this.interval) {
       clearInterval(this.interval);
     }
@@ -150,8 +154,12 @@ class Carousel extends Component {
   /* ========== tools ========== */
   getCurrentValue = () => this.props.infinite ? this.props.value : this.clamp(this.props.value);
 
-  getNeededAdditionalClones = () =>
-    Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+  getNeededAdditionalClones = () => {
+    if (Math.abs(this.getCurrentSlideIndex()) > this.getChildren().length) {
+      return Math.ceil((this.getCurrentValue() - this.state.infiniteTransitionFrom) / this.getChildren().length);
+    }
+    return 0;
+  };
 
   getAdditionalClonesLeft = () => {
     const additionalClones = this.getNeededAdditionalClones();
@@ -197,6 +205,76 @@ class Carousel extends Component {
   };
 
   /**
+   * Function that stores indexes in the state of unique slides that should be lazy loaded.
+   */
+  setLazyLoadedSlides() {
+    const children = this.getChildren();
+    const currentSlideIndex = this.getCurrentSlideIndex();
+    const slidesPerScroll = this.getProp('slidesPerScroll');
+    const slidesPerPage = this.getProp('slidesPerPage');
+    const infinite = this.getProp('infinite');
+
+    const prevStep = currentSlideIndex - slidesPerScroll;
+    const nextStep = currentSlideIndex + (slidesPerPage - 1) + slidesPerScroll;
+
+    let hooped = false;
+    let prevIndex = this.clamp(prevStep);
+    let nextIndex = this.clamp(nextStep);
+
+    if (infinite) {
+      const {
+        value: prevValue,
+        hooped: prevHooped,
+      } = this.hoop(prevStep);
+
+      const {
+        value: nextValue,
+        hooped: nextHooped,
+      } = this.hoop(nextStep);
+
+      prevIndex = prevValue;
+      nextIndex = nextValue;
+      hooped = prevHooped || nextHooped;
+    }
+
+    const lazyLoadedSlides = children.map((_, index) => {
+      if (hooped && ((index >= prevIndex) || (index <= nextIndex))) {
+        return true;
+      }
+
+      if (index >= prevIndex && index <= nextIndex) {
+        return true;
+      }
+
+      // Return previous value, or false
+      return !!this.state.lazyLoadedSlides[index];
+    });
+
+    this.setState({
+      lazyLoadedSlides,
+    });
+  }
+
+  /**
+   * Hoops/Loops number between 0 and last slide index.
+   * @param {number} value to be hooped
+   * @return {object} new value, and was hooped boolean
+   */
+  hoop = value => {
+    const maxValue = this.getChildren().length - 1;
+
+    if (value > maxValue) {
+      return { value: value - maxValue - 1, hooped: true };
+    }
+
+    if (value < 0) {
+      return { value: value + maxValue + 1, hooped: true };
+    }
+
+    return { value, hooped: false };
+  };
+
+  /**
    * Check if this.props.value changed after update
    * @param {object} prevProps
    * @return {boolean} result
@@ -238,19 +316,6 @@ class Carousel extends Component {
     ? this.getCurrentSlideIndex() + this.getClonesLeft() * this.getChildren().length
     : this.getCurrentSlideIndex();
 
-  /* infinite calculations */
-  getSlidesBounds = (customValue = null) => {
-    const value = isNil(customValue) ? this.getCurrentValue() : customValue;
-    const length = this.getChildren().length;
-    const times = ((value + 1) / length);
-    const ceil = Math.ceil(times);
-
-    return {
-      low: (ceil - 1) * length,
-      high: ceil * length - 1,
-    };
-  };
-
   getTargetMod = (customValue = null) => {
     const value = isNil(customValue) ? this.getCurrentValue() : customValue;
     const length = this.getChildren().length;
@@ -280,10 +345,12 @@ class Carousel extends Component {
    * throttled to improve performance
    * @type {Function}
    */
-  onResize = throttle(() => {
+  onResize = throttle(cb => {
     if (!this.node) {
       return;
     }
+
+    const callback = typeof cb === 'function' ? cb : null;
 
     const arrowLeftWidth = this.arrowLeftNode && this.arrowLeftNode.offsetWidth;
     const arrowRightWidth = this.arrowRightNode && this.arrowRightNode.offsetWidth;
@@ -292,7 +359,7 @@ class Carousel extends Component {
     this.setState(() => ({
       carouselWidth: width,
       windowWidth: window.innerWidth,
-    }));
+    }), callback);
   }, config.resizeEventListenerThrottle);
 
   /**
@@ -337,23 +404,6 @@ class Carousel extends Component {
   };
 
   /**
-   * Function handling touch move if drag has started. Sets dragOffset in the state.
-   * @param {event} e event
-   */
-  onTouchMove = e => {
-    if (Math.abs(this.state.dragOffset) > this.props.minDraggableOffset) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const { changedTouches } = e;
-    if (this.state.dragStart !== null) {
-      this.setState(previousState => ({
-        dragOffset: this.getProp('rtl') ? previousState.dragStart - changedTouches[0].pageX : changedTouches[0].pageX - previousState.dragStart,
-      }));
-    }
-  };
-
-  /**
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
    * if drag was short (or it was just a click) it changes slide to the clicked (or touched) one.
    * It resets clicked index, dragOffset and dragStart values in state.
@@ -362,14 +412,14 @@ class Carousel extends Component {
   onMouseUpTouchEnd = e => {
     if (this.state.dragStart !== null) {
       e.preventDefault();
-      if (this.getProp('draggable')) {
-        if (Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
-          this.changeSlide(this.getNearestSlideIndex());
-        } else if (this.getProp('clickToChange')) {
-          this.changeSlide(this.getProp('infinite')
+      if (this.getProp('draggable') && Math.abs(this.state.dragOffset) > config.clickDragThreshold) {
+        this.changeSlide(this.getNearestSlideIndex());
+      } else if (this.getProp('clickToChange')) {
+        this.changeSlide(
+          this.getProp('infinite')
             ? this.getCurrentValue() + this.state.clicked - this.getActiveSlideIndex()
-            : this.state.clicked);
-        }
+            : this.state.clicked,
+        );
       }
       this.setState(() => ({
         clicked: null,
@@ -384,9 +434,10 @@ class Carousel extends Component {
    * Handler setting transitionEnabled value in state to false after transition animation ends
    */
   onTransitionEnd = () => {
+    const infinite = this.getProp('infinite');
     this.setState(() => ({
-      transitionEnabled: false,
-      infiniteTransitionFrom: this.getProp('infinite') ? this.getCurrentValue() : null,
+      transitionEnabled: !infinite,
+      infiniteTransitionFrom: infinite ? this.getCurrentValue() : null,
     }));
   };
 
@@ -508,7 +559,7 @@ class Carousel extends Component {
    * Calculates width of a single slide in a carousel
    * @return {number} width of a slide in px
    */
-  getCarouselElementWidth = () => this.props.itemWidth || this.state.carouselWidth / this.getProp('slidesPerPage');
+  getCarouselElementWidth = () => this.getProp('itemWidth') || this.state.carouselWidth / this.getProp('slidesPerPage');
 
   /**
    * Calculates offset in pixels to be applied to Track element in order to show current slide correctly (centered or aligned to the left)
@@ -526,9 +577,9 @@ class Carousel extends Component {
     return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
   };
 
-
   /* ========== rendering ========== */
   renderCarouselItems = () => {
+    const lazyLoad = this.getProp('lazyLoad');
     const isRTL = this.getProp('rtl');
     const transformOffset = this.getTransformOffset();
     const children = this.getChildren();
@@ -584,30 +635,41 @@ class Carousel extends Component {
           onMouseEnter={handleAutoPlayEvent(this.onMouseEnter)}
           onMouseLeave={handleAutoPlayEvent(this.onMouseLeave)}
         >
-          {slides.map((carouselItem, index) => (
-            // eslint-disable-next-line no-undefined
-            [null, undefined].includes(carouselItem) ? null : (
-              <CarouselItem
-                key={index}
-                currentSlideIndex={this.getActiveSlideIndex()}
-                index={index}
-                width={this.getCarouselElementWidth()}
-                offset={index !== slides.length ? this.props.offset : 0}
-                onMouseDown={this.onMouseDown}
-                onTouchStart={this.onTouchStart}
-                clickable={this.getProp('clickToChange')}
-                isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
-                slidesPerPage={slidesPerPage}
-                carouselIsCentered={centered}
-              >
-                {carouselItem}
-              </CarouselItem>
-            )
-          ))}
+          {slides.map((carouselItem, index) => {
+            const realSlideIndex = this.getTargetMod(index);
+
+            return (
+              // eslint-disable-next-line no-undefined
+              [null, undefined].includes(carouselItem) ? null : (
+                <CarouselItem
+                  key={index}
+                  currentSlideIndex={this.getActiveSlideIndex()}
+                  index={index}
+                  width={this.getCarouselElementWidth()}
+                  offset={index !== slides.length ? this.props.offset : 0}
+                  onMouseDown={this.onMouseDown}
+                  onTouchStart={this.onTouchStart}
+                  clickable={this.getProp('clickToChange')}
+                  isDragging={Math.abs(this.state.dragOffset) > this.props.minDraggableOffset}
+                  isDraggingEnabled={this.props.draggable || this.props.clickToChange}
+                  slidesPerPage={slidesPerPage}
+                  carouselIsCentered={centered}
+                >
+                  {
+                    !lazyLoad || (lazyLoad && this.state.lazyLoadedSlides[realSlideIndex])
+                      ? carouselItem
+                      : this.renderLazyLoader()
+                  }
+                </CarouselItem>
+              )
+            );
+          })}
         </ul>
       </div>
     );
   };
+
+  renderLazyLoader = () => this.getProp('lazyLoader') || (<i className="BrainhubCarousel__loader" />);
 
   /**
    * Adds onClick handler to the arrow if possible (if it does not already have one)
@@ -707,14 +769,18 @@ class Carousel extends Component {
   render() {
     const isRTL = this.getProp('rtl');
     return (
-      <div>
+      <div className="BrainhubCarousel__container">
         <div
-          className={classnames('BrainhubCarousel', this.getProp('className'), isRTL ? 'BrainhubCarousel--isRTL' : '')}
+          className={classnames('BrainhubCarousel', this.getProp('className'), {
+            'BrainhubCarousel--isRTL': isRTL,
+          })}
           ref={el => this.node = el}
         >
-          {this.renderArrowLeft()}
-          {this.renderCarouselItems()}
-          {this.renderArrowRight()}
+          <ReactResizeDetector handleWidth onResize={this.onResize}>
+            {<this.renderArrowLeft key="arrow-left"/>}
+            {<this.renderCarouselItems key="carousel"/>}
+            {<this.renderArrowRight key="arrow-right"/>}
+          </ReactResizeDetector>
         </div>
         {this.renderDots()}
       </div>

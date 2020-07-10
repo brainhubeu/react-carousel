@@ -3,7 +3,7 @@
   url: /
   file: pages/landing.js
 
-- title: DOCS
+- title: "DOCS__BUILD_INFO__"
   dir: ../docs
   url: docs
   sidemenu:
@@ -20,6 +20,8 @@
           file: multipleItems.md
         - title: Click to change
           file: clickToChange.md
+        - title: Container wrapper
+          file: container.md
         - title: Default arrows
           file: defaultArrows.md
         - title: Custom arrows
@@ -44,6 +46,10 @@
           file: dots.md
         - title: Thumbnails
           file: thumbnails.md
+        - title: Flex Container
+          file: flexContainer.md
+        - title: Lazy load
+          file: lazyload.md
     - title: Api
       dir: api
       items:
@@ -51,3 +57,12 @@
           file: carousel.md
         - title: Dots props
           file: dots.md
+    - title: Contributions Guide
+      dir: contributions-guide
+      items:
+        - title: Workflow
+          file: workflow.md
+        - title: Decision log
+          file: decision-log.md
+        - title: Labels
+          file: labels.md
