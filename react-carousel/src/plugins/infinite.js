@@ -13,7 +13,6 @@ import {
   slidesState,
 } from '../state/atoms/slideAtoms';
 import {
-  carouselWidthState,
   slideMovementState,
   trackStylesState,
   trackWidthState,
@@ -60,7 +59,6 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
   return {
     name: pluginNames.INFINITE,
     plugin: () => {
-      const carouselWidth = useRecoilValue(carouselWidthState);
       const setTrackWidth = useSetRecoilState(trackWidthState);
       const setActiveSlideIndex = useSetRecoilState(activeSlideIndexState);
       const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
@@ -94,9 +92,11 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
         const clonesLeft = times(getClonesLeft(), () => children);
         const clonesRight = times(getClonesRight(), () => children);
 
-        setTrackWidth(carouselWidth * children.length * trackLengthMultiplier);
+        setTrackWidth(
+          carouselProps.width * children.length * trackLengthMultiplier,
+        );
         setSlides(concat(...clonesLeft, children, ...clonesRight));
-      }, [carouselWidth, children.length, carouselProps.value]);
+      }, [carouselProps.width, children.length, carouselProps.value]);
     },
 
     strategies: () => {

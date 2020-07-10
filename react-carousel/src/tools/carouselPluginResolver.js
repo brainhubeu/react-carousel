@@ -70,8 +70,6 @@ const carouselPluginResolver = (
       (plugin) => plugin.afterCarouselItems && plugin.afterCarouselItems(),
     ) || [];
 
-  const merged = Object.assign({}, ...carouselCustomProps);
-
   const strategies = carouselPlugins
     .sort((a, b) => pluginsOrder.indexOf(a.name) - pluginsOrder.indexOf(b.name))
     .map((plugin) => plugin.strategies && plugin.strategies());
@@ -82,7 +80,7 @@ const carouselPluginResolver = (
     beforeCarouselItems,
     afterCarouselItems,
     strategies,
-    merged,
+    carouselCustomProps,
     carouselPlugins,
   };
 };

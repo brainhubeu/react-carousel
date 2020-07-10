@@ -47,11 +47,9 @@ const autoplay = ({ carouselProps, options = defaultOptions }) => ({
       resetInterval();
     };
 
-    const handleAutoPlayEvent = (action) => action;
-
     return {
-      onMouseEnter: handleAutoPlayEvent(onMouseEnter),
-      onMouseLeave: handleAutoPlayEvent(onMouseLeave),
+      onMouseEnter,
+      onMouseLeave,
     };
   },
 });

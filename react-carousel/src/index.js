@@ -32,8 +32,6 @@ export const activeSlideIndexState = slideAtoms.activeSlideIndexState;
 
 export const trackWidthState = carouselAtoms.trackWidthState;
 export const trackStylesState = carouselAtoms.trackStylesState;
-export const carouselWidthState = carouselAtoms.carouselWidthState;
-export const carouselStrategiesState = carouselAtoms.carouselStrategiesState;
 export const carouselValueState = carouselAtoms.carouselValueState;
 export const slideMovementState = carouselAtoms.slideMovementState;
 export const transitionEnabledState = carouselAtoms.transitionEnabledState;

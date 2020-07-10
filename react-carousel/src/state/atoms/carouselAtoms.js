@@ -14,11 +14,6 @@ export const transitionEnabledState = atom({
   default: false,
 });
 
-export const carouselWidthState = atom({
-  key: '@brainhubeu/react-carousel/carouselWidthState',
-  default: 0,
-});
-
 export const trackWidthState = atom({
   key: '@brainhubeu/react-carousel/trackWidthState',
   default: 0,

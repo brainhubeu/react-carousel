@@ -10,16 +10,9 @@ import config from '../constants/config';
  * @param {node} nodeRef
  * @param {number} itemWidth
  * @param {function} setItemWidth
- * @param {function} setCarouselWidth
  * @param {node} trackContainerRef
  */
-const useOnResize = ({
-  width,
-  nodeRef,
-  setItemWidth,
-  setCarouselWidth,
-  trackContainerRef,
-}) => {
+const useOnResize = ({ width, nodeRef, setItemWidth, trackContainerRef }) => {
   const isInitialMount = useRef(true);
   const onResize = throttle(() => {
     if (!nodeRef || !trackContainerRef) {
@@ -30,7 +23,6 @@ const useOnResize = ({
       nodeRef.current.offsetWidth -
       (nodeRef.current.offsetWidth - trackContainerRef.current.offsetWidth);
 
-    setCarouselWidth(width);
     setItemWidth(width);
   }, config.resizeEventListenerThrottle);
 

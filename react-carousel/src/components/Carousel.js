@@ -20,7 +20,6 @@ import {
 } from '../state/atoms/slideAtoms';
 import {
   carouselStrategiesState,
-  carouselWidthState,
   trackStylesState,
   trackWidthState,
   transitionEnabledState,
@@ -35,7 +34,6 @@ const Carousel = (props) => {
   const [slideMovement, setSlideMovement] = useRecoilState(slideMovementState);
   const [itemWidth, setItemWidth] = useRecoilState(slideWidthState);
   const setItemOffset = useSetRecoilState(slideOffsetState);
-  const [carouselWidth, setCarouselWidth] = useRecoilState(carouselWidthState);
   const [trackWidth, setTrackWidth] = useRecoilState(trackWidthState);
   const [activeSlideIndex] = useRecoilState(activeSlideIndexState);
   const [transitionEnabled, setTransitionEnabled] = useRecoilState(
@@ -58,7 +56,7 @@ const Carousel = (props) => {
     beforeCarouselItems,
     afterCarouselItems,
     strategies,
-    merged,
+    carouselCustomProps,
   } = carouselPluginResolver(
     props.plugins,
     props,
@@ -146,7 +144,6 @@ const Carousel = (props) => {
     nodeRef,
     itemWidth,
     setItemWidth,
-    setCarouselWidth,
     trackContainerRef,
     width: props.width,
   });
@@ -168,10 +165,10 @@ const Carousel = (props) => {
   }, [props.value]);
 
   useEffect(() => {
-    const trackWidth = carouselWidth * children.length;
+    const trackWidth = props.width * children.length;
 
     setTrackWidth(trackWidth);
-  }, [carouselWidth]);
+  }, [props.width]);
 
   useEffect(() => {
     setTrackStyles({
@@ -215,7 +212,7 @@ const Carousel = (props) => {
           })}
           style={currentTrackStyles}
           ref={trackRef}
-          {...merged}
+          {...carouselCustomProps}
         >
           {_compact(slides).map((carouselItem, index) => (
             <CarouselItem
