@@ -107,8 +107,8 @@ class Carousel extends Component {
     // setting autoplay interval
     this.resetInterval();
 
-    if (typeof this.props.handleIsReady !== 'undefined') {
-      this.props.handleIsReady();
+    if (typeof this.props.handleIsReady === 'function') {
+      this.props.onInit();
     }
   }
 
