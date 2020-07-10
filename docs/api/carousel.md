@@ -18,6 +18,8 @@
 
 * ```breakpoints: Object``` All props can be set to different values on different screen resolutions
 
+* ```minDraggableOffset: Number``` Defines the minimum offset to consider the drag gesture
+
 ## Default Properties:
  
 - ```offset: 0```

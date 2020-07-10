@@ -224,7 +224,9 @@ const Carousel = (props) => {
               offset={index !== slides.length ? props.offset : 0}
               onMouseDown={onMouseDown}
               onTouchStart={onTouchStart}
-              isDragging={!!Math.abs(slideMovement.dragOffset)}
+              isDragging={
+                Math.abs(slideMovement.dragOffset) > props.minDraggableOffset
+              }
               itemClassNames={itemClassNames}
               isDraggingEnabled={props.draggable}
             >
@@ -267,6 +269,7 @@ Carousel.propTypes = {
   className: PropTypes.string,
   transformOffset: PropTypes.number,
   nearestSlideIndex: PropTypes.number,
+  minDraggableOffset: PropTypes.number,
   plugins: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -293,6 +296,7 @@ Carousel.defaultProps = {
   offset: 0,
   animationSpeed: 500,
   draggable: true,
+  minDraggableOffset: 10,
   plugins: [],
 };
 

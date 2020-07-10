@@ -168,6 +168,7 @@ You can access a clickable demo with many examples and a [live code editor](http
 | [**animationSpeed**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `500` | Determines transition duration in milliseconds |
 | [**draggable**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `true` | Makes it possible to drag to the next slide with mouse cursor |
 | [**breakpoints**](https://brainhubeu.github.io/react-carousel/docs/examples/responsive) | *Object* | `undefined` | All props can be set to different values on different screen resolutions |
+| **minDraggableOffset** | *Number* | `10` | Defines the minimum offset to consider the drag gesture |
 
 ### Plugins
 You can extend react-carousel default behavior by applying plugins shipped within carousel or by creating and applying your own ones
