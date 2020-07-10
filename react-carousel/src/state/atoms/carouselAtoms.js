@@ -3,9 +3,9 @@ import { atom } from 'recoil';
 export const slideMovementState = atom({
   key: '@brainhubeu/react-carousel/slideMovementState',
   default: {
-    clicked: null,
-    dragStart: null,
-    dragOffset: 0,
+    clicked: null, // index of the clicked slide
+    dragStart: 0, // X position of drag event start
+    dragOffset: 0, // Distance of the drag
   },
 });
 

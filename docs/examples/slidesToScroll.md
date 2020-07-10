@@ -1,6 +1,8 @@
 ## Slides to scroll
 You can change how far the carousel should move when you click arrow or swipe, using slidesToScroll plugin. The default value is 3.
 ```jsx render
+// import { slidesToShowPlugin, slidesToScrollPlugin } from '@brainhubeu/react-carousel';
+
 <Carousel
   plugins={[
      'centered',

@@ -1,6 +1,8 @@
 ## Swiping slides
 You can change the swiping behaviour with fastSwipe plugin, and you can disable swiping by setting props draggable={false}
 ```jsx render
+// import { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+
 <Carousel
   plugins={[
     'infinite',

@@ -9,6 +9,24 @@
   sidemenu:
     - title: Getting started
       file: gettingStarted.md
+    - title: Migration guide
+      file: migrationGuide.md
+    - title: Api
+      dir: api
+      items:
+        - title: Carousel props
+          file: carousel.md
+        - title: Dots props
+          file: dots.md
+    - title: Plugins
+      dir: plugins
+      items:
+        - title: React-carousel plugins
+          file: plugins.md
+        - title: Creating custom plugin
+          file: creatingCustomPlugins.md
+        - title: Accessing and managing carousel state
+          file: accessingManagingState.md
     - title: Examples
       dir: examples
       items:
@@ -46,15 +64,6 @@
           file: resizableCarousel.md
         - title: Flex Container
           file: flexContainer.md
-    - title: Api
-      dir: api
-      items:
-        - title: Carousel props
-          file: carousel.md
-        - title: Plugins
-          file: plugins.md
-        - title: Dots props
-          file: dots.md
     - title: Contributions Guide
       dir: contributions-guide
       items:

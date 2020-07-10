@@ -1,12 +1,13 @@
 import { useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
-import './rtl.scss';
 import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 import {
   carouselValueState,
   slideMovementState,
 } from '../state/atoms/carouselAtoms';
+
+import './rtl.scss';
 
 const fastSwipe = ({ carouselProps }) => ({
   name: pluginNames.FAST_SWIPE,

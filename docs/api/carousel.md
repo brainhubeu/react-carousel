@@ -1,5 +1,7 @@
 ## Carousel component props
 
+* ```plugins: Func[]|String[]```: An array of plugins which will modify and extend carousel behavior. More details [**here**](https://beghp.github.io/gh-pages-rc-15/docs/plugins/plugins)
+
 * ```value: Number```: Current slide's index (zero based, depends on the elements order).
 
 * ```onChange: Function```: Handler triggered when current slide is about to change (e.g. on arrow click or on swipe).

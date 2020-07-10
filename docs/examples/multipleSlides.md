@@ -1,6 +1,8 @@
 ## Multiple slides
 You can show more than one slide per page, using slidesToShow plugin.
 ```jsx render
+// import { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+
 <Carousel
   plugins={[
     'infinite',
