@@ -172,7 +172,7 @@ You can access a clickable demo with many examples and a [live code editor](http
 | [**clickToChange**](https://brainhubeu.github.io/react-carousel/docs/examples/clickToChange) | *Boolean* | `undefined` | Clicking on a slide changes current slide to the clicked one |
 | [**dots**](https://brainhubeu.github.io/react-carousel/docs/examples/simpleDots) | *Boolean* | `undefined` | Renders default dots under the carousel |
 | [**draggable**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `true` | Makes it possible to drag to the next slide with mouse cursor |
-| **handleIsReady** | *Function* | `undefined` | Callback thrown after the carousel is loaded |
+| **onInit** | *Function* | `undefined` | Callback thrown after the carousel is loaded |
 | [**infinite**](https://brainhubeu.github.io/react-carousel/docs/examples/infinite) | *Boolean* | `undefined` | Creates an infinite carousel width |
 | **itemWidth** | *Number* | `undefined` | Determines custom width for every slide in the carousel |
 | [**keepDirectionWhenDragging**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `undefined` | While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged |
