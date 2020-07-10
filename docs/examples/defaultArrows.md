@@ -1,6 +1,9 @@
 ## Default Arrows
 You can turn default arrows on, using arrows plugin.
 ```jsx render
+// import Carousel from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
+
 <Carousel
   plugins={['arrows']}
 >

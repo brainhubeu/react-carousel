@@ -1,7 +1,8 @@
 ## Centered
 By default, the current slide is aligned to the left. You can change that behaviour with centered plugin.
 ```jsx render
-// import { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+// import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
 
 <Carousel
     plugins={[

@@ -69,10 +69,10 @@ advanced usage:
     {
       resolve: arrowsPlugin,
       options: {
-        arrowLeft: <Icon name="angle-double-left" />,
-        arrowLeftDisabled: <Icon name="angle-left" />,
-        arrowRight: <Icon name="angle-double-right" />,
-        arrowRightDisabled: <Icon name="angle-right" />,
+        arrowLeft: <button><Icon name="angle-double-left" /></button>,
+        arrowLeftDisabled:<button><Icon name="angle-left" /></button>,
+        arrowRight: <button><Icon name="angle-double-right" /></button>,
+        arrowRightDisabled: <button><Icon name="angle-right" /></button>,
         addArrowClickHandler: true,
       }
     }

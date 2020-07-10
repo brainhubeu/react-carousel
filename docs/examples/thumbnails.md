@@ -1,6 +1,9 @@
 ## Thumbnails
 You can use Dots component to show thumbnails.
 ```jsx render
+// import Carousel from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
+
 class MyCarousel extends React.Component {
   constructor() {
     super()

@@ -2,7 +2,8 @@
 You can set all props and plugins to different values on different screen resolutions. The props set will override the existing prop (if already set).
 
 ```jsx render
-// import { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+// import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
 
 <Carousel
   plugins={[

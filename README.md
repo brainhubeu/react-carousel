@@ -8,12 +8,13 @@
 </h1>
 
 <p align="center">
-  A pure React carousel, powered by <a href="https://brainhub.eu/">Brainhub</a> (craftsmen who ❤️ JS) and <a href="https://issuehunt.io/r/brainhubeu/react-carousel">IssueHunt</a>, open for new feature proposals
+  A pure extendable React carousel, powered by <a href="https://brainhub.eu/">Brainhub</a> (craftsmen who ❤️ JS) 
 </p>
 
 <p align="center">
   <strong>
     <a href="https://brainhubeu.github.io/react-carousel/">Live code demo</a> | 
+    <a href="https://beghp.github.io/gh-pages-rc-15/docs/migrationGuide">v1 migration guide</a> | 
     <a href="https://brainhub.eu/contact/">Hire us</a>
   </strong>
 </p>
@@ -26,6 +27,7 @@
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
   [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
   
+  [![Coveralls github](https://img.shields.io/coveralls/github/brainhubeu/react-carousel.svg)](https://coveralls.io/github/brainhubeu/react-carousel?branch=master)
   [![Downloads](https://img.shields.io/npm/dm/@brainhubeu/react-carousel?color=blue)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
   [![Activity](https://img.shields.io/github/commit-activity/m/brainhubeu/react-carousel.svg)](https://github.com/brainhubeu/react-carousel/commits/master)
   [![Minified](https://img.shields.io/bundlephobia/min/@brainhubeu/react-carousel?label=minified)](https://www.npmjs.com/package/@brainhubeu/react-carousel)
@@ -90,21 +92,19 @@ const { default: Carousel, Dots } = dynamic(
 By default, the component does not need anything except children to render a simple carousel.
 Remember that styles do not have to be imported every time you use carousel, you can do it once in an entry point of your bundle.
 ```javascript
-import React, { Component } from 'react';
+import React from 'react';
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-export default class MyCarousel extends Component {
-  render() {
-    return (
-      <Carousel plugins={['arrows']}>
-        <img src={imageOne} />
-        <img src={imageTwo} />
-        <img src={imageThree} />
-      </Carousel>
-    );
-  }
-}
+const MyCarousel = () => (
+  <Carousel plugins={['arrows']}>
+    <img src={imageOne} />
+    <img src={imageTwo} />
+    <img src={imageThree} />
+  </Carousel>
+);
+
+export default MyCarousel;
 ```
 
 [![gif](readme/assets/carousel.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/simpleUsage)
@@ -113,25 +113,20 @@ export default class MyCarousel extends Component {
 There is a separate Dots component that can be used to fully control navigation dots or add thumbnails.
 ```javascript
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
+import '@brainhubeu/react-carousel/lib/style.css'; import { useState } from 'react';
 
-// ...
+const MyCarouselWithDots = () => {
+  const [value, setValue] = useState(0);
 
-constructor(props) {
-  super(props);
-  this.state = {
-    value: 0,
-  };
-}
+  const onChange = value => {
+  setValue(value);
+  }
 
-onChange = value => this.setState({ value });
-
-render() {
   return (
     <div>
       <Carousel
-        value={this.state.value}
-        onChange={this.onChange}
+        value={value}
+        onChange={onChange}
       >
         <img className="img-example" src={someImage} />
         ...
@@ -148,7 +143,9 @@ render() {
       />
     </div>
   );
-}
+};
+
+export default MyCarouselWithDots;
 ```
 
 [![gif](readme/assets/thumbnails.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails)
@@ -185,30 +182,11 @@ You can extend react-carousel default behavior by applying plugins shipped withi
 | [**thumbnails**](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
 | [**rtl**](https://brainhubeu.github.io/react-carousel/docs/examples/rtl) | *Boolean* | `false` | Indicating if the dots should have direction from Right to Left |
 
-## Contributing
-[The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.
-You're more than welcome to vote:
-- with 👍if you like a given feature request or you'd like a given bug to be fixed
-- with ❤️ if you love a given feature request or fixing a given bug is critical for you
-- with 👎if in your opinion, a given feature would create more damages than the value provided by it or you consider a given bug to be a feature
-
-We don't give any guarantee to fix even the most liked issues but 👍and ❤️ increase probability of fixing while 👎decreases the probability of fixing.
-
-You're also more than welcome to:
-- submit a feature request
-- report a bug
-- ask a question
-- comment an issue, discussing the details
-- open a PR, fixing a given issue
-
 ### Setting up local development which means running the docs/demo locally:
 - `git clone https://github.com/brainhubeu/react-carousel`
 - `cd react-carousel`
 - `yarn`
-- `cd docs-www`
-- `yarn`
-- if you want to connect demo with the carousel source code, replace `__RC_ENV__` into `development` in https://github.com/brainhubeu/react-carousel/blob/master/docs-www/src/globalReferences.js#L2 and remove the `.babelrc` file in the root directory; otherwise, it will use the carousel code installed in `docs-www/node_modules`
-- `yarn develop`
+- `yarn start-demo`
 - open http://localhost:8000/
 
 ### Tests
@@ -216,7 +194,7 @@ Each test command should be run from the root directory.
 
 #### Unit tests
 ```
-yarn test:unit
+yarn test:unit:coverage
 ```
 
 #### E2E tests

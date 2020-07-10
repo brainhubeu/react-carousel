@@ -3,6 +3,9 @@ You can surround the Carousel by a container, which can be resized
 independently of the window. You should only make sure,
 that the container doesn't exceed the viewport.
 ```jsx render
+// import Carousel from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
+
 class MyCarousel extends React.Component {
 
   resizeSurrounding() {
