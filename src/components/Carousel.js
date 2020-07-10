@@ -45,6 +45,7 @@ class Carousel extends Component {
     className: PropTypes.string,
     minDraggableOffset: PropTypes.number,
     onInit: PropTypes.func,
+    handleIsReady: PropTypes.func,
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
       slidesPerScroll: PropTypes.number,
