@@ -44,6 +44,8 @@
 
 * ```lazyLoader: React node``` To be used instead of the default loader
 
+* ```onInit: Function``` Callback thrown after the carousel is loaded
+
 ## Default Properties:
 
 - ```offset: 0```
