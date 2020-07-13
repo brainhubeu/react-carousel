@@ -19,7 +19,7 @@ import {
 } from '../state/atoms/carouselAtoms';
 
 const defaultOptions = {
-  numberOfInfiniteClones: 1,
+  numberOfInfiniteClones: 2,
 };
 
 const infinite = ({ options = defaultOptions, carouselProps }) => {

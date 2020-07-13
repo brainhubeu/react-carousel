@@ -76,14 +76,18 @@ const Carousel = (props) => {
       if (slideMovement.dragStart !== 0) {
         const { pageX } = e;
 
+        setTransitionEnabled(false);
+
         setSlideMovement((previousState) => ({
           ...slideMovement,
           dragOffset: pageX - previousState.dragStart,
           dragEnd: pageX,
         }));
+
+        setTransitionEnabled(true);
       }
     },
-    [slideMovement],
+    [slideMovement, setTransitionEnabled],
   );
 
   /**
@@ -95,7 +99,6 @@ const Carousel = (props) => {
     (e, index) => {
       e.preventDefault();
       e.stopPropagation();
-      setTransitionEnabled(false);
       const { pageX } = e;
 
       setSlideMovement({
@@ -104,7 +107,7 @@ const Carousel = (props) => {
         dragStart: pageX,
       });
     },
-    [slideMovement],
+    [slideMovement, setTransitionEnabled],
   );
 
   /**
@@ -112,13 +115,17 @@ const Carousel = (props) => {
    * @param {event} e event
    * @param {number} index of the element drag started on
    */
-  const onTouchStart = useCallback((e, index) => {
-    const { changedTouches } = e;
-    setSlideMovement({
-      clicked: index,
-      dragStart: changedTouches[0].pageX,
-    });
-  }, []);
+  const onTouchStart = useCallback(
+    (e, index) => {
+      const { changedTouches } = e;
+      setSlideMovement({
+        ...slideMovement,
+        clicked: index,
+        dragStart: changedTouches[0].pageX,
+      });
+    },
+    [slideMovement],
+  );
 
   /**
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
@@ -126,11 +133,10 @@ const Carousel = (props) => {
    * It resets clicked index, dragOffset and dragStart values in state.
    * @param {event} e event
    */
-  const onMouseUpTouchEnd = useCallback((e) => {
-    if (slideMovement.dragStart !== null) {
+  const onMouseUpTouchEnd = useCallback(
+    (e) => {
       e.preventDefault();
       if (props.draggable) {
-        setTransitionEnabled(true);
         props.onChange(props.nearestSlideIndex);
       }
       setSlideMovement({
@@ -138,8 +144,9 @@ const Carousel = (props) => {
         dragOffset: 0,
         dragStart: 0,
       });
-    }
-  });
+    },
+    [setSlideMovement],
+  );
 
   useOnResize({
     carouselRef,

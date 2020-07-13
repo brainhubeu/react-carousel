@@ -14,8 +14,7 @@
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
     "test": "jest",
-    "test:coverage": "yarn jest --coverage",
-    "precommit": "npm run lint"
+    "test:coverage": "yarn jest --coverage"
   },
   "author": "Brainhub",
   "license": "MIT",
