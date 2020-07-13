@@ -6,9 +6,24 @@ import { getCurrentValueSelector } from '../state/selectors/carouselSelectors';
 
 let interval = null;
 
+const DIRECTION = {
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT',
+};
+
+const getDirection = (direction) => {
+  if (direction === DIRECTION.LEFT) {
+    return -1;
+  } else if (direction === DIRECTION.RIGHT) {
+    return 1;
+  }
+  return 0;
+};
+
 const defaultOptions = {
   interval: 2000,
   stopAutoPlayOnHover: true,
+  direction: DIRECTION.RIGHT,
 };
 
 const autoplay = ({ carouselProps, options = {} }) => {
@@ -26,7 +41,10 @@ const autoplay = ({ carouselProps, options = {} }) => {
         }
         interval = setInterval(() => {
           if (!document.hidden && !autoPlayStopped) {
-            changeSlide(carouselProps.value + 1);
+            changeSlide(
+              carouselProps.value +
+                getDirection(pluginOptions.direction.toUpperCase()),
+            );
           }
         }, pluginOptions.interval);
       };

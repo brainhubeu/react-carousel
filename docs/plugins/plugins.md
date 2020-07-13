@@ -91,6 +91,8 @@ options:
 
 * ```stopAutoPlayOnHover: Boolean```: Determines if autoPlay should stop when mouse hover over carousel, defaults to `true`
 
+* ```direction: 'right' | 'left'```: Determines direction of changing slides, defaults to `right`
+
 simple usage:
 ```jsx
 <Carousel
