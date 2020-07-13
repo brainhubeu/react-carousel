@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _compact from 'lodash/compact';
 
+// config
+import config from '../constants/config';
 // hooks
 import useEventListener from '../hooks/useEventListener';
 import useOnResize from '../hooks/useOnResize';
@@ -45,8 +47,7 @@ const Carousel = (props) => {
   const setStrategies = useSetRecoilState(carouselStrategiesState);
 
   const isInitialMount = useRef(true);
-  const trackRef = useRef(null);
-  const nodeRef = useRef(null);
+  const carouselRef = useRef(null);
   const trackContainerRef = useRef(null);
 
   const {
@@ -60,9 +61,8 @@ const Carousel = (props) => {
   } = carouselPluginResolver(
     props.plugins,
     props,
-    trackRef,
     trackContainerRef,
-    nodeRef,
+    carouselRef,
   );
 
   setStrategies(strategies);
@@ -73,8 +73,9 @@ const Carousel = (props) => {
    */
   const onMouseMove = useCallback(
     (e) => {
-      const { pageX } = e;
-      if (slideMovement.dragStart !== null) {
+      if (slideMovement.dragStart !== 0) {
+        const { pageX } = e;
+
         setSlideMovement((previousState) => ({
           ...slideMovement,
           dragOffset: pageX - previousState.dragStart,
@@ -135,13 +136,13 @@ const Carousel = (props) => {
       setSlideMovement({
         clicked: null,
         dragOffset: 0,
-        dragStart: null,
+        dragStart: 0,
       });
     }
   });
 
   useOnResize({
-    nodeRef,
+    carouselRef,
     itemWidth,
     setItemWidth,
     trackContainerRef,
@@ -165,10 +166,11 @@ const Carousel = (props) => {
   }, [props.value]);
 
   useEffect(() => {
-    const trackWidth = props.width * children.length;
+    const trackWidth =
+      trackContainerRef?.current?.offsetWidth * children.length;
 
     setTrackWidth(trackWidth);
-  }, [props.width]);
+  }, [trackContainerRef?.current?.offsetWidth]);
 
   useEffect(() => {
     setTrackStyles({
@@ -179,10 +181,10 @@ const Carousel = (props) => {
 
   useEventListener('mouseup', onMouseUpTouchEnd);
 
-  useEventListener('mousemove', onMouseMove, nodeRef.current);
-  useEventListener('touchstart', simulateEvent, nodeRef.current);
-  useEventListener('touchmove', simulateEvent, nodeRef.current);
-  useEventListener('touchend', simulateEvent, nodeRef.current);
+  useEventListener('mousemove', onMouseMove, carouselRef.current);
+  useEventListener('touchstart', simulateEvent, carouselRef.current);
+  useEventListener('touchmove', simulateEvent, carouselRef.current);
+  useEventListener('touchend', simulateEvent, carouselRef.current);
 
   carouselPlugins?.forEach((plugin) =>
     typeof plugin === 'function' ? plugin() : plugin.plugin && plugin.plugin(),
@@ -211,7 +213,6 @@ const Carousel = (props) => {
             'BrainhubCarousel__track--draggable': draggable,
           })}
           style={currentTrackStyles}
-          ref={trackRef}
           {...carouselCustomProps}
         >
           {_compact(slides).map((carouselItem, index) => (
@@ -225,7 +226,7 @@ const Carousel = (props) => {
               onMouseDown={onMouseDown}
               onTouchStart={onTouchStart}
               isDragging={
-                Math.abs(slideMovement.dragOffset) > props.minDraggableOffset
+                Math.abs(slideMovement.dragOffset) > config.clickDragThreshold
               }
               itemClassNames={itemClassNames}
               isDraggingEnabled={props.draggable}
@@ -246,7 +247,7 @@ const Carousel = (props) => {
           props.className,
           ...(carouselClassNames || []),
         )}
-        ref={nodeRef}
+        ref={carouselRef}
       >
         {React.createElement(React.Fragment, null, beforeCarouselItems)}
         {renderCarouselItems()}
@@ -269,7 +270,6 @@ Carousel.propTypes = {
   className: PropTypes.string,
   transformOffset: PropTypes.number,
   nearestSlideIndex: PropTypes.number,
-  minDraggableOffset: PropTypes.number,
   plugins: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -296,7 +296,6 @@ Carousel.defaultProps = {
   offset: 0,
   animationSpeed: 500,
   draggable: true,
-  minDraggableOffset: 10,
   plugins: [],
 };
 

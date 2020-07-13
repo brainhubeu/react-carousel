@@ -192,39 +192,6 @@ import { slidesToScrollPlugin } from '@brainhubeu/react-carousel';
 </Carousel>
 ```
 
-### slidesPerScroll
-
-####v1 
-```jsx
-<Carousel
-  slidesPerScroll={2}
->
-  <img src={imageOne} />
-  <img src={imageTwo} />
-  <img src={imageThree} />
-</Carousel>
-```
-
-####v2
-```jsx
-import { slidesToScrollPlugin } from '@brainhubeu/react-carousel';
-
-<Carousel
-  plugins={[
-    {
-      resolve: slidesToScrollPlugin,
-      options: {
-       numberOfSlides: 2,
-      },
-    },
-  ]}   
->
-  <img src={imageOne} />
-  <img src={imageTwo} />
-  <img src={imageThree} />
-</Carousel>
-```
-
 ### keepDirectionWhenDragging
 
 ####v1 

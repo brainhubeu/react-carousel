@@ -8,50 +8,55 @@ let interval = null;
 
 const defaultOptions = {
   interval: 2000,
+  stopAutoPlayOnHover: true,
 };
 
-const autoplay = ({ carouselProps, options = defaultOptions }) => ({
-  name: pluginNames.AUTOPLAY,
-  carouselCustomProps: () => {
-    const changeSlide = useSetRecoilState(getCurrentValueSelector);
-    const [autoPlayStopped, setAutoPlayStopped] = useState(false);
+const autoplay = ({ carouselProps, options = {} }) => {
+  const pluginOptions = Object.assign({}, defaultOptions, options);
 
-    const resetInterval = () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-      interval = setInterval(() => {
-        if (!document.hidden && !autoPlayStopped) {
-          changeSlide(carouselProps.value + 1);
+  return {
+    name: pluginNames.AUTOPLAY,
+    carouselCustomProps: () => {
+      const changeSlide = useSetRecoilState(getCurrentValueSelector);
+      const [autoPlayStopped, setAutoPlayStopped] = useState(false);
+
+      const resetInterval = () => {
+        if (interval) {
+          clearInterval(interval);
         }
-      }, options.interval);
-    };
+        interval = setInterval(() => {
+          if (!document.hidden && !autoPlayStopped) {
+            changeSlide(carouselProps.value + 1);
+          }
+        }, pluginOptions.interval);
+      };
 
-    // setting autoplay interval
-    resetInterval();
-
-    /**
-     * Function handling mouse hover over element
-     * Stops auto play
-     */
-    const onMouseEnter = () => {
-      setAutoPlayStopped(true);
-    };
-
-    /**
-     * Function handling mouse leaving element
-     * Resumes auto play
-     */
-    const onMouseLeave = () => {
-      setAutoPlayStopped(false);
+      // setting autoplay interval
       resetInterval();
-    };
 
-    return {
-      onMouseEnter,
-      onMouseLeave,
-    };
-  },
-});
+      /**
+       * Function handling mouse hover over element
+       * Stops auto play
+       */
+      const onMouseEnter = () => {
+        setAutoPlayStopped(true);
+      };
+
+      /**
+       * Function handling mouse leaving element
+       * Resumes auto play
+       */
+      const onMouseLeave = () => {
+        setAutoPlayStopped(false);
+        resetInterval();
+      };
+
+      return {
+        onMouseEnter: pluginOptions.stopAutoPlayOnHover ? onMouseEnter : null,
+        onMouseLeave: pluginOptions.stopAutoPlayOnHover ? onMouseLeave : null,
+      };
+    },
+  };
+};
 
 export default autoplay;

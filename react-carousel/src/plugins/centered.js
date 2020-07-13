@@ -4,17 +4,18 @@ import { pluginNames } from '../constants/plugins';
 import { slideOffsetState, slideWidthState } from '../state/atoms/slideAtoms';
 import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 
-const centered = ({ carouselProps }) => ({
+const centered = ({ refs }) => ({
   name: pluginNames.CENTERED,
   strategies: () => {
     const itemWidth = useRecoilValue(slideWidthState);
     const itemOffset = useRecoilValue(slideOffsetState);
+    const trackContainerWidth = refs.trackContainerRef?.current?.offsetWidth;
 
     return {
       [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (original, prev) => {
         const elementWidthWithOffset = itemWidth + itemOffset;
         const additionalOffset =
-          carouselProps.width / 2 - elementWidthWithOffset / 2;
+          trackContainerWidth / 2 - elementWidthWithOffset / 2;
         return prev + additionalOffset;
       },
     };

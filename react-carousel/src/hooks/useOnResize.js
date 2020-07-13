@@ -7,23 +7,24 @@ import config from '../constants/config';
  * hook setting the carouselWidth value in state (used to set proper width of track and slides)
  * throttled to improve performance
  *
- * @param {node} nodeRef
+ * @param {node} carouselRef
  * @param {number} itemWidth
  * @param {function} setItemWidth
  * @param {node} trackContainerRef
  */
-const useOnResize = ({ width, nodeRef, setItemWidth, trackContainerRef }) => {
+const useOnResize = ({
+  width,
+  carouselRef,
+  setItemWidth,
+  trackContainerRef,
+}) => {
   const isInitialMount = useRef(true);
   const onResize = throttle(() => {
-    if (!nodeRef || !trackContainerRef) {
+    if (!carouselRef || !trackContainerRef) {
       return;
     }
 
-    const width =
-      nodeRef.current.offsetWidth -
-      (nodeRef.current.offsetWidth - trackContainerRef.current.offsetWidth);
-
-    setItemWidth(width);
+    setItemWidth(trackContainerRef.current.offsetWidth);
   }, config.resizeEventListenerThrottle);
 
   useEffect(() => {

@@ -6,9 +6,8 @@ import pluginsOrder from '../constants/pluginsOrder';
 const carouselPluginResolver = (
   plugins,
   carouselProps,
-  trackRef,
   trackContainerRef,
-  nodeRef,
+  carouselRef,
 ) => {
   const carouselPlugins = carouselProps?.plugins.map((plugin) => {
     if (typeof plugin === 'string') {
@@ -22,14 +21,14 @@ const carouselPluginResolver = (
               : carouselProps.slides,
           },
           options: plugin.options,
-          refs: { trackRef },
+          refs: { trackContainerRef, carouselRef },
         })
       );
     }
     return plugin.resolve({
       carouselProps,
       options: plugin.options,
-      refs: { trackRef, trackContainerRef, nodeRef },
+      refs: { trackContainerRef, carouselRef },
     });
   });
   const itemClassNames = flatten(
@@ -39,7 +38,7 @@ const carouselPluginResolver = (
         plugin.itemClassNames({
           carouselProps,
           options: plugin.options,
-          refs: { trackRef },
+          refs: { trackContainerRef, carouselRef },
         }),
     ),
   ).filter((className) => typeof className === 'string');
@@ -51,13 +50,16 @@ const carouselPluginResolver = (
         plugin.carouselClassNames({
           carouselProps,
           options: plugin.options,
-          refs: { trackRef },
+          refs: { trackContainerRef, carouselRef },
         }),
     ),
   ).filter((className) => typeof className === 'string');
 
-  const carouselCustomProps = carouselPlugins.map(
-    (plugin) => plugin.carouselCustomProps && plugin.carouselCustomProps(),
+  const carouselCustomProps = Object.assign(
+    {},
+    ...carouselPlugins.map(
+      (plugin) => plugin.carouselCustomProps && plugin.carouselCustomProps(),
+    ),
   );
 
   const beforeCarouselItems =

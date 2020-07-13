@@ -19,17 +19,13 @@ import {
 
 example usage
 ```js
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const customPlugin = () => ({
   plugin: () => {
     const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
-    const carouselWidth = useRecoilValue(carouselWidthState);
-    const setSlideOffset = useSetRecoilState(slideOffsetState);
 
       useEffect(() => {
-        setSlideOffset(carouselWidth / 2);
-
         setTrackStyles({
           ...trackStyles,
           marginLeft: myCustomFuncToModifyMargin(),

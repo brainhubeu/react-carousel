@@ -17,12 +17,9 @@ const slidesToShow = ({ carouselProps, refs, options = defaultOptions }) => ({
     const setItemWidth = useSetRecoilState(slideWidthState);
 
     const onResize = () => {
-      const width =
-        refs.nodeRef.current.offsetWidth -
-        (refs.nodeRef.current.offsetWidth -
-          refs.trackContainerRef.current.offsetWidth);
-
-      setItemWidth(width / options.numberOfSlides);
+      setItemWidth(
+        refs.trackContainerRef.current.offsetWidth / options.numberOfSlides,
+      );
     };
 
     useEffect(() => {

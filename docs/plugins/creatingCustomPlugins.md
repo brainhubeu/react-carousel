@@ -15,8 +15,7 @@ import {
  * @param { object } options defined by the carousel user
  * @param { object } carouselProps props defined for the react-carousel component
  * @param { node } ref.trackContainerRef track container red
- * @param { node } ref.trackRef track ref
- * @param { node } ref.nodeRef slide ref
+ * @param { node } ref.carouselRef slide ref
  */
 const myGreatPlugin = ({ options , carouselProps, ref }) => ({
 
@@ -55,20 +54,20 @@ const myGreatPlugin = ({ options , carouselProps, ref }) => ({
        * @param {number} original carousel value not modified by other plugins
        * @param {number} previous carousel value modified by other plugins
       **/
-      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
+      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (originalValue, previousValue) => {
 
         // modifies the value returned by the previous plugin by 
         // adding the value defined in the plugin options
-        return prev + options.slidesToAdvance
+        return previousValue + options.slidesToAdvance
       },
-      [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (original, prev) => {
-        return value;
+      [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (originalValue, previousValue) => {
+        return previousValue + doSomeCalc();
       },
-      [CAROUSEL_STRATEGIES.GET_NEAREST_SLIDE]: (original, prev) => {
-        return value;
+      [CAROUSEL_STRATEGIES.GET_NEAREST_SLIDE]: (originalValue, previousValue) => {
+        return previousValue + doSomeCalc();
       },
-      [CAROUSEL_STRATEGIES.GET_CURRENT_VALUE]: (original, prev) => {
-        return value;
+      [CAROUSEL_STRATEGIES.GET_CURRENT_VALUE]: (originalValue, previousValue) => {
+        return originalValue + doSomeCalc();
       }
   }),
 

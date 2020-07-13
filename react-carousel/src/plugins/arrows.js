@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import classnames from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
 
 import { pluginNames } from '../constants/plugins';
-import { getCurrentValueSelector } from '../state/selectors/carouselSelectors';
 import { slidesState } from '../state/atoms/slideAtoms';
 
 import './arrows.scss';
@@ -15,6 +13,7 @@ import './arrows.scss';
  * @param {function} onClick handler to be added to element
  * @param {string} name of an element
  * @param {boolean} addArrowClickHandler decide whether to add action to onClick
+ * @param {string} key unique element key
  * @param {boolean} disable info whether the arrow is disabled
  * @return {ReactElement} element with added handler
  */
@@ -23,10 +22,11 @@ const renderArrowWithAddedHandler = (
   onClick,
   name,
   addArrowClickHandler,
+  key,
   disable = false,
 ) => (
   <div
-    key={`@brainhubeu/react-carousel/${uuidv4()}`}
+    key={key}
     className={classnames(
       'BrainhubCarousel__customArrows',
       {
@@ -44,7 +44,6 @@ const arrows = ({ carouselProps, options = {} }) => ({
   name: pluginNames.ARROWS,
   // eslint-disable-next-line react/display-name
   beforeCarouselItems: () => {
-    const changeSlide = useSetRecoilState(getCurrentValueSelector);
     const slides = useRecoilValue(slidesState);
 
     const prevSlide = useCallback(
@@ -63,6 +62,7 @@ const arrows = ({ carouselProps, options = {} }) => ({
           prevSlide,
           'arrowLeft',
           options.addArrowClickHandler,
+          '@brainhubeu/react-carousel/custom-arrow-left',
         );
       }
       const arrow = options.arrowLeftDisabled
@@ -70,9 +70,10 @@ const arrows = ({ carouselProps, options = {} }) => ({
         : options.arrowLeft;
       return renderArrowWithAddedHandler(
         arrow,
-        changeSlide,
+        prevSlide,
         'arrowLeft',
         options.addArrowClickHandler,
+        '@brainhubeu/react-carousel/custom-arrow-left',
         disabled,
       );
     }
@@ -89,7 +90,6 @@ const arrows = ({ carouselProps, options = {} }) => ({
   },
   // eslint-disable-next-line react/display-name
   afterCarouselItems: () => {
-    const changeSlide = useSetRecoilState(getCurrentValueSelector);
     const slides = useRecoilValue(slidesState);
 
     const nextSlide = useCallback(
@@ -108,6 +108,7 @@ const arrows = ({ carouselProps, options = {} }) => ({
           nextSlide,
           'arrowLeft',
           options.addArrowClickHandler,
+          '@brainhubeu/react-carousel/custom-arrow-right',
         );
       }
       const arrow = options.arrowRightDisabled
@@ -115,9 +116,10 @@ const arrows = ({ carouselProps, options = {} }) => ({
         : options.arrowRight;
       return renderArrowWithAddedHandler(
         arrow,
-        changeSlide,
+        nextSlide,
         'arrowLeft',
         options.addArrowClickHandler,
+        '@brainhubeu/react-carousel/custom-arrow-right',
         disabled,
       );
     }
