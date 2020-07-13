@@ -77,8 +77,8 @@ class CarouselItem extends PureComponent {
           },
         )}
         style={{
-          paddingRight: `${this.props.offset / 2}px`,
-          paddingLeft: `${this.props.offset / 2}px`,
+          marginLeft: `${this.props.offset / 2}px`,
+          marginRight: `${this.props.offset / 2}px`,
           width: `${this.props.width}px`,
           maxWidth: `${this.props.width}px`,
           minWidth: `${this.props.width}px`,
