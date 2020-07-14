@@ -69,12 +69,12 @@ const Carousel = (props) => {
 
   /**
    * Function handling mouse move if drag has started. Sets dragOffset in the state.
-   * @param {event} e event
+   * @param {event} event event
    */
   const onMouseMove = useCallback(
-    (e) => {
+    (event) => {
       if (slideMovement.dragStart !== 0) {
-        const { pageX } = e;
+        const { pageX } = event;
 
         setTransitionEnabled(false);
 
@@ -92,14 +92,14 @@ const Carousel = (props) => {
 
   /**
    * Function handling beginning of mouse drag by setting index of clicked item and coordinates of click in the state
-   * @param {event} e event
+   * @param {event} event event
    * @param {number} index of the element drag started on
    */
   const onMouseDown = useCallback(
-    (e, index) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const { pageX } = e;
+    (event, index) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const { pageX } = event;
 
       setSlideMovement({
         ...slideMovement,
@@ -112,14 +112,14 @@ const Carousel = (props) => {
 
   /**
    * Function handling beginning of touch drag by setting index of touched item and coordinates of touch in the state
-   * @param {event} e event
+   * @param {event} event event
    * @param {number} index of the element drag started on
    */
   const onTouchStart = useCallback(
-    (e, index) => {
-      e.stopPropagation();
+    (event, index) => {
+      event.stopPropagation();
 
-      const { changedTouches } = e;
+      const { changedTouches } = event;
       setSlideMovement({
         ...slideMovement,
         clicked: index,
@@ -133,12 +133,12 @@ const Carousel = (props) => {
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
    * if drag was short (or it was just a click) it changes slide to the clicked (or touched) one.
    * It resets clicked index, dragOffset and dragStart values in state.
-   * @param {event} e event
+   * @param {event} event event
    */
   const onMouseUpTouchEnd = useCallback(
-    (e) => {
+    (event) => {
       if (slideMovement.dragStart !== 0) {
-        e.preventDefault();
+        event.preventDefault();
         if (props.draggable) {
           setTransitionEnabled(true);
           props.onChange(props.nearestSlideIndex);

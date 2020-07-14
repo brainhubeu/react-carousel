@@ -35,38 +35,39 @@ const customPlugin = () => ({
 })
 ```
 
-* ```trackWidthState: Number```: Width of the track container
+* ```trackWidthState: Number```: Width of the track container.
 
-* ```trackStylesState: Object```: Styles applied to the track container
+* ```trackStylesState: Object```: Styles applied to the track container.
 
-* ```carouselValueState: Number```: Active carousel slide index
+* ```carouselValueState: Number```: Active carousel slide index.
 
-* ```slideMovementState: Object```: Used to calculate active slide
+* ```slideMovementState: Object```: Used to calculate active slide.
 
 ```js
   key: '@brainhubeu/react-carousel/slideMovementState',
   default: {
     clicked: null, // index of the clicked slide
     dragStart: 0, // X position of drag event start
+    dragEnd: 0, // X position of drag event end
     dragOffset: 0, // Distance of the drag
   }
 ```
 
-* ```transitionEnabledState: Bool```: Decides whether slide transition animation should be turned on
+* ```transitionEnabledState: Bool```: Decides whether slide transition animation should be turned on.
 
-* ```slideOffsetState: Number```: Distance in px between slides
+* ```slideOffsetState: Number```: Distance in px between slides.
 
-* ```slidesState: Node[]```: carousel slides
+* ```slidesState: Node[]```: Carousel slides.
 
-* ```slideWidthState: Number```: Slide width in px
+* ```slideWidthState: Number```: Slide width in px.
 
-* ```activeSlideIndexState: Number```: Active carousel slide index. Used in infinite plugin
+* ```activeSlideIndexState: Number```: Active carousel slide index. Used in infinite plugin.
 
-* ```transformOffsetSelector: Number```: Calculates offset in pixels to be applied to Track element in order to show current slide correctly
+* ```transformOffsetSelector: Number```: Calculates offset in pixels to be applied to Track element in order to show current slide correctly.
 
-* ```nearestSlideSelector: Number```: Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider)
+* ```nearestSlideSelector: Number```: Checks what slide index is the nearest to the current position (to calculate the result of dragging the slider).
 
-* ```getCurrentValueSelector: Number```: Selector which uses strategies to calculate the current carousel value
+* ```getCurrentValueSelector: Number```: Selector which uses strategies to calculate the current carousel value.
 
 
 

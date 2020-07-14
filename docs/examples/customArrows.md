@@ -1,5 +1,5 @@
 ## Custom arrows
-You can set custom arrows, using arrowLeft and arrowRight options in arrows plugin. You can set custom arrows for the disabled state of arrowLeft and arrowRight, using arrrowLeftDisabled and arrowRightDisabled options. You can handle arrow click event by yourself, or you can tell Carousel to do that for you (using addArrowClickHandler option).
+You can set custom arrows, using arrowLeft and arrowRight options in the `arrows` plugin. You can set custom arrows for the disabled state of arrowLeft and arrowRight, using arrrowLeftDisabled and arrowRightDisabled options. You can handle arrow click event by yourself, or you can tell Carousel to do that for you (using addArrowClickHandler option).
 ```jsx render
 // import Carousel, { arrowsPlugin } from '@brainhubeu/react-carousel';
 // import Icon from 'react-fa';

@@ -1,4 +1,5 @@
-import flatten from 'lodash/flatten';
+import _flatten from 'lodash/flatten';
+import _sortBy from 'lodash/sortBy';
 
 import { plugins as pluginsFunc } from '../constants/plugins';
 import pluginsOrder from '../constants/pluginsOrder';
@@ -31,7 +32,7 @@ const carouselPluginResolver = (
       refs: { trackContainerRef, carouselRef },
     });
   });
-  const itemClassNames = flatten(
+  const itemClassNames = _flatten(
     carouselPlugins.map(
       (plugin) =>
         plugin.itemClassNames &&
@@ -43,7 +44,7 @@ const carouselPluginResolver = (
     ),
   ).filter((className) => typeof className === 'string');
 
-  const carouselClassNames = flatten(
+  const carouselClassNames = _flatten(
     carouselPlugins.map(
       (plugin) =>
         plugin.carouselClassNames &&
@@ -72,9 +73,9 @@ const carouselPluginResolver = (
       (plugin) => plugin.afterCarouselItems && plugin.afterCarouselItems(),
     ) || [];
 
-  const strategies = carouselPlugins
-    .sort((a, b) => pluginsOrder.indexOf(a.name) - pluginsOrder.indexOf(b.name))
-    .map((plugin) => plugin.strategies && plugin.strategies());
+  const strategies = _sortBy(carouselPlugins, (plugin) =>
+    pluginsOrder.indexOf(plugin.name),
+  ).map((plugin) => plugin.strategies && plugin.strategies());
 
   return {
     itemClassNames,

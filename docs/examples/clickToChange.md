@@ -1,5 +1,5 @@
 ## Click to change
-By default, clicking the slides does nothing. You can change that behavior with clickToChange plugin. 
+By default, clicking the slides does nothing. You can change that behavior with the `clickToChange` plugin. 
 ```jsx render
 // import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
 // import '@brainhubeu/react-carousel/lib/style.css';
