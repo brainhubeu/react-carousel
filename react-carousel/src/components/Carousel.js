@@ -115,13 +115,19 @@ const Carousel = (props) => {
    * @param {event} e event
    * @param {number} index of the element drag started on
    */
-  const onTouchStart = useCallback((e, index) => {
-    const { changedTouches } = e;
-    setSlideMovement({
-      clicked: index,
-      dragStart: changedTouches[0].pageX,
-    });
-  }, []);
+  const onTouchStart = useCallback(
+    (e, index) => {
+      e.stopPropagation();
+
+      const { changedTouches } = e;
+      setSlideMovement({
+        ...slideMovement,
+        clicked: index,
+        dragStart: changedTouches[0].pageX,
+      });
+    },
+    [slideMovement, setTransitionEnabled],
+  );
 
   /**
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,

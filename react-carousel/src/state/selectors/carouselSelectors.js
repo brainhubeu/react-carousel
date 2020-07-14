@@ -103,11 +103,12 @@ export const nearestSlideSelector = selector({
     const slideWidth = get(slideWidthState);
     const dragOffset = get(slideMovementState).dragOffset;
     const value = get(carouselValueState);
+    const slides = get(slidesState);
 
     const getNearestSlideBase = () => {
       const slideIndexOffset = -Math.round(dragOffset / slideWidth);
 
-      return value + slideIndexOffset;
+      return clamp(value + slideIndexOffset, slides);
     };
 
     const strategies = get(carouselStrategiesState)
