@@ -1,6 +1,6 @@
-describe('Swipe slides', () => {
+describe('Move slides', () => {
   beforeEach(() => {
-    cy.visit('/docs/examples/simpleUsage/');
+    cy.visit('/docs/examples/simpleUsage');
 
     cy.get('.BrainhubCarouselItem--active')
       .children('img')
@@ -8,7 +8,7 @@ describe('Swipe slides', () => {
       .and('contain', 'mona');
   });
 
-  it('swipes slide to the right if the next slide exists', () => {
+  it('move slide to the right if the next slide exists', () => {
     cy.get('.BrainhubCarouselItem--active')
       .trigger('mousedown')
       .trigger('mousemove', { pageX: 100 })
