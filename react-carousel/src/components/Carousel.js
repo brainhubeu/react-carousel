@@ -147,6 +147,7 @@ const Carousel = (props) => {
           clicked: null,
           dragOffset: 0,
           dragStart: 0,
+          dragEnd: 0,
         });
       }
     },

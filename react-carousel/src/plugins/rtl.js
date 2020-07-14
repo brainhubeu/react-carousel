@@ -18,6 +18,16 @@ const rtl = ({ carouselProps }) => ({
   plugin: () => {
     const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
     const slides = useRecoilValue(slidesState);
+    const [slideMovement, setSlideMovement] = useRecoilState(
+      slideMovementState,
+    );
+
+    useEffect(() => {
+      setSlideMovement({
+        ...slideMovement,
+        dragOffset: slideMovement.dragStart - slideMovement.dragEnd,
+      });
+    }, [slideMovement.dragOffset]);
 
     useEffect(() => {
       if (carouselProps?.children?.length !== slides.length) {
