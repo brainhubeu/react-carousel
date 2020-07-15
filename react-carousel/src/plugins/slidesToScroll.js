@@ -25,8 +25,8 @@ const slidesToScroll = ({ carouselProps, options = defaultOptions }) => ({
     const currentValue = useRecoilValue(carouselValueState);
     const slides = useRecoilValue(slidesState);
     return {
-      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
-        const baseToScroll = prev - currentValue;
+      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (originalValue, prevValue) => {
+        const baseToScroll = prevValue - currentValue;
 
         const additionalToScroll = getAdditionalScroll(
           baseToScroll,
@@ -34,9 +34,9 @@ const slidesToScroll = ({ carouselProps, options = defaultOptions }) => ({
         );
 
         if (carouselProps?.children?.length !== slides.length) {
-          return prev + additionalToScroll;
+          return prevValue + additionalToScroll;
         }
-        return clamp(prev + additionalToScroll, slides);
+        return clamp(prevValue + additionalToScroll, slides);
       },
     };
   },

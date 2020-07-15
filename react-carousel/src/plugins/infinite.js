@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { isNil } from 'lodash';
+import _isNil from 'lodash/isNil';
 import times from 'lodash/times';
 import concat from 'lodash/concat';
 import { useEffect } from 'react';
@@ -27,7 +27,7 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
   const children = getChildren(carouselProps.children, carouselProps.slides);
 
   const getTargetMod = (customValue = null) => {
-    const value = isNil(customValue) ? carouselProps.value : customValue;
+    const value = _isNil(customValue) ? carouselProps.value : customValue;
     const length = children.length;
 
     return value >= 0
@@ -109,13 +109,13 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
         .join('');
 
       return {
-        [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original) => original,
-        [CAROUSEL_STRATEGIES.GET_NEAREST_SLIDE]: (original) => {
+        [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (originalValue) => originalValue,
+        [CAROUSEL_STRATEGIES.GET_NEAREST_SLIDE]: (originalValue) => {
           const slideIndexOffset = -Math.round(
             slideMovement.dragOffset / slideWidth,
           );
 
-          return original + slideIndexOffset;
+          return originalValue + slideIndexOffset;
         },
         [CAROUSEL_STRATEGIES.GET_CURRENT_VALUE]: () => carouselProps.value,
         [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: () => {

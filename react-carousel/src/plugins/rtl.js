@@ -34,20 +34,21 @@ const rtl = ({ carouselProps }) => ({
     const value = useRecoilValue(carouselValueState);
 
     return {
-      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
+      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (originalValue, prevValue) => {
         if (slideMovement.dragOffset) {
-          return clamp(original, slides);
+          return clamp(originalValue, slides);
         }
-        const slidesDiff = prev - value;
+        const slidesDiff = prevValue - value;
 
         // if prev and original are the same we assume we use infinite plugin
         const rtlValue = value + slidesDiff;
-        if (original !== prev) {
+        if (originalValue !== prevValue) {
           return clamp(rtlValue, slides);
         }
         return rtlValue;
       },
-      [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (original, prev) => -prev,
+      [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (originalValue, prevValue) =>
+        -prevValue,
     };
   },
   carouselClassNames: () => {

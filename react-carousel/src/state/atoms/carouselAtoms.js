@@ -6,7 +6,7 @@ export const slideMovementState = atom({
     clicked: null, // index of the clicked slide
     dragStart: null, // X position of drag event start
     dragEnd: null, // X position of drag event end
-    dragOffset: 0, // Distance of the drag
+    dragOffset: 0, // distance of the drag
   },
 });
 

@@ -12,11 +12,14 @@ const centered = ({ refs }) => ({
     const trackContainerWidth = refs.trackContainerRef?.current?.offsetWidth;
 
     return {
-      [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (original, prev) => {
+      [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: (
+        originalValue,
+        prevValue,
+      ) => {
         const elementWidthWithOffset = itemWidth + itemOffset;
         const additionalOffset =
           trackContainerWidth / 2 - elementWidthWithOffset / 2;
-        return prev + additionalOffset;
+        return prevValue + additionalOffset;
       },
     };
   },

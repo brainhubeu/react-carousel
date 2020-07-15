@@ -33,20 +33,23 @@ const clickToChange = ({ carouselProps }) => ({
     const activeSlideIndex = useRecoilValue(activeSlideIndexState);
 
     return {
-      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original, prev) => {
+      [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (originalValue, prevValue) => {
         const direction = getDirection(
           Math.abs(slideMovement.dragStart),
           Math.abs(slideMovement.dragEnd) || 0,
         );
 
         if (direction === DIRECTION.NONE) {
-          return prev;
+          return prevValue;
         }
 
         if (previousClicked !== slideMovement.clicked) {
-          if (direction === DIRECTION.LEFT && prev <= slideMovement.clicked) {
-            previousClicked = prev;
-            return prev;
+          if (
+            direction === DIRECTION.LEFT &&
+            prevValue <= slideMovement.clicked
+          ) {
+            previousClicked = prevValue;
+            return prevValue;
           }
 
           previousClicked = slideMovement.clicked;
@@ -57,8 +60,8 @@ const clickToChange = ({ carouselProps }) => ({
           }
           return slideMovement.clicked;
         }
-        previousClicked = prev || original;
-        return prev || original;
+        previousClicked = prevValue || originalValue;
+        return prevValue || originalValue;
       },
     };
   },
