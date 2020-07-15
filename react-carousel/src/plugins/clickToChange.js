@@ -1,8 +1,12 @@
-import { useRecoilValue } from 'recoil';
+import { useCallback } from 'react';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 
 import CAROUSEL_STRATEGIES from '../constants/carouselStrategies';
 import { pluginNames } from '../constants/plugins';
-import { slideMovementState } from '../state/atoms/carouselAtoms';
+import {
+  slideMovementState,
+  transitionEnabledState,
+} from '../state/atoms/carouselAtoms';
 import { activeSlideIndexState } from '../state/atoms/slideAtoms';
 
 let previousClicked = 0;
@@ -56,6 +60,31 @@ const clickToChange = ({ carouselProps }) => ({
         previousClicked = prev || original;
         return prev || original;
       },
+    };
+  },
+  slideCustomProps: () => {
+    const setTransitionEnabled = useSetRecoilState(transitionEnabledState);
+    const [slideMovement, setSlideMovement] = useRecoilState(
+      slideMovementState,
+    );
+
+    const onMouseDown = useCallback(
+      (event, index) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setTransitionEnabled(true);
+        const { pageX } = event;
+
+        setSlideMovement({
+          ...slideMovement,
+          clicked: index,
+          dragStart: pageX,
+        });
+      },
+      [slideMovement, setTransitionEnabled],
+    );
+    return {
+      onMouseDown,
     };
   },
   itemClassNames: () => ['BrainhubCarouselItem--clickable'],

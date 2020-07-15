@@ -4,8 +4,8 @@ export const slideMovementState = atom({
   key: '@brainhubeu/react-carousel/slideMovementState',
   default: {
     clicked: null, // index of the clicked slide
-    dragStart: 0, // X position of drag event start
-    dragEnd: 0, // X position of drag event end
+    dragStart: null, // X position of drag event start
+    dragEnd: null, // X position of drag event end
     dragOffset: 0, // Distance of the drag
   },
 });

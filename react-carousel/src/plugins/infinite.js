@@ -102,6 +102,7 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
     strategies: () => {
       const slideMovement = useRecoilValue(slideMovementState);
       const activeSlideIndex = useRecoilValue(activeSlideIndexState);
+      const slideWidth = useRecoilValue(slideWidthState);
 
       const marginLeft = (slideMovement.marginLeft || '0')
         .match(/\d/g)
@@ -109,6 +110,13 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
 
       return {
         [CAROUSEL_STRATEGIES.CHANGE_SLIDE]: (original) => original,
+        [CAROUSEL_STRATEGIES.GET_NEAREST_SLIDE]: (original) => {
+          const slideIndexOffset = -Math.round(
+            slideMovement.dragOffset / slideWidth,
+          );
+
+          return original + slideIndexOffset;
+        },
         [CAROUSEL_STRATEGIES.GET_CURRENT_VALUE]: () => carouselProps.value,
         [CAROUSEL_STRATEGIES.GET_TRANSFORM_OFFSET]: () => {
           const elementWidthWithOffset = itemWidth;

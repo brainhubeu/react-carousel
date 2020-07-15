@@ -39,11 +39,18 @@ const myGreatPlugin = ({ options , carouselProps, ref }) => ({
   //  carousel items
   beforeCarouselItems: () => <div>humble navigation item</div>,
   afterCarouselItems: () => <div>humble navigation item</div>,
-
-  // Define props which will be attached to .BrainhubCarousel__track
+  // Define props which will be attached to .BrainhubCarousel
   carouselCustomProps: () => ({
+    onMouseMove: myCustomOnMouseMoveHandler,
+  }),
+  // Define props which will be attached to .BrainhubCarousel__track
+  trackCustomProps: () => ({
     onMouseEnter: myCustomOnMouseEnterHandler,
     onMouseLeave: myCustomOnMouseLeaveHandler,
+  }),
+  // Define props which will be attached to .BrainhubCarousel__item
+  slideCustomProps: () => ({
+    onMouseDown: myCustomOnMouseDownHandler,
   }),
 
   // Modify react carousel events

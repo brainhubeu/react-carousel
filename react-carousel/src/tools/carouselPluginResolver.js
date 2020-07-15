@@ -63,6 +63,20 @@ const carouselPluginResolver = (
     ),
   );
 
+  const trackCustomProps = Object.assign(
+    {},
+    ...carouselPlugins.map(
+      (plugin) => plugin.trackCustomProps && plugin.trackCustomProps(),
+    ),
+  );
+
+  const slideCustomProps = Object.assign(
+    {},
+    ...carouselPlugins.map(
+      (plugin) => plugin.slideCustomProps && plugin.slideCustomProps(),
+    ),
+  );
+
   const beforeCarouselItems =
     carouselPlugins.map(
       (plugin) => plugin.beforeCarouselItems && plugin.beforeCarouselItems(),
@@ -84,6 +98,8 @@ const carouselPluginResolver = (
     afterCarouselItems,
     strategies,
     carouselCustomProps,
+    trackCustomProps,
+    slideCustomProps,
     carouselPlugins,
   };
 };

@@ -28,7 +28,7 @@ import {
   slideMovementState,
 } from '../state/atoms/carouselAtoms';
 
-import CarouselItem from './CarouselItem';
+import CarouselSlide from './CarouselSlide';
 
 import '../styles/Carousel.scss';
 
@@ -58,6 +58,8 @@ const Carousel = (props) => {
     afterCarouselItems,
     strategies,
     carouselCustomProps,
+    trackCustomProps,
+    slideCustomProps,
   } = carouselPluginResolver(
     props.plugins,
     props,
@@ -73,20 +75,16 @@ const Carousel = (props) => {
    */
   const onMouseMove = useCallback(
     (event) => {
-      if (slideMovement.dragStart !== 0) {
-        const { pageX } = event;
-
-        setTransitionEnabled(false);
-
+      const { pageX } = event;
+      if (slideMovement.dragStart !== null) {
         setSlideMovement((previousState) => ({
           ...slideMovement,
           dragOffset: pageX - previousState.dragStart,
           dragEnd: pageX,
         }));
-
-        setTransitionEnabled(true);
       }
     },
+
     [slideMovement, setTransitionEnabled],
   );
 
@@ -99,6 +97,7 @@ const Carousel = (props) => {
     (event, index) => {
       event.preventDefault();
       event.stopPropagation();
+      setTransitionEnabled(false);
       const { pageX } = event;
 
       setSlideMovement({
@@ -115,19 +114,13 @@ const Carousel = (props) => {
    * @param {event} event event
    * @param {number} index of the element drag started on
    */
-  const onTouchStart = useCallback(
-    (event, index) => {
-      event.stopPropagation();
-
-      const { changedTouches } = event;
-      setSlideMovement({
-        ...slideMovement,
-        clicked: index,
-        dragStart: changedTouches[0].pageX,
-      });
-    },
-    [slideMovement, setTransitionEnabled],
-  );
+  const onTouchStart = useCallback((event, index) => {
+    const { changedTouches } = event;
+    setSlideMovement({
+      clicked: index,
+      dragStart: changedTouches[0].pageX,
+    });
+  }, []);
 
   /**
    * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
@@ -137,21 +130,18 @@ const Carousel = (props) => {
    */
   const onMouseUpTouchEnd = useCallback(
     (event) => {
-      if (slideMovement.dragStart !== 0) {
+      if (slideMovement.dragStart !== null) {
         event.preventDefault();
-        if (props.draggable) {
-          setTransitionEnabled(true);
-          props.onChange(props.nearestSlideIndex);
-        }
+        props.onChange(props.nearestSlideIndex);
         setSlideMovement({
           clicked: null,
           dragOffset: 0,
-          dragStart: 0,
-          dragEnd: 0,
+          dragStart: null,
+          dragEnd: null,
         });
       }
     },
-    [slideMovement],
+    [setTransitionEnabled, setSlideMovement, slideMovement],
   );
 
   useOnResize({
@@ -179,11 +169,10 @@ const Carousel = (props) => {
   }, [props.value]);
 
   useEffect(() => {
-    const trackWidth =
-      trackContainerRef?.current?.offsetWidth * children.length;
+    const trackWidth = props.width * children.length;
 
     setTrackWidth(trackWidth);
-  }, [trackContainerRef?.current?.offsetWidth]);
+  }, [props.width]);
 
   useEffect(() => {
     setTrackStyles({
@@ -192,9 +181,11 @@ const Carousel = (props) => {
     });
   }, [props.transformOffset]);
 
+  useEventListener('mouseup', () => {
+    setTransitionEnabled(true);
+  });
   useEventListener('mouseup', onMouseUpTouchEnd);
 
-  useEventListener('mousemove', onMouseMove, carouselRef.current);
   useEventListener('touchstart', simulateEvent, carouselRef.current);
   useEventListener('touchmove', simulateEvent, carouselRef.current);
   useEventListener('touchend', simulateEvent, carouselRef.current);
@@ -226,10 +217,10 @@ const Carousel = (props) => {
             'BrainhubCarousel__track--draggable': draggable,
           })}
           style={currentTrackStyles}
-          {...carouselCustomProps}
+          {...trackCustomProps}
         >
-          {_compact(slides).map((carouselItem, index) => (
-            <CarouselItem
+          {_compact(slides).map((carouselSlide, index) => (
+            <CarouselSlide
               clickable
               key={index}
               currentSlideIndex={activeSlideIndex || props.value}
@@ -243,9 +234,10 @@ const Carousel = (props) => {
               }
               itemClassNames={itemClassNames}
               isDraggingEnabled={props.draggable}
+              {...slideCustomProps}
             >
-              {carouselItem}
-            </CarouselItem>
+              {carouselSlide}
+            </CarouselSlide>
           ))}
         </ul>
       </div>
@@ -260,7 +252,9 @@ const Carousel = (props) => {
           props.className,
           ...(carouselClassNames || []),
         )}
+        onMouseMove={onMouseMove}
         ref={carouselRef}
+        {...carouselCustomProps}
       >
         {React.createElement(React.Fragment, null, beforeCarouselItems)}
         {renderCarouselItems()}

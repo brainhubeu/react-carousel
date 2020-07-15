@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { pluginNames } from '../constants/plugins';
@@ -18,16 +18,6 @@ const rtl = ({ carouselProps }) => ({
   plugin: () => {
     const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
     const slides = useRecoilValue(slidesState);
-    const [slideMovement, setSlideMovement] = useRecoilState(
-      slideMovementState,
-    );
-
-    useEffect(() => {
-      setSlideMovement({
-        ...slideMovement,
-        dragOffset: slideMovement.dragStart - slideMovement.dragEnd,
-      });
-    }, [slideMovement.dragOffset]);
 
     useEffect(() => {
       if (carouselProps?.children?.length !== slides.length) {
@@ -70,6 +60,33 @@ const rtl = ({ carouselProps }) => ({
     }
 
     return classNames;
+  },
+  carouselCustomProps: () => {
+    const [slideMovement, setSlideMovement] = useRecoilState(
+      slideMovementState,
+    );
+
+    /**
+     * Function handling mouse move if drag has started. Sets dragOffset in the state.
+     * @param {event} event event
+     */
+    const onMouseMove = useCallback(
+      (event) => {
+        const { pageX } = event;
+        if (slideMovement.dragStart !== null) {
+          setSlideMovement((previousState) => ({
+            ...slideMovement,
+            dragOffset: previousState.dragStart - pageX,
+            dragEnd: pageX,
+          }));
+        }
+      },
+      [slideMovement],
+    );
+
+    return {
+      onMouseMove,
+    };
   },
 });
 

@@ -5,7 +5,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 import '../styles/CarouselItem.scss';
 
-const CarouselItem = ({
+const CarouselSlide = ({
   index,
   onMouseDown,
   onTouchStart,
@@ -84,7 +84,7 @@ const CarouselItem = ({
   );
 };
 
-CarouselItem.propTypes = {
+CarouselSlide.propTypes = {
   onMouseDown: PropTypes.func,
   onTouchStart: PropTypes.func,
   clickable: PropTypes.bool,
@@ -98,4 +98,4 @@ CarouselItem.propTypes = {
   itemClassNames: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default memo(CarouselItem);
+export default memo(CarouselSlide);

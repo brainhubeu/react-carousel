@@ -31,7 +31,7 @@ const autoplay = ({ carouselProps, options = {} }) => {
 
   return {
     name: pluginNames.AUTOPLAY,
-    carouselCustomProps: () => {
+    trackCustomProps: () => {
       const changeSlide = useSetRecoilState(getCurrentValueSelector);
       const [autoPlayStopped, setAutoPlayStopped] = useState(false);
 
