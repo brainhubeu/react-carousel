@@ -1,5 +1,5 @@
 ## RTL layout
-Carousel supports right to left layout
+Carousel supports the right to left layout.
 ```jsx render
 // import Carousel from '@brainhubeu/react-carousel';
 // import '@brainhubeu/react-carousel/lib/style.css';

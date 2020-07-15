@@ -14,7 +14,7 @@
 <p align="center">
   <strong>
     <a href="https://brainhubeu.github.io/react-carousel/">Live code demo</a> | 
-    <a href="https://beghp.github.io/gh-pages-rc-15/docs/migrationGuide">v1 migration guide</a> | 
+    <a href="https://brainhubeu.github.io/react-carousel/docs/migrationGuide">v1 migration guide</a> | 
     <a href="https://brainhub.eu/contact/">Hire us</a>
   </strong>
 </p>
@@ -169,7 +169,7 @@ You can access a clickable demo with many examples and a [live code editor](http
 ### Plugins
 You can extend react-carousel default behavior by applying plugins shipped within carousel or by creating and applying your own ones
 
-[**Plugins documentation**](https://beghp.github.io/gh-pages-rc-15/docs/api/plugins)
+[**Plugins documentation**](https://brainhubeu.github.io/react-carousel/docs/api/plugins)
 
 ### Dots props
 

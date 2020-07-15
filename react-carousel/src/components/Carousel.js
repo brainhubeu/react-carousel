@@ -123,8 +123,8 @@ const Carousel = (props) => {
   }, []);
 
   /**
-   * Function handling end of touch or mouse drag. If drag was long it changes current slide to the nearest one,
-   * if drag was short (or it was just a click) it changes slide to the clicked (or touched) one.
+   * Function handling end of touch or mouse drag. If the drag was long, it changes the current slide to the nearest one,
+   * if the drag was short (or it was just a click), it changes slide to the clicked (or touched) one.
    * It resets clicked index, dragOffset and dragStart values in state.
    * @param {event} event event
    */

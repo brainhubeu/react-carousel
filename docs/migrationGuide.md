@@ -1,5 +1,5 @@
 ## Migration guide
-In the carousel v2 in order to make carousel more maintainable many props has been replaced with the plugins. In the following section you can find out hot to migrate the carousel v1 props into plugins.
+In the carousel v2 in order to make carousel more maintainable, many props have been replaced with the plugins. In the following section, you can find out how to migrate the carousel v1 props into plugins.
 
 ### slidesPerPage
 
@@ -255,7 +255,7 @@ import { autoplayPlugin } from '@brainhubeu/react-carousel';
 
 ### dots
 
-In v2 dots property has been removed. Please use [**dots component**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) instead
+In v2, the dots property has been removed. Please use [**dots component**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) instead.
 
 ### lazyLoad
 

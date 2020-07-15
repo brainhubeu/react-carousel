@@ -59,7 +59,7 @@ export const getCurrentValueSelector = selector({
 });
 
 /**
- * Calculates offset in pixels to be applied to Track element in order to show current slide correctly
+ * Calculates offset in pixels to be applied to track element in order to show current slide correctly
  * @return {number} offset in px
  */
 export const transformOffsetSelector = selector({

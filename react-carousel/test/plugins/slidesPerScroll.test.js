@@ -31,6 +31,7 @@ describe('slidesPerScroll plugin', () => {
         .hasClass('BrainhubCarouselItem--active'),
     ).toBeTruthy();
   });
+
   test('slides backward as many slides as described in plugin options', () => {
     const wrapper = setupCarousel({
       plugins: [
@@ -69,6 +70,7 @@ describe('slidesPerScroll plugin', () => {
         .hasClass('BrainhubCarouselItem--active'),
     ).toBeTruthy();
   });
+
   test('goes to the last slide if numberOfSlides exceeds the total number of slides', () => {
     const wrapper = setupCarousel({
       plugins: [

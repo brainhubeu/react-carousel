@@ -27,7 +27,7 @@ const defaultOptions = {
 };
 
 const autoplay = ({ carouselProps, options = {} }) => {
-  const pluginOptions = Object.assign({}, defaultOptions, options);
+  const pluginOptions = { ...defaultOptions, ...options };
 
   return {
     name: pluginNames.AUTOPLAY,
