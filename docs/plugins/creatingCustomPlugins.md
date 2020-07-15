@@ -26,7 +26,7 @@ const myGreatPlugin = ({ options , carouselProps, ref }) => ({
 
       // modify trackStyle marginleft value when slide value has changed 
       // you can find more info regarding modifying carousel state here:
-      // https://beghp.github.io/gh-pages-rc-15/docs/plugins/accessingManagingState
+      // https://brainhubeu.github.io/react-carousel/docs/plugins/accessingManagingState
       useEffect(() => {
         setTrackStyles({
           ...trackStyles,
