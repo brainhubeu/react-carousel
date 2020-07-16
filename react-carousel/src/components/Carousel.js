@@ -29,7 +29,6 @@ import {
 } from '../state/atoms/carouselAtoms';
 
 import CarouselSlide from './CarouselSlide';
-
 import '../styles/Carousel.scss';
 
 const Carousel = (props) => {
@@ -289,12 +288,16 @@ Carousel.propTypes = {
   ),
   breakpoints: PropTypes.objectOf(
     PropTypes.shape({
-      slidesPerPage: PropTypes.number,
+      itemWidth: PropTypes.number,
+      width: PropTypes.number,
+      value: PropTypes.number,
+      onChange: PropTypes.func,
+      slides: PropTypes.arrayOf(PropTypes.node),
+      offset: PropTypes.number,
       draggable: PropTypes.bool,
       animationSpeed: PropTypes.number,
-      dots: PropTypes.bool,
       className: PropTypes.string,
-      transformOffset: PropTypes.string,
+      transformOffset: PropTypes.number,
     }),
   ),
 };
