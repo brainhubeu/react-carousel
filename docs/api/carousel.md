@@ -1,6 +1,6 @@
 ## Carousel component props
 
-* ```plugins: Func[]|String[]```: An array of plugins which will modify and extend carousel behavior. More details [**here**](https://beghp.github.io/gh-pages-rc-15/docs/plugins/plugins)
+* ```plugins: Func[]|String[]```: An array of plugins which will modify and extend carousel behavior. More details [**here**](https://brainhubeu.github.io/react-carousel/docs/plugins/plugins)
 
 * ```value: Number```: Current slide's index (zero based, depends on the elements order).
 
