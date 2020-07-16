@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import _isNil from 'lodash/isNil';
-import times from 'lodash/times';
-import concat from 'lodash/concat';
+import _times from 'lodash/times';
+import _concat from 'lodash/concat';
 import { useEffect } from 'react';
 
 import getChildren from '../tools/getChildren';
@@ -89,13 +89,13 @@ const infinite = ({ options = defaultOptions, carouselProps }) => {
       useEffect(() => {
         const trackLengthMultiplier = 1 + getClonesLeft() + getClonesRight();
 
-        const clonesLeft = times(getClonesLeft(), () => children);
-        const clonesRight = times(getClonesRight(), () => children);
+        const clonesLeft = _times(getClonesLeft(), () => children);
+        const clonesRight = _times(getClonesRight(), () => children);
 
         setTrackWidth(
           carouselProps.width * children.length * trackLengthMultiplier,
         );
-        setSlides(concat(...clonesLeft, children, ...clonesRight));
+        setSlides(_concat(...clonesLeft, children, ...clonesRight));
       }, [carouselProps.width, children.length, carouselProps.value]);
     },
 

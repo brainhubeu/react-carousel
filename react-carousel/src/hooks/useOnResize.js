@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import throttle from 'lodash/throttle';
+import _throttle from 'lodash/throttle';
 
 import config from '../constants/config';
 
@@ -19,7 +19,7 @@ const useOnResize = ({
   trackContainerRef,
 }) => {
   const isInitialMount = useRef(true);
-  const onResize = throttle(() => {
+  const onResize = _throttle(() => {
     if (!carouselRef || !trackContainerRef) {
       return;
     }
