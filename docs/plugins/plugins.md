@@ -183,7 +183,7 @@ advanced usage:
 <br/><br/>
 
 ### fastSwipe plugin
-While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged.
+While dragging, it doesn't matter which slide is the nearest one, but in what direction you drag.
 
 usage:
 ```jsx

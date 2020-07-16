@@ -8,7 +8,7 @@ describe('Move slides', () => {
       .and('contain', 'mona');
   });
 
-  it('move slide to the right if the next slide exists', () => {
+  it('moves slide to the right if the next slide exists', () => {
     cy.get('.BrainhubCarouselItem--active')
       .trigger('mousedown')
       .trigger('mousemove', { pageX: 100 })

@@ -23,7 +23,6 @@ const myGreatPlugin = ({ options , carouselProps, ref }) => ({
   plugin: () => {
       const [trackStyles, setTrackStyles] = useRecoilState(trackStylesState);
 
-
       // modify trackStyle marginleft value when slide value has changed 
       // you can find more info regarding modifying carousel state here:
       // https://brainhubeu.github.io/react-carousel/docs/plugins/accessingManagingState
