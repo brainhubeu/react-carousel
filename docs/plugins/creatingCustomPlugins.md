@@ -10,7 +10,7 @@ import {
 } from '@brainhubeu/react-carousel';
 
 /**
- * This is custom plugin function which allow you to modify carousel look & behavior
+ * This is a custom plugin function which allows you to modify carousel look & behavior.
  *
  * @param { object } options defined by the carousel user
  * @param { object } carouselProps props defined for the react-carousel component
