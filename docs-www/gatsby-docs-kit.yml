@@ -16,7 +16,7 @@
           file: simpleUsage.md
         - title: Controlled component
           file: controlled.md
-        - title: Mulitple items per page
+        - title: Multiple items per page
           file: multipleItems.md
         - title: Click to change
           file: clickToChange.md
