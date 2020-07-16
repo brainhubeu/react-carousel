@@ -8,7 +8,8 @@ const LandingPage = () => (
     <div>
       <h1 className={styles.landing__header}>React-carousel</h1>
       <p className={styles.landing__subheader}>
-        Feature-rich, react-way react component that does not suck
+        A pure extendable React carousel, powered by{' '}
+        <a href="https://brainhub.eu/">Brainhub</a> (craftsmen who ❤️ JS)
       </p>
       <div className={styles.btn__wrapper}>
         <Link to="/docs/gettingStarted" className={styles.landing__btn}>
