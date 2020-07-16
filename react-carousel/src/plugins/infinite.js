@@ -18,7 +18,7 @@ import {
   trackWidthState,
 } from '../state/atoms/carouselAtoms';
 
-const defaultOptions = {
+export const defaultOptions = {
   numberOfInfiniteClones: 2,
 };
 
