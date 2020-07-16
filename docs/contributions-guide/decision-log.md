@@ -14,3 +14,9 @@ We've decided to use http://beghp.github.io/ domain to deploy each branch there 
 
 ### Cypress (13 March 2020)
 We've decided that [Cypress](https://github.com/cypress-io/cypress) is better than [Hermione](https://github.com/gemini-testing/hermione) (Hermione predecessor is [Gemini](https://github.com/gemini-testing/gemini)) because Hermione required setting a very large tolerance in order to pass both locally and in CI. Moreover, Cypress is much more popular.
+
+### Recoil (14 July 2020)
+We've decided that [recoil](https://recoiljs.org/) will be used for managing state of the react-carousel component because of its simplicity to set up and maintain.
+
+### Plugins (14 July 2020)
+We've decided to use plugins to make carousel easier to maintain and to allow users to extend carousel possibilities.

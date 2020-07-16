@@ -1,0 +1,116 @@
+
+$clickableAreaSize: 42px;
+$clickableAreaColor: #7b59ff;
+$clickableAreaColor__hover: lighten(#7b59ff, 3%);
+$disabledButtonColor: #cccccc;
+
+$arrowColor: #fff;
+$arrowColor__hover: #fff;
+$arrowSize: 10px;
+$arrowWeight: 3px;
+
+.BrainhubCarousel__arrows {
+  position: relative;
+  padding: $clickableAreaSize/2;
+  border: none;
+  overflow: hidden;
+  outline: 0;
+  font-size: 0;
+  line-height: 0;
+  background-color: $clickableAreaColor;
+
+  span {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-color: $arrowColor;
+    border-width: $arrowWeight $arrowWeight 0 0;
+    padding: $arrowSize/2;
+    transition: 0.3s;
+    font-size: 0;
+  }
+
+  &:hover {
+    background-color: $clickableAreaColor__hover;
+    span {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-style: solid;
+      border-color: $arrowColor;
+      border-width: $arrowWeight $arrowWeight 0 0;
+      padding: $arrowSize/2;
+      transition: 0.3s;
+      font-size: 0;
+    }
+
+    &:enabled {
+      background-color: $clickableAreaColor__hover;
+      span {
+        border-color: $arrowColor__hover;
+        margin: 0;
+      }
+    }
+  }
+
+  &:disabled {
+    background-color: $disabledButtonColor;
+  }
+}
+
+.BrainhubCarousel__arrowLeft {
+  span {
+    transform: translate(-50%, -50%) rotate(-135deg);
+    margin-left: 0.35 * ($arrowSize - $arrowWeight);
+  }
+}
+
+.BrainhubCarousel__arrowRight {
+  span {
+    transform: translate(-50%, -50%) rotate(45deg);
+    margin-left: -0.35 * ($arrowSize - $arrowWeight);
+  }
+}
+
+.BrainhubCarousel--isRTL {
+  .BrainhubCarousel__arrowLeft {
+    span {
+      transform: translate(-50%, -50%) rotate(45deg);
+      margin-left: -0.35 * ($arrowSize - $arrowWeight);
+    }
+  }
+
+  .BrainhubCarousel__custom-arrowLeft {
+    span {
+      transform: rotate(180deg);
+    }
+  }
+
+  .BrainhubCarousel__arrowRight {
+    span {
+      transform: translate(-50%, -50%) rotate(-135deg);
+      margin-left: 0.35 * ($arrowSize - $arrowWeight);
+    }
+  }
+
+  .BrainhubCarousel__custom-arrowRight {
+    span {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .BrainhubCarousel__arrows {
+    &:hover {
+      span {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.BrainhubCarousel__arrow--disable {
+  pointer-events: none;
+}

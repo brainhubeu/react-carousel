@@ -13,20 +13,14 @@
   "packageRules": [
     {
       "groupName": "Docker dependencies",
-      "managers": [
-        "circleci"
-      ]
+      "managers": ["circleci"]
     },
     {
       "groupName": "gatsby",
       "managerBranchPrefix": "gatsby",
-      "packagePatterns": [
-        "gatsby"
-      ],
+      "packagePatterns": ["gatsby"],
       "rangeStrategy": "pin"
     }
   ],
-  "schedule": [
-    "before 3am on the first day of the month"
-  ]
+  "schedule": ["before 3am on the first day of the month"]
 }

@@ -1,18 +1,40 @@
 ## Responsive
-You can set all props (except value, onChange, responsive, children) to different values on different screen resolutions. The props set will override the existing prop (if already set).
+You can set all props and plugins to different values on different screen resolutions. The props set will override the existing prop (if already set).
 
 ```jsx render
+// import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
+
 <Carousel
-  slidesPerPage={3}
-  arrows
+  plugins={[
+    'arrows',
+    {
+      resolve: slidesToShowPlugin,
+      options: {
+       numberOfSlides: 3
+      }
+    },
+  ]}
   breakpoints={{
     640: {
-      slidesPerPage: 1,
-      arrows: false
+      plugins: [
+       {
+         resolve: slidesToShowPlugin,
+         options: {
+          numberOfSlides: 1
+         }
+       },
+     ]
     },
     900: {
-      slidesPerPage: 2,
-      arrows: false
+      plugins: [
+       {
+         resolve: slidesToShowPlugin,
+         options: {
+          numberOfSlides: 2
+         }
+       },
+     ]
     }
   }}
 >

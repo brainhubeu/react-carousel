@@ -49,7 +49,7 @@ jobs:
             - .git
             - node_modules
             - .coveralls.yml
-            - coverage
+            - react-carousel/coverage
   test-e2e:
     docker:
       - image: circleci/node:12.18.2
@@ -69,7 +69,7 @@ jobs:
       - run: git checkout .
       - run:
           name: Upload coverage to coveralls
-          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+          command: cat ./react-carousel/coverage/lcov.info | ./react-carousel/node_modules/coveralls/bin/coveralls.js
       - run:
           name: configure GitHub user
           command: |

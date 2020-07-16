@@ -13,10 +13,7 @@ sed -i "s/__BUILD_INFO__/ (master, built on `date +'%Y-%m-%d %H:%M:%S'`)/g" docs
 
 yarn install --non-interactive
 
-cd docs-www
-yarn install --non-interactive
 PATH_PREFIX=react-carousel yarn build
-cd ..
 
 mkdir -p gh-pages-branch
 cd gh-pages-branch
