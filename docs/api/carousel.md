@@ -18,6 +18,12 @@
 
 * ```breakpoints: Object``` All props can be set to different values on different screen resolutions
 
+* ```lazyLoad: Boolean``` Initially, it loads only the closest next / previous slide to the current one based on the value of the slidesPerPage variable. Other slides are loaded as needed.
+
+* ```lazyLoader: React node``` To be used instead of the default loader
+
+* ```onInit: Function``` Callback thrown after the carousel is loaded
+
 ## Default Properties:
  
 - ```offset: 0```
