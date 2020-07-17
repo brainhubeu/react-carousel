@@ -15,11 +15,11 @@ jobs:
           name: fail if the branch name does not start with a valid prefix
           command: |
             branch=$CIRCLE_BRANCH
-            if [[ "$branch" =~ ^(dependabot|fix|feature|breaking)/ || "$branch" == 'master' ]]
+            if [[ "$branch" =~ ^(dependabot|fix|feature|breaking)/ || "$branch" == 'master' || "$branch" == '1.19-x' ]]
             then
               echo $branch is a valid name
             else
-              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/' or be master
+              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/' or be master or 1.19-x
               exit 1
             fi
   deploy_test_environment:
@@ -127,9 +127,16 @@ jobs:
             git commit -m 'update @brainhubeu/react-carousel in docs-www [ci skip]'
       - run: git pull --no-edit origin $CIRCLE_BRANCH
       - run: git push origin $CIRCLE_BRANCH
-      - run:
-          name: publish gh pages
-          command: ./tools/deploy-gh-pages.sh
+
+  publish_docs:
+    - run:
+        name: publish gh pages
+        command: ./tools/deploy-gh-pages.sh
+
+  publish_docs_v1:
+    - run:
+        name: publish gh pages v1
+        command: ./tools/deploy-gh-pages-v1.sh
 
 workflows:
   version: 2
@@ -154,3 +161,18 @@ workflows:
             branches:
               only:
                 - master
+                - 1.19-x
+      - publish_docs:
+          requires:
+            - publish_package
+          filters:
+            branches:
+              only:
+                - master
+      - publish_docs_v1:
+          requires:
+            - publish_package
+          filters:
+            branches:
+              only:
+                - 1.19-x
