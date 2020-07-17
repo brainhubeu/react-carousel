@@ -201,11 +201,15 @@ workflows:
       - deploy_test_environment:
           requires:
             - check_branch_name
+          filters:
+            branches:
+              ignore:
+                - master
+                - v2-beta
       - publish_package_v2_beta:
           requires:
             - test
             - test-e2e
-            - deploy_test_environment
           filters:
             branches:
               only:

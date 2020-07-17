@@ -7,12 +7,6 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-if [[ "$CIRCLE_BRANCH" == 'master' ]]
-then
-  echo skipping deploy to a testing environment because the branch is master
-  exit 0
-fi
-
 for page_number in {1..20}
 do
   echo "page_number=$page_number"
