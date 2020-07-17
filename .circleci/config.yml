@@ -129,14 +129,22 @@ jobs:
       - run: git push origin $CIRCLE_BRANCH
 
   publish_docs:
-    - run:
-        name: publish gh pages
-        command: ./tools/deploy-gh-pages.sh
+    executor: node-executor
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: publish gh pages
+          command: ./tools/deploy-gh-pages.sh
 
   publish_docs_v1:
-    - run:
-        name: publish gh pages v1
-        command: ./tools/deploy-gh-pages-v1.sh
+    executor: node-executor
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: publish gh pages v1
+          command: ./tools/deploy-gh-pages-v1.sh
 
 workflows:
   version: 2
