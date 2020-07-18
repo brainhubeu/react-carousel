@@ -7,9 +7,9 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-remote=https://$GIT_TOKEN@github.com/brainhubeu/react-carousel.git
+remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-v1.git
 
-sed -i "s/__BUILD_INFO__/ (master, built on `date +'%Y-%m-%d %H:%M:%S'`)/g" docs-www/gatsby-docs-kit.yml
+sed -i "s/__BUILD_INFO__/ (v1-legacy, built on `date +'%Y-%m-%d %H:%M:%S'`)/g" docs-www/gatsby-docs-kit.yml
 
 yarn install --non-interactive
 
