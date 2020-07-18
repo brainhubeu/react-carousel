@@ -10,6 +10,8 @@
 
 * ```slidesPerScroll: Number```: Number by which value will change on scroll (autoPlay, arrow click, drag).
 
+* ```stickyEdges: Boolean```: Indicating if the carousel should stick the first and last slides to the edges or not.
+
 * ```itemWidth: Number```: Determines custom width for every slide in the carousel.
 
 * ```offset: Number```: Padding between items.
@@ -51,6 +53,7 @@
 - ```offset: 0```
 - ```slidesPerPage: 1```
 - ```slidesPerScroll: 1```
+- ```stickyEdges: false```
 - ```animationSpeed: 500```
 - ```draggable: true```
 - ```minDraggableOffset: 10```
