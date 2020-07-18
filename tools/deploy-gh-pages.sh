@@ -15,7 +15,7 @@ yarn install --non-interactive
 
 cd docs-www
 yarn install --non-interactive
-PATH_PREFIX=react-carousel yarn build
+PATH_PREFIX=gh-pages-rc-v1 yarn build
 cd ..
 
 mkdir -p gh-pages-branch
