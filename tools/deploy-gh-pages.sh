@@ -30,12 +30,17 @@ then
   echo 'rev-parse true'
   git checkout gh-pages
   git rm -rf . || echo 'nothing to remove'
-  cp -r docs-www/public/* .
+  pwd
+  ls -la
+  ls -la ..
+  ls -la ../docs-www
+  ls -la ../docs-www/public
+  cp -r ../docs-www/public/* .
 else
   echo 'rev-parse false'
   git checkout --orphan gh-pages
   git rm -rf . || echo 'nothing to remove'
-  cp -r docs-www/public/* .
+  cp -r ../docs-www/public/* .
 fi
 
 git add -A
