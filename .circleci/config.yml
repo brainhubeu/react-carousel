@@ -202,6 +202,10 @@ workflows:
             - test
             - test-e2e
             - deploy_test_environment
+          filters:
+            branches:
+              only:
+                - master
       - publish_package_v1_legacy:
           requires:
             - test
