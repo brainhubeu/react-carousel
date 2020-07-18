@@ -13,7 +13,7 @@ sed -i "s/__BUILD_INFO__/ (master, built on `date +'%Y-%m-%d %H:%M:%S'`)/g" docs
 
 yarn install --non-interactive
 
-PATH_PREFIX=react-carousel yarn build
+PATH_PREFIX=react-carousel yarn workspace react-carousel-docs build
 
 mkdir -p gh-pages-branch
 cd gh-pages-branch
@@ -30,11 +30,6 @@ then
   echo 'rev-parse true'
   git checkout gh-pages
   git rm -rf . || echo 'nothing to remove'
-  pwd
-  ls -la
-  ls -la ..
-  ls -la ../docs-www
-  ls -la ../docs-www/public
   cp -r ../docs-www/public/* .
 else
   echo 'rev-parse false'
