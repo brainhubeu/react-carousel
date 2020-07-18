@@ -82,20 +82,6 @@ jobs:
             git remote add origin https://$GIT_TOKEN@github.com/brainhubeu/react-carousel
             git remote -v
       - run:
-          name: npm publish CDN version
-          command: |
-            cd react-carousel
-            sed -i 's/export default Carousel;/global.BrainhubeuReactCarousel = Carousel; export default Carousel;/g' src/components/Carousel.js
-            sed -i 's/export default CarouselDots;/global.BrainhubeuReactCarouselDots = CarouselDots; export default CarouselDots;/g' src/components/CarouselDots.js
-            sed -i 's/export default CarouselItem;/global.BrainhubeuReactCarouselItem = CarouselItem; export default CarouselItem;/g' src/components/CarouselItem.js
-            sed -i 's/export default CarouselWrapper;/global.BrainhubeuReactCarouselWrapper = CarouselWrapper; export default CarouselWrapper;/g' src/components/CarouselWrapper.js
-            yarn build
-            sed -i 's/  "version": "\(.*\)",/  "version": "\1-cdn",/g' package.json
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-            npm publish
-            git add .
-            git stash
-      - run:
           name: npm publish
           command: |
             cd react-carousel
