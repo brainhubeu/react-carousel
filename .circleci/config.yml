@@ -48,6 +48,8 @@ jobs:
           paths:
             - .git
             - node_modules
+            - react-carousel/node_modules
+            - docs-www/node_modules
             - .coveralls.yml
             - react-carousel/coverage
   test-e2e:
