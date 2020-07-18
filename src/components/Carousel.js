@@ -578,18 +578,18 @@ class Carousel extends Component {
     const additionalOffset = this.getProp('centered')
       ? (this.state.carouselWidth / 2) - (elementWidthWithOffset / 2)
       : 0;
-    const stickyEdges = this.getProp('stickyEdges')
+    const stickyEdges = this.getProp('stickyEdges');
     const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
     const currentValue = this.getActiveSlideIndex();
     const additionalClonesOffset = this.getAdditionalClonesOffset();
-    const slidesPerScroll = this.getProp('slidesPerScroll')
+    const slidesPerScroll = this.getProp('slidesPerScroll');
     if (stickyEdges) {
-      return dragOffset 
-        - ((currentValue > this.getChildren().length - slidesPerScroll && !this.getProp('infinite')) ? (this.getChildren().length - slidesPerScroll): currentValue) * elementWidthWithOffset 
+      return dragOffset
+        - ((currentValue > this.getChildren().length - slidesPerScroll && !this.getProp('infinite')) ? (this.getChildren().length - slidesPerScroll) : currentValue) * elementWidthWithOffset
         - additionalClonesOffset;
-    }
-    else 
+    } else {
       return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
+    }
   };
 
   /* ========== rendering ========== */
