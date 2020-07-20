@@ -52,7 +52,7 @@ class CarouselItem extends PureComponent {
   }
 
   getChildren() {
-    if(this.childrenRef.current) {
+    if (this.childrenRef.current) {
       return React.cloneElement(
         this.props.children,
         { ref: this.childrenRef },

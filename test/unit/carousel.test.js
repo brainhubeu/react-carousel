@@ -58,14 +58,14 @@ describe('Carousel', () => {
     it('renders carousel items when slides are result of a function', () => {
       const renderName = name => <div> {name} </div>;
 
-      const names =['Dave', 'Kanye', 'Adam']
+      const names = ['Dave', 'Kanye', 'Adam'];
 
       const wrapper = mount(
         <Carousel>
           <div>Party guests: </div>
           {names.map(name => renderName(name))}
         </Carousel>
-          ,
+        ,
       );
 
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(2);
