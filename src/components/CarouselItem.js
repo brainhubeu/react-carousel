@@ -52,10 +52,13 @@ class CarouselItem extends PureComponent {
   }
 
   getChildren() {
-    return React.cloneElement(
-      this.props.children,
-      { ref: this.childrenRef },
-    );
+    if(this.childrenRef.current) {
+      return React.cloneElement(
+        this.props.children,
+        { ref: this.childrenRef },
+      );
+    }
+    return this.props.children;
   }
 
   onMouseDown = event => {

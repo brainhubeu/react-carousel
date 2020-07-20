@@ -55,6 +55,22 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(3);
     });
 
+    it('renders carousel items when slides are result of a function', () => {
+      const renderName = name => <div> {name} </div>;
+
+      const names =['Dave', 'Kanye', 'Adam']
+
+      const wrapper = mount(
+        <Carousel>
+          <div>Party guests: </div>
+          {names.map(name => renderName(name))}
+        </Carousel>
+          ,
+      );
+
+      expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(2);
+    });
+
     it('renders additional clones when in infinite mode', () => {
       const wrapper = setup({
         infinite: true,
