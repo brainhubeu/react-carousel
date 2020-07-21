@@ -6,6 +6,16 @@
   ],
   "devDependencies": {
     "@brainhubeu/license-auditor": "^1.0.30",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@commitlint/prompt": "^9.1.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.7",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "@semantic-release/npm": "^7.0.5",
+    "commitizen": "^4.1.2",
     "cypress": "^4.9.0",
     "danger": "^10.2.1",
     "eslint": "^6.8.0",
@@ -18,6 +28,7 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
+    "semantic-release": "^17.1.1",
     "start-server-and-test": "^1.11.0"
   },
   "scripts": {
@@ -29,10 +40,12 @@
     "test:e2e": "start-server-and-test start-demo http://localhost:8000 cypress:run",
     "test:unit:coverage": "yarn workspace @brainhubeu/react-carousel test:coverage",
     "test-dockerized:e2e": "docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test",
-    "cypress:run": "yarn cypress run"
+    "cypress:run": "yarn cypress run",
+    "commit": "yarn git-cz"
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged",
       "pre-push": "yarn test:unit:coverage"
     }
