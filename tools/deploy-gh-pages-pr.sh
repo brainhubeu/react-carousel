@@ -73,7 +73,7 @@ PATH_PREFIX=gh-pages-rc-$final_page_number yarn workspace react-carousel-docs bu
 mkdir -p gh-pages-branch
 cd gh-pages-branch
 
-git config --global user.email "devops@brainhub.eu" > /dev/null 2>&1
+git config --global user.email "robert@brainhub.eu" > /dev/null 2>&1
 git config --global user.name "DevOps Brainhub" > /dev/null 2>&1
 git init
 git remote add origin $remote
