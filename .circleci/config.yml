@@ -33,6 +33,7 @@ jobs:
             - .git
             - node_modules
             - react-carousel/node_modules
+            - react-carousel/dist
             - docs-www/node_modules
             - .coveralls.yml
             - react-carousel/coverage

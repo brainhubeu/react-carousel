@@ -10,10 +10,10 @@
   ],
   "scripts": {
     "lint": "esw webpack.config.* src tools test --color",
-    "clean-dist": "rimraf ./lib && mkdir lib",
+    "clean-dist": "rimraf ./dist && mkdir dist",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
-    "postbuild": "cp ../LICENSE.md ../README.md ./lib",
+    "postbuild": "cp ../LICENSE.md ../README.md ./package.json ./dist",
     "test": "jest",
     "test:coverage": "yarn jest --coverage"
   },

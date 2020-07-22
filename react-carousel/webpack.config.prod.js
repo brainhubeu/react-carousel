@@ -34,7 +34,7 @@ module.exports = {
     filename: 'react-carousel.js',
     library: 'react-carousel',
     libraryTarget: 'umd',
-    path: path.resolve(__dirname, 'lib'),
+    path: path.resolve(__dirname, 'dist/lib'),
     umdNamedDefine: true,
     globalObject: 'this',
   },

@@ -5,7 +5,7 @@
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     ["@semantic-release/npm", {
-      "pkgRoot": "./react-carousel"
+      "pkgRoot": "./react-carousel/dist"
     }],
     ["@semantic-release/git", {
       "assets": ["react-carousel/package.json", "docs/CHANGELOG.md"],
@@ -13,9 +13,7 @@
     }],
     ["@semantic-release/github", {
       "assets": [
-        {
-          "path": "./react-carousel"
-        }
+        { "path": "./react-carousel/dist/**/*" }
       ]
     }]
   ]
