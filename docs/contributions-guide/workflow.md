@@ -21,10 +21,6 @@
       - add `rtl` to the `Autoplay & Animation speed` example
 1. Other `brainhubeu` organization members (at least one person other than the one who has opened the PR) review the PR (and test if they want to).
 1. If the problem is correctly resolved, no breaking changes, and the code approved, a `brainhubeu` organization member merges the PR to the `master` branch.
-1. The CI increments the NPM version:
-    - patch if the PR branch prefix was `fix/`
-    - minor if the PR branch prefix was `feature/`
-    - major if the PR branch prefix was `breaking/`
 1. The CI publishes to NPM.
 1. The CI deploys the production version of docs.
 1. If the issue resolved by the merged PR is funded on IssueHunt, a `brainhubeu` organization member rewards it for the PR author.

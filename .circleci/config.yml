@@ -6,22 +6,6 @@ executors:
     working_directory: ~/app
 
 jobs:
-  check_branch_name:
-    docker:
-      - image: circleci/node:12.18.2
-    working_directory: ~/app
-    steps:
-      - run:
-          name: fail if the branch name does not start with a valid prefix
-          command: |
-            branch=$CIRCLE_BRANCH
-            if [[ "$branch" =~ ^(dependabot|fix|feature|breaking)/ || "$branch" == 'master' || "$branch" == 'v2-beta' ]]
-            then
-              echo $branch is a valid name
-            else
-              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/' or be master or v2-beta
-              exit 1
-            fi
   deploy_test_environment:
     docker:
       - image: circleci/node:12.18.2
@@ -75,7 +59,7 @@ jobs:
       - run:
           name: configure GitHub user
           command: |
-            git config --global user.email "devops@brainhub.pl"
+            git config --global user.email "robert@brainhub.pl"
             git config --global user.name "DevOps Brainhub"
             git remote -v
             git remote remove origin
@@ -83,11 +67,7 @@ jobs:
             git remote -v
       - run:
           name: npm publish
-          command: |
-            cd react-carousel
-            yarn build
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-            npm publish
+          command: npx semantic-release
       - run: sleep 10
       - run:
           name: update itself in docs
@@ -114,32 +94,17 @@ jobs:
       - run:
           name: configure GitHub user
           command: |
-            git config --global user.email "devops@brainhub.pl"
+            git config --global user.email "robert@brainhub.pl"
             git config --global user.name "DevOps Brainhub"
             git remote -v
             git remote remove origin
             git remote add origin https://$GIT_TOKEN@github.com/brainhubeu/react-carousel
             git remote -v
-      - run:
-          name: bump NPM version
-          command: |
-            cd react-carousel
-            branch=`git log --oneline | grep '[0-9a-f]\{6,40\} Merge pull request #[0-9]\+ from brainhubeu/' | head -1 | sed 's@.* from brainhubeu/@@g' || true`
-            echo branch=$branch
-            if [[ "$branch" =~ ^(dependabot)/ ]]; then
-              npm version patch -m "%s [ci skip]"
-            elif [[ "$branch" =~ ^(fix)/ ]]; then
-              npm version patch -m "%s [ci skip]"
-            elif [[ "$branch" =~ ^(feature)/ ]]; then
-              npm version minor -m "%s [ci skip]"
-            elif [[ "$branch" =~ ^(breaking)/ ]]; then
-              npm version major -m "%s [ci skip]"
-            else
-              echo $branch is not valid because the branch name must match '^(dependabot|fix|feature|breaking)/'
-              exit 1
-            fi
       - run: git pull --no-edit origin $CIRCLE_BRANCH
       - run: git push origin $CIRCLE_BRANCH
+      - run:
+          name: npm publish
+          command: npx semantic-release
       - run:
           name: npm publish CDN version
           command: |
@@ -154,13 +119,6 @@ jobs:
             npm publish
             git add .
             git stash
-      - run:
-          name: npm publish
-          command: |
-            cd react-carousel
-            yarn build
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-            npm publish
       - run: sleep 10
       - run:
           name: update itself in docs
@@ -179,16 +137,9 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - check_branch_name
-      - test:
-          requires:
-            - check_branch_name
-      - test-e2e:
-          requires:
-            - check_branch_name
+      - test
+      - test-e2e
       - deploy_test_environment:
-          requires:
-            - check_branch_name
           filters:
             branches:
               ignore:
