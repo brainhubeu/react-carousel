@@ -59,7 +59,7 @@ jobs:
       - run:
           name: configure GitHub user
           command: |
-            git config --global user.email "devops@brainhub.pl"
+            git config --global user.email "robert@brainhub.pl"
             git config --global user.name "DevOps Brainhub"
             git remote -v
             git remote remove origin
@@ -94,7 +94,7 @@ jobs:
       - run:
           name: configure GitHub user
           command: |
-            git config --global user.email "devops@brainhub.pl"
+            git config --global user.email "robert@brainhub.pl"
             git config --global user.name "DevOps Brainhub"
             git remote -v
             git remote remove origin
