@@ -13,6 +13,7 @@
     "clean-dist": "rimraf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
+    "postbuild": "cp ../LICENSE.md ../README.md ./lib",
     "test": "jest",
     "test:coverage": "yarn jest --coverage"
   },
