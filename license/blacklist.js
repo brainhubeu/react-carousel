@@ -33,7 +33,6 @@ const blacklist = [
   'Artistic-1.0-Perl',
   'Artistic-1.0-cl8',
   'Artistic-1.0',
-  'Artistic-2.0',
   'Autoconf-exception-2.0',
   'Autoconf-exception-3.0',
   'BSD-1-Clause',

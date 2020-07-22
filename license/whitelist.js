@@ -10,6 +10,7 @@ const whitelist = [
   'AFLv2.1',
   'Apache-2.0',
   'Apache2',
+  'Artistic-2.0',
   'BSD-2-Clause',
   'BSD-3-Clause OR MIT',
   'BSD-3-Clause',
