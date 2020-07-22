@@ -127,21 +127,18 @@ const Carousel = (props) => {
    * It resets clicked index, dragOffset and dragStart values in state.
    * @param {event} event event
    */
-  const onMouseUpTouchEnd = useCallback(
-    (event) => {
-      if (slideMovement.dragStart !== null) {
-        event.preventDefault();
-        props.onChange(props.nearestSlideIndex);
-        setSlideMovement({
-          clicked: null,
-          dragOffset: 0,
-          dragStart: null,
-          dragEnd: null,
-        });
-      }
-    },
-    [setTransitionEnabled, setSlideMovement, slideMovement],
-  );
+  const onMouseUpTouchEnd = useCallback(() => {
+    if (slideMovement.dragStart !== null) {
+      props.onChange(props.nearestSlideIndex);
+      setSlideMovement({
+        clicked: null,
+        dragOffset: 0,
+        dragStart: null,
+        dragEnd: null,
+      });
+    }
+    setTransitionEnabled(true);
+  }, [setTransitionEnabled, setSlideMovement, slideMovement]);
 
   useOnResize({
     carouselRef,
@@ -180,14 +177,24 @@ const Carousel = (props) => {
     });
   }, [props.transformOffset]);
 
-  useEventListener('mouseup', () => {
-    setTransitionEnabled(true);
+  useEventListener('mouseup', onMouseUpTouchEnd, {
+    passive: true,
+    capture: true,
   });
-  useEventListener('mouseup', onMouseUpTouchEnd);
 
-  useEventListener('touchstart', simulateEvent, carouselRef.current);
+  useEventListener(
+    'touchstart',
+    simulateEvent,
+    { passive: true, capture: true },
+    carouselRef.current,
+  );
   useEventListener('touchmove', simulateEvent, carouselRef.current);
-  useEventListener('touchend', simulateEvent, carouselRef.current);
+  useEventListener(
+    'touchend',
+    simulateEvent,
+    { passive: true, capture: true },
+    carouselRef.current,
+  );
 
   carouselPlugins?.forEach((plugin) =>
     typeof plugin === 'function' ? plugin() : plugin.plugin && plugin.plugin(),

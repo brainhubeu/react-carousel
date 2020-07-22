@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function useEventListener(eventName, handler, element = window) {
+function useEventListener(eventName, handler, options = {}, element = window) {
   // Create a ref that stores handler
   const savedHandler = useRef();
 
@@ -22,7 +22,7 @@ function useEventListener(eventName, handler, element = window) {
         const eventListener = (event) => savedHandler.current(event);
 
         // Add event listener
-        element.addEventListener(eventName, eventListener);
+        element.addEventListener(eventName, eventListener, options);
 
         // Remove event listener on cleanup
         return () => {
