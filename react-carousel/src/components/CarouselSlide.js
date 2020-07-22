@@ -37,7 +37,10 @@ const CarouselSlide = ({
     childrenRef.current && resizeObserver.observe(childrenRef.current);
   };
 
-  const getChildren = () => React.cloneElement(children, { ref: childrenRef });
+  const getChildren = () =>
+    childrenRef.current
+      ? React.cloneElement(children, { ref: childrenRef })
+      : children;
 
   const onItemMouseDown = (event) => {
     onMouseDown(event, index);

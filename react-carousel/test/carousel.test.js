@@ -22,13 +22,28 @@ describe('Carousel', () => {
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(3);
     });
 
-    it('renders carousel items when passed as a prop', () => {
+    test('renders carousel items when slides are result of a function', () => {
+      const renderName = (name) => <div> {name} </div>;
+
+      const names = ['Dave', 'Kanye', 'Adam'];
+
+      const wrapper = mount(
+        <CarouselWrapper>
+          <div>Party guests: </div>
+          {names.map((name) => renderName(name))}
+        </CarouselWrapper>,
+      );
+
+      expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(2);
+    });
+
+    test('renders carousel items when passed as a prop', () => {
       const wrapper = mount(<CarouselWrapper slides={[<div key={0} />]} />);
 
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(1);
     });
 
-    it('overwrites carousel item width', () => {
+    test('overwrites carousel item width', () => {
       const wrapper = setupCarousel({
         itemWidth: 250,
       });
@@ -38,7 +53,7 @@ describe('Carousel', () => {
       expect(item.props().style).toHaveProperty('width', '250px');
     });
 
-    it('picks up correct props to set window size', () => {
+    test('picks up correct props to set window size', () => {
       const wrapper = setupCarousel({
         breakpoints: {
           1200: {
@@ -56,7 +71,7 @@ describe('Carousel', () => {
       expect(item.props().style).toHaveProperty('width', '250px');
     });
 
-    it('picks up correct props to set window size', () => {
+    test('picks up correct props to set window size', () => {
       const wrapper = setupCarousel({
         breakpoints: {
           1200: {
@@ -74,7 +89,7 @@ describe('Carousel', () => {
       expect(item.props().style).toHaveProperty('width', '500px');
     });
 
-    it(`uses default value if it's not declared in the breakpoint`, () => {
+    test(`uses default value if it's not declared in the breakpoint`, () => {
       window.resizeTo(2000, 2000);
 
       const declaredWidth = 400;
@@ -96,7 +111,7 @@ describe('Carousel', () => {
       ).toEqual(`${declaredWidth}px`);
     });
 
-    it('sets carousel initial slide index', () => {
+    test('sets carousel initial slide index', () => {
       const wrapper = setupCarousel({
         value: 2,
       });
@@ -109,7 +124,7 @@ describe('Carousel', () => {
       ).toBeTruthy();
     });
 
-    it('displays the last slide if the value is greater than the number of slides', () => {
+    test('displays the last slide if the value is greater than the number of slides', () => {
       const wrapper = mount(
         <CarouselWrapper value={10}>
           <div />
@@ -126,7 +141,7 @@ describe('Carousel', () => {
       ).toBeTruthy();
     });
 
-    it('displays the first slide if the value is lower than 0', () => {
+    test('displays the first slide if the value is lower than 0', () => {
       const wrapper = mount(
         <CarouselWrapper value={-10}>
           <div className={'first'} />
