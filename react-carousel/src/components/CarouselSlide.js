@@ -72,8 +72,8 @@ const CarouselSlide = ({
         ...(itemClassNames || []),
       )}
       style={{
-        paddingRight: `${offset / 2}px`,
-        paddingLeft: `${offset / 2}px`,
+        marginRight: `${offset / 2}px`,
+        marginLeft: `${offset / 2}px`,
         width: `${width}px`,
         maxWidth: `${width}px`,
         minWidth: `${width}px`,
