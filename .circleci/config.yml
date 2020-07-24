@@ -131,7 +131,7 @@ workflows:
             branches:
               ignore:
                 - master
-                - v2-beta
+                - rc
       - publish_package_v2_beta:
           requires:
             - test
@@ -139,7 +139,7 @@ workflows:
           filters:
             branches:
               only:
-                - v2-beta
+                - rc
       - publish_package:
           requires:
             - test
