@@ -33,7 +33,7 @@ jobs:
             - .git
             - node_modules
             - react-carousel/node_modules
-            - react-carousel/dist
+            - react-carousel/lib
             - docs-www/node_modules
             - .coveralls.yml
             - react-carousel/coverage
@@ -70,13 +70,6 @@ jobs:
           name: npm publish
           command: npx semantic-release
       - run: sleep 10
-      - run:
-          name: update itself in docs
-          command: |
-            cd docs-www
-            yarn add @brainhubeu/react-carousel --non-interactive
-            git add .
-            git commit -m 'update @brainhubeu/react-carousel in docs-www [ci skip]'
       - run: git pull --no-edit origin $CIRCLE_BRANCH
       - run: git push origin $CIRCLE_BRANCH
       - run:
@@ -121,13 +114,6 @@ jobs:
             git add .
             git stash
       - run: sleep 10
-      - run:
-          name: update itself in docs
-          command: |
-            cd docs-www
-            yarn add @brainhubeu/react-carousel --non-interactive
-            git add .
-            git commit -m 'update @brainhubeu/react-carousel in docs-www [ci skip]'
       - run: git pull --no-edit origin $CIRCLE_BRANCH
       - run: git push origin $CIRCLE_BRANCH
       - run:
