@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "2.0.0-v2-beta.2",
+  "version": "2.0.0-v2-beta.1",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.14.3"
@@ -10,10 +10,10 @@
   ],
   "scripts": {
     "lint": "esw webpack.config.* src tools test --color",
-    "clean-dist": "rimraf ./dist && mkdir dist",
+    "clean-dist": "rimraf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
-    "postbuild": "cp ../LICENSE.md ../README.md ./package.json ./dist",
+    "postbuild": "cp ../LICENSE.md ../README.md ../docs/CHANGELOG.md .",
     "test": "jest",
     "test:coverage": "yarn jest --coverage"
   },
