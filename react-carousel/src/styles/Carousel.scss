@@ -1,0 +1,62 @@
+$loaderColor: #7b59ff;
+
+.BrainhubCarousel__container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.BrainhubCarousel {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  &.BrainhubCarousel--isRTL {
+    direction: rtl;
+
+    .BrainhubCarousel__trackContainer {
+      .BrainhubCarousel__track {
+        direction: rtl;
+      }
+    }
+  }
+
+  .BrainhubCarousel__trackContainer {
+    width: 100%;
+    overflow: hidden;
+    .BrainhubCarousel__track {
+      display: flex;
+      overflow: hidden;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      &.BrainhubCarousel__track--transition {
+        transition: transform;
+      }
+    }
+  }
+}
+
+/* arrows */
+.BrainhubCarousel__arrows {
+  cursor: pointer;
+}
+
+/* loader */
+.BrainhubCarousel__loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 4px solid $loaderColor;
+  border-left-color: transparent;
+  animation: loader 1s infinite linear;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

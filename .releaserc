@@ -1,0 +1,18 @@
+{
+  "branches": ["v1-legacy", master, { name: 'v2-beta', prerelease: true }, { name: 'rc', prerelease: true }],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/changelog", {
+      "changelogFile": "docs/CHANGELOG.md",
+    }],
+    ["@semantic-release/npm", {
+      "pkgRoot": "react-carousel"
+    }],
+    ["@semantic-release/git", {
+      "assets": ["react-carousel/package.json", "docs/CHANGELOG.md"],
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }],
+   "@semantic-release/github"
+  ]
+}

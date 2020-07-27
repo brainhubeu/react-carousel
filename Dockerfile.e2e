@@ -10,5 +10,4 @@ COPY . /e2e
 # https://github.com/cypress-io/cypress/issues/1243
 ENV CI=true
 RUN yarn install --frozen-lockfile && \
-    yarn --cwd docs-www install --frozen-lockfile && \
     npx cypress verify

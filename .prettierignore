@@ -1,0 +1,4 @@
+docs-www/.cache
+docs-www/public
+react-carousel/coverage
+react-carousel/lib

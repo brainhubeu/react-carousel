@@ -1,6 +1,9 @@
 ## Dots
 Dots are a separate component which you can use with controlled carousel as well.
 ```jsx render
+// import Carousel from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
+
 class MyCarousel extends React.Component {
   constructor() {
     super()

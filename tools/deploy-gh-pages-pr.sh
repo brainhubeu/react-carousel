@@ -7,12 +7,6 @@ failure() {
 }
 trap 'failure ${LINENO}' ERR
 
-if [[ "$CIRCLE_BRANCH" == 'master' ]]
-then
-  echo skipping deploy to a testing environment because the branch is master
-  exit 0
-fi
-
 for page_number in {1..20}
 do
   echo "page_number=$page_number"
@@ -74,16 +68,12 @@ remote=https://$GIT_TOKEN@github.com/beghp/gh-pages-rc-$final_page_number.git
 
 yarn install --non-interactive
 
-rm .babelrc
-cd docs-www
-yarn install --non-interactive
-PATH_PREFIX=gh-pages-rc-$final_page_number yarn build
-cd ..
+PATH_PREFIX=gh-pages-rc-$final_page_number yarn workspace react-carousel-docs build
 
 mkdir -p gh-pages-branch
 cd gh-pages-branch
 
-git config --global user.email "devops@brainhub.eu" > /dev/null 2>&1
+git config --global user.email "robert@brainhub.eu" > /dev/null 2>&1
 git config --global user.name "DevOps Brainhub" > /dev/null 2>&1
 git init
 git remote add origin $remote

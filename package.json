@@ -1,106 +1,59 @@
 {
-  "name": "@brainhubeu/react-carousel",
-  "version": "1.19.20",
-  "description": "Carousel component for React",
-  "engines": {
-    "npm": ">=6.14.5"
-  },
-  "files": [
-    "lib/*"
+  "private": true,
+  "workspaces": [
+    "docs-www",
+    "react-carousel"
   ],
-  "scripts": {
-    "lint": "esw webpack.config.* src tools test --color",
-    "clean-dist": "rimraf ./lib && mkdir lib",
-    "prebuild": "npm run clean-dist",
-    "build": "node tools/build.js",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "test:unit": "jest",
-    "test:e2e": "start-server-and-test start-test-app http://localhost:8000 cypress:run",
-    "test-dockerized:e2e": "docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test",
-    "test:unit:coverage": "yarn jest --coverage",
-    "start-test-app": "yarn --cwd docs-www develop",
-    "precommit": "npm run lint"
-  },
-  "author": "Brainhub",
-  "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.10.4",
-    "@babel/core": "^7.10.4",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/polyfill": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "@babel/register": "^7.10.4",
     "@brainhubeu/license-auditor": "^1.0.30",
-    "autoprefixer": "^9.8.4",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-transform-react-constant-elements": "^6.23.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "chai-enzyme": "^1.0.0-beta.1",
-    "chalk": "^4.1.0",
-    "classnames": "^2.2.6",
-    "coveralls": "^3.1.0",
-    "css-loader": "^3.6.0",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@commitlint/prompt": "^9.1.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.7",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "@semantic-release/npm": "^7.0.5",
+    "commitizen": "^4.1.2",
     "cypress": "^4.9.0",
     "danger": "^10.2.1",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "eslint": "^7.3.1",
-    "eslint-config-brainhub": "^1.13.0",
-    "eslint-plugin-cypress": "^2.11.1",
-    "eslint-watch": "^7.0.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^6.0.0",
-    "gemini": "^7.5.2",
-    "html-reporter": "^5.16.4",
-    "html-webpack-plugin": "^4.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-brainhub": "^1.12.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-watch": "^6.0.1",
     "husky": "^4.2.5",
-    "isparta": "^4.1.1",
-    "jest": "^26.1.0",
-    "jsdom": "^16.2.2",
-    "lodash": "^4.17.15",
-    "node-sass": "^4.14.1",
-    "nyc": "^15.1.0",
-    "postcss-loader": "^3.0.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-resize-detector": "^4.2.3",
-    "react-test-renderer": "^16.13.1",
-    "resize-observer-polyfill": "^1.5.1",
-    "rimraf": "3.0.2",
-    "sass-loader": "^8.0.2",
-    "start-server-and-test": "^1.11.0",
-    "style-loader": "^1.2.1",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "url-loader": "^4.1.0",
-    "webpack": "^4.43.0"
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "semantic-release": "^17.1.1",
+    "start-server-and-test": "^1.11.0"
   },
-  "peerDependencies": {
-    "react": ">0.14.0 || >15.0.0",
-    "react-dom": ">0.14.0 || >15.0.0"
+  "scripts": {
+    "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('Use yarn for installing: https://yarnpkg.com/en/docs/install')\"",
+    "start-demo": "yarn workspace react-carousel-docs develop",
+    "format": "prettier --write \"./**/*.{js,json}\"",
+    "lint": "eslint docs-www/ react-carousel/ cypress/ --color",
+    "build": "yarn workspace @brainhubeu/react-carousel build",
+    "test:e2e": "start-server-and-test start-demo http://localhost:8000 cypress:run",
+    "test:unit:coverage": "yarn workspace @brainhubeu/react-carousel test:coverage",
+    "test-dockerized:e2e": "docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test",
+    "cypress:run": "yarn cypress run",
+    "commit": "yarn git-cz"
   },
-  "keywords": [
-    "react",
-    "carousel",
-    "react-carousel",
-    "react-component",
-    "component",
-    "image",
-    "image-gallery",
-    "image-slider",
-    "responsive",
-    "gallery",
-    "rwd"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/brainhubeu/react-carousel"
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:unit:coverage"
+    }
   },
-  "main": "./lib/react-carousel.js",
-  "dependencies": {}
+  "lint-staged": {
+    "**/*.+(js|jsx)": [
+      "yarn format",
+      "yarn lint --fix"
+    ]
+  }
 }

@@ -1,0 +1,12 @@
+.BrainhubCarousel {
+
+  &.BrainhubCarousel--isRTL {
+    direction: rtl;
+
+    .BrainhubCarousel__trackContainer {
+      .BrainhubCarousel__track {
+        direction: rtl;
+      }
+    }
+  }
+}

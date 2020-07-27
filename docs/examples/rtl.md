@@ -1,7 +1,12 @@
-## RTL
-
+## RTL layout
+Carousel supports the right to left layout.
 ```jsx render
-<Carousel arrows rtl dots>
+// import Carousel from '@brainhubeu/react-carousel';
+// import '@brainhubeu/react-carousel/lib/style.css';
+
+<Carousel 
+    plugins={['rtl', 'arrows']} 
+>
   <img src={imageOne} />
   <img src={imageTwo} />
   <img src={imageThree} />

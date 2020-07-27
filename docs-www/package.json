@@ -1,5 +1,5 @@
 {
-  "name": "@brainhubeu/gatsby-docs-kit-start",
+  "name": "react-carousel-docs",
   "description": "Gatsby-Docs-Kit starter repository",
   "version": "0.0.52",
   "author": "Brainhub",
@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "@brainhubeu/gatsby-docs-kit": "3.0.8",
-    "@brainhubeu/react-carousel": "^1.19.19",
-    "gatsby": "2.20.24",
+    "gatsby": "^2.24.2",
     "gatsby-link": "2.3.1",
     "lodash": "^4.17.15",
     "react-fa": "^5.0.0"
@@ -29,8 +28,6 @@
     "@babel/preset-stage-1": "^7.8.3",
     "@babel/register": "^7.10.4",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "eslint": "^7.3.1",
-    "eslint-config-brainhub": "^1.13.0",
     "gatsby-plugin-google-analytics": "2.2.2",
     "gh-pages": "^3.1.0",
     "react": "^16.13.1",

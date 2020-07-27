@@ -1,1 +1,8 @@
-/lib/**/*.js
+docs-www/.cache
+docs-www/public
+react-carousel/coverage
+react-carousel/lib
+node_modules
+react-carousel/node_modules
+docs-www/node_modules
+
