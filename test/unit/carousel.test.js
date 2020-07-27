@@ -169,7 +169,7 @@ describe('Carousel', () => {
         offset: 0,
         breakpoints: {
           1200: {
-            offset: declaredOffset
+            offset: declaredOffset,
           },
           2400: {
             offset: expectedOffset,
