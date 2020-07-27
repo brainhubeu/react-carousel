@@ -108,7 +108,7 @@ export default class MyCarousel extends Component {
 }
 ```
 
-[![gif](readme/assets/carousel.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/simpleUsage)
+[![gif](readme/assets/carousel.gif)](https://beghp.github.io/gh-pages-rc-v1/docs/examples/simpleUsage)
 
 ### Showing dots or thumbnails
 There is a separate Dots component that can be used to fully control navigation dots or add thumbnails.
@@ -152,10 +152,10 @@ render() {
 }
 ```
 
-[![gif](readme/assets/thumbnails.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails)
+[![gif](readme/assets/thumbnails.gif)](https://beghp.github.io/gh-pages-rc-v1/docs/examples/thumbnails)
 
 ## Props
-You can access a clickable demo with many examples and a [live code editor](https://brainhubeu.github.io/react-carousel/) by clicking on a Prop name.
+You can access a clickable demo with many examples and a [live code editor](https://beghp.github.io/gh-pages-rc-v1/) by clicking on a Prop name.
 
 ### Carousel props
 
