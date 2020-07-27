@@ -6,14 +6,15 @@
     "npm": ">=6.14.3"
   },
   "files": [
-    "lib/*"
+    "/lib/*"
   ],
+  "main": "./lib/react-carousel.js",
   "scripts": {
     "lint": "esw webpack.config.* src tools test --color",
     "clean-dist": "rimraf ./lib && mkdir lib",
     "prebuild": "npm run clean-dist",
     "build": "node tools/build.js",
-    "postbuild": "cp ../LICENSE.md ../README.md ../docs/CHANGELOG.md ./lib",
+    "prepack": "cp ../LICENSE.md ../README.md ../docs/CHANGELOG.md .",
     "test": "jest",
     "test:coverage": "yarn jest --coverage"
   },
@@ -83,6 +84,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/brainhubeu/react-carousel"
-  },
-  "main": "./lib/react-carousel.js"
+  }
 }
