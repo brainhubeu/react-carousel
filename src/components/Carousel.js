@@ -649,7 +649,7 @@ class Carousel extends Component {
                   currentSlideIndex={this.getActiveSlideIndex()}
                   index={index}
                   width={this.getCarouselElementWidth()}
-                  offset={index !== slides.length ? this.props.offset : 0}
+                  offset={index !== slides.length ? this.getProp('offset') : 0}
                   onMouseDown={this.onMouseDown}
                   onTouchStart={this.onTouchStart}
                   clickable={this.getProp('clickToChange')}

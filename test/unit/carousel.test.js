@@ -158,6 +158,32 @@ describe('Carousel', () => {
 
       expect(wrapper.find('.BrainhubCarouselItem').first().prop('style').width).toEqual(`${declaredWidth}px`);
     });
+
+    it('breakpoint works with offset value', () => {
+      window.resizeTo(2000, 2000);
+
+      const declaredOffset = 100;
+      const expectedOffset = declaredOffset * 2;
+
+      const wrapper = setup({
+        offset: 0,
+        breakpoints: {
+          1200: {
+            offset: declaredOffset,
+          },
+          2400: {
+            offset: expectedOffset,
+          },
+        },
+      });
+
+      const marginLeft = wrapper.find('.BrainhubCarouselItem').first().prop('style').marginLeft;
+      const marginLeftNumber = +marginLeft.substring(0, marginLeft.length - 2);
+      const marginRight = wrapper.find('.BrainhubCarouselItem').first().prop('style').marginRight;
+      const marginRightNumber = +marginRight.substring(0, marginRight.length - 2);
+
+      expect(marginLeftNumber + marginRightNumber).toEqual(expectedOffset);
+    });
   });
 
   describe('autoplay', () => {
