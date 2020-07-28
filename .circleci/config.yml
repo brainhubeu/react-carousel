@@ -48,34 +48,6 @@ jobs:
           name: Running E2E tests
           command: docker-compose -f ./docker-compose.e2e.yml up --build --exit-code-from e2e-test
 
-  publish_package_v2_beta:
-    executor: node-executor
-    steps:
-      - attach_workspace:
-          at: ~/app
-      - run: git checkout .
-      - run:
-          name: Upload coverage to coveralls
-          command: cat ./react-carousel/coverage/lcov.info | ./react-carousel/node_modules/.bin/coveralls
-      - run:
-          name: configure GitHub user
-          command: |
-            git config --global user.email "robert@brainhub.pl"
-            git config --global user.name "DevOps Brainhub"
-            git remote -v
-            git remote remove origin
-            git remote add origin https://$GIT_TOKEN@github.com/brainhubeu/react-carousel
-            git remote -v
-      - run:
-          name: npm publish
-          command: npx semantic-release
-      - run: sleep 10
-      - run: git pull --no-edit origin $CIRCLE_BRANCH
-      - run: git push origin $CIRCLE_BRANCH
-      - run:
-          name: publish gh pages
-          command: ./tools/deploy-gh-pages.sh
-
   publish_package:
     executor: node-executor
     steps:
@@ -117,14 +89,6 @@ workflows:
             branches:
               ignore:
                 - master
-                - rc
-      - publish_package_v2_beta:
-          requires:
-            - test
-            - test-e2e
-          filters:
-            branches:
-              only:
                 - rc
       - publish_package:
           requires:
