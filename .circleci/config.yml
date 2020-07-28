@@ -56,7 +56,9 @@ jobs:
       - run: git checkout .
       - run:
           name: Upload coverage to coveralls
-          command: cat ./react-carousel/coverage/lcov.info | ./react-carousel/node_modules/.bin/coveralls
+          command: |
+            cd react-carousel
+            cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
       - run:
           name: configure GitHub user
           command: |
