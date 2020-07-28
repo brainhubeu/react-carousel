@@ -25,7 +25,7 @@ jobs:
       - run: yarn test:unit:coverage
       - run:
           name: Generate coveralls config
-          command: "echo repo_token: $COVERALLS_REPO_TOKEN > ./.coveralls.yml"
+          command: "echo repo_token: $COVERALLS_REPO_TOKEN > ./react-carousel/.coveralls.yml"
       - run: yarn build
       - persist_to_workspace:
           root: ~/app
@@ -35,7 +35,7 @@ jobs:
             - react-carousel/node_modules
             - react-carousel/lib
             - docs-www/node_modules
-            - .coveralls.yml
+            - react-carousel/.coveralls.yml
             - react-carousel/coverage
   test-e2e:
     docker:
