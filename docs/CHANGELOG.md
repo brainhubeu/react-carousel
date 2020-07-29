@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/brainhubeu/react-carousel/compare/v2.0.0...v2.0.1) (2020-07-29)
+
+
+### Bug Fixes
+
+* temporarily disable creating custom plugins functionality ([971a5ac](https://github.com/brainhubeu/react-carousel/commit/971a5ac3e3c50b920f61443bea368e1a4b89d959))
+
 # [2.0.0](https://github.com/brainhubeu/react-carousel/compare/v1.0.1...v2.0.0) (2020-07-27)
 
 
