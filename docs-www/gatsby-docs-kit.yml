@@ -23,10 +23,6 @@
       items:
         - title: React-carousel plugins
           file: plugins.md
-        - title: Creating custom plugin
-          file: creatingCustomPlugins.md
-        - title: Accessing and managing carousel state
-          file: accessingManagingState.md
     - title: Examples
       dir: examples
       items:

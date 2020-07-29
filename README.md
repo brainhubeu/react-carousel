@@ -152,9 +152,9 @@ You can access a clickable demo with many examples and a [live code editor](http
 | [**breakpoints**](https://brainhubeu.github.io/react-carousel/docs/examples/responsive) | *Object* | `undefined` | All props can be set to different values on different screen resolutions |
 
 ### Plugins
-You can extend react-carousel default behavior by applying plugins shipped within carousel or by creating and applying your own ones
+You can extend react-carousel default behavior by applying plugins shipped within carousel
 
-[**Plugins documentation**](https://brainhubeu.github.io/react-carousel/docs/api/plugins)
+[**Plugins documentation**](https://brainhubeu.github.io/react-carousel/docs/plugins/plugins)
 
 ### Dots props
 
