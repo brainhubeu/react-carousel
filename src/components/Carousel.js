@@ -586,7 +586,7 @@ class Carousel extends Component {
     const slidesPerPage = this.getProp('slidesPerPage');
     if (stickyEdges) {
       return dragOffset
-        - ((currentValue > this.getChildren().length - slidesPerScroll -slidesPerPage + 1 && !this.getProp('infinite')) ? (this.getChildren().length - slidesPerScroll -slidesPerPage + 1) : currentValue) * elementWidthWithOffset
+        - ((currentValue > this.getChildren().length - slidesPerScroll - slidesPerPage + 1 && !this.getProp('infinite')) ? (this.getChildren().length - slidesPerScroll - slidesPerPage + 1) : currentValue) * elementWidthWithOffset
         - additionalClonesOffset;
     } else {
       return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
