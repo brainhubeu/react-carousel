@@ -503,12 +503,12 @@ class Carousel extends Component {
 
   /* ========== control ========== */
   /**
-   * Clamps number between 0 and last slide index.
+   * Clamps number between 0 and last reachable slide index.
    * @param {number} value to be clamped
    * @return {number} new value
    */
   clamp = value => {
-    const maxValue = this.getChildren().length - 1;
+    const maxValue = this.getChildren().length - this.getProp('slidesPerPage');
     if (value > maxValue) {
       return maxValue;
     }
@@ -735,8 +735,8 @@ class Carousel extends Component {
   renderArrowRight = () => {
     const slides = this.getChildren();
     const value = this.getCurrentValue();
-    const lastSlideIndex = slides.length - 1;
-    const disabled = value === lastSlideIndex && !this.getProp('infinite');
+    const lastReachableSlideIndex = slides.length - this.getProp('slidesPerPage');
+    const disabled = value >= lastReachableSlideIndex && !this.getProp('infinite');
 
     if (this.getProp('arrowRight')) {
       if (!disabled) {
