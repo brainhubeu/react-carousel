@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { JSDOM } from 'jsdom';
 
 import Carousel from '../../src/components/CarouselWrapper';
-
-const { document } = (new JSDOM('')).window;
-global.document = document;
-global.window = document.defaultView;
 
 // Simulate window resize event
 const resizeEvent = document.createEvent('Event');
