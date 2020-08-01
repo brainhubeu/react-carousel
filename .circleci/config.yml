@@ -2,13 +2,13 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:12.18.2
+      - image: circleci/node:12.18.3
     working_directory: ~/app
 
 jobs:
   deploy_test_environment:
     docker:
-      - image: circleci/node:12.18.2
+      - image: circleci/node:12.18.3
     working_directory: ~/app
     steps:
       - checkout
@@ -39,7 +39,7 @@ jobs:
             - react-carousel/coverage
   test-e2e:
     docker:
-      - image: circleci/node:12.18.2
+      - image: circleci/node:12.18.3
     working_directory: ~/app
     steps:
       - checkout
