@@ -6,6 +6,7 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   externals: [
     {
       'react-dom': {
@@ -48,7 +49,9 @@ module.exports = {
     new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
       // This fixes https://github.com/brainhubeu/react-carousel/issues/115
-      'process.env.NODE_ENV': process.env.NODE_ENV,
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
     }),
   ],
   module: {
