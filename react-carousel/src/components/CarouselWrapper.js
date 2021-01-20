@@ -49,7 +49,7 @@ const CarouselWrapper = (props) => {
       key={carouselProps?.plugins?.length || 0}
       transformOffset={transformOffset}
       nearestSlideIndex={nearestSlideIndex}
-      value={value}
+      value={isControlled ? customValue : value}
       onChange={isControlled ? onChange : changeSlide}
       {...carouselProps}
     />

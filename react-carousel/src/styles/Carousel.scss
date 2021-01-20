@@ -23,6 +23,7 @@ $loaderColor: #7b59ff;
   .BrainhubCarousel__trackContainer {
     width: 100%;
     overflow: hidden;
+    flex-shrink: 1;
     .BrainhubCarousel__track {
       display: flex;
       overflow: hidden;
