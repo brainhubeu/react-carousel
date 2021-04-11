@@ -50,8 +50,8 @@ module.exports = {
     new webpack.DefinePlugin({
       // This fixes https://github.com/brainhubeu/react-carousel/issues/115
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
   ],
   module: {
