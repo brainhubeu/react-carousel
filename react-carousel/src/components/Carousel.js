@@ -150,7 +150,7 @@ const Carousel = (props) => {
 
   useEffect(() => {
     setSlides(children);
-  }, []);
+  }, [children]);
 
   useEffect(() => {
     setItemOffset(props.offset);
