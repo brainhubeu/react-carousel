@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/brainhubeu/react-carousel/compare/v2.0.2...v2.0.3) (2021-04-12)
+
+
+### Bug Fixes
+
+* production builds using webpack ([0cb444b](https://github.com/brainhubeu/react-carousel/commit/0cb444b777558494c5790ade0dface85e66bacbe))
+
 ## [2.0.2](https://github.com/brainhubeu/react-carousel/compare/v2.0.1...v2.0.2) (2020-11-19)
 
 
