@@ -1,5 +1,10 @@
 {
-  "branches": ["v1-legacy", master, { name: 'v2-beta', prerelease: true }, { name: 'rc', prerelease: true }],
+  "branches": [
+    "v1-legacy",
+    { name: 'master', channel: latest },
+    { name: 'v2-beta', prerelease: true },
+    { name: 'rc', prerelease: true }
+  ],
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
