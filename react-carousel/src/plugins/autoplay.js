@@ -41,10 +41,11 @@ const autoplay = ({ carouselProps, options = {} }) => {
         }
         interval = setInterval(() => {
           if (!document.hidden && !autoPlayStopped) {
-            changeSlide(
+            const newSlide =
               carouselProps.value +
-                getDirection(pluginOptions.direction.toUpperCase()),
-            );
+              getDirection(pluginOptions.direction.toUpperCase());
+            carouselProps.onChange(newSlide);
+            changeSlide(newSlide);
           }
         }, pluginOptions.interval);
       };
