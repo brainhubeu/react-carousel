@@ -54,7 +54,7 @@ $arrowWeight: 3px;
         }
     }
   }
-  
+
   &:disabled {
     background-color: $disabledButtonColor;
   }
@@ -112,5 +112,6 @@ $arrowWeight: 3px;
 
 .BrainhubCarousel__arrow--disable {
     pointer-events: none;
+    opacity: 0.5;
 }
 
