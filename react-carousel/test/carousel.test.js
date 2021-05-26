@@ -157,5 +157,48 @@ describe('Carousel', () => {
           .hasClass('first'),
       ).toBeTruthy();
     });
+
+    test('test relative indexes', () => {
+      const wrapper = setupCarousel({
+        value: 2,
+      });
+
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem')
+          .at(2)
+          .hasClass('BrainhubCarouselItem--relindex-0'),
+      ).toBeTruthy();
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem')
+          .at(0)
+          .hasClass('BrainhubCarouselItem--relindex-2'),
+      ).toBeTruthy();
+    });
+    test('test before and after class names', () => {
+      const wrapper = setupCarousel({
+        value: 1,
+      });
+
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem')
+          .at(0)
+          .hasClass('BrainhubCarouselItem--before'),
+      ).toBeTruthy();
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem')
+          .at(2)
+          .hasClass('BrainhubCarouselItem--after'),
+      ).toBeTruthy();
+      expect(
+        wrapper
+          .find('.BrainhubCarouselItem')
+          .at(1)
+          .hasClass('BrainhubCarouselItem--after'),
+      ).toBeFalsy();
+    });
   });
 });

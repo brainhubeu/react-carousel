@@ -66,8 +66,11 @@ const CarouselSlide = ({
     <li
       className={classname(
         'BrainhubCarouselItem',
+        `BrainhubCarouselItem--relindex-${Math.abs(index - currentSlideIndex)}`,
         {
           'BrainhubCarouselItem--active': index === currentSlideIndex,
+          'BrainhubCarouselItem--before': index < currentSlideIndex,
+          'BrainhubCarouselItem--after': index > currentSlideIndex,
         },
         ...(itemClassNames || []),
       )}
