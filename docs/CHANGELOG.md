@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/brainhubeu/react-carousel/compare/v2.0.3...v2.0.4) (2021-05-26)
+
+
+### Bug Fixes
+
+* autoplay call onChange ([#694](https://github.com/brainhubeu/react-carousel/issues/694)) ([#713](https://github.com/brainhubeu/react-carousel/issues/713)) ([97ab35f](https://github.com/brainhubeu/react-carousel/commit/97ab35f00c8dbc37ac202d7957575039bc0291e1))
+
 ## [2.0.3](https://github.com/brainhubeu/react-carousel/compare/v2.0.2...v2.0.3) (2021-04-12)
 
 
