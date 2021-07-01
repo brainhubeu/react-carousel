@@ -66,7 +66,9 @@ const Carousel = (props) => {
     carouselRef,
   );
 
-  setStrategies(strategies);
+  useEffect(() => {
+    setStrategies(strategies);
+  }, [strategies]);
 
   /**
    * Function handling mouse move if drag has started. Sets dragOffset in the state.
