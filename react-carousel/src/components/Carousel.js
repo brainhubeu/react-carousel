@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { withResizeDetector } from 'react-resize-detector';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _compact from 'lodash/compact';
@@ -316,4 +315,4 @@ Carousel.defaultProps = {
   plugins: [],
 };
 
-export default withResizeDetector(React.memo(Carousel));
+export default React.memo(Carousel);

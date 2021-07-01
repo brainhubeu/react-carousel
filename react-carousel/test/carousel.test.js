@@ -15,6 +15,17 @@ window.resizeTo = (width, height) => {
 };
 
 describe('Carousel', () => {
+  beforeAll(() => {
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
   describe('plain carousel', () => {
     test('renders carousel items', () => {
       const wrapper = setupCarousel();
