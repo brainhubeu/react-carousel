@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { JSDOM } from 'jsdom';
 
 import Carousel from '../../src/components/CarouselWrapper';
-
-const { document } = (new JSDOM('')).window;
-global.document = document;
-global.window = document.defaultView;
 
 // Simulate window resize event
 const resizeEvent = document.createEvent('Event');
@@ -53,6 +48,22 @@ describe('Carousel', () => {
       const wrapper = setup();
 
       expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(3);
+    });
+
+    it('renders carousel items when slides are result of a function', () => {
+      const renderName = name => <div> {name} </div>;
+
+      const names = ['Dave', 'Kanye', 'Adam'];
+
+      const wrapper = mount(
+        <Carousel>
+          <div>Party guests: </div>
+          {names.map(name => renderName(name))}
+        </Carousel>
+        ,
+      );
+
+      expect(wrapper.find('.BrainhubCarouselItem')).toHaveLength(2);
     });
 
     it('renders additional clones when in infinite mode', () => {
@@ -141,6 +152,32 @@ describe('Carousel', () => {
       });
 
       expect(wrapper.find('.BrainhubCarouselItem').first().prop('style').width).toEqual(`${declaredWidth}px`);
+    });
+
+    it('breakpoint works with offset value', () => {
+      window.resizeTo(2000, 2000);
+
+      const declaredOffset = 100;
+      const expectedOffset = declaredOffset * 2;
+
+      const wrapper = setup({
+        offset: 0,
+        breakpoints: {
+          1200: {
+            offset: declaredOffset,
+          },
+          2400: {
+            offset: expectedOffset,
+          },
+        },
+      });
+
+      const marginLeft = wrapper.find('.BrainhubCarouselItem').first().prop('style').marginLeft;
+      const marginLeftNumber = +marginLeft.substring(0, marginLeft.length - 2);
+      const marginRight = wrapper.find('.BrainhubCarouselItem').first().prop('style').marginRight;
+      const marginRightNumber = +marginRight.substring(0, marginRight.length - 2);
+
+      expect(marginLeftNumber + marginRightNumber).toEqual(expectedOffset);
     });
   });
 

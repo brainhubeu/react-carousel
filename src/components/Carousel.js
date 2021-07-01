@@ -105,11 +105,11 @@ class Carousel extends Component {
 
     // adding event listeners for swipe
     if (this.node) {
-      this.node.parentElement.addEventListener('mousemove', this.onMouseMove, true);
+      this.node.parentElement.addEventListener('mousemove', this.onMouseMove, { passive: true, capture: true });
       document.addEventListener('mouseup', this.onMouseUpTouchEnd, true);
-      this.node.parentElement.addEventListener('touchstart', this.simulateEvent, true);
+      this.node.parentElement.addEventListener('touchstart', this.simulateEvent, { passive: true, capture: true });
       this.node.parentElement.addEventListener('touchmove', this.simulateEvent, { passive: false });
-      this.node.parentElement.addEventListener('touchend', this.simulateEvent, true);
+      this.node.parentElement.addEventListener('touchend', this.simulateEvent, { passive: true, capture: true });
     }
 
     this.onResize(() => {
@@ -660,7 +660,7 @@ class Carousel extends Component {
                   currentSlideIndex={this.getActiveSlideIndex()}
                   index={index}
                   width={this.getCarouselElementWidth()}
-                  offset={index !== slides.length ? this.props.offset : 0}
+                  offset={index !== slides.length ? this.getProp('offset') : 0}
                   onMouseDown={this.onMouseDown}
                   onTouchStart={this.onTouchStart}
                   clickable={this.getProp('clickToChange')}

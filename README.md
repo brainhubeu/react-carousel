@@ -13,7 +13,7 @@
 
 <p align="center">
   <strong>
-    <a href="https://brainhubeu.github.io/react-carousel/">Live code demo</a> | 
+    <a href="https://beghp.github.io/gh-pages-rc-v1">Live code demo</a> | 
     <a href="https://brainhub.eu/contact/">Hire us</a>
   </strong>
 </p>
@@ -108,7 +108,7 @@ export default class MyCarousel extends Component {
 }
 ```
 
-[![gif](readme/assets/carousel.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/simpleUsage)
+[![gif](readme/assets/carousel.gif)](https://beghp.github.io/gh-pages-rc-v1/docs/examples/simpleUsage)
 
 ### Showing dots or thumbnails
 There is a separate Dots component that can be used to fully control navigation dots or add thumbnails.
@@ -152,52 +152,52 @@ render() {
 }
 ```
 
-[![gif](readme/assets/thumbnails.gif)](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails)
+[![gif](readme/assets/thumbnails.gif)](https://beghp.github.io/gh-pages-rc-v1/docs/examples/thumbnails)
 
 ## Props
-You can access a clickable demo with many examples and a [live code editor](https://brainhubeu.github.io/react-carousel/) by clicking on a Prop name.
+You can access a clickable demo with many examples and a [live code editor](https://beghp.github.io/gh-pages-rc-v1/) by clicking on a Prop name.
 
 ### Carousel props
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| [**addArrowClickHandler**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *Boolean* | `undefined` | Has to be added for arrowLeft and arrowRight to work |
-| [**animationSpeed**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `500` | Determines transition duration in milliseconds |
-| [**arrowLeft**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default left arrow (if you provide these custom arrows, you don't have to use arrows prop) |
-| [**arrowRight**](https://brainhubeu.github.io/react-carousel/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default right arrow (if you provide these custom arrows, you don't have to use arrows prop) |
-| [**arrows**](https://brainhubeu.github.io/react-carousel/docs/examples/defaultArrows) | *Boolean* | `false` | Renders default arrows |
-| [**autoPlay**](https://brainhubeu.github.io/react-carousel/docs/examples/animation) | *Number* | `undefined` | Slide change interval in milliseconds |
-| [**breakpoints**](https://brainhubeu.github.io/react-carousel/docs/examples/responsive) | *Object* | `undefined` | All props (except of `value`, `onChange`, `responsive`, `children`) can be set to different values on different screen resolutions |
-| [**centered**](https://brainhubeu.github.io/react-carousel/docs/examples/centered) | *Boolean* | `undefined` | Aligned active slide to the center of the carousel |
-| [**clickToChange**](https://brainhubeu.github.io/react-carousel/docs/examples/clickToChange) | *Boolean* | `undefined` | Clicking on a slide changes current slide to the clicked one |
-| [**dots**](https://brainhubeu.github.io/react-carousel/docs/examples/simpleDots) | *Boolean* | `undefined` | Renders default dots under the carousel |
-| [**draggable**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `true` | Makes it possible to drag to the next slide with mouse cursor |
+| [**addArrowClickHandler**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/customArrows) | *Boolean* | `undefined` | Has to be added for arrowLeft and arrowRight to work |
+| [**animationSpeed**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/animation) | *Number* | `500` | Determines transition duration in milliseconds |
+| [**arrowLeft**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default left arrow (if you provide these custom arrows, you don't have to use arrows prop) |
+| [**arrowRight**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/customArrows) | *React element* | `undefined` | To be used instead of the default right arrow (if you provide these custom arrows, you don't have to use arrows prop) |
+| [**arrows**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/defaultArrows) | *Boolean* | `false` | Renders default arrows |
+| [**autoPlay**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/animation) | *Number* | `undefined` | Slide change interval in milliseconds |
+| [**breakpoints**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/responsive) | *Object* | `undefined` | All props (except of `value`, `onChange`, `responsive`, `children`) can be set to different values on different screen resolutions |
+| [**centered**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/centered) | *Boolean* | `undefined` | Aligned active slide to the center of the carousel |
+| [**clickToChange**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/clickToChange) | *Boolean* | `undefined` | Clicking on a slide changes current slide to the clicked one |
+| [**dots**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/simpleDots) | *Boolean* | `undefined` | Renders default dots under the carousel |
+| [**draggable**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/draggable) | *Boolean* | `true` | Makes it possible to drag to the next slide with mouse cursor |
 | **onInit** | *Function* | `undefined` | Callback thrown after the carousel is loaded |
-| [**infinite**](https://brainhubeu.github.io/react-carousel/docs/examples/infinite) | *Boolean* | `undefined` | Creates an infinite carousel width |
+| [**infinite**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/infinite) | *Boolean* | `undefined` | Creates an infinite carousel width |
 | **itemWidth** | *Number* | `undefined` | Determines custom width for every slide in the carousel |
-| [**keepDirectionWhenDragging**](https://brainhubeu.github.io/react-carousel/docs/examples/draggable) | *Boolean* | `undefined` | While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged |
+| [**keepDirectionWhenDragging**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/draggable) | *Boolean* | `undefined` | While dragging, it doesn't matter which slide is the nearest one, but in what direction you dragged |
 | **minDraggableOffset** | *Number* | `10` | Defines the minimum offset to consider the drag gesture |
 | **offset** | *Number* | `0` | Padding between items |
-| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Function* | `undefined` | Handler triggered when current slide is about to change (e.g. on arrow click or on swipe) |
-| [**rtl**](https://brainhubeu.github.io/react-carousel/docs/examples/rtl) | *Boolean* | `false` | Indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well) |
+| [**onChange**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/controlled) | *Function* | `undefined` | Handler triggered when current slide is about to change (e.g. on arrow click or on swipe) |
+| [**rtl**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/rtl) | *Boolean* | `false` | Indicating if the carousel should have direction from Right to Left (make sure to pass the `rtl` param to the `Dots` component as well) |
 | **slides** | *Array* | `undefined` | Alternative way to pass slides. This prop expects an array of JSX <img> elements |
-| [**slidesPerPage**](https://brainhubeu.github.io/react-carousel/docs/examples/multipleItems) | *Number* | `1` | Number of slides visible at once |
-| [**slidesPerScroll**](https://brainhubeu.github.io/react-carousel/docs/examples/slidesPerScroll) | *Number* | `1` | Number by which value will change on scroll (autoPlay, arrow click, drag)|
-| [**stickyEdges**](https://brainhubeu.github.io/react-carousel/docs/examples/stickyEdges) | *Boolean* | `false` | Indicating if the carousel should stick the first and last slides to the edges or not |
-| [**lazyLoad**](https://brainhubeu.github.io/react-carousel/docs/examples/lazyload) | *Boolean* | `false` | Initially, it loads only the closest next / previous slide to the current one based on the value of the slidesPerPage variable. Other slides are loaded as needed. |
+| [**slidesPerPage**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/multipleItems) | *Number* | `1` | Number of slides visible at once |
+| [**slidesPerScroll**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/slidesPerScroll) | *Number* | `1` | Number by which value will change on scroll (autoPlay, arrow click, drag)|
+| [**stickyEdges**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/stickyEdges) | *Boolean* | `false` | Indicating if the carousel should stick the first and last slides to the edges or not |
+| [**lazyLoad**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/lazyload) | *Boolean* | `false` | Initially, it loads only the closest next / previous slide to the current one based on the value of the slidesPerPage variable. Other slides are loaded as needed. |
 | **lazyLoader** | *React node* | `undefined` | To be used instead of the default loader |
 | **stopAutoPlayOnHover** | *Boolean* | `undefined` | Determines if autoPlay should stop when mouse hover over carousel |
-| [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/controlled) | *Number* | `undefined` | Current slide's index (zero based, depends on the elements order) |
+| [**value**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/controlled) | *Number* | `undefined` | Current slide's index (zero based, depends on the elements order) |
 
 ### Dots props
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| [**number**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | Amount of slides | Number of slides in the carousel you want to control |
-| [**onChange**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Function* | `undefined` | `onChange` callback (works the same way as `onChange` in `Carousel` component) |
+| [**number**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/dots) | *Number* | Amount of slides | Number of slides in the carousel you want to control |
+| [**onChange**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/dots) | *Function* | `undefined` | `onChange` callback (works the same way as `onChange` in `Carousel` component) |
 | **rtl** | *Boolean* | `false` | Indicating if the dots should have direction from Right to Left |
-| [**thumbnails**](https://brainhubeu.github.io/react-carousel/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
-| [**value**](https://brainhubeu.github.io/react-carousel/docs/examples/dots) | *Number* | slide position in the slides Array | Current `Carousel` value |
+| [**thumbnails**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/thumbnails) | *Array of ReactElements* | `undefined` | Array of thumbnails to show. If not provided, default dots will be shown |
+| [**value**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/dots) | *Number* | slide position in the slides Array | Current `Carousel` value |
 
 ## Contributing
 [The GitHub issues list](https://github.com/brainhubeu/react-carousel/issues) is our roadmap.
@@ -239,13 +239,13 @@ yarn test:e2e
 ```
 
 ### Workflow
-See [the Workflow subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/workflow)
+See [the Workflow subsection in our docs](https://beghp.github.io/gh-pages-rc-v1/docs/contributions-guide/workflow)
 
 ### Labels
-See [the Labels subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/labels)
+See [the Labels subsection in our docs](https://beghp.github.io/gh-pages-rc-v1/docs/contributions-guide/labels)
 
 ### Decision log
-See [the Decision log subsection in our docs](https://brainhubeu.github.io/react-carousel/docs/contributions-guide/decision-log)
+See [the Decision log subsection in our docs](https://beghp.github.io/gh-pages-rc-v1/docs/contributions-guide/decision-log)
 
 ## License
 
