@@ -24,6 +24,7 @@ class Carousel extends Component {
     slides: PropTypes.arrayOf(PropTypes.node),
     slidesPerPage: PropTypes.number,
     slidesPerScroll: PropTypes.number,
+    stickyEdges: PropTypes.bool,
     itemWidth: PropTypes.number,
     offset: PropTypes.number,
     arrows: PropTypes.bool,
@@ -48,6 +49,7 @@ class Carousel extends Component {
     breakpoints: PropTypes.objectOf(PropTypes.shape({
       slidesPerPage: PropTypes.number,
       slidesPerScroll: PropTypes.number,
+      stickyEdges: PropTypes.bool,
       itemWidth: PropTypes.number,
       arrows: PropTypes.bool,
       arrowLeft: PropTypes.element,
@@ -72,6 +74,7 @@ class Carousel extends Component {
     offset: 0,
     slidesPerPage: 1,
     slidesPerScroll: 1,
+    stickyEdges: false,
     animationSpeed: 500,
     draggable: true,
     rtl: false,
@@ -575,11 +578,19 @@ class Carousel extends Component {
     const additionalOffset = this.getProp('centered')
       ? (this.state.carouselWidth / 2) - (elementWidthWithOffset / 2)
       : 0;
+    const stickyEdges = this.getProp('stickyEdges');
     const dragOffset = this.getProp('draggable') ? this.state.dragOffset : 0;
     const currentValue = this.getActiveSlideIndex();
     const additionalClonesOffset = this.getAdditionalClonesOffset();
-
-    return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
+    const slidesPerScroll = this.getProp('slidesPerScroll');
+    const slidesPerPage = this.getProp('slidesPerPage');
+    if (stickyEdges) {
+      return dragOffset
+        - ((currentValue > this.getChildren().length - slidesPerScroll - slidesPerPage + 1 && !this.getProp('infinite')) ? (this.getChildren().length - slidesPerScroll - slidesPerPage + 1) : currentValue) * elementWidthWithOffset
+        - additionalClonesOffset;
+    } else {
+      return dragOffset - currentValue * elementWidthWithOffset + additionalOffset - additionalClonesOffset;
+    }
   };
 
   /* ========== rendering ========== */

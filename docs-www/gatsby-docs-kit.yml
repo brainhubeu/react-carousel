@@ -34,6 +34,8 @@
           file: centered.md
         - title: Slides per scroll
           file: slidesPerScroll.md
+        - title: Sticky Edges
+          file: stickyEdges.md
         - title: Draggable
           file: draggable.md
         - title: Responsive

@@ -183,6 +183,7 @@ You can access a clickable demo with many examples and a [live code editor](http
 | **slides** | *Array* | `undefined` | Alternative way to pass slides. This prop expects an array of JSX <img> elements |
 | [**slidesPerPage**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/multipleItems) | *Number* | `1` | Number of slides visible at once |
 | [**slidesPerScroll**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/slidesPerScroll) | *Number* | `1` | Number by which value will change on scroll (autoPlay, arrow click, drag)|
+| [**stickyEdges**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/stickyEdges) | *Boolean* | `false` | Indicating if the carousel should stick the first and last slides to the edges or not |
 | [**lazyLoad**](https://beghp.github.io/gh-pages-rc-v1/docs/examples/lazyload) | *Boolean* | `false` | Initially, it loads only the closest next / previous slide to the current one based on the value of the slidesPerPage variable. Other slides are loaded as needed. |
 | **lazyLoader** | *React node* | `undefined` | To be used instead of the default loader |
 | **stopAutoPlayOnHover** | *Boolean* | `undefined` | Determines if autoPlay should stop when mouse hover over carousel |
