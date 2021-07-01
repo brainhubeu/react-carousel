@@ -4,6 +4,17 @@ import { arrowsPlugin } from '../../src';
 import setupCarousel from '../tools/setupCarousel';
 
 describe('arrows', () => {
+  beforeAll(() => {
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
   test('renders arrows', () => {
     const wrapper = setupCarousel({
       plugins: ['arrows'],

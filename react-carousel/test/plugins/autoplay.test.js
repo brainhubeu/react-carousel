@@ -2,6 +2,17 @@ import { autoplayPlugin } from '../../src';
 import setupCarousel from '../tools/setupCarousel';
 
 describe('autoplay', () => {
+  beforeAll(() => {
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
   test('clears interval on unmount when autoplay was enabled', () => {
     jest.useFakeTimers();
 

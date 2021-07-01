@@ -2,6 +2,17 @@ import setupCarousel from '../tools/setupCarousel';
 import slidesToScroll from '../../src/plugins/slidesToScroll';
 
 describe('slidesPerScroll plugin', () => {
+  beforeAll(() => {
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
   test('slides forward as many slides as described in plugin options', () => {
     const wrapper = setupCarousel({
       plugins: [

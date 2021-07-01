@@ -3,6 +3,7 @@ import { useRecoilValue, RecoilRoot, useSetRecoilState } from 'recoil';
 import _isNil from 'lodash/isNil';
 import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
+import { useResizeDetector } from 'react-resize-detector';
 
 import {
   carouselValueState,
@@ -20,6 +21,7 @@ const CarouselWrapper = (props) => {
   const changeSlide = useSetRecoilState(getCurrentValueSelector);
   const value = useRecoilValue(carouselValueState);
   const setTransitionEnabled = useSetRecoilState(transitionEnabledState);
+  const { width, ref } = useResizeDetector();
 
   useEffect(() => {
     if (!_isNil(props.value)) {
@@ -45,14 +47,17 @@ const CarouselWrapper = (props) => {
 
   const isControlled = !_isNil(customValue);
   return (
-    <Carousel
-      key={carouselProps?.plugins?.length || 0}
-      transformOffset={transformOffset}
-      nearestSlideIndex={nearestSlideIndex}
-      value={value}
-      onChange={isControlled ? onChange : changeSlide}
-      {...carouselProps}
-    />
+    <div ref={ref}>
+      <Carousel
+        key={carouselProps?.plugins?.length || 0}
+        transformOffset={transformOffset}
+        nearestSlideIndex={nearestSlideIndex}
+        value={value}
+        onChange={isControlled ? onChange : changeSlide}
+        width={width}
+        {...carouselProps}
+      />
+    </div>
   );
 };
 
