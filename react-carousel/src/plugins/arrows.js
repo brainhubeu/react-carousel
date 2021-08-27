@@ -106,7 +106,7 @@ const arrows = ({ carouselProps, options = {} }) => ({
         return renderArrowWithAddedHandler(
           options.arrowRight,
           nextSlide,
-          'arrowLeft',
+          'arrowRight',
           options.addArrowClickHandler,
           '@brainhubeu/react-carousel/custom-arrow-right',
         );
@@ -117,7 +117,7 @@ const arrows = ({ carouselProps, options = {} }) => ({
       return renderArrowWithAddedHandler(
         arrow,
         nextSlide,
-        'arrowLeft',
+        'arrowRight',
         options.addArrowClickHandler,
         '@brainhubeu/react-carousel/custom-arrow-right',
         disabled,
