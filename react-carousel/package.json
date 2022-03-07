@@ -1,6 +1,6 @@
 {
   "name": "@brainhubeu/react-carousel",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Carousel component for React",
   "engines": {
     "npm": ">=6.14.3"
@@ -48,7 +48,7 @@
     "jest-enzyme": "^7.1.2",
     "jsdom": "^16.2.1",
     "lodash": "^4.17.21",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.7.2",
     "react-resize-detector": "^5.0.6",
