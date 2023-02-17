@@ -89,9 +89,12 @@ describe('arrows', () => {
         },
       ],
     });
-
+    expect(wrapper.find('.BrainhubCarousel__custom-arrowLeft')).toHaveLength(1);
     expect(wrapper.find('.left-disabled')).toHaveLength(1);
 
+    expect(wrapper.find('.BrainhubCarousel__custom-arrowRight')).toHaveLength(
+      1,
+    );
     wrapper.find('.right').simulate('click');
 
     expect(wrapper.find('.left-disabled')).toHaveLength(0);
