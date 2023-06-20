@@ -28,7 +28,7 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
-    "semantic-release": "^17.1.1",
+    "semantic-release": "^19.0.0",
     "start-server-and-test": "^1.11.0"
   },
   "scripts": {
